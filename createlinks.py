@@ -13,8 +13,11 @@ def main():
         source_path = os.path.join(SOURCE_DIR, filename)
         destination_path = os.path.join(DESTINATION_DIR, '.' + filename)
         link_command = '/bin/ln -s %s %s' % (source_path, destination_path)
-        print(link_command)
-        os.system(link_command)
+        print('%s -> %s' % (source_path, destination_path))
+        try:
+            os.symlink(source_path, destination_path)
+        except OSError, e:
+            print(e)
 
 
 if __name__ == '__main__':
