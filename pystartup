@@ -1,0 +1,43 @@
+# Add auto-completion and a stored history file of commands to your Python
+# interactive interpreter. Requires Python 2.0+, readline. Autocomplete is
+# bound to the Tab key.
+#
+# Store the file in ~/.pystartup, and set an environment variable to point
+# to it:  "export PYTHONSTARTUP=~/.pystartup" in bash.
+#
+
+import os
+import sys
+import atexit
+try:
+    import readline
+except ImportError:
+    # Install pyreadline on windows: pip install pyreadline
+    import pyreadline as readline
+import rlcompleter
+
+
+# History: #####################################################################
+
+history_path = os.path.expanduser("~/.pyhistory")
+
+def save_history(history_path=history_path):
+    import readline
+    readline.write_history_file(history_path)
+
+if os.path.exists(history_path):
+    readline.read_history_file(history_path)
+
+atexit.register(save_history)
+
+
+# Tab completion: ##############################################################
+
+if sys.platform == 'darwin':
+    readline.parse_and_bind("bind ^I rl_complete")
+else:
+    readline.parse_and_bind("tab: complete")
+
+
+del os, sys, atexit, readline, rlcompleter, save_history, history_path
+
