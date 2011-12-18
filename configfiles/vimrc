@@ -24,7 +24,11 @@ filetype plugin on
 filetype plugin indent on
 
 
-set gfn=Monaco:h15
+if(match(hostname(), 'macmini') >= 0)
+	set gfn=Monaco:h13
+elseif(match(hostname(), 'janneke') >= 0)
+	set gfn=Monaco:h15
+endif
 
 if has("gui_running")
 	set number
