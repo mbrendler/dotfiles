@@ -35,6 +35,12 @@ alias gvim="macvim"
 alias macvim="/Users/maik/Applications/MacVim.app/Contents/MacOS/Vim -g"
 
 
+if [[ `/usr/bin/uname` == "Linux" ]] ; then
+    alias pbcopy='xsel --clipboard --input'
+    alias pbpaste='xsel --clipboard --output'
+fi
+
+
 CLICOLOR=1
 LSCOLORS=Dxfxcxdxbxegedabagacad
 CLICOLOR=LSCOLORS
