@@ -8,7 +8,6 @@ set ruler
 set hlsearch
 set cursorline
 set cursorcolumn
-set cc=81
 set spelllang=de,en
 set spell
 set showcmd
@@ -24,6 +23,11 @@ filetype plugin on
 filetype plugin indent on
 
 
+if version >= 703
+	set colorcolumn=81
+endif
+
+
 if(match(hostname(), 'macmini') >= 0)
 	set gfn=Monaco:h13
 elseif(match(hostname(), 'janneke') >= 0)
@@ -33,5 +37,7 @@ endif
 if has("gui_running")
 	set number
 	set guioptions-=T
+	set columns=86
+	set lines=36
 endif
 
