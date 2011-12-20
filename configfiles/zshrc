@@ -74,5 +74,7 @@ setopt AUTO_PUSHD
 
 autoload -Uz compinit
 compinit
+
+source $HOME/.zsh/completions.zsh
 # End of lines added by compinstall
 
