@@ -70,6 +70,7 @@ setopt BASH_AUTO_LIST
 setopt NO_AUTO_MENU
 setopt NO_ALWAYS_LAST_PROMPT
 #setopt CORRECT
+setopt AUTO_PUSHD
 
 autoload -Uz compinit
 compinit
