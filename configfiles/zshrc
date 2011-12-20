@@ -15,7 +15,7 @@ export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
 export PATH=$HOME/.virtualenvs/main/bin:$PATH
 
-export PYTHONSTARTUP=/Users/maik/.pystartup
+export PYTHONSTARTUP=$HOME/.pystartup
 
 # Ruby:
 export RUBYOPT=rubygems
@@ -27,17 +27,18 @@ export PATH=$HOME/.gem/ruby/1.8/bin/:$PATH
 ################################################################################
 
 
-eval "$(/Users/maik/privateroot/gnu/bin/dircolors -b)"
+eval "$(dircolors -b)"
 alias .=source
 alias ls="ls --color"
 alias grep="grep --color"
-alias gvim="macvim"
-alias macvim="/Users/maik/Applications/MacVim.app/Contents/MacOS/Vim -g"
+alias macvim="gvim"
 
 
-if [[ `/usr/bin/uname` == "Linux" ]] ; then
+if [[ `uname` == "Linux" ]] ; then
     alias pbcopy='xsel --clipboard --input'
     alias pbpaste='xsel --clipboard --output'
+elif [[ `uname` == "Darwin" ]] ; then
+    alias gvim="$HOME/Applications/MacVim.app/Contents/MacOS/Vim -g"
 fi
 
 
@@ -61,14 +62,14 @@ SAVEHIST=1000
 bindkey -e
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/Users/maik/.zshrc'
+zstyle :compinstall filename '$HOME/.zshrc'
 #eval `gdircolors`
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 setopt BASH_AUTO_LIST
 setopt NO_AUTO_MENU
 setopt NO_ALWAYS_LAST_PROMPT
-setopt CORRECT
+#setopt CORRECT
 
 autoload -Uz compinit
 compinit
