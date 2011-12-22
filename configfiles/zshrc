@@ -37,6 +37,10 @@ alias macvim="gvim"
 if [[ `uname` == "Linux" ]] ; then
     alias pbcopy='xsel --clipboard --input'
     alias pbpaste='xsel --clipboard --output'
+
+    # Jump to next/last word by Ctrl-Arrow-Right/-Left:
+    bindkey "^[[1;5C" forward-word
+    bindkey "^[[1;5D" backward-word
 elif [[ `uname` == "Darwin" ]] ; then
     alias gvim="$HOME/Applications/MacVim.app/Contents/MacOS/Vim -g"
 fi
