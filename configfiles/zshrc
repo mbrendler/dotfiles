@@ -32,6 +32,7 @@ alias .=source
 alias ls="ls --color"
 alias grep="grep --color"
 alias macvim="gvim"
+alias pbpwd="pwd | pbcopy"
 
 
 if [[ `uname` == "Linux" ]] ; then
