@@ -35,6 +35,9 @@ sourcetreemerge.executable=/Applications/SourceTree.app/Contents/Resources/opend
 sourcetreebulkmerge.premerge=False
 sourcetreebulkmerge.binary=True
 
+[alias]
+ts = st
+
 [tortoisehg]
 vdiff = opendiff
 
