@@ -1,1 +1,2 @@
 haskellmode-20101118.vba: call delete('/Users/maik/.vim/compiler/ghc.vim')|call delete('/Users/maik/.vim/ftplugin/haskell.vim')|call delete('/Users/maik/.vim/ftplugin/haskell_doc.vim')|call delete('/Users/maik/.vim/ftplugin/haskell_hpaste.vim')|call delete('/Users/maik/.vim/autoload/haskellmode.vim')|call delete('/Users/maik/.vim/doc/haskellmode.txt')
+tcomment.vba: call delete('/Users/maik/.vim/doc/tcomment.txt')|call delete('/Users/maik/.vim/plugin/tcomment.vim')|call delete('/Users/maik/.vim/autoload/tcomment.vim')
