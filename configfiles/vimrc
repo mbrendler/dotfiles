@@ -23,6 +23,9 @@ filetype plugin on
 filetype plugin indent on
 
 
+autocmd FileType htmldjango set ft=htmldjango.html " For SnipMate
+
+
 if version >= 703
 	set colorcolumn=81
 endif
