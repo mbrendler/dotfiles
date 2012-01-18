@@ -41,7 +41,7 @@ if has("gui_running")
 	set number
 	set guioptions-=T
 	set columns=86
-	set lines=36
+	set lines=45
 	set clipboard=unnamed
 endif
 
