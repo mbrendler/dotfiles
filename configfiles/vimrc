@@ -45,3 +45,7 @@ if has("gui_running")
 	set clipboard=unnamed
 endif
 
+let mapleader = ","
+map <Leader>n :NERDTreeToggle<CR>
+
+
