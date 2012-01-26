@@ -1,12 +1,12 @@
 [ui]
 username=maik <sellerieschnitzel@googlemail.com>
-ignore=/Users/maik/.hgignore_global
+ignore=$HOME/.hgignore_global
 
 [extensions]
 #zeroconf = 
 hgext.bookmarks =
-hggit = /Users/maik/.virtualenvs/main/lib/python2.7/site-packages/hggit/
-hgsubversion = /Users/maik/privateroot/opt/hgsubversion/hgsubversion
+hggit = $HOME/.virtualenvs/main/lib/python2.7/site-packages/hggit/
+hgsubversion = $HOME/privateroot/opt/hgsubversion/hgsubversion
 hgext.extdiff =
 mq = 
 graphlog =  
@@ -15,13 +15,13 @@ purge =
 color = 
 
 [extdiff]
-#cmd.opendiff = /Users/maik/privateroot/usr/bin/opendiff-w
+#cmd.opendiff = $HOME/privateroot/usr/bin/opendiff-w
 cmd.kdiff3 =
 cmd.sourcetreediff=opendiff
 opts.sourcetreediff=
 
 [merge-tools]
-#filemerge.executable = /Users/maik/privateroot/usr/bin/opendiff-w
+#filemerge.executable = $HOME/privateroot/usr/bin/opendiff-w
 #filemerge.args = $local $other -ancestor $base -merge $output
 kdiff3.args = $base $local $other -o $output
 sourcetreemerge.gui=False
