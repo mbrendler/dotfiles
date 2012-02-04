@@ -48,14 +48,19 @@ elseif(match(hostname(), 'janneke') >= 0)
 endif
 
 if has("gui_running")
-	set number
-	set guioptions-=T
-	set columns=86
-	set lines=45
-	set clipboard=unnamed
+    set number
+    set guioptions-=T
+    set columns=86
+    set lines=45
+    set clipboard=unnamed
+
+    " Map Apple-ö and Apple ä to previous and next tabs
+    nmap <D-ö> :tabprevious<CR>
+    nmap <D-ä> :tabnext<CR>
+    imap <D-ö> <ESC>:tabprevious<CR>
+    imap <D-ä> <ESC>:tabnext<CR>
 endif
 
 let mapleader = ","
 map <Leader>n :NERDTreeToggle<CR>
-
 
