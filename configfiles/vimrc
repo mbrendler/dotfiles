@@ -59,6 +59,9 @@ if has("gui_running")
     nmap <D-ä> :tabnext<CR>
     imap <D-ö> <ESC>:tabprevious<CR>
     imap <D-ä> <ESC>:tabnext<CR>
+
+    nmap <a-left> b
+    nmap <a-right> w
 endif
 
 let mapleader = ","
