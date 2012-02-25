@@ -1,6 +1,10 @@
 call pathogen#infect()
 call pathogen#helptags()
 
+augroup filetypedetect
+au! BufRead,BufNewFile *.m setfiletype objc
+augroup END
+
 set t_Co=256
 syntax on
 "colorscheme evening
