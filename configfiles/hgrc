@@ -13,6 +13,7 @@ graphlog =
 fetch = 
 purge =
 color = 
+mercurial_keyring =
 
 [extdiff]
 #cmd.opendiff = $HOME/privateroot/usr/bin/opendiff-w
