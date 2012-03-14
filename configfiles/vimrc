@@ -64,11 +64,13 @@ if has("gui_running")
     set lines=45
     set clipboard=unnamed
 
-    " Map Apple-ö and Apple ä to previous and next tabs
-    nmap <D-ö> :tabprevious<CR>
-    nmap <D-ä> :tabnext<CR>
-    imap <D-ö> <ESC>:tabprevious<CR>
-    imap <D-ä> <ESC>:tabnext<CR>
+    if has('mac')
+        " Map Apple-ö and Apple ä to previous and next tabs
+        nmap <D-ö> :tabprevious<CR>
+        nmap <D-ä> :tabnext<CR>
+        imap <D-ö> <ESC>:tabprevious<CR>
+        imap <D-ä> <ESC>:tabnext<CR>
+    endif
 
     nmap <a-left> b
     nmap <a-right> w
