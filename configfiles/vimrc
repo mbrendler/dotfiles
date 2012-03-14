@@ -50,9 +50,11 @@ endif
 
 
 if(match(hostname(), 'macmini') >= 0)
-	set gfn=Monaco:h13
+    set gfn=Monaco:h13
 elseif(match(hostname(), 'janneke') >= 0)
-	set gfn=Monaco:h14
+    set gfn=Monaco:h14
+elseif(match(hostname(), 'atom') >= 0)
+    set gfn=Monospace\ 9
 endif
 
 if has("gui_running")
