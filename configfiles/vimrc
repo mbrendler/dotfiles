@@ -19,6 +19,7 @@ set spelllang=de,en
 set spell
 set showcmd
 set backspace=2
+set noantialias
 
 " Haskell
 au Bufenter *.hs compiler ghc
