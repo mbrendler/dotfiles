@@ -49,20 +49,22 @@ if version >= 703
 endif
 
 
-if(match(hostname(), 'macmini') >= 0)
-    set gfn=Monaco:h13
-elseif(match(hostname(), 'janneke') >= 0)
-    set gfn=Monaco:h14
-elseif(match(hostname(), 'atom') >= 0)
-    set gfn=Monospace\ 9
-endif
-
 if has("gui_running")
     set number
     set guioptions-=T
     set columns=86
-    set lines=45
     set clipboard=unnamed
+
+    if(match(hostname(), 'macmini') >= 0)
+            set gfn=Monaco:h13
+        set lines=55
+    elseif(match(hostname(), 'janneke') >= 0)
+        set gfn=Monaco:h14
+        set lines=45
+    elseif(match(hostname(), 'atom') >= 0) || (match(hostname(), 'FUE-14') >= 0)
+        set gfn=Monospace\ 9
+        set lines=52
+    endif
 
     if has('mac')
         " Map Apple-ö and Apple ä to previous and next tabs
@@ -75,6 +77,7 @@ if has("gui_running")
     nmap <a-left> b
     nmap <a-right> w
 endif
+
 
 let mapleader = ","
 map <Leader>n :NERDTreeToggle<CR>
