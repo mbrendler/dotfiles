@@ -27,6 +27,11 @@ export PATH=$HOME/.gem/ruby/1.8/bin/:$PATH
 ################################################################################
 
 
+if [ -x $HOME/Applications/MacVim.app/Contents/MacOS/Vim ] ; then
+    export EDITOR=$HOME/Applications/MacVim.app/Contents/MacOS/Vim
+fi
+
+
 eval "$(dircolors -b)"
 alias .=source
 alias ls="ls --color"
