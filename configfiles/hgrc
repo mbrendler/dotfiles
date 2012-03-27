@@ -14,12 +14,17 @@ fetch =
 purge =
 color = 
 mercurial_keyring =
+rebase =
 
 [extdiff]
 #cmd.opendiff = $HOME/privateroot/usr/bin/opendiff-w
 cmd.kdiff3 =
 cmd.sourcetreediff=opendiff
 opts.sourcetreediff=
+
+[diff]
+showfunc = True
+git = True
 
 [merge-tools]
 #filemerge.executable = $HOME/privateroot/usr/bin/opendiff-w
