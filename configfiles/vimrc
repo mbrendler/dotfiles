@@ -11,7 +11,9 @@ syntax on
 colorscheme Mustang
 
 set autoindent
-set ruler
+set hidden " restore history of buffer coming from background
+set ruler " show cursor position
+set scrolloff=3 " scroll three lines before window start / end
 set hlsearch
 set cursorline
 set cursorcolumn
@@ -83,3 +85,5 @@ let mapleader = ","
 map <Leader>n :NERDTreeToggle<CR>
 map <Leader>b :LustyBufferExplorer<CR>
 
+
+command W w
