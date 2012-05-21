@@ -52,7 +52,8 @@ endif
 
 
 if has("gui_running")
-    colorscheme mayansmoke
+    colorscheme pyte
+    set ttyfast
     set number
     set guioptions-=T
     set columns=86
@@ -65,7 +66,6 @@ if has("gui_running")
         set gfn=Monaco:h14
         set lines=55
     elseif(match(hostname(), 'atom') >= 0) || (match(hostname(), 'FUE-14') >= 0)
-        colorscheme pyte
         set gfn=Monospace\ 9.5
         set lines=52
     endif
