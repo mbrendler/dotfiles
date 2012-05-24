@@ -1,2 +1,3 @@
 glob:configfiles/vim/.netrwhist
 glob:*.orig
+glob:configfiles/vim/sessions
