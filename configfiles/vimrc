@@ -2,7 +2,7 @@ call pathogen#infect()
 call pathogen#helptags()
 
 augroup filetypedetect
-au! BufRead,BufNewFile *.m setfiletype objc
+  au! BufRead,BufNewFile *.m setfiletype objc
 augroup END
 
 set t_Co=256
@@ -52,39 +52,39 @@ inoremap <expr> <C-x><C-o> pumvisible() ? '<C-x><C-o>' :
 
 
 if version >= 703
-	set colorcolumn=81
+  set colorcolumn=81
 endif
 
 
 if has("gui_running")
-    colorscheme pyte
-    set ttyfast
-    set number
-    set guioptions-=T
-    set columns=86
-    set clipboard=unnamed
+  colorscheme pyte
+  set ttyfast
+  set number
+  set guioptions-=T
+  set columns=86
+  set clipboard=unnamed
 
-    if(match(hostname(), 'macmini') >= 0)
-        set gfn=Monaco:h13
-        set lines=55
-    elseif(match(hostname(), 'janneke') >= 0)
-        set gfn=Monaco:h14
-        set lines=55
-    elseif(match(hostname(), 'atom') >= 0) || (match(hostname(), 'FUE-14') >= 0)
-        set gfn=Monospace\ 9.5
-        set lines=52
-    endif
+  if(match(hostname(), 'macmini') >= 0)
+    set gfn=Monaco:h13
+    set lines=55
+  elseif(match(hostname(), 'janneke') >= 0)
+    set gfn=Monaco:h14
+    set lines=55
+  elseif(match(hostname(), 'atom') >= 0) || (match(hostname(), 'FUE-14') >= 0)
+    set gfn=Monospace\ 9.5
+    set lines=52
+  endif
 
-    if has('mac')
-        " Map Apple-ö and Apple ä to previous and next tabs
-        nmap <D-ö> :tabprevious<CR>
-        nmap <D-ä> :tabnext<CR>
-        imap <D-ö> <ESC>:tabprevious<CR>
-        imap <D-ä> <ESC>:tabnext<CR>
-    endif
+  if has('mac')
+    " Map Apple-ö and Apple ä to previous and next tabs
+    nmap <D-ö> :tabprevious<CR>
+    nmap <D-ä> :tabnext<CR>
+    imap <D-ö> <ESC>:tabprevious<CR>
+    imap <D-ä> <ESC>:tabnext<CR>
+  endif
 
-    nmap <a-left> b
-    nmap <a-right> w
+  nmap <a-left> b
+  nmap <a-right> w
 endif
 
 
