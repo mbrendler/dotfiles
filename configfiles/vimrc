@@ -33,7 +33,12 @@ filetype plugin on
 filetype plugin indent on
 
 
-autocmd FileType htmldjango set ft=htmldjango.html " For SnipMate
+" activate quickfixer for this file types:
+autocmd BufWritePost,FileWritePost *.py,*.js call QuickFixer()
+
+" Add html FileType for djangohtml files, to activate some html specific
+" plugins, like SnipeMate-Completion on htmldjango files.
+autocmd FileType htmldjango set ft=htmldjango.html
 
 
 " Completion menu also on omni completion
