@@ -105,3 +105,6 @@ map <Leader>b :LustyBufferExplorer<CR>
 
 
 command W w
+
+
+let g:session_autosave = 'yes'
