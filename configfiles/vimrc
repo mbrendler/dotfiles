@@ -10,9 +10,6 @@ Bundle 'tomtom/tcomment_vim'
 Bundle 'scrooloose/syntastic'
 
 
-call pathogen#infect()
-call pathogen#helptags()
-
 augroup filetypedetect
   au! BufRead,BufNewFile *.m setfiletype objc
 augroup END
