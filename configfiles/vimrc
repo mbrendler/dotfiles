@@ -6,6 +6,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'scrooloose/nerdtree'
 Bundle 'xolox/vim-session'
+Bundle 'tomtom/tcomment_vim'
 
 
 call pathogen#infect()
