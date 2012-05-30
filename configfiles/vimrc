@@ -79,9 +79,13 @@ if has("gui_running")
   elseif(match(hostname(), 'janneke') >= 0)
     set gfn=Monaco:h14
     set lines=55
-  elseif(match(hostname(), 'atom') >= 0) || (match(hostname(), 'FUE-14') >= 0)
+  elseif(match(hostname(), 'atom') >= 0)
     set gfn=Monospace\ 9.5
     set lines=52
+  elseif(match(hostname(), 'FUE-14') >= 0)
+    set gfn=Monospace\ 9.5
+    set lines=52
+    winpos 669 24
   endif
 
   if has('mac')
