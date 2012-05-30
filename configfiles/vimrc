@@ -8,6 +8,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'xolox/vim-session'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'scrooloose/syntastic'
+Bundle 'sjbach/lusty'
 
 
 augroup filetypedetect
