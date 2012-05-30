@@ -7,6 +7,7 @@ Bundle 'gmarik/vundle'
 Bundle 'scrooloose/nerdtree'
 Bundle 'xolox/vim-session'
 Bundle 'tomtom/tcomment_vim'
+Bundle 'scrooloose/syntastic'
 
 
 call pathogen#infect()
