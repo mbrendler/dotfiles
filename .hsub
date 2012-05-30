@@ -1,0 +1,1 @@
+configfiles/vim/bundle/vundle = [git]https://github.com/gmarik/vundle.git
