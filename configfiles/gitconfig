@@ -14,3 +14,8 @@
 	ci = commit
 	out = log origin/master..HEAD
 
+[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
