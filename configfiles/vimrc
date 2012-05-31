@@ -9,6 +9,7 @@ Bundle 'xolox/vim-session'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'sjbach/lusty'
+Bundle 'Raimondi/delimitMate'
 
 
 augroup filetypedetect
