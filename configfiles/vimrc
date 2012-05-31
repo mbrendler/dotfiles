@@ -107,4 +107,5 @@ map <Leader>b :LustyBufferExplorer<CR>
 command W w
 
 
+let NERDTreeIgnore = ['*.pyc', '*.orig']
 let g:session_autosave = 'yes'
