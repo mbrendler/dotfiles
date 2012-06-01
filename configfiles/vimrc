@@ -93,8 +93,9 @@ endif
 
 let mapleader = ","
 map <Leader>n :TlistClose<CR>:NERDTreeToggle<CR>
-map <Leader>b :LustyBufferExplorer<CR>
 map <Leader>t :NERDTreeClose<CR>:TlistToggle<CR>
+map <Leader>u :NERDTreeClose<CR>:TlistClose<CR>:GundoToggle<CR>
+map <Leader>b :LustyBufferExplorer<CR>
 map <Leader>m :CommandT<CR>
 
 

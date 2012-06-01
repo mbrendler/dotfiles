@@ -20,3 +20,5 @@ Bundle 'tpope/vim-surround'
 " needs to run: $ bundle install
 "               $ rake make
 Bundle 'wincent/Command-T'
+
+Bundle 'sjl/gundo.vim'
