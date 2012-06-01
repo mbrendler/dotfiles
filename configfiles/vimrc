@@ -103,8 +103,9 @@ endif
 
 
 let mapleader = ","
-map <Leader>n :NERDTreeToggle<CR>
+map <Leader>n :TlistClose<CR>:NERDTreeToggle<CR>
 map <Leader>b :LustyBufferExplorer<CR>
+map <Leader>t :NERDTreeClose<CR>:TlistToggle<CR>
 
 
 command W w
@@ -112,3 +113,5 @@ command W w
 
 let NERDTreeIgnore = ['*.pyc', '*.orig']
 let g:session_autosave = 'yes'
+let Tlist_Inc_Winwidth = 0
+let Tlist_GainFocus_On_ToggleOpen = 1
