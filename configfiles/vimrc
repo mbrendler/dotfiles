@@ -11,6 +11,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'sjbach/lusty'
 Bundle 'Raimondi/delimitMate'
 Bundle 'SearchComplete'
+Bundle 'int3/vim-taglist-plus'
 
 
 augroup filetypedetect
