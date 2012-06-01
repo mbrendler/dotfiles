@@ -23,3 +23,4 @@ Bundle 'wincent/Command-T'
 
 Bundle 'sjl/gundo.vim'
 Bundle 'tpope/vim-fugitive'
+Bundle 'Rip-Rip/clang_complete'
