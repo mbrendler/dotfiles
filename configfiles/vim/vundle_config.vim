@@ -22,3 +22,4 @@ Bundle 'tpope/vim-surround'
 Bundle 'wincent/Command-T'
 
 Bundle 'sjl/gundo.vim'
+Bundle 'tpope/vim-fugitive'
