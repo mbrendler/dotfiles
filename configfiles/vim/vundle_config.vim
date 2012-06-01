@@ -15,6 +15,7 @@ Bundle 'sjbach/lusty'
 Bundle 'Raimondi/delimitMate'
 Bundle 'SearchComplete'
 Bundle 'int3/vim-taglist-plus'
+Bundle 'tpope/vim-surround'
 
 " needs to run: $ bundle install
 "               $ rake make
