@@ -1,22 +1,7 @@
 set nocompatible
 
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
-Bundle 'scrooloose/nerdtree'
-Bundle 'xolox/vim-session'
-Bundle 'tomtom/tcomment_vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'sjbach/lusty'
-Bundle 'Raimondi/delimitMate'
-Bundle 'SearchComplete'
-Bundle 'int3/vim-taglist-plus'
-
-" needs to run: $ bundle install
-"               $ rake make
-Bundle 'wincent/Command-T'
-
+" include plug-ins by vundle plugin:
+source $HOME/.vim/vundle_config.vim
 
 augroup filetypedetect
   au! BufRead,BufNewFile *.m setfiletype objc
