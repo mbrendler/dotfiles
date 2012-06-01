@@ -59,7 +59,8 @@ if has("gui_running")
   colorscheme pyte
   set ttyfast
   set number
-  set guioptions-=T
+  " defualt: guioptions=aegimrLt
+  set guioptions='crL'
   set columns=86
   set clipboard=unnamed
 
