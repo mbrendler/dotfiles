@@ -13,6 +13,10 @@ Bundle 'Raimondi/delimitMate'
 Bundle 'SearchComplete'
 Bundle 'int3/vim-taglist-plus'
 
+" needs to run: $ bundle install
+"               $ rake make
+Bundle 'wincent/Command-T'
+
 
 augroup filetypedetect
   au! BufRead,BufNewFile *.m setfiletype objc
@@ -106,6 +110,7 @@ let mapleader = ","
 map <Leader>n :TlistClose<CR>:NERDTreeToggle<CR>
 map <Leader>b :LustyBufferExplorer<CR>
 map <Leader>t :NERDTreeClose<CR>:TlistToggle<CR>
+map <Leader>m :CommandT<CR>
 
 
 command W w
