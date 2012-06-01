@@ -10,6 +10,7 @@ Bundle 'tomtom/tcomment_vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'sjbach/lusty'
 Bundle 'Raimondi/delimitMate'
+Bundle 'SearchComplete'
 
 
 augroup filetypedetect
