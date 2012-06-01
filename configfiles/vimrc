@@ -111,7 +111,12 @@ map <Leader>t :NERDTreeClose<CR>:TlistToggle<CR>
 command W w
 
 
+" Options of some plug-ins:
 let NERDTreeIgnore = ['*.pyc', '*.orig']
 let g:session_autosave = 'yes'
+let g:session_command_aliases = 1
 let Tlist_Inc_Winwidth = 0
 let Tlist_GainFocus_On_ToggleOpen = 1
+
+let g:syntastic_stl_format = "%E{E:%e} %W{W:%w}"
+set statusline+=%{SyntasticStatuslineFlag()}
