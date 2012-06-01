@@ -63,6 +63,7 @@ if has("gui_running")
   set guioptions='crL'
   set columns=86
   set clipboard=unnamed
+  set laststatus=2
 
   if(match(hostname(), 'macmini') >= 0)
     set gfn=Monaco:h13
@@ -111,4 +112,4 @@ let Tlist_Inc_Winwidth = 0
 let Tlist_GainFocus_On_ToggleOpen = 1
 
 let g:syntastic_stl_format = "%E{E:%e} %W{W:%w}"
-set statusline+=%{SyntasticStatuslineFlag()}
+set statusline=%<%f\ %h%m%r\ %{SyntasticStatuslineFlag()}%=%-14.(%l,%c%V%)\ %P
