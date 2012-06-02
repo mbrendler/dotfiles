@@ -6,8 +6,8 @@ ignore=$HOME/.hgignore_global
 #zeroconf = 
 hgext.bookmarks =
 hgext.convert =
-hggit = $HOME/.virtualenvs/main/lib/python2.7/site-packages/hggit/
-hgsubversion = $HOME/privateroot/opt/hgsubversion/hgsubversion
+hggit =
+hgsubversion =
 hgext.extdiff =
 mq = 
 graphlog =  
@@ -48,3 +48,5 @@ vdiff = opendiff
 [hostfingerprints]
 bitbucket.org = 24:9c:45:8b:9c:aa:ba:55:4e:01:6d:58:ff:e4:28:7d:2a:14:ae:3b
 hg.inqbus.de = 05:d7:61:91:16:0d:78:c6:88:11:21:ce:00:9c:af:34:8d:e2:61:e1
+
+%include ~/.hgrc_local
