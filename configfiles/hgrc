@@ -5,6 +5,7 @@ ignore=$HOME/.hgignore_global
 [extensions]
 #zeroconf = 
 hgext.bookmarks =
+hgext.convert =
 hggit = $HOME/.virtualenvs/main/lib/python2.7/site-packages/hggit/
 hgsubversion = $HOME/privateroot/opt/hgsubversion/hgsubversion
 hgext.extdiff =
@@ -17,7 +18,6 @@ mercurial_keyring =
 rebase =
 
 [extdiff]
-#cmd.opendiff = $HOME/privateroot/usr/bin/opendiff-w
 cmd.kdiff3 =
 cmd.sourcetreediff=opendiff
 opts.sourcetreediff=
@@ -27,8 +27,6 @@ showfunc = True
 git = True
 
 [merge-tools]
-#filemerge.executable = $HOME/privateroot/usr/bin/opendiff-w
-#filemerge.args = $local $other -ancestor $base -merge $output
 kdiff3.args = $base $local $other -o $output
 sourcetreemerge.gui=False
 sourcetreebulkmerge.gui=False
@@ -50,4 +48,3 @@ vdiff = opendiff
 [hostfingerprints]
 bitbucket.org = 24:9c:45:8b:9c:aa:ba:55:4e:01:6d:58:ff:e4:28:7d:2a:14:ae:3b
 hg.inqbus.de = 05:d7:61:91:16:0d:78:c6:88:11:21:ce:00:9c:af:34:8d:e2:61:e1
-
