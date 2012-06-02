@@ -22,5 +22,6 @@ Bundle 'tpope/vim-surround'
 Bundle 'wincent/Command-T'
 
 Bundle 'sjl/gundo.vim'
+Bundle 'sjl/clam.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'Rip-Rip/clang_complete'

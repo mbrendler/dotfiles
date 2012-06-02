@@ -25,6 +25,11 @@ set showcmd
 set backspace=2
 set noantialias
 
+set wildmenu
+set wildignore+=.DS_Store
+set wildignore+=*.orig
+set wildignore+=*.pyc
+
 " Haskell
 au Bufenter *.hs compiler ghc
 let g:haddock_browser = "open"
@@ -110,6 +115,7 @@ let g:session_autosave = 'yes'
 let g:session_command_aliases = 1
 let Tlist_Inc_Winwidth = 0
 let Tlist_GainFocus_On_ToggleOpen = 1
+let clam_winpos = 'topleft'
 
 let g:syntastic_stl_format = "%E{E:%e} %W{W:%w}"
 set statusline=%<%f\ %h%m%r\ %{SyntasticStatuslineFlag()}%=%-14.(%l,%c%V%)\ %P
