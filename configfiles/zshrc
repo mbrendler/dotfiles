@@ -37,7 +37,6 @@ eval "$(dircolors -b)"
 alias .=source
 alias ls="ls --color"
 alias grep="grep --color"
-alias macvim="gvim"
 alias pbpwd="pwd | pbcopy"
 
 
@@ -49,7 +48,7 @@ if [[ `uname` == "Linux" ]] ; then
     bindkey "^[[1;5C" forward-word
     bindkey "^[[1;5D" backward-word
 elif [[ `uname` == "Darwin" ]] ; then
-    alias gvim="$HOME/Applications/MacVim.app/Contents/MacOS/Vim -g"
+    alias gvim=mvim
 fi
 
 
