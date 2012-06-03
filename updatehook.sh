@@ -15,3 +15,9 @@ if test -d configfiles/vim/bundle/Command-T/ ; then
     rake make
     popd
 fi
+
+if test $(uname) == 'Darwin' ; then
+    if test ! -f $HOME/Library/Fonts/Monaco-Powerline.otf ; then
+        cp extras/Monaco-Powerline.otf $HOME/Library/Fonts/
+    fi
+fi
