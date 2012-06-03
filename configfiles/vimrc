@@ -17,8 +17,6 @@ set hidden " restore history of buffer coming from background
 set ruler " show cursor position
 set scrolloff=3 " scroll three lines before window start / end
 set hlsearch
-set cursorline
-set cursorcolumn
 set spelllang=de,en
 set spell
 set showcmd
@@ -70,6 +68,8 @@ if has("gui_running")
   set columns=88
   set clipboard=unnamed
   set laststatus=2
+  set cursorline
+  set cursorcolumn
 
   if hostname() == 'macmini'
     set gfn=Monaco:h13
@@ -81,6 +81,8 @@ if has("gui_running")
     set gfn=Monospace\ 9.5
     winpos 298 16
     autocmd GUIEnter * set lines=37 columns=88
+    set nocursorline
+    set nocursorcolumn
   elseif hostname() == 'FUE-14'
     set gfn=Monospace\ 9.5
     winpos 669 24
