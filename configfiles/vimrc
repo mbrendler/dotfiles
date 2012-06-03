@@ -67,23 +67,24 @@ if has("gui_running")
   set number
   " defualt: guioptions=aegimrLt
   set guioptions='crL'
-  set columns=86
+  set columns=88
   set clipboard=unnamed
   set laststatus=2
 
-  if(match(hostname(), 'macmini') >= 0)
+  if hostname() == 'macmini'
     set gfn=Monaco:h13
     set lines=55
-  elseif(match(hostname(), 'janneke') >= 0)
+  elseif hostname() == 'janneke'
     set gfn=Monaco:h14
     set lines=55
-  elseif(match(hostname(), 'atom') >= 0)
+  elseif hostname() == 'atom'
     set gfn=Monospace\ 9.5
-    set lines=52
-  elseif(match(hostname(), 'FUE-14') >= 0)
+    winpos 298 16
+    autocmd GUIEnter * set lines=37 columns=88
+  elseif hostname() == 'FUE-14'
     set gfn=Monospace\ 9.5
-    set lines=52
     winpos 669 24
+    autocmd GUIEnter * set lines=52 columns=88
   endif
 
   if has('mac')
