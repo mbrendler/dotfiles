@@ -72,10 +72,10 @@ if has("gui_running")
   set cursorline
   set cursorcolumn
 
-  if hostname() == 'macmini'
+  if hostname() == 'macmini.local'
     set gfn=Monaco:h13
     set lines=55
-  elseif hostname() == 'janneke'
+  elseif hostname() == 'janneke.local'
     set gfn=Monaco:h14
     set lines=55
   elseif hostname() == 'atom'
