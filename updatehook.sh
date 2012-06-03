@@ -17,7 +17,7 @@ if test -d configfiles/vim/bundle/Command-T/ ; then
 fi
 
 if test $(uname) == 'Darwin' ; then
-    if test ! -f $HOME/Library/Fonts/Monaco-Powerline.otf ; then
-        cp extras/Monaco-Powerline.otf $HOME/Library/Fonts/
-    fi
+    cp extras/Monaco-Powerline.otf $HOME/Library/Fonts/
+elif test $(uname) == 'Linux' ; then
+    cp extras/Monospace-Powerline.ttf $HOME/.fonts/
 fi
