@@ -3,10 +3,6 @@ set nocompatible
 " include plug-ins by vundle plugin:
 source $HOME/.vim/vundle_config.vim
 
-augroup filetypedetect
-  au! BufRead,BufNewFile *.m setfiletype objc
-augroup END
-
 set t_Co=256
 syntax on
 "colorscheme evening
@@ -39,9 +35,14 @@ filetype plugin on
 filetype plugin indent on
 
 
-" Add html FileType for djangohtml files, to activate some html specific
-" plugins, like SnipeMate-Completion on htmldjango files.
-autocmd FileType htmldjango set ft=htmldjango.html
+augroup filetypedetect
+  au! BufRead,BufNewFile *.m setfiletype objc
+
+  " Add html FileType for djangohtml files, to activate some html specific
+  " plugins, like SnipeMate-Completion on htmldjango files.
+  au! FileType htmldjango set ft=htmldjango.html
+augroup END
+
 
 
 " Completion menu also on omni completion
@@ -54,7 +55,7 @@ inoremap <expr> <C-x><C-o> pumvisible() ? '<C-x><C-o>' :
   \ '<C-x><C-o><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 
-if version >= 703
+if exists('&colorcolumn')
   set colorcolumn=81
 endif
 
