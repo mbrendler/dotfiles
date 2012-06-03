@@ -64,7 +64,7 @@ if has("gui_running")
   set ttyfast
   set number
   " defualt: guioptions=aegimrLt
-  set guioptions='crL'
+  set guioptions='icrL'
   set columns=88
   set clipboard=unnamed
   set laststatus=2
