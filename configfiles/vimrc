@@ -109,7 +109,7 @@ map <Leader>t :NERDTreeClose<CR>:TlistToggle<CR>
 map <Leader>u :NERDTreeClose<CR>:TlistClose<CR>:GundoToggle<CR>
 map <Leader>b :LustyBufferExplorer<CR>
 map <Leader>m :CommandT<CR>
-map <Leader>f :call Fullscreen#Toggle()<CR>
+map <Leader>f :call fullscreen#Toggle()<CR>
 
 
 command W w

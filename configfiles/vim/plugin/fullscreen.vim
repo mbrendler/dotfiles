@@ -1,7 +1,7 @@
 
-autocmd VimLeavePre * call Fullscreen#End()
+autocmd VimLeavePre * call fullscreen#End()
 
-function Fullscreen#Start()
+function fullscreen#Start()
   let g:x_before_fullscreen = getwinposx()
   let g:y_before_fullscreen = getwinposy()
   let g:lines_before_fullscreen = &lines
@@ -11,11 +11,11 @@ function Fullscreen#Start()
   set columns=999
 endfunction
 
-function Fullscreen#End()
+function fullscreen#End()
   if exists('g:x_before_fullscreen')
-    execute "winpos " . g:x_before_fullscreen . " " . g:y_before_fullscreen
     execute "set lines=" . g:lines_before_fullscreen
     execute "set columns=" . g:columns_before_fullscreen
+    execute "winpos " . g:x_before_fullscreen . " " . g:y_before_fullscreen
     unlet g:x_before_fullscreen
     unlet g:y_before_fullscreen
     unlet g:lines_before_fullscreen
@@ -23,10 +23,10 @@ function Fullscreen#End()
   endif
 endfunction
 
-function Fullscreen#Toggle()
+function fullscreen#Toggle()
   if exists('g:x_before_fullscreen')
-    call Fullscreen#End()
+    call fullscreen#End()
   else
-    call Fullscreen#Start()
+    call fullscreen#Start()
   endif
 endfunction
