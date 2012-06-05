@@ -2,7 +2,7 @@
 	name = Maik Brendler
 	email = sellerieschnitzel@googlemail.com
 [core]
-	excludesfile = /Users/maik/.gitignore_global
+	excludesfile = ~/.gitignore_global
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
@@ -12,8 +12,9 @@
 [alias]
 	st = status
 	ci = commit
+	co = checkout
 	out = log origin/master..HEAD
-
+	branches = branch
 [color]
 	branch = auto
 	diff = auto
