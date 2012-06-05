@@ -21,6 +21,8 @@ mercurial_keyring =
 
 [extdiff]
 cmd.kdiff3 =
+cmd.gvimdiff = gvim
+opts.gvimdiff = -d -f -R
 cmd.sourcetreediff=opendiff
 opts.sourcetreediff=
 
@@ -46,6 +48,7 @@ sourcetreebulkmerge.binary=True
 
 [alias]
 ts = st
+vd = gvimdiff
 
 [tortoisehg]
 vdiff = kdiff3
