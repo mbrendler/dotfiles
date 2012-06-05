@@ -111,7 +111,7 @@ if has("gui_running")
 
 endif
 
-function s:dirDiffWithArguments()
+function! s:dirDiffWithArguments()
   next
   execute "DirDiff" fnameescape(argv(0)) fnameescape(argv(1))
 endfunction
@@ -125,7 +125,7 @@ map <Leader>m :CommandT<CR>
 map <Leader>f :call fullscreen#Toggle()<CR>
 
 
-command W w
+command! W w
 
 
 " Options of some plug-ins:
