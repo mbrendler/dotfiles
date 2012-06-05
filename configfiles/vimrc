@@ -100,6 +100,12 @@ if has("gui_running")
 
   nmap <a-left> b
   nmap <a-right> w
+
+  if &diff
+    autocmd! GUIEnter * call fullscreen#Start()
+    wincmd =
+  endif
+
 endif
 
 
