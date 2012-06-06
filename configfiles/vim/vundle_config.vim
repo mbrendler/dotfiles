@@ -12,7 +12,10 @@ Bundle 'xolox/vim-session'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'sjbach/lusty'
+
+" Automatic closing of quotes, parentheses, ...
 Bundle 'Raimondi/delimitMate'
+
 Bundle 'SearchComplete'
 Bundle 'int3/vim-taglist-plus'
 Bundle 'tpope/vim-surround'
