@@ -13,6 +13,7 @@ HERE = os.path.dirname(__file__)
 SOURCE_DIR = os.path.abspath(os.path.join(HERE, 'configfiles'))
 DESTINATION_DIR = os.getenv('HOME')
 BACKUP_DIR = os.path.join(DESTINATION_DIR, 'configsbackup', '%d' % time.time())
+IGNORE_FILES = ('.DS_Store',)
 
 
 def error(message):
@@ -47,6 +48,8 @@ def main():
     """See module documentation.
     """
     for filename in os.listdir(SOURCE_DIR):
+        if filename in IGNORE_FILES:
+            continue
         source_path = os.path.join(SOURCE_DIR, filename)
         destination_path = os.path.join(DESTINATION_DIR, '.' + filename)
         sys.stdout.write('%s ' % destination_path)
