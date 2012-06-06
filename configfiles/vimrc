@@ -118,10 +118,11 @@ endfunction
 
 let mapleader = ","
 map <Leader>n :TlistClose<CR>:NERDTreeToggle<CR>
-map <Leader>t :NERDTreeClose<CR>:TlistToggle<CR>
+map <Leader>ü :NERDTreeClose<CR>:TlistToggle<CR>
 map <Leader>u :NERDTreeClose<CR>:TlistClose<CR>:GundoToggle<CR>
 map <Leader>b :LustyBufferExplorer<CR>
 map <Leader>m :CommandT<CR>
+map <Leader>t :CommandT<CR>
 map <Leader>f :call fullscreen#Toggle()<CR>
 
 
