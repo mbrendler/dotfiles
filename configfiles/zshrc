@@ -23,6 +23,13 @@ export GEM_HOME=$HOME/.gem/ruby/1.8
 export GEM_PATH=$HOME/.gem/ruby/1.8:$GEM_PATH
 export PATH=$HOME/.gem/ruby/1.8/bin/:$PATH
 
+# RVM:
+if test -d "$HOME/.rvm" ; then
+    [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+    # PS1="\$(~/.rvm/bin/rvm-prompt)$PS1"
+    export PATH=$HOME/.rvm/bin:$PATH
+fi
+
 
 ################################################################################
 
@@ -87,4 +94,3 @@ compinit
 
 source $HOME/.zsh/completions.zsh
 # End of lines added by compinstall
-
