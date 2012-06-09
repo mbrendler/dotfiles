@@ -7,7 +7,7 @@
 
 set -ex
 
-vim +BundleInstall +qall
+vim +BundleInstall! +qall
 
 if test -d configfiles/vim/bundle/Command-T/ ; then
     pushd configfiles/vim/bundle/Command-T/
