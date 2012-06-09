@@ -143,4 +143,4 @@ let g:Powerline_cache_enabled = 1
 " set statusline=%<%f\ %h%m%r\ %{SyntasticStatuslineFlag()}%=%-14.(%l,%c%V%)\ %P
 
 
-let g:vim_python_debug = 1
+let g:vim_monty_debug = 1

@@ -32,3 +32,5 @@ Bundle 'Rip-Rip/clang_complete'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'kana/vim-scratch'
 Bundle 'DirDiff.vim'
+
+Bundle 'sellerie/vim-monty'
