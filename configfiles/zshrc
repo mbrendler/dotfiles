@@ -5,9 +5,14 @@ export PATH=$HOME/privateroot/usr/bin:$HOME/privateroot/gnu/bin:$PATH
 
 # Homebrew:
 if [ -f /usr/local/bin/brew ] ; then
-    export PYTHONPATH=/usr/local/lib/python:$PYTHONPATH
-    export NODE_PATH=/usr/local/lib/node_modules/:$NODE_PATH
-    export PATH=/usr/local/bin:$PATH
+    HOMEBREW_PATH=/usr/local
+elif [ -f $HOME/privateroot/homebrew/bin/brew ] ; then
+    HOMEBREW_PATH=$HOME/privateroot/homebrew
+fi
+if [[ $HOMEBREW_PATH != '' ]] ; then
+    export PYTHONPATH=$HOMEBREW_PATH/lib/python:$PYTHONPATH
+    export NODE_PATH=$HOMEBREW_PATH/lib/node_modules/:$NODE_PATH
+    export PATH=$HOMEBREW_PATH/bin:$PATH
 fi
 
 # VirtualEnvWrapper:
