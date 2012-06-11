@@ -2,7 +2,7 @@
 ZSH=$HOME/.zsh/oh-my-zsh
 if test -d $ZSH ; then
     ZSH_THEME="afowler"
-    plugins=(git brew pip django)
+    plugins=(git brew pip django vagrant npm)
     source $ZSH/oh-my-zsh.sh
 else
     PROMPT="%n@%m:%~%{%F{blue}%}$%{%f%} "
@@ -106,6 +106,3 @@ setopt NO_SHARE_HISTORY
 
 autoload -Uz compinit
 compinit
-
-source $HOME/.zsh/completions.zsh
-# End of lines added by compinstall
