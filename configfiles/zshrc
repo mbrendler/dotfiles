@@ -1,6 +1,7 @@
 
 ZSH=$HOME/.zsh/oh-my-zsh
 if test -d $ZSH ; then
+    DISABLE_AUTO_UPDATE="true"
     ZSH_THEME="afowler"
     plugins=(git brew pip django vagrant npm)
     source $ZSH/oh-my-zsh.sh
