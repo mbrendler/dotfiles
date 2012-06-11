@@ -101,6 +101,8 @@ setopt NO_ALWAYS_LAST_PROMPT
 setopt NO_CORRECT
 setopt NO_CORRECTALL
 setopt AUTO_PUSHD
+setopt NO_INC_APPEND_HISTORY
+setopt NO_SHARE_HISTORY
 
 autoload -Uz compinit
 compinit
