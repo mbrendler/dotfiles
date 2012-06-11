@@ -18,6 +18,7 @@ color =
 hggit =
 hgsubversion =
 mercurial_keyring =
+prompt = $HOME/privateroot/opt/hg-prompt/prompt.py
 
 [extdiff]
 cmd.kdiff3 =
