@@ -106,6 +106,7 @@ setopt NO_CORRECTALL
 setopt AUTO_PUSHD
 setopt NO_INC_APPEND_HISTORY
 setopt NO_SHARE_HISTORY
+setopt NO_CDABLEVARS
 
 autoload -Uz compinit
 compinit
