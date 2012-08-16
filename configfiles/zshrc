@@ -28,7 +28,7 @@ fi
 # VirtualEnvWrapper:
 export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
-export PATH=$HOME/.virtualenvs/main/bin:$PATH
+#export PATH=$HOME/.virtualenvs/main/bin:$PATH
 
 export PYTHONSTARTUP=$HOME/.pystartup
 
