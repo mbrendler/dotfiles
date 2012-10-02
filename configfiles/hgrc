@@ -16,7 +16,7 @@ fetch =
 purge =
 color = 
 hggit =
-hgsubversion =
+#hgsubversion = 
 mercurial_keyring =
 
 [extdiff]
