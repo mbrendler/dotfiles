@@ -25,6 +25,11 @@ set wildmenu
 set wildignore+=.DS_Store
 set wildignore+=*.orig
 set wildignore+=*.pyc
+set wildignore+=*.o
+set wildignore+=*.class
+set wildignore+=.hg
+set wildignore+=.git
+set wildignore+=.svn
 
 " Haskell
 au Bufenter *.hs compiler ghc
