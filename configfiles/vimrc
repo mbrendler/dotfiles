@@ -50,15 +50,8 @@ augroup filetypedetect
 augroup END
 
 
-
 " Completion menu also on omni completion
 set completeopt=longest,menuone
-" Reactivate auto selection of first menu item for C-n
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-" Activate auto selection of first menu item for omni completion (C-x C-o)
-inoremap <expr> <C-x><C-o> pumvisible() ? '<C-x><C-o>' :
-  \ '<C-x><C-o><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 
 if exists('&colorcolumn')
