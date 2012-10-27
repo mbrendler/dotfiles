@@ -19,7 +19,7 @@ set showcmd
 set backspace=2
 set noantialias
 set encoding=utf-8
-set cpoptions=ces$ " cw-like commands mark end with $ instead of deleting.
+set cpoptions=B$ " cw-like commands mark end with $ instead of deleting.
 
 set wildmenu
 set wildignore+=.DS_Store
