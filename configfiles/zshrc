@@ -111,3 +111,9 @@ setopt NO_CDABLEVARS
 
 autoload -Uz compinit
 compinit
+
+
+###############################################################################
+
+# syntax-highlighting
+source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
