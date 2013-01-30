@@ -124,6 +124,9 @@ map <Leader>m :CommandT<CR>
 map <Leader>t :CommandT<CR>
 map <Leader>f :call fullscreen#Toggle()<CR>
 
+" Insert new line without entering insert mode.
+map <S-Enter> O<Esc>j
+map <CR> o<Esc>k
 
 command! W w
 
