@@ -16,6 +16,7 @@ Bundle 'sjbach/lusty'
 " Automatic closing of quotes, parentheses, ...
 Bundle 'Raimondi/delimitMate'
 
+Bundle 'henrik/vim-indexed-search'
 Bundle 'SearchComplete'
 Bundle 'int3/vim-taglist-plus'
 Bundle 'tpope/vim-surround'
