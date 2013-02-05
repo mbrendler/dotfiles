@@ -7,34 +7,39 @@ call vundle#rc()
 " Add plug-ins installed with vundle here:
 """""""""""""""""""""""""""""""""""""""""""
 Bundle 'gmarik/vundle'
+
+" file and buffer access
 Bundle 'scrooloose/nerdtree'
-Bundle 'xolox/vim-session'
-Bundle 'tomtom/tcomment_vim'
-Bundle 'scrooloose/syntastic'
 Bundle 'sjbach/lusty'
-
-" Automatic closing of quotes, parentheses, ...
-Bundle 'Raimondi/delimitMate'
-
-Bundle 'henrik/vim-indexed-search'
-Bundle 'SearchComplete'
-Bundle 'int3/vim-taglist-plus'
-Bundle 'tpope/vim-surround'
-
-" needs to run: $ bundle install
-"               $ rake make
+"" needs $ bundle install && rake make
 Bundle 'wincent/Command-T'
-
-Bundle 'sjl/gundo.vim'
-Bundle 'sjl/clam.vim'
-Bundle 'rson/vim-conque'
-Bundle 'tpope/vim-fugitive'
-Bundle 'Rip-Rip/clang_complete'
-Bundle 'lukerandall/haskellmode-vim'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'kana/vim-scratch'
 Bundle 'DirDiff.vim'
 
+Bundle 'xolox/vim-session'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'int3/vim-taglist-plus'
+Bundle 'sjl/gundo.vim'
+
+" programming languages
+Bundle 'scrooloose/syntastic'
+Bundle 'Rip-Rip/clang_complete'
+Bundle 'lukerandall/haskellmode-vim'
 Bundle 'derekwyatt/vim-scala'
-Bundle 'sellerie/vim-gradle'
 Bundle 'sellerie/vim-monty'
+Bundle 'sellerie/vim-gradle'
+
+" editing
+"" Automatic closing of quotes, parentheses, ...
+Bundle 'Raimondi/delimitMate'
+Bundle 'tpope/vim-surround'
+Bundle 'tomtom/tcomment_vim'
+
+" search plugins
+Bundle 'henrik/vim-indexed-search'
+Bundle 'SearchComplete'
+
+Bundle 'sjl/clam.vim'
+Bundle 'rson/vim-conque'
+Bundle 'kana/vim-scratch'
+
+Bundle 'tpope/vim-fugitive'
