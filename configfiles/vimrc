@@ -143,6 +143,7 @@ let g:Powerline_cache_enabled = 1
 
 " let g:syntastic_stl_format = "%E{E:%e} %W{W:%w}"
 " set statusline=%<%f\ %h%m%r\ %{SyntasticStatuslineFlag()}%=%-14.(%l,%c%V%)\ %P
+let g:syntastic_cpp_compiler = "clang++"
 
 
 let g:vim_monty_debug = 1
