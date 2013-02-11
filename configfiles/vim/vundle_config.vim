@@ -40,6 +40,7 @@ Bundle 'SearchComplete'
 
 Bundle 'sjl/clam.vim'
 Bundle 'rson/vim-conque'
+" Creates a buffer, which is not saved
 Bundle 'kana/vim-scratch'
 
 Bundle 'tpope/vim-fugitive'
