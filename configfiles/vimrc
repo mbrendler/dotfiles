@@ -146,4 +146,12 @@ let g:Powerline_cache_enabled = 1
 let g:syntastic_cpp_compiler = "clang++"
 
 
+" clang_complete
+"" TODO: make this more standard
+let LLVM_PREFIX = expand("$HOME/privateroot/opt/llvm/BD2/Release+Asserts/")
+if isdirectory(LLVM_PREFIX . "/lib/")
+  let g:clang_use_library = 1
+  let g:clang_library_path = expand(LLVM_PREFIX . "/lib/")
+endif
+
 let g:vim_monty_debug = 1
