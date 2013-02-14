@@ -73,6 +73,8 @@ elif [[ `uname` == "Darwin" ]] ; then
     alias gvim=mvim
 fi
 
+pbecho () { echo $* | pbcopy }
+
 
 CLICOLOR=1
 LSCOLORS=Dxfxcxdxbxegedabagacad
