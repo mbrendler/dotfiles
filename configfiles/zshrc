@@ -16,8 +16,6 @@ export PATH=$HOME/privateroot/usr/bin:$HOME/privateroot/gnu/bin:$PATH
 # Homebrew:
 if [ -f /usr/local/bin/brew ] ; then
     HOMEBREW_PATH=/usr/local
-elif [ -f $HOME/privateroot/homebrew/bin/brew ] ; then
-    HOMEBREW_PATH=$HOME/privateroot/homebrew
 fi
 if [[ $HOMEBREW_PATH != '' ]] ; then
     export PYTHONPATH=$HOMEBREW_PATH/lib/python2.7/site-packages:$PYTHONPATH
@@ -33,7 +31,6 @@ fi
 # VirtualEnvWrapper:
 export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
-#export PATH=$HOME/.virtualenvs/main/bin:$PATH
 
 export PYTHONSTARTUP=$HOME/.pystartup
 
@@ -51,7 +48,7 @@ if test -d "$HOME/.rvm" ; then
 fi
 
 
-################################################################################
+##############################################################################
 
 
 if [ -x $HOME/Applications/MacVim.app/Contents/MacOS/Vim ] ; then
@@ -86,7 +83,7 @@ LSCOLORS=Dxfxcxdxbxegedabagacad
 CLICOLOR=LSCOLORS
 
 
-################################################################################
+##############################################################################
 
 
 # Lines configured by zsh-newuser-install
