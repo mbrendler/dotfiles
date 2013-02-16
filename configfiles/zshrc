@@ -25,6 +25,11 @@ if [[ $HOMEBREW_PATH != '' ]] ; then
     export PATH=$HOMEBREW_PATH/bin:$PATH
 fi
 
+# Orr:
+if test -d "$HOME/privateroot/orr/orr_dir/bin" ; then
+    export PATH=$HOME/privateroot/orr/orr_dir/bin:$PATH
+fi
+
 # VirtualEnvWrapper:
 export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
