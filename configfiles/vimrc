@@ -155,4 +155,4 @@ if isdirectory(LLVM_PREFIX . "/lib/")
 endif
 
 let g:vim_monty_debug = 1
-let g:vim_monty_fallback_python_path = expand('$HOME/privateroot/orr/orr_dir/ve/lib/python2.7/site-packages')
+let g:vim_monty_fallback_python_path = expand('$HOME/privateroot/orr/orr_dir/ve/lib/python*/site-packages')
