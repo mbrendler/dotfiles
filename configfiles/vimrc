@@ -124,6 +124,10 @@ map <Leader>m :CommandT<CR>
 map <Leader>t :CommandT<CR>
 map <Leader>f :call fullscreen#Toggle()<CR>
 
+" Split line (sister to [J]oin lines)
+" The normal use of S is covered by cc, so don't worry about shadowing it.
+nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
+
 " Insert new line without entering insert mode.
 map <S-Enter> O<Esc>j
 map <CR> o<Esc>k
