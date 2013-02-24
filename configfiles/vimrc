@@ -129,6 +129,7 @@ map <S-Enter> O<Esc>j
 map <CR> o<Esc>k
 
 command! W w
+command! Wq wq
 
 
 " Options of some plug-ins:
