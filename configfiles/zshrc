@@ -77,6 +77,9 @@ elif [[ `uname` == "Darwin" ]] ; then
     alias gvim=mvim
 fi
 
+alias hg="LANG=en_UK.utf8 hg"
+alias git="LANG=en_UK.utf8 git"
+
 alias hlcat="source-highlight --output=STDOUT --out-format=esc -i"
 
 pbecho () { echo $* | pbcopy }
