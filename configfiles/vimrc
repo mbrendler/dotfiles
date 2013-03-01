@@ -8,6 +8,7 @@ syntax on
 "colorscheme evening
 colorscheme Mustang
 
+set encoding=utf-8
 set autoindent
 set hidden " restore history of buffer coming from background
 set ruler " show cursor position
@@ -18,7 +19,6 @@ set spell
 set showcmd
 set backspace=2
 set noantialias
-set encoding=utf-8
 set cpoptions=B$ " cw-like commands mark end with $ instead of deleting.
 
 set wildmenu
