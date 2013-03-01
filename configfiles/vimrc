@@ -75,7 +75,9 @@ if has("gui_running")
     set gfn=Monaco:h13
     set lines=55
   elseif hostname() == 'janneke.local'
-    set gfn=Monaco:h14
+    " set gfn=Monaco:h14
+    set gfn=Menlo:h14
+    set antialias
     set lines=55
   elseif hostname() == 'atom'
     set gfn=Monospace\ 9.5
