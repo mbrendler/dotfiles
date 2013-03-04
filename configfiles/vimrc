@@ -78,7 +78,7 @@ if has("gui_running")
     " set gfn=Monaco:h14
     set gfn=Menlo:h14
     set antialias
-    set lines=55
+    set lines=63
   elseif hostname() == 'atom'
     set gfn=Monospace\ 9.5
     winpos 298 16
