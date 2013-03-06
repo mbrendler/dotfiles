@@ -24,3 +24,5 @@
         path = ~/.gitconfig_local
 [credential]
 	helper = osxkeychain
+[push]
+	default = simple
