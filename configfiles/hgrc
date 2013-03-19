@@ -12,7 +12,6 @@ hgext.extdiff =
 mq = 
 rebase =
 graphlog =  
-fetch = 
 purge =
 color = 
 hggit =
