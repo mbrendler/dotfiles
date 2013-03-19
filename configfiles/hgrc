@@ -18,6 +18,7 @@ color =
 hggit =
 #hgsubversion = 
 mercurial_keyring =
+crecord =
 
 [extdiff]
 cmd.kdiff3 =
