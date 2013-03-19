@@ -19,6 +19,7 @@ hggit =
 #hgsubversion = 
 mercurial_keyring =
 crecord =
+versions =
 
 [extdiff]
 cmd.kdiff3 =
