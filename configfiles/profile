@@ -1,0 +1,29 @@
+
+
+export PATH=$HOME/privateroot/usr/bin:$HOME/privateroot/gnu/bin:$PATH
+
+
+# Homebrew:
+if [ -f /usr/local/bin/brew ] ; then
+    HOMEBREW_PATH=/usr/local
+fi
+if [[ $HOMEBREW_PATH != '' ]] ; then
+    export PYTHONPATH=$HOMEBREW_PATH/lib/python2.7/site-packages:$PYTHONPATH
+    export NODE_PATH=$HOMEBREW_PATH/lib/node_modules:$NODE_PATH
+    export PATH=$HOMEBREW_PATH/bin:$PATH
+fi
+
+
+# Orr:
+if test -d "$HOME/privateroot/orr/orr_dir/bin" ; then
+    export PATH=$HOME/privateroot/orr/orr_dir/bin:$PATH
+fi
+
+
+export PYTHONSTARTUP=$HOME/.pystartup
+
+
+export EDITOR=vim
+
+
+export PROFILE_SOURCED=1

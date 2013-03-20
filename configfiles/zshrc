@@ -1,4 +1,11 @@
 
+if test $PROFILE_SOURCED -eq 1 ; then
+    if test -e $HOME/.profile ; then
+        source $HOME/.profile
+    fi
+fi
+
+
 ZSH=$HOME/.zsh/oh-my-zsh
 if test -d $ZSH ; then
     DISABLE_AUTO_UPDATE="true"
@@ -11,28 +18,11 @@ else
     PROMPT="%n@%m:%~%{%F{blue}%}$%{%f%} "
 fi
 
-export PATH=$HOME/privateroot/usr/bin:$HOME/privateroot/gnu/bin:$PATH
-
-# Homebrew:
-if [ -f /usr/local/bin/brew ] ; then
-    HOMEBREW_PATH=/usr/local
-fi
-if [[ $HOMEBREW_PATH != '' ]] ; then
-    export PYTHONPATH=$HOMEBREW_PATH/lib/python2.7/site-packages:$PYTHONPATH
-    export NODE_PATH=$HOMEBREW_PATH/lib/node_modules:$NODE_PATH
-    export PATH=$HOMEBREW_PATH/bin:$PATH
-fi
-
-# Orr:
-if test -d "$HOME/privateroot/orr/orr_dir/bin" ; then
-    export PATH=$HOME/privateroot/orr/orr_dir/bin:$PATH
-fi
 
 # VirtualEnvWrapper:
 export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
 
-export PYTHONSTARTUP=$HOME/.pystartup
 
 # Ruby:
 export RUBYOPT=rubygems
@@ -52,10 +42,7 @@ fi
 
 
 if [ -x $HOME/Applications/MacVim.app/Contents/MacOS/Vim ] ; then
-    export EDITOR=$HOME/Applications/MacVim.app/Contents/MacOS/Vim
     alias vim=$HOME/Applications/MacVim.app/Contents/MacOS/Vim
-else
-    export EDITOR=vim
 fi
 
 
