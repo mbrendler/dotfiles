@@ -9,3 +9,6 @@
 
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier nil)
+
+
+(load-file "~/.emacs.d/date-time.el")
