@@ -21,6 +21,7 @@ set showcmd
 set backspace=2
 set noantialias
 set cpoptions=B$ " cw-like commands mark end with $ instead of deleting.
+set modeline
 
 set wildmenu
 set wildignore+=.DS_Store
