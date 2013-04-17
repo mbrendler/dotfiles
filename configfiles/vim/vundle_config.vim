@@ -45,3 +45,4 @@ Bundle 'rson/vim-conque'
 Bundle 'kana/vim-scratch'
 
 Bundle 'tpope/vim-fugitive'
+Bundle 'hg::https://bitbucket.org/ludovicchabant/vim-lawrencium'
