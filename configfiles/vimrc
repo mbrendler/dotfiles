@@ -134,7 +134,7 @@ nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 
 " Insert new line without entering insert mode.
 map <S-Enter> O<Esc>j
-map <CR> o<Esc>k
+map <C-Enter> o<Esc>k
 
 command! W w
 command! Wq wq
