@@ -89,7 +89,7 @@ if has("gui_running")
     set nocursorcolumn
   elseif hostname() == 'FUE-14'
     set gfn=Monospace\ 9.5
-    winpos 669 24
+    winpos 663 19
     autocmd GUIEnter * set lines=52 columns=88
   endif
 
