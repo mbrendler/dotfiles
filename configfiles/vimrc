@@ -140,6 +140,9 @@ command! W w
 command! Wq wq
 
 
+command! Now :normal a<C-R>="".strftime('%H:%M %d.%m.%Y')<CR><Esc>
+
+
 " Options of some plug-ins:
 let NERDTreeIgnore = ['\.pyc$', '\.orig$']
 let g:session_autosave = 'yes'
