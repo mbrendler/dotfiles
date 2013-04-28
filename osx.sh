@@ -72,7 +72,7 @@ defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 # Show status bar in Finder
-defaults write com.apple.finder ShowStatusBar -bool true
+# defaults write com.apple.finder ShowStatusBar -bool true
 
 # Allow text selection in Quick Look
 defaults write com.apple.finder QLEnableTextSelection -bool true
