@@ -80,6 +80,7 @@ if has("gui_running")
   elseif hostname() == 'janneke.local'
     " set gfn=Monaco:h14
     set gfn=Menlo:h14
+    winpos 653 22
     set antialias
     set lines=63
   elseif hostname() == 'atom'
