@@ -97,14 +97,15 @@ if has("gui_running")
 
   if has('mac')
     " Map Apple-ö and Apple ä to previous and next tabs
-    nmap <D-ö> :tabprevious<CR>
-    nmap <D-ä> :tabnext<CR>
-    imap <D-ö> <ESC>:tabprevious<CR>
-    imap <D-ä> <ESC>:tabnext<CR>
+    nnoremap <D-ö> :tabprevious<CR>
+    nnoremap <D-ä> :tabnext<CR>
+    inoremap <D-ö> <ESC>:tabprevious<CR>
+    inoremap <D-ä> <ESC>:tabnext<CR>
   endif
 
-  nmap <a-left> b
-  nmap <a-right> w
+  " TODO: maybe remove the following commands
+  nnoremap <a-left> b
+  nnoremap <a-right> w
 
   if &diff
     autocmd! GUIEnter * call fullscreen#Start()
@@ -122,21 +123,21 @@ function! s:dirDiffWithArguments()
 endfunction
 
 let mapleader = ","
-map <Leader>n :TlistClose<CR>:NERDTreeToggle<CR>
-map <Leader>ü :NERDTreeClose<CR>:TlistToggle<CR>
-map <Leader>u :NERDTreeClose<CR>:TlistClose<CR>:GundoToggle<CR>
-map <Leader>b :LustyBufferExplorer<CR>
-map <Leader>m :CommandT<CR>
-map <Leader>t :CommandT<CR>
-map <Leader>f :call fullscreen#Toggle()<CR>
+nnoremap <Leader>n :TlistClose<CR>:NERDTreeToggle<CR>
+nnoremap <Leader>ü :NERDTreeClose<CR>:TlistToggle<CR>
+nnoremap <Leader>u :NERDTreeClose<CR>:TlistClose<CR>:GundoToggle<CR>
+nnoremap <Leader>b :LustyBufferExplorer<CR>
+nnoremap <Leader>m :CommandT<CR>
+nnoremap <Leader>t :CommandT<CR>
+nnoremap <Leader>f :call fullscreen#Toggle()<CR>
 
 " Split line (sister to [J]oin lines)
 " The normal use of S is covered by cc, so don't worry about shadowing it.
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 
 " Insert new line without entering insert mode.
-map <S-Enter> O<Esc>j
-map <C-Enter> o<Esc>k
+nnoremap <S-Enter> O<Esc>j
+nnoremap <C-Enter> o<Esc>k
 
 command! W w
 command! Wq wq
