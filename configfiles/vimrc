@@ -99,6 +99,8 @@ if has("gui_running")
     " Map Apple-ö and Apple ä to previous and next tabs
     nnoremap <D-ö> :tabprevious<CR>
     nnoremap <D-ä> :tabnext<CR>
+    vnoremap <D-ö> <ESC>:tabprevious<CR>
+    vnoremap <D-ä> <ESC>:tabnext<CR>
     inoremap <D-ö> <ESC>:tabprevious<CR>
     inoremap <D-ä> <ESC>:tabnext<CR>
   endif
