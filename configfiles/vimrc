@@ -1,7 +1,9 @@
 set nocompatible
 
+let $VIMHOME=expand("$HOME/.vim")
+
 " include plug-ins by vundle plugin:
-source $HOME/.vim/vundle_config.vim
+source $VIMHOME/vundle_config.vim
 
 set t_Co=256
 syntax on
