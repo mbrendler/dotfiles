@@ -142,6 +142,7 @@ nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 nnoremap <S-Enter> O<Esc>j
 nnoremap <C-Enter> o<Esc>k
 
+inoremap jk <esc>
 inoremap <left> <nop>
 inoremap <down> <nop>
 inoremap <up> <nop>
