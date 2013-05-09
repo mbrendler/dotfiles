@@ -126,6 +126,7 @@ function! s:dirDiffWithArguments()
   execute "DirDiff" fnameescape(argv(0)) fnameescape(argv(1))
 endfunction
 
+
 let mapleader = ","
 nnoremap <Leader>n :TlistClose<CR>:NERDTreeToggle<CR>
 nnoremap <Leader>ü :NERDTreeClose<CR>:TlistToggle<CR>
@@ -135,6 +136,13 @@ nnoremap <Leader>m :CommandT<CR>
 nnoremap <Leader>t :CommandT<CR>
 nnoremap <Leader>f :call fullscreen#Toggle()<CR>
 nnoremap <Leader>o :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+nnoremap <Leader>ev :split $MYVIMRC<CR>
+nnoremap <Leader>sv :source $MYVIMRC<CR>
+let $FT_DIR = expand("$VIMHOME/after/ftplugin/")
+nnoremap <Leader>ef :execute "split " . $FT_DIR . &filetype . ".vim"<CR>
+nnoremap <Leader>sf :execute "source " . $FT_DIR . &filetype . ".vim"<CR>
+
+let maplocalleader = "_"
 
 " Split line (sister to [J]oin lines)
 " The normal use of S is covered by cc, so don't worry about shadowing it.
