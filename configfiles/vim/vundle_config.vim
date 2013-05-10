@@ -44,5 +44,10 @@ Bundle 'rson/vim-conque'
 " Creates a buffer, which is not saved
 Bundle 'kana/vim-scratch'
 
+if has('mac')
+  Bundle 'rizzatti/funcoo.vim'
+  Bundle 'rizzatti/dash.vim'
+endif
+
 Bundle 'tpope/vim-fugitive'
 Bundle 'hg::https://bitbucket.org/ludovicchabant/vim-lawrencium'
