@@ -70,6 +70,7 @@ if has("gui_running")
   set number
   " defualt: guioptions=aegimrLt
   set guioptions='iecrL'
+  set guitablabel=%N\ %M%t
   set columns=88
   set clipboard=unnamed
   set laststatus=2
