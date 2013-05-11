@@ -137,6 +137,7 @@ nnoremap <Leader>sv :source $MYVIMRC<CR>
 let $FT_DIR = expand("$VIMHOME/after/ftplugin/")
 nnoremap <Leader>ef :execute "split " . $FT_DIR . &filetype . ".vim"<CR>
 nnoremap <Leader>sf :execute "source " . $FT_DIR . &filetype . ".vim"<CR>
+nnoremap <Leader>eh :split $HOME/.hgrc<CR>
 
 let maplocalleader = "_"
 
