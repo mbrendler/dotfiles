@@ -42,11 +42,12 @@ filetype plugin indent on
 
 
 augroup filetypedetect
-  au! BufRead,BufNewFile *.m setfiletype objc
+  " This group is created by vim, so don't use 'autocmd!'.
+  autocmd BufRead,BufNewFile *.m setfiletype objc
 
   " Add html FileType for djangohtml files, to activate some html specific
   " plugins, like SnipeMate-Completion on htmldjango files.
-  au! FileType htmldjango set ft=htmldjango.html
+  autocmd FileType htmldjango set ft=htmldjango.html
 augroup END
 
 
@@ -84,13 +85,19 @@ if has("gui_running")
   elseif hostname() == 'atom'
     set gfn=Monospace\ 9.5
     winpos 298 16
-    autocmd GUIEnter * set lines=37 columns=88
+    augroup gui_size
+      autocmd!
+      autocmd GUIEnter * set lines=37 columns=88
+    augroup END
     set nocursorline
     set nocursorcolumn
   elseif hostname() == 'FUE-14'
     set gfn=Monospace\ 9.5
     winpos 663 19
-    autocmd GUIEnter * set lines=52 columns=88
+    augroup gui_size
+      autocmd!
+      autocmd GUIEnter * set lines=52 columns=88
+    augroup END
   endif
 
   if has('mac')
@@ -108,11 +115,14 @@ if has("gui_running")
   nnoremap <a-right> w
 
   if &diff
-    autocmd! GUIEnter * call fullscreen#Start()
-    wincmd =
-    if isdirectory(argv(0))
-      autocmd GUIEnter * call s:dirDiffWithArguments()
-    endif
+    augroup gui_size
+      autocmd!
+      autocmd GUIEnter * call fullscreen#Start()
+      wincmd =
+      if isdirectory(argv(0))
+        autocmd GUIEnter * call s:dirDiffWithArguments()
+      endif
+    augroup END
   endif
 
 endif
