@@ -36,11 +36,6 @@ set wildignore+=.hg
 set wildignore+=.git
 set wildignore+=.svn
 
-" Haskell
-au Bufenter *.hs compiler ghc
-let g:haddock_browser = "open"
-let g:haddock_browser_callformat = "%s %s"
-let g:haddock_indexfiledir = "$HOME/.vim/"
 
 filetype plugin on
 filetype plugin indent on
@@ -196,3 +191,8 @@ endif
 
 let g:vim_monty_debug = 1
 let g:vim_monty_fallback_python_path = expand('$HOME/privateroot/orr/orr_dir/ve/lib/python*/site-packages')
+
+" Haskell-Mode
+let g:haddock_browser = "open"
+let g:haddock_browser_callformat = "%s %s"
+let g:haddock_indexfiledir = "$HOME/.vim/"
