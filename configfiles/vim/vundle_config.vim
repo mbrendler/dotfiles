@@ -28,6 +28,8 @@ Bundle 'lukerandall/haskellmode-vim'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'sellerie/vim-monty'
 Bundle 'sellerie/vim-gradle'
+Bundle 'vim-scripts/taglist.vim'
+Bundle 'wesleyche/SrcExpl'
 
 " editing
 "" Automatic closing of quotes, parentheses, ...

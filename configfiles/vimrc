@@ -155,6 +155,8 @@ let mapleader = ","
 nnoremap <Leader>n :TlistClose<CR>:NERDTreeToggle<CR>
 nnoremap <Leader>ü :NERDTreeClose<CR>:TlistToggle<CR>
 nnoremap <Leader>u :NERDTreeClose<CR>:TlistClose<CR>:GundoToggle<CR>
+nnoremap <Leader>l :TlistToggle<CR>
+nnoremap <Leader>k :SrcExplToggle<CR>
 nnoremap <Leader>b :LustyBufferExplorer<CR>
 nnoremap <Leader>m :CommandT<CR>
 nnoremap <Leader>t :CommandT<CR>
@@ -233,3 +235,9 @@ let g:vim_monty_fallback_python_path = expand('$HOME/privateroot/orr/orr_dir/ve/
 let g:haddock_browser = "open"
 let g:haddock_browser_callformat = "%s %s"
 let g:haddock_indexfiledir = "$HOME/.vim/"
+
+let Tlist_Use_Right_Window = 1
+let Tlist_Inc_Winwidth = 1
+let Tlist_Enable_Fold_Column = 0
+let Tlist_Display_Prototype = 0
+let Tlist_Display_Tag_Scope = 0
