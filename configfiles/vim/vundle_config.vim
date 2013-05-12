@@ -23,7 +23,7 @@ Bundle 'sjl/gundo.vim'
 " programming languages
 Bundle 'scrooloose/syntastic'
 Bundle 'Rip-Rip/clang_complete'
-Bundle 'vim-scripts/Cpp11-Syntax-Support.git'
+Bundle 'vim-scripts/Cpp11-Syntax-Support'
 Bundle 'lukerandall/haskellmode-vim'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'sellerie/vim-monty'
