@@ -163,7 +163,7 @@ nnoremap <Leader>ef :execute "split " . $FT_DIR . &filetype . ".vim"<CR>
 nnoremap <Leader>sf :execute "source " . $FT_DIR . &filetype . ".vim"<CR>
 nnoremap <Leader>eh :split $HOME/.hgrc<CR>
 
-let maplocalleader = "_"
+let maplocalleader = "ö"
 
 " Split line (sister to [J]oin lines)
 " The normal use of S is covered by cc, so don't worry about shadowing it.
