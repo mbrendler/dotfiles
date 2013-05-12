@@ -40,10 +40,24 @@ set wildignore+=.svn
 filetype plugin on
 filetype plugin indent on
 
+function! s:setHeaderFiletype()
+  let file_no_extension=expand("%:p:r")
+  if filereadable(file_no_extension . ".cpp")
+    set filetype=cpp
+  elseif filereadable(file_no_extension . ".c")
+    set filetype=c
+  elseif filereadable(file_no_extension . ".m")
+    set filetype=objc
+  else
+    echom "no .cpp, .c or .m file found."
+  endif
+endfunction
 
 augroup filetypedetect
   " This group is created by vim, so don't use 'autocmd!'.
   autocmd BufRead,BufNewFile *.m setfiletype objc
+
+  autocmd BufRead,BufNewFile *.h call s:setHeaderFiletype()
 
   " Add html FileType for djangohtml files, to activate some html specific
   " plugins, like SnipeMate-Completion on htmldjango files.
