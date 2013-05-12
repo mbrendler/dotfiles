@@ -155,7 +155,6 @@ nnoremap <Leader>b :LustyBufferExplorer<CR>
 nnoremap <Leader>m :CommandT<CR>
 nnoremap <Leader>t :CommandT<CR>
 nnoremap <Leader>f :call fullscreen#Toggle()<CR>
-nnoremap <Leader>o :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 nnoremap <Leader>ev :split $MYVIMRC<CR>
 nnoremap <Leader>sv :source $MYVIMRC<CR>
 let $FT_DIR = expand("$VIMHOME/after/ftplugin/")
