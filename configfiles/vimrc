@@ -157,7 +157,6 @@ let mapleader = ","
 nnoremap <Leader>n :TlistClose<CR>:NERDTreeToggle<CR>
 nnoremap <Leader>ü :NERDTreeClose<CR>:TlistToggle<CR>
 nnoremap <Leader>u :NERDTreeClose<CR>:TlistClose<CR>:GundoToggle<CR>
-nnoremap <Leader>l :TlistToggle<CR>
 nnoremap <Leader>k :SrcExplToggle<CR>
 nnoremap <Leader>b :LustyBufferExplorer<CR>
 nnoremap <Leader>m :CommandT<CR>
@@ -211,8 +210,6 @@ command! Now :normal a<C-R>="".strftime('%H:%M %d.%m.%Y')<CR><Esc>
 let NERDTreeIgnore = ['\.pyc$', '\.orig$']
 let g:session_autosave = 'yes'
 let g:session_command_aliases = 1
-let Tlist_Inc_Winwidth = 0
-let Tlist_GainFocus_On_ToggleOpen = 1
 let clam_winpos = 'topleft'
 let g:Powerline_symbols = 'fancy'
 let g:Powerline_cache_enabled = 1
@@ -243,3 +240,7 @@ let Tlist_Inc_Winwidth = 1
 let Tlist_Enable_Fold_Column = 0
 let Tlist_Display_Prototype = 0
 let Tlist_Display_Tag_Scope = 0
+if hostname() == "FUE-14"
+  let Tlist_Ctags_Cmd = "/usr/bin/ctags-exuberant"
+  let g:SrcExpl_updateTagsCmd = Tlist_Ctags_Cmd . " --sort=foldcase -R ."
+endif
