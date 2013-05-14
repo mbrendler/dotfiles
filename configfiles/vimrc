@@ -82,9 +82,7 @@ if has("gui_running")
   " defualt: guioptions=aegimrLt
   set guioptions='iecrL'
   set columns=88
-  if has("x11")
-    set clipboard=unnamed,unnamedplus
-  endif
+  set clipboard=unnamed,unnamedplus
   set laststatus=2
   set cursorline
   set cursorcolumn
