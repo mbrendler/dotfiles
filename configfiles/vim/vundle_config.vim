@@ -18,6 +18,8 @@ Bundle 'DirDiff.vim'
 Bundle 'xolox/vim-session'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'int3/vim-taglist-plus'
+Bundle 'vim-scripts/taglist.vim'
+Bundle 'wesleyche/SrcExpl'
 Bundle 'sjl/gundo.vim'
 
 " programming languages
@@ -28,8 +30,6 @@ Bundle 'lukerandall/haskellmode-vim'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'sellerie/vim-monty'
 Bundle 'sellerie/vim-gradle'
-Bundle 'vim-scripts/taglist.vim'
-Bundle 'wesleyche/SrcExpl'
 
 " editing
 "" Automatic closing of quotes, parentheses, ...
@@ -38,11 +38,12 @@ Bundle 'tpope/vim-surround'
 Bundle 'tomtom/tcomment_vim'
 
 " search plugins
+"" shows the number of matches on (/, ?, n, N, *, #)
 Bundle 'henrik/vim-indexed-search'
+"" Completion in search lines
 Bundle 'SearchComplete'
 
 Bundle 'sjl/clam.vim'
-Bundle 'rson/vim-conque'
 " Creates a buffer, which is not saved
 Bundle 'kana/vim-scratch'
 
