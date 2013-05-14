@@ -25,6 +25,7 @@ set noantialias
 set cpoptions=B$ " cw-like commands mark end with $ instead of deleting.
 set modeline
 set tildeop
+set formatoptions+=j
 
 set wildmenu
 set wildignore+=.DS_Store
