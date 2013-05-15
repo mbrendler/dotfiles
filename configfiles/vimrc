@@ -5,6 +5,8 @@ let $VIMHOME=expand("$HOME/.vim")
 " include plug-ins by vundle plugin:
 source $VIMHOME/vundle_config.vim
 
+
+" Basic settings -- {{{
 set t_Co=256
 syntax on
 "colorscheme evening
@@ -37,7 +39,17 @@ set wildignore+=.hg
 set wildignore+=.git
 set wildignore+=.svn
 
+" Completion menu also on omni completion
+set completeopt=longest,menuone
 
+if exists('&colorcolumn')
+  set colorcolumn=81
+endif
+
+" }}}
+
+
+" Filetype stuff -- {{{
 filetype plugin on
 filetype plugin indent on
 
@@ -65,16 +77,10 @@ augroup filetypedetect
   autocmd FileType htmldjango set ft=htmldjango.html
 augroup END
 
-
-" Completion menu also on omni completion
-set completeopt=longest,menuone
+" }}}
 
 
-if exists('&colorcolumn')
-  set colorcolumn=81
-endif
-
-
+" GUI Settings -- {{{
 if has("gui_running")
   colorscheme pyte
   set ttyfast
@@ -151,7 +157,10 @@ function! s:dirDiffWithArguments()
   execute "DirDiff" fnameescape(argv(0)) fnameescape(argv(1))
 endfunction
 
+" }}}
 
+
+" Mappings -- {{{
 let mapleader = ","
 nnoremap <Leader>n :TlistClose<CR>:NERDTreeToggle<CR>
 nnoremap <Leader>ü :NERDTreeClose<CR>:TlistToggle<CR>
@@ -197,15 +206,19 @@ noremap <down> <nop>
 noremap <up> <nop>
 noremap <right> <nop>
 
+"  }}}
 
+
+" Own commands -- {{{
 command! W w
 command! Wq wq
 
-
 command! Now :normal a<C-R>="".strftime('%H:%M %d.%m.%Y')<CR><Esc>
 
+" }}}
 
-" Options of some plug-ins:
+
+" Plugin Settings -- {{{
 let NERDTreeIgnore = ['\.pyc$', '\.orig$']
 let g:session_autosave = 'yes'
 let g:session_command_aliases = 1
@@ -216,7 +229,6 @@ let g:Powerline_cache_enabled = 1
 " let g:syntastic_stl_format = "%E{E:%e} %W{W:%w}"
 " set statusline=%<%f\ %h%m%r\ %{SyntasticStatuslineFlag()}%=%-14.(%l,%c%V%)\ %P
 let g:syntastic_cpp_compiler = "clang++"
-
 
 " clang_complete
 "" TODO: make this more standard
@@ -243,3 +255,5 @@ if hostname() == "FUE-14"
   let Tlist_Ctags_Cmd = "/usr/bin/ctags-exuberant"
   let g:SrcExpl_updateTagsCmd = Tlist_Ctags_Cmd . " --sort=foldcase -R ."
 endif
+
+" }}}
