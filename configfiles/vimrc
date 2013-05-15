@@ -135,10 +135,6 @@ if has("gui_running")
     inoremap <D-ä> <ESC>:tabnext<CR>
   endif
 
-  " TODO: maybe remove the following commands
-  nnoremap <a-left> b
-  nnoremap <a-right> w
-
   if &diff
     augroup gui_size
       autocmd!
@@ -149,7 +145,6 @@ if has("gui_running")
       endif
     augroup END
   endif
-
 endif
 
 function! s:dirDiffWithArguments()
