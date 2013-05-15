@@ -3,7 +3,8 @@
   "http://marmalade-repo.org/packages/"))
 
 (tool-bar-mode -1)
-(menu-bar-mode -1)
+(when (not (string= system-type "darwin"))
+  (menu-bar-mode -1))
 ; (linum-mode 1)
 ; (viper-mode)
 
