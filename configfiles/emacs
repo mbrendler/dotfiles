@@ -8,10 +8,14 @@
 ; (linum-mode 1)
 ; (viper-mode)
 
-(setq mac-command-modifier 'meta)
-(setq mac-option-modifier nil)
+(setq mac-command-modifier 'meta
+      mac-option-modifier nil)
 
 (when (string= system-name "janneke.local")
   (set-face-attribute 'default nil :font "Menlo Regular 14"))
+
+(setq inhibit-startup-screen t)
+
+(setq-default indent-tabs-mode nil)
 
 (load-file "~/.emacs.d/date-time.el")
