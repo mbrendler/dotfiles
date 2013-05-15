@@ -10,5 +10,7 @@
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier nil)
 
+(when (string= system-name "janneke.local")
+  (set-face-attribute 'default nil :font "Menlo Regular 14"))
 
 (load-file "~/.emacs.d/date-time.el")
