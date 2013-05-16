@@ -1,6 +1,6 @@
 
 
-function! s:insert_guards()
+function! s:InsertGuard()
   let guardname = substitute(toupper(expand("%:t")), "\\.", "_", "g")
   let id = substitute(system("uuidgen"), "[-\n]", "", "g")
   let guardname = guardname . "__" . id
@@ -17,5 +17,5 @@ endfunction
 
 augroup insert_c_cpp_objc_header_guard
   autocmd!
-  autocmd BufNewFile *.{h,hpp} call <SID>insert_guards()
+  autocmd BufNewFile *.{h,hpp} call <SID>InsertGuard()
 augroup END

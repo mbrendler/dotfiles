@@ -53,7 +53,7 @@ endif
 filetype plugin on
 filetype plugin indent on
 
-function! s:setHeaderFiletype()
+function! s:SetHeaderFiletype()
   let file_no_extension=expand("%:p:r")
   if filereadable(file_no_extension . ".cpp")
     set filetype=cpp
@@ -70,7 +70,7 @@ augroup filetypedetect
   " This group is created by vim, so don't use 'autocmd!'.
   autocmd BufRead,BufNewFile *.m set filetype=objc
 
-  autocmd BufRead,BufNewFile *.h call s:setHeaderFiletype()
+  autocmd BufRead,BufNewFile *.h call s:SetHeaderFiletype()
 
   " Add html FileType for djangohtml files, to activate some html specific
   " plugins, like SnipeMate-Completion on htmldjango files.
@@ -141,13 +141,13 @@ if has("gui_running")
       autocmd GUIEnter * call fullscreen#Start()
       wincmd =
       if isdirectory(argv(0))
-        autocmd GUIEnter * call s:dirDiffWithArguments()
+        autocmd GUIEnter * call s:DirDiffWithArguments()
       endif
     augroup END
   endif
 endif
 
-function! s:dirDiffWithArguments()
+function! s:DirDiffWithArguments()
   next
   execute "DirDiff" fnameescape(argv(0)) fnameescape(argv(1))
 endfunction
