@@ -1,6 +1,6 @@
-(require 'package)
-(add-to-list 'package-archives '("marmalade" .
-  "http://marmalade-repo.org/packages/"))
+(add-to-list 'load-path "~/.emacs.d/site-lisp")
+
+(load "~/.emacs.d/rm-theme.el")
 
 (tool-bar-mode -1)
 (when (not (string= system-type "darwin"))
@@ -14,8 +14,62 @@
 (when (string= system-name "janneke.local")
   (set-face-attribute 'default nil :font "Menlo Regular 14"))
 
-(setq inhibit-startup-screen t)
+(setq inhibit-startup-screen t
+      scroll-conservatively 1
+      backup-inhibited t)
 
 (setq-default indent-tabs-mode nil)
 
 (load-file "~/.emacs.d/date-time.el")
+
+
+;; package.el
+(require 'package)
+(setq package-user-dir "~/.emacs.d/vendor/")
+(add-to-list 'package-archives
+	     '("marmalade" . "http://marmalade-repo.org/packages/") t)
+(add-to-list 'package-archives
+	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(package-initialize)
+
+
+;; package configuration
+(require 'configure-package)
+
+
+; (setq multi-term-program "/usr/local/bin/zsh")
+(configure-package term
+  "term and ansi-term"
+  :after (progn
+    (set-face-attribute
+      'term-color-black nil   :foreground "#2E3436" :background "#555753") ;0 8
+    (set-face-attribute
+      'term-color-red nil     :foreground "#CC0000" :background "#EF2929") ;1 9
+    (set-face-attribute
+      'term-color-green nil   :foreground "#4E9A06" :background "#8AE234") ;2 10
+    (set-face-attribute
+      'term-color-yellow nil  :foreground "#C4A000" :background "#FCE94F") ;3 11
+    (set-face-attribute
+      'term-color-blue nil    :foreground "#3465A4" :background "#729FCF") ;4 12
+    (set-face-attribute
+      'term-color-magenta nil :foreground "#75507B" :background "#AD7FA8") ;5 13
+    (set-face-attribute
+      'term-color-cyan nil    :foreground "#06989A" :background "#34E2E2") ;6 14
+    (set-face-attribute
+      'term-color-white nil   :foreground "#D3D7CF" :background "#EEEEEC") ;7 15
+  )
+)
+
+; set encoding of term
+(add-hook 'term-exec-hook
+          (function
+           (lambda ()
+             (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix))))
+
+
+;;(custom-set-variables
+;;    '(term-default-bg-color "#000000"))  ;; background color (black)
+;;    '(term-default-fg-color "#dddd00"))  ;; foreground color (yellow)
+
+(configure-package anything
+  "CommandT like file open")

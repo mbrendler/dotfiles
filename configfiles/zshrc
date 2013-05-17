@@ -1,3 +1,4 @@
+[[ $TERM == eterm-color ]] && export TERM=xterm
 
 if test ! "$PROFILE_SOURCED" -eq 1 ; then
     if test -e $HOME/.profile ; then
