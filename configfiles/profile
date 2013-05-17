@@ -1,5 +1,4 @@
 
-
 export PATH=$HOME/privateroot/usr/bin:$HOME/privateroot/gnu/bin:$PATH
 
 
@@ -27,3 +26,9 @@ export EDITOR=vim
 
 
 export PROFILE_SOURCED=1
+# On OS-X I need to change /etc/zshenv to:
+## if [ -x /usr/libexec/path_helper ]; then
+##     export PROFILE_SOURCED=0
+##     PATH=""
+##     eval `/usr/libexec/path_helper -s`
+## fi
