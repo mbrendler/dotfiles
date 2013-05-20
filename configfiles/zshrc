@@ -124,3 +124,6 @@ compinit
 # syntax-highlighting
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+
+fortune -s 2> /dev/null || true
