@@ -64,12 +64,12 @@ alias pbpwd="pwd | pbcopy"
 if [[ `uname` == "Linux" ]] ; then
     alias pbcopy='xsel --clipboard --input'
     alias pbpaste='xsel --clipboard --output'
-
-    # Jump to next/last word by Ctrl-Arrow-Right/-Left:
-    bindkey "^[[1;5C" forward-word
-    bindkey "^[[1;5D" backward-word
 elif [[ `uname` == "Darwin" ]] ; then
     alias gvim=mvim
+
+    # Jump to next/last word by Alt+f / Alt+b:
+    bindkey "ƒ" forward-word
+    bindkey "∫" backward-word
 fi
 
 alias hg="LANG=en_UK.utf8 hg"
