@@ -29,9 +29,12 @@ source /usr/local/bin/virtualenvwrapper.sh
 
 # Ruby:
 export RUBYOPT=rubygems
-export GEM_HOME=$HOME/.gem/ruby/1.8
-export GEM_PATH=$HOME/.gem/ruby/1.8:$GEM_PATH
-export PATH=$HOME/.gem/ruby/1.8/bin:$PATH
+RUBY_GEMS_DIR=$HOME/.gem/ruby/1.8
+if test -d "$RUBY_GEMS_DIR" ; then
+    export GEM_HOME=$RUBY_GEMS_DIR
+    export GEM_PATH=$RUBY_GEMS_DIR:$GEM_PATH
+    export PATH=$RUBY_GEMS_DIR/bin:$PATH
+fi
 
 # RVM:
 if test -d "$HOME/.rvm" ; then
