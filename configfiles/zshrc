@@ -52,9 +52,11 @@ if [ -x $HOME/Applications/MacVim.app/Contents/MacOS/Vim ] ; then
 fi
 
 
-eval "$(dircolors -b)"
+if which dircolors > /dev/null 2> /dev/null ; then
+    eval "$(dircolors -b)"
+    alias ls="ls --color"
+fi
 alias .=source
-alias ls="ls --color"
 alias grep="grep --color"
 alias pbpwd="pwd | pbcopy"
 
