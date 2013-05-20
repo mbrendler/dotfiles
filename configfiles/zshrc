@@ -12,7 +12,6 @@ fi
 ZSH=$HOME/.zsh/oh-my-zsh
 if test -d $ZSH ; then
     DISABLE_AUTO_UPDATE="true"
-    #ZSH_THEME="afowler"
     plugins=(brew pip django vagrant npm)
     source $ZSH/oh-my-zsh.sh
     source $HOME/.zsh/hg.zsh
@@ -42,13 +41,6 @@ if test -d "$RUBY_GEMS_DIR" ; then
     export GEM_HOME=$RUBY_GEMS_DIR
     export GEM_PATH=$RUBY_GEMS_DIR:$GEM_PATH
     export PATH=$RUBY_GEMS_DIR/bin:$PATH
-fi
-
-# RVM:
-if test -d "$HOME/.rvm" ; then
-    [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-    # PS1="\$(~/.rvm/bin/rvm-prompt)$PS1"
-    # export PATH=$HOME/.rvm/bin:$PATH
 fi
 
 
