@@ -28,6 +28,9 @@ set cpoptions=B$ " cw-like commands mark end with $ instead of deleting.
 set modeline
 set tildeop
 set formatoptions+=j
+set noerrorbells
+set visualbell
+set t_vb=
 
 set wildmenu
 set wildignore+=.DS_Store
@@ -99,16 +102,15 @@ if has("gui_running")
   augroup end
 
   if hostname() ==# 'macmini.local'
-    set gfn=Monaco:h13
+    set guifont=Monaco:h13
     set lines=55
   elseif hostname() ==# 'janneke.local'
-    " set gfn=Monaco:h14
-    set gfn=Menlo:h14
+    set guifont=Menlo:h14
     winpos 653 22
     set antialias
     set lines=63
   elseif hostname() ==# 'atom'
-    set gfn=Monospace\ 9.5
+    set guifont=Monospace\ 9.5
     winpos 298 16
     augroup gui_size
       autocmd!
@@ -117,7 +119,7 @@ if has("gui_running")
     set nocursorline
     set nocursorcolumn
   elseif hostname() ==# 'FUE-14'
-    set gfn=Monospace\ 9.5
+    set guifont=Monospace\ 9.5
     winpos 663 19
     augroup gui_size
       autocmd!
@@ -217,6 +219,7 @@ command! Now :normal a<C-R>="".strftime('%H:%M %d.%m.%Y')<CR><Esc>
 let NERDTreeIgnore = ['\.pyc$', '\.orig$']
 let g:session_autosave = 'yes'
 let g:session_command_aliases = 1
+let g:session_autoload = 'no'
 let clam_winpos = 'topleft'
 let g:Powerline_symbols = 'fancy'
 let g:Powerline_cache_enabled = 1
