@@ -23,8 +23,16 @@ fi
 
 
 # VirtualEnvWrapper:
-export WORKON_HOME=$HOME/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
+export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
+if test -e $VIRTUALENVWRAPPER_SCRIPT ; then
+    export WORKON_HOME=$HOME/.virtualenvs
+    VIRTUALENVWRAPPER_SCRIPT_LAZY=${VIRTUALENVWRAPPER_SCRIPT%.sh}_lazy.sh
+    if test -e $VIRTUALENVWRAPPER_SCRIPT_LAZY ; then
+        source $VIRTUALENVWRAPPER_SCRIPT_LAZY
+    else
+        source $VIRTUALENVWRAPPER_SCRIPT
+    fi
+fi
 
 
 # Ruby:
