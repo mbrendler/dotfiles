@@ -15,10 +15,20 @@ if test -d $ZSH ; then
     plugins=(brew pip django vagrant npm)
     source $ZSH/oh-my-zsh.sh
     source $HOME/.zsh/hg.zsh
-    source $HOME/.zsh/sellerie_afowler.zsh-theme
-else
-    PROMPT="%n@%m:%~%{%F{blue}%}$%{%f%} "
 fi
+
+local red="[31m"
+local green="[32m"
+local bold_blue="[01;34m"
+local clear="[0m"
+if test $UID -eq 0 ; then
+    local caretcolor=$red
+else
+    local caretcolor=$bold_blue
+fi
+PROMPT="%m%{$bold_blue%}::%{$clear%}%{$green%}%~ %{$caretcolor%}»%{$clear%} "
+local return_code="%(?..%{$red%}%? ↵%{$clear%})"
+RPS1="${return_code}"
 
 
 # VirtualEnvWrapper:
