@@ -8,13 +8,17 @@ if test ! "$PROFILE_SOURCED" -eq 1 ; then
     fi
 fi
 
-
+# Import oh-my-zsh-stuff by hand, because calling: source $ZSH/oh-my-zsh.sh is
+# too much and too slow.
 ZSH=$HOME/.zsh/oh-my-zsh
 if test -d $ZSH ; then
     DISABLE_AUTO_UPDATE="true"
-    plugins=(brew pip django vagrant npm)
-    source $ZSH/oh-my-zsh.sh
-    source $HOME/.zsh/hg.zsh
+    plugins=()
+    # source $ZSH/oh-my-zsh.sh
+    source $ZSH/lib/completion.zsh
+    source $ZSH/lib/termsupport.zsh
+
+    fpath=($HOME/.zsh/site-functions $fpath)
 fi
 
 local red="[31m"
@@ -127,6 +131,10 @@ setopt NO_CDABLEVARS
 
 autoload -Uz compinit
 compinit
+
+if test -d $ZSH; then
+    source $ZSH/plugins/django/django.plugin.zsh
+fi
 
 
 ###############################################################################
