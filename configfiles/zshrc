@@ -80,10 +80,6 @@ if [[ `uname` == "Linux" ]] ; then
     alias pbpaste='xsel --clipboard --output'
 elif [[ `uname` == "Darwin" ]] ; then
     alias gvim=mvim
-
-    # Jump to next/last word by Alt+f / Alt+b:
-    bindkey "ƒ" forward-word
-    bindkey "∫" backward-word
 fi
 
 alias hg="LANG=en_UK.utf8 hg"
@@ -143,5 +139,10 @@ fi
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+if [[ `uname` == "Darwin" ]] ; then
+    # Jump to next/last word by Alt+f / Alt+b:
+    bindkey ƒ forward-word
+    bindkey ∫ backward-word
+fi
 
 fortune -s 2> /dev/null || true
