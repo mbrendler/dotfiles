@@ -29,7 +29,7 @@ set modeline
 set tildeop
 set formatoptions+=j
 set noerrorbells
-set visualbell
+set novisualbell
 set t_vb=
 
 set wildmenu
