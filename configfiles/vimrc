@@ -29,7 +29,11 @@ set modeline
 set tildeop
 set formatoptions+=j
 set noerrorbells
-set novisualbell
+if has('mac')
+  set visualbell
+else
+  set novisualbell
+endif
 set t_vb=
 
 set wildmenu
