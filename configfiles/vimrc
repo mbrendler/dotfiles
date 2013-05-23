@@ -172,6 +172,9 @@ nnoremap <Leader>m :CommandT<CR>
 nnoremap <Leader>t :CommandT<CR>
 nnoremap <Leader>f :call fullscreen#Toggle()<CR>
 nnoremap <Leader># :execute "leftabove split " . bufname("#")<CR>
+nnoremap <Leader>w :match Error /\v\s+$/<cr>
+nnoremap <Leader>W :match none<cr>
+nnoremap <Leader><C-w> :%s/\s\+$//g<cr>
 nnoremap <Leader>ev :split $MYVIMRC<CR>
 nnoremap <Leader>sv :source $MYVIMRC<CR>
 let $FT_DIR = expand("$VIMHOME/after/ftplugin/")
