@@ -7,13 +7,16 @@ The links are created in home directory of the current user. Every link gets a
 import os
 import sys
 import time
+import platform
 
 
 HERE = os.path.dirname(__file__)
 SOURCE_DIR = os.path.abspath(os.path.join(HERE, 'configfiles'))
+OS_SPECIFIC_SOURCE_DIR = os.path.abspath(
+    os.path.join(SOURCE_DIR, '_' + platform.system().lower()))
 DESTINATION_DIR = os.getenv('HOME')
 BACKUP_DIR = os.path.join(DESTINATION_DIR, 'configsbackup', '%d' % time.time())
-IGNORE_FILES = ('.DS_Store',)
+IGNORE_FILES = ('.DS_Store', '_darwin', '_linux')
 
 
 def error(message):
@@ -47,21 +50,24 @@ def backup(filename, backup_dir):
 def main():
     """See module documentation.
     """
-    for filename in os.listdir(SOURCE_DIR):
-        if filename in IGNORE_FILES:
+    for source_dir in (SOURCE_DIR, OS_SPECIFIC_SOURCE_DIR):
+        if not os.path.isdir(source_dir):
             continue
-        source_path = os.path.join(SOURCE_DIR, filename)
-        destination_path = os.path.join(DESTINATION_DIR, '.' + filename)
-        sys.stdout.write('%s ' % destination_path)
-        if os.path.exists(destination_path):
-            if os.path.realpath(destination_path) == source_path:
-                info('exists\n')
+        for filename in os.listdir(source_dir):
+            if filename in IGNORE_FILES:
                 continue
-            else:
-                backup(destination_path, BACKUP_DIR)
-                warning('backup ')
-        os.symlink(source_path, destination_path)
-        info('created\n')
+            source_path = os.path.join(source_dir, filename)
+            destination_path = os.path.join(DESTINATION_DIR, '.' + filename)
+            sys.stdout.write('%s ' % destination_path)
+            if os.path.exists(destination_path):
+                if os.path.realpath(destination_path) == source_path:
+                    info('exists\n')
+                    continue
+                else:
+                    backup(destination_path, BACKUP_DIR)
+                    warning('backup ')
+            os.symlink(source_path, destination_path)
+            info('created\n')
 
 
 if __name__ == '__main__':
