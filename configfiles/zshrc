@@ -14,9 +14,10 @@ ZSH=$HOME/.zsh/oh-my-zsh
 if test -d $ZSH ; then
     DISABLE_AUTO_UPDATE="true"
     plugins=()
-    # source $ZSH/oh-my-zsh.sh
     source $ZSH/lib/completion.zsh
-    source $ZSH/lib/termsupport.zsh
+    if [[ "$TERM" != screen* ]]; then
+        source $ZSH/lib/termsupport.zsh
+    fi
 
     fpath=($HOME/.zsh/site-functions $fpath)
 fi
