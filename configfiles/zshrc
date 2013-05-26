@@ -24,13 +24,16 @@ fi
 local red="[31m"
 local green="[32m"
 local bold_blue="[01;34m"
+local bold_yellow="[01;33m"
 local clear="[0m"
 if test $UID -eq 0 ; then
     local caretcolor=$red
+elif test ! -z "$SSH_CLIENT" ; then
+    local caretcolor=$bold_yellow
 else
     local caretcolor=$bold_blue
 fi
-PROMPT="%m%{$bold_blue%}::%{$clear%}%{$green%}%~ %{$caretcolor%}»%{$clear%} "
+PROMPT="%m%{$caretcolor%}::%{$clear%}%{$green%}%~ %{$caretcolor%}»%{$clear%} "
 local return_code="%(?..%{$red%}%? ↵%{$clear%})"
 RPS1="${return_code}"
 
