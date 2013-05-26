@@ -143,6 +143,7 @@ if [[ `uname` == "Darwin" ]] ; then
     # Jump to next/last word by Alt+f / Alt+b:
     bindkey ƒ forward-word
     bindkey ∫ backward-word
+    bindkey "^[[3~" delete-char  # Delete Key (fn + Backspace) on OS X
 fi
 
 fortune -s 2> /dev/null || true
