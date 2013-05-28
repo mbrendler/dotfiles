@@ -182,6 +182,10 @@ nnoremap <Leader>ef :execute "split " . $FT_DIR . &filetype . ".vim"<CR>
 nnoremap <Leader>sf :execute "source " . $FT_DIR . &filetype . ".vim"<CR>
 nnoremap <Leader>eh :split $HOME/.hgrc<CR>
 
+nnoremap <Leader>cn :cnext<cr>
+nnoremap <Leader>cp :cprevious<cr>
+nnoremap <Leader>cc :cclose<cr>
+
 let maplocalleader = "ö"
 
 augroup filetype_mappings
