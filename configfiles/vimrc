@@ -190,8 +190,7 @@ let maplocalleader = "ö"
 
 augroup filetype_mappings
   autocmd!
-  autocmd FileType c,objc,cpp,javascript \
-      nnoremap <buffer> <LocalLeader>; :execute "normal! mqA;\e`q"<cr>
+  autocmd FileType c,objc,cpp,javascript nnoremap <buffer> <LocalLeader>; :execute "normal! mqA;\e`q"<cr>
 augroup END
 
 
