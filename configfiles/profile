@@ -1,5 +1,5 @@
 
-export PATH=$HOME/privateroot/usr/bin:$HOME/privateroot/gnu/bin:$PATH
+export PATH=$HOME/.bin:$HOME/privateroot/usr/bin:$HOME/privateroot/gnu/bin:$PATH
 
 
 # Homebrew:
