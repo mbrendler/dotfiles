@@ -15,7 +15,7 @@ Bundle 'sjbach/lusty'
 Bundle 'wincent/Command-T'
 Bundle 'DirDiff.vim'
 
-Bundle 'xolox/vim-session'
+" Bundle 'xolox/vim-session'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'int3/vim-taglist-plus'
 Bundle 'vim-scripts/taglist.vim'
