@@ -144,11 +144,12 @@ fi
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# Jump to next/last word by Alt+f / Alt+b:
+bindkey ƒ forward-word
+bindkey ∫ backward-word
 if [[ `uname` == "Darwin" ]] ; then
-    # Jump to next/last word by Alt+f / Alt+b:
-    bindkey ƒ forward-word
-    bindkey ∫ backward-word
-    bindkey "^[[3~" delete-char  # Delete Key (fn + Backspace) on OS X
+    # Delete Key (fn + Backspace) on OS X
+    bindkey "^[[3~" delete-char
 fi
 
 fortune -s 2> /dev/null || true
