@@ -5,6 +5,9 @@ setlocal expandtab
 setlocal shiftwidth=3
 setlocal softtabstop=3
 
+" the following supports äöüß to be part of a keyword.
+setlocal iskeyword+=ä,ö,ü,Ä,Ö,Ü,ß
+
 " heading convention for Python documents
 " (http://sphinx-doc.org/rest.html#sections):
 " # with overline, for parts
