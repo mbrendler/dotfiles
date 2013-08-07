@@ -31,6 +31,7 @@ Bundle 'derekwyatt/vim-scala'
 Bundle 'sellerie/vim-monty'
 Bundle 'sellerie/vim-gradle'
 Bundle 'elixir-lang/vim-elixir.git'
+Bundle 'ap/vim-css-color.git'
 
 " editing
 "" Automatic closing of quotes, parentheses, ...
