@@ -23,3 +23,7 @@ elif test $(uname) == 'Linux' ; then
     mkdir -p $HOME/.fonts/
     cp extras/Monospace-Powerline.ttf $HOME/.fonts/
 fi
+
+pushd ~/.vim/bundle/jedi-vim/
+git submodule update --init
+popd
