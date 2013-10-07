@@ -253,6 +253,7 @@ endif
 " Python
 "let g:vim_monty_debug = 1
 "let g:vim_monty_fallback_python_path = expand('$HOME/privateroot/orr/orr_dir/ve/lib/python*/site-packages')
+let g:jedi#popup_on_dot = 0
 let g:jedi#goto_assignments_command = "<localleader>g"
 let g:jedi#goto_definitions_command = "<localleader>d"
 let g:jedi#documentation_command = "K"
