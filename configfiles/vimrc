@@ -181,6 +181,7 @@ let $FT_DIR = expand("$VIMHOME/after/ftplugin/")
 nnoremap <Leader>ef :execute "split " . $FT_DIR . &filetype . ".vim"<CR>
 nnoremap <Leader>sf :execute "source " . $FT_DIR . &filetype . ".vim"<CR>
 nnoremap <Leader>eh :split $HOME/.hgrc<CR>
+nnoremap <Leader>es :execute "split $HOME/.vim/snippets/" . &filetype . ".snippets"<CR>
 
 let maplocalleader = "ö"
 
