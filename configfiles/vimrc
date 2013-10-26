@@ -168,8 +168,9 @@ nnoremap <Leader>ü :NERDTreeClose<CR>:TlistToggle<CR>
 nnoremap <Leader>u :NERDTreeClose<CR>:TlistClose<CR>:GundoToggle<CR>
 nnoremap <Leader>k :SrcExplToggle<CR>
 nnoremap <Leader>b :LustyBufferExplorer<CR>
-nnoremap <Leader>m :CommandT<CR>
-nnoremap <Leader>t :CommandT<CR>
+" nnoremap <Leader>m :CommandT<CR>
+" nnoremap <Leader>t :CommandT<CR>
+nnoremap <Leader>t :CtrlP<CR>
 nnoremap <Leader>f :call fullscreen#Toggle()<CR>
 nnoremap <Leader># :execute "leftabove split " . bufname("#")<CR>
 nnoremap <Leader>w :match Error /\v\s+$/<cr>
