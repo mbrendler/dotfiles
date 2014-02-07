@@ -27,7 +27,9 @@ set noantialias
 set cpoptions=B$ " cw-like commands mark end with $ instead of deleting.
 set modeline
 set tildeop
-set formatoptions+=j
+if has("gui_running")
+  set formatoptions+=j
+endif
 set noerrorbells
 if has('mac')
   set visualbell
