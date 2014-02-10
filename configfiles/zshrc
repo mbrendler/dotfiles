@@ -153,3 +153,5 @@ if [[ `uname` == "Darwin" ]] ; then
 fi
 
 fortune -s 2> /dev/null || true
+
+[ -s $HOME/.nvm/nvm.sh ] && . $HOME/.nvm/nvm.sh # This loads NVM
