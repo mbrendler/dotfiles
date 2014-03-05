@@ -188,6 +188,29 @@ nnoremap <Leader>es :execute "split $HOME/.vim/snippets/" . &filetype . ".snippe
 
 let maplocalleader = "ö"
 
+noremap <Leader>m1 :call Tmux_select_window("1")<CR>
+noremap <Leader>m2 :call Tmux_select_window("2")<CR>
+noremap <Leader>m3 :call Tmux_select_window("3")<CR>
+noremap <Leader>m4 :call Tmux_select_window("4")<CR>
+noremap <Leader>m5 :call Tmux_select_window("5")<CR>
+noremap <Leader>m6 :call Tmux_select_window("6")<CR>
+noremap <Leader>m7 :call Tmux_select_window("7")<CR>
+noremap <Leader>m8 :call Tmux_select_window("8")<CR>
+noremap <Leader>m9 :call Tmux_select_window("9")<CR>
+noremap <Leader>m0 :call Tmux_select_window("0")<CR>
+noremap <Leader>mh :call Tmux_previous_window()<CR>
+noremap <Leader>ml :call Tmux_next_window()<CR>
+noremap <Leader>m<Enter> :call Tmux_send_key("C-m")<CR>
+noremap <Leader>mm :call Tmux_send_key("C-m")<CR>
+noremap <Leader>m<C-u> :call Tmux_send_key("C-u")<CR>
+" ppage")<CR>
+noremap <Leader>m<C-d> :call Tmux_send_key("C-d")<CR>
+" npage")<CR>
+noremap <Leader>ms :call Tmux_send_text("hg st \|\| git status\n")<CR>
+vnoremap <Leader>mm "ry :call Tmux_send_text(@r)<CR>
+vnoremap <C-c><C-c> "ry :call Tmux_send_text(@r)<CR>
+
+
 augroup filetype_mappings
   autocmd!
   autocmd FileType c,objc,cpp,javascript nnoremap <buffer> <LocalLeader>; :execute "normal! mqA;\e`q"<cr>
