@@ -37,6 +37,7 @@ else
   set novisualbell
 endif
 set t_vb=
+set foldlevelstart=99
 
 set wildmenu
 set wildignore+=.DS_Store
