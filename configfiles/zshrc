@@ -54,13 +54,14 @@ fi
 
 
 # Ruby:
-export RUBYOPT=rubygems
-RUBY_GEMS_DIR=$HOME/.gem/ruby/1.8
-if test -d "$RUBY_GEMS_DIR" ; then
-    export GEM_HOME=$RUBY_GEMS_DIR
-    export GEM_PATH=$RUBY_GEMS_DIR:$GEM_PATH
-    export PATH=$RUBY_GEMS_DIR/bin:$PATH
-fi
+# export RUBYOPT=rubygems
+# RUBY_GEMS_DIR=$HOME/.gem/ruby/1.8
+# if test -d "$RUBY_GEMS_DIR" ; then
+#     export GEM_HOME=$RUBY_GEMS_DIR
+#     export GEM_PATH=$RUBY_GEMS_DIR:$GEM_PATH
+#     export PATH=$RUBY_GEMS_DIR/bin:$PATH
+# fi
+test -e $HOME/.rvm/bin && PATH=$PATH:$HOME/.rvm/bin
 
 
 ##############################################################################
