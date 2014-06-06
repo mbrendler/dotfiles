@@ -9,12 +9,17 @@
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+[difftool "kdiff3"]
+	path = /usr/local/bin/kdiff3
+	trustExitCode = false
 [alias]
 	st = status
 	ci = commit
 	co = checkout
 	out = log origin/master..HEAD
 	branches = branch
+	kd = difftool --tool=kdiff3 --dir-diff --no-prompt
+	od = difftool --tool=sourcetree --no-prompt
 [color]
 	branch = auto
 	diff = auto
