@@ -32,3 +32,5 @@ export PROFILE_SOURCED=1
 ##     PATH=""
 ##     eval `/usr/libexec/path_helper -s`
 ## fi
+
+export LC_ALL=en_GB.UTF-8
