@@ -35,7 +35,13 @@ elif test ! -z "$SSH_CLIENT" ; then
 else
     local caretcolor=$bold_blue
 fi
-PROMPT="%m%{$caretcolor%}::%{$clear%}%{$green%}%~ %{$caretcolor%}»%{$clear%} "
+
+if test ! 20 -lt "$(hostname | wc -m)" ; then
+  local prompt_start="%m"
+else
+  local prompt_start=""
+fi
+PROMPT="$prompt_start%{$caretcolor%}::%{$clear%}%{$green%}%~ %{$caretcolor%}»%{$clear%} "
 local return_code="%(?..%{$red%}%? ↵%{$clear%})"
 RPS1="${return_code}"
 
