@@ -23,6 +23,9 @@ if test -d $ZSH ; then
     fpath=($HOME/.zsh/site-functions $fpath)
 fi
 
+# TODO: The following is ugly, because it's added multiple times:
+export PATH=$HOME/.bin:$HOME/privateroot/usr/bin:$PATH
+
 local red="[31m"
 local green="[32m"
 local bold_blue="[01;34m"
