@@ -239,15 +239,15 @@ onoremap il[ :<c-u>normal! F]vi[<cr>
 onoremap in< :<c-u>normal! f<vi<<cr>
 onoremap il< :<c-u>normal! F>vi<<cr>
 
-inoremap jk <esc>
-inoremap <left> <nop>
-inoremap <down> <nop>
-inoremap <up> <nop>
-inoremap <right> <nop>
-noremap <left> <nop>
-noremap <down> <nop>
-noremap <up> <nop>
-noremap <right> <nop>
+" inoremap jk <esc>
+" inoremap <left> <nop>
+" inoremap <down> <nop>
+" inoremap <up> <nop>
+" inoremap <right> <nop>
+" noremap <left> <nop>
+" noremap <down> <nop>
+" noremap <up> <nop>
+" noremap <right> <nop>
 
 "  }}}
 
