@@ -14,11 +14,9 @@ rebase =
 graphlog =  
 purge =
 color = 
-hggit =
 #hgsubversion = 
 mercurial_keyring =
-crecord =
-versions =
+crecord = $HOME/.python_packages/crecord/crecord
 
 [extdiff]
 cmd.kdiff3 =
