@@ -18,7 +18,7 @@
 	ci = commit
 	co = checkout
 	out = log origin/master..HEAD
-	branches = branch
+	branches = branch -a
 	kd = difftool --tool=kdiff3 --dir-diff --no-prompt
 	od = difftool --tool=sourcetree --no-prompt
 [color]
