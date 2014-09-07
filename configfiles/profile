@@ -1,5 +1,5 @@
 
-export PATH=$HOME/.bin:$HOME/privateroot/usr/bin:$HOME/privateroot/gnu/bin:$PATH
+export PATH=$HOME/.bin:$HOME/privateroot/usr/bin:$HOME/privateroot/gnu/bin:/usr/local/bin:$PATH
 
 
 # Homebrew:
@@ -9,7 +9,6 @@ fi
 if [ "$HOMEBREW_PATH" != '' ] ; then
     export PYTHONPATH=$HOMEBREW_PATH/lib/python2.7/site-packages:$PYTHONPATH
     export NODE_PATH=$HOMEBREW_PATH/lib/node_modules:$NODE_PATH
-    export PATH=$HOMEBREW_PATH/bin:$PATH
 fi
 
 
@@ -33,4 +32,5 @@ export PROFILE_SOURCED=1
 ##     eval `/usr/libexec/path_helper -s`
 ## fi
 
-export LC_ALL=en_GB.UTF-8
+export LC_ALL=en_UK.utf-8
+export LANG=en_UK.utf-8

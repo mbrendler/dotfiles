@@ -10,7 +10,7 @@ if test ! "$PROFILE_SOURCED" -eq 1 ; then
 fi
 
 # Import oh-my-zsh-stuff by hand, because calling: source $ZSH/oh-my-zsh.sh is
-# too much and too slow.
+# too much and too slow:
 ZSH=$HOME/.zsh/oh-my-zsh
 if test -d $ZSH ; then
     DISABLE_AUTO_UPDATE="true"
@@ -23,9 +23,8 @@ if test -d $ZSH ; then
     fpath=($HOME/.zsh/site-functions $fpath)
 fi
 
-# TODO: The following is ugly, because it's added multiple times:
-export PATH=$HOME/.bin:$HOME/privateroot/usr/bin:$PATH
 
+# Configure prompt:
 local red="[31m"
 local green="[32m"
 local bold_blue="[01;34m"
@@ -76,11 +75,6 @@ test -e $HOME/.rvm/bin && PATH=$PATH:$HOME/.rvm/bin
 ##############################################################################
 
 
-if [ -x $HOME/Applications/MacVim.app/Contents/MacOS/Vim ] ; then
-    alias vim=$HOME/Applications/MacVim.app/Contents/MacOS/Vim
-fi
-
-
 if which dircolors > /dev/null 2> /dev/null ; then
     eval "$(dircolors -b)"
     alias ls="ls --color"
@@ -96,9 +90,6 @@ if [[ `uname` == "Linux" ]] ; then
 elif [[ `uname` == "Darwin" ]] ; then
     alias gvim=mvim
 fi
-
-alias hg="LANG=en_UK.utf8 hg"
-alias git="LANG=en_UK.utf8 git"
 
 alias hlcat="source-highlight --output=STDOUT --out-format=esc -i"
 
@@ -163,5 +154,3 @@ if [[ `uname` == "Darwin" ]] ; then
 fi
 
 fortune -s 2> /dev/null || true
-
-[ -s $HOME/.nvm/nvm.sh ] && . $HOME/.nvm/nvm.sh # This loads NVM
