@@ -239,6 +239,18 @@ onoremap il[ :<c-u>normal! F]vi[<cr>
 onoremap in< :<c-u>normal! f<vi<<cr>
 onoremap il< :<c-u>normal! F>vi<<cr>
 
+let g:old_cwd = getcwd()
+augroup file_completion_end
+  autocmd!
+  autocmd CompleteDone * execute "lcd " . g:old_cwd
+augroup END
+function s:relative_completion()
+  let g:old_cwd = getcwd()
+  lcd %:p:h
+  call feedkeys("a\<C-X>\<C-F>")
+endfunction
+inoremap <C-X><C-G> <esc>:call <SID>relative_completion()<cr>
+
 " inoremap jk <esc>
 " inoremap <left> <nop>
 " inoremap <down> <nop>
