@@ -23,6 +23,7 @@ if test -d $ZSH ; then
     fpath=($HOME/.zsh/site-functions $fpath)
 fi
 
+PATH=/Users/mbrendler/.bin:/Users/mbrendler/privateroot/usr/bin:/Users/mbrendler/privateroot/gnu/bin:/usr/local/bin:$PATH
 
 # Configure prompt:
 local red="[31m"
