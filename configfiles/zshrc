@@ -1,7 +1,5 @@
 
-# fixes some problems with emacs term.el:
-[[ $TERM == eterm-color ]] && export TERM=xterm
-[ -z "$TMUX" ] && export TERM=xterm-256color
+test -z "$TMUX" && export TERM=xterm-256color
 
 if test ! "$PROFILE_SOURCED" -eq 1 ; then
     if test -e "$HOME/.profile" ; then
