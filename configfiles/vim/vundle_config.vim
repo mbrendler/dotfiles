@@ -11,8 +11,6 @@ Bundle 'gmarik/vundle'
 " file and buffer access
 Bundle 'scrooloose/nerdtree'
 Bundle 'sjbach/lusty'
-"" needs $ bundle install && rake make
-"Bundle 'wincent/Command-T'
 Bundle 'kien/ctrlp.vim'
 Bundle 'DirDiff.vim'
 
