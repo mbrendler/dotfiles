@@ -70,6 +70,10 @@ fi
 # fi
 test -e "$HOME/.rvm/bin" && PATH=$PATH:$HOME/.rvm/bin
 
+if test -d "$ZSH" ; then
+    fpath=($HOME/.zsh/site-functions $fpath)
+fi
+
 
 ##############################################################################
 
