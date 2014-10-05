@@ -14,9 +14,9 @@ if test -d "$ZSH" ; then
     DISABLE_AUTO_UPDATE="true"
     plugins=()
     source "$ZSH/lib/completion.zsh"
-    if [[ "$TERM" != screen* ]]; then
-        source "$ZSH/lib/termsupport.zsh"
-    fi
+    # if [[ "$TERM" != screen-256color ]]; then
+    #     source "$ZSH/lib/termsupport.zsh"
+    # fi
 
     fpath=($HOME/.zsh/site-functions $fpath)
 fi
