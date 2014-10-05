@@ -27,9 +27,6 @@ set noantialias
 set cpoptions=B$ " cw-like commands mark end with $ instead of deleting.
 set modeline
 set tildeop
-if has("gui_running")
-  set formatoptions+=j
-endif
 set noerrorbells
 if has('mac')
   set visualbell
@@ -93,6 +90,7 @@ augroup END
 " GUI Settings -- {{{
 if has("gui_running")
   colorscheme pyte
+  set formatoptions+=j
   set ttyfast
   set number
   " defualt: guioptions=aegimrLt
@@ -247,7 +245,7 @@ augroup file_completion_end
   autocmd!
   autocmd CompleteDone * execute "lcd " . g:old_cwd
 augroup END
-function s:relative_completion()
+function! s:relative_completion()
   let g:old_cwd = getcwd()
   lcd %:p:h
   call feedkeys("a\<C-X>\<C-F>")
