@@ -271,6 +271,26 @@ command! Wq wq
 
 command! Now :normal a<C-R>="".strftime('%H:%M %d.%m.%Y')<CR><Esc>
 
+function! s:big_font()
+  let g:gui_font = &guifont
+  let g:win_pos_x = getwinposx()
+  let g:win_pos_y = getwinposy()
+  let g:lines = &lines
+  let g:columns = &columns
+  set guifont=Menlo:h24
+endfunction
+function! s:normal_font()
+  if exists('g:gui_font')
+    let &guifont=g:gui_font
+    let &lines=g:lines
+    let &columns=g:columns
+    execute "winpos " . g:win_pos_x . " " . g:win_pos_y
+  endif
+endfunction
+
+command! Big :call <SID>big_font()
+command! Normal :call <SID>normal_font()
+
 " }}}
 
 
