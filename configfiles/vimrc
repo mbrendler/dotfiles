@@ -180,8 +180,8 @@ nnoremap <Leader>b :LustyBufferExplorer<CR>
 nnoremap <Leader>t :CtrlP<CR>
 nnoremap <Leader>f :call fullscreen#Toggle()<CR>
 nnoremap <Leader># :execute "leftabove split " . bufname("#")<CR>
-nnoremap <Leader>w :match Error /\v\s+$/<cr>
-nnoremap <Leader>W :match none<cr>
+" nnoremap <Leader>w :match Error /\v\s+$/<cr>
+" nnoremap <Leader>W :match none<cr>
 nnoremap <Leader><C-w> :%s/\s\+$//g<cr>
 nnoremap <Leader>ev :split $MYVIMRC<CR>
 nnoremap <Leader>sv :source $MYVIMRC<CR>
@@ -241,6 +241,7 @@ onoremap il[ :<c-u>normal! F]vi[<cr>
 onoremap in< :<c-u>normal! f<vi<<cr>
 onoremap il< :<c-u>normal! F>vi<<cr>
 
+" C-X C-G: relative version of file completions
 let g:old_cwd = getcwd()
 augroup file_completion_end
   autocmd!
@@ -273,6 +274,10 @@ command! Wq wq
 command! Now :normal a<C-R>="".strftime('%H:%M %d.%m.%Y')<CR><Esc>
 
 " }}}
+
+
+" highlight trailing whitespace as error
+match Error /\s\+$/
 
 
 " Plugin Settings -- {{{
@@ -313,7 +318,7 @@ let g:jedi#show_call_signatures = "1"
 
 " Ruby
 let ruby_operators = 1
-let ruby_space_errors = 1
+" let ruby_space_errors = 1
 let ruby_fold = 1
 
 " Haskell-Mode
