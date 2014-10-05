@@ -352,8 +352,7 @@ endif
 " }}}
 
 
-let g:local_vimrc = findfile('.vimrc', ';')
+let g:local_vimrc = fnamemodify(findfile('.vimrc', ';'), ':p')
 if strlen(g:local_vimrc) != 0 && expand('~/.vimrc') != g:local_vimrc
   execute "source " . g:local_vimrc
-  echom "local " . g:local_vimrc
 endif
