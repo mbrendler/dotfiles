@@ -30,9 +30,9 @@ endfunction
 function! b:ruby_run(filename)
   let l:command = 'ruby'
   if strlen(findfile('Gemfile', ';')) != 0
-    let l:command = 'TERM=xterm bundle exec ruby'
+    let l:command = 'bundle exec ruby'
   endif
-  execute '!' . l:command . ' ' . a:filename
+  execute '!' . l:command . ' ' . a:filename . ' | cat'
 endfunction
 
 nnoremap <LocalLeader>r :w<cr>:call b:ruby_run(expand('%'))<cr>
