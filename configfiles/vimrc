@@ -114,7 +114,7 @@ if has("gui_running")
     winpos 653 22
     set antialias
     set lines=63
-  elseif hostname() ==# 'Maik-Brendlers-MacBook-Pro.local' || hostname() ==# 'maikbredlersmbp.local'
+  elseif hostname() ==# 'Maik-Brendlers-MacBook-Pro.local' || hostname() ==# 'maikbredlersmbp.local' || hostname() ==# 'MaikBredlersMBP.local'
     set guifont=Menlo:h15
     set antialias
     set lines=63
