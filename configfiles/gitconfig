@@ -21,6 +21,7 @@
 	branches = branch -a
 	kd = difftool --tool=kdiff3 --dir-diff --no-prompt
 	od = difftool --tool=sourcetree --no-prompt
+	cre = crecord
 [color]
 	branch = auto
 	diff = auto
