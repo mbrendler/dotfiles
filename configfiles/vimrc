@@ -243,6 +243,10 @@ onoremap il[ :<c-u>normal! F]vi[<cr>
 onoremap in< :<c-u>normal! f<vi<<cr>
 onoremap il< :<c-u>normal! F>vi<<cr>
 
+
+nnoremap ü <C-]>
+nnoremap Ü <C-O>
+
 " C-X C-G: relative version of file completions
 let g:old_cwd = getcwd()
 augroup file_completion_end
