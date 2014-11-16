@@ -304,13 +304,12 @@ match Error /\s\+$/
 
 " Plugin Settings -- {{{
 let NERDTreeIgnore = ['\.pyc$', '\.orig$']
-let clam_winpos = 'topleft'
-let g:Powerline_symbols = 'fancy'
-let g:Powerline_cache_enabled = 1
+" let clam_winpos = 'topleft'
+" let g:Powerline_symbols = 'fancy'
+" let g:Powerline_cache_enabled = 1
 
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 " let g:syntastic_stl_format = "%E{E:%e} %W{W:%w}"
-" set statusline=%<%f\ %h%m%r\ %{SyntasticStatuslineFlag()}%=%-14.(%l,%c%V%)\ %P
 let g:syntastic_cpp_compiler = "clang++"
 
 " clang_complete
@@ -356,6 +355,7 @@ endif
 
 " }}}
 
+set statusline=%<%f\ %h%m%r\ %{SyntasticStatuslineFlag()}%=%-14.(%l,%c%V%)\ %P
 
 let g:local_vimrc = fnamemodify(findfile('.vimrc', ';'), ':p')
 if strlen(g:local_vimrc) != 0 && expand('~/.vimrc') != g:local_vimrc
