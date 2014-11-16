@@ -357,6 +357,15 @@ endif
 
 set statusline=%<%f\ %h%m%r\ %{SyntasticStatuslineFlag()}%=%-14.(%l,%c%V%)\ %P
 
+augroup modedetection
+  autocmd InsertEnter * hi statusline guibg=#bb1111
+  autocmd InsertEnter * hi CursorLine guibg=#c9d9e9
+  autocmd InsertEnter * hi CursorColumn guibg=#c9d9e9
+  autocmd InsertLeave * hi statusline guibg=#8090a0
+  autocmd InsertLeave * hi CursorLine guibg=#f6f6f6
+  autocmd InsertLeave * hi CursorColumn guibg=#eaeaea
+augroup END
+
 let g:local_vimrc = fnamemodify(findfile('.vimrc', ';'), ':p')
 if strlen(g:local_vimrc) != 0 && expand('~/.vimrc') != g:local_vimrc
   execute "source " . g:local_vimrc
