@@ -9,8 +9,8 @@ set regexpengine=1
 
 " Basic settings -- {{{
 set t_Co=256
-syntax off
-set synmaxcol=128
+" syntax off
+" set synmaxcol=200
 syntax on
 "colorscheme evening
 colorscheme Mustang
