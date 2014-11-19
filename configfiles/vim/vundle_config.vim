@@ -29,6 +29,9 @@ Bundle 'elixir-lang/vim-elixir.git'
 Bundle 'ap/vim-css-color.git'
 "" automatically close code blocks in ruby
 Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-rake'
+Bundle 'tpope/vim-projectionist'
 
 " editing
 "" Automatic closing of quotes, parentheses, ...
