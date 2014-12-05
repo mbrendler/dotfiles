@@ -95,6 +95,7 @@ elif [[ $(uname) == "Darwin" ]] ; then
 fi
 
 alias hlcat="source-highlight --output=STDOUT --out-format=esc -i"
+alias b=bundle\ exec
 
 pbecho() { echo "$*" | pbcopy; }
 
