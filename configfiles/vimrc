@@ -38,6 +38,7 @@ else
 endif
 set t_vb=
 set foldlevelstart=99
+set ttimeoutlen=100  " decrease timeout for faster insert with 'O'
 
 set wildmenu
 set wildignore+=.DS_Store
