@@ -1,12 +1,17 @@
-#!/bin/bash
+#!/bin/zsh
 
 
 COMPLETION_DEFINITIONS=(
-  "bower:$HOME/.zsh/oh-my-zsh/plugins/bower/_bower"
+  "bower:$HOME/.zsh/zsh-completions/src/_bower"
   "brew:/usr/local/Library/Contributions/brew_zsh_completion.zsh"
-  "bundler:$HOME/.zsh/oh-my-zsh/plugins/bundler/_bundler"
-  "gem:$HOME/.zsh/oh-my-zsh/plugins/gem/_gem"
+  "bundler:$HOME/.zsh/zsh-completions/src/_bundle"
+  "cabal:$HOME/.zsh/zsh-completions/src/_cabal"
+  "cmake:$HOME/.zsh/zsh-completions/src/_cmake"
+  "gem:$HOME/.zsh/zsh-completions/src/_gem"
+  "ghc:$HOME/.zsh/zsh-completions/src/_ghc"
   "hg:/usr/local/opt/mercurial/share/zsh/site-functions/_hg"
+  "jq:$HOME/.zsh/zsh-completions/src/_jq"
+  "node:$HOME/.zsh/zsh-completions/src/_node"
   "npm:/usr/local/etc/bash_completion.d/npm"
   "pip:$HOME/.zsh/oh-my-zsh/plugins/pip/_pip"
   "powder:$HOME/.zsh/oh-my-zsh/plugins/powder/_powder"
@@ -44,4 +49,8 @@ done
 
 # rebuild zcompdumb:
 rm -f ~/.zcompdump
+compinit () {
+        # undefined
+        builtin autoload -XUz
+}
 compinit
