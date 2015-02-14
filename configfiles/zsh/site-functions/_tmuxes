@@ -1,0 +1,3 @@
+#compdef tmuxes
+
+_alternative "tmuxes:envirnonment names:($(ls ~/.tmuxes | cut -d '.' -f 1))"
