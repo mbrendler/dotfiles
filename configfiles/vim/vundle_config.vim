@@ -27,6 +27,8 @@ Bundle 'davidhalter/jedi-vim'
 Bundle 'sellerie/vim-gradle'
 Bundle 'elixir-lang/vim-elixir.git'
 Bundle 'ap/vim-css-color.git'
+Bundle 'vim-emblem'
+Bundle 'dsawardekar/ember.vim'
 "" automatically close code blocks in ruby
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-rails'
