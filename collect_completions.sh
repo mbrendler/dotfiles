@@ -10,6 +10,7 @@ COMPLETION_DEFINITIONS=(
   "gem:$HOME/.zsh/zsh-completions/src/_gem"
   "ghc:$HOME/.zsh/zsh-completions/src/_ghc"
   "hg:/usr/local/opt/mercurial/share/zsh/site-functions/_hg"
+  "i:$HOME/Documents/src/i/zsh-completion/_i"
   "jq:$HOME/.zsh/zsh-completions/src/_jq"
   "node:$HOME/.zsh/zsh-completions/src/_node"
   "npm:/usr/local/etc/bash_completion.d/npm"

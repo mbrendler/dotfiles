@@ -149,6 +149,15 @@ fi
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
+function i {
+  if test "$1" = cd ; then
+    shift
+    cd "$(command i dir "$@")"
+  else
+    command i "$@"
+  fi
+}
+
 # Jump to next/last word by Alt+f / Alt+b:
 bindkey ƒ forward-word
 bindkey ∫ backward-word
