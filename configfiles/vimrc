@@ -195,6 +195,7 @@ nnoremap <Leader>b :LustyBufferExplorer<CR>
 " nnoremap <Leader>m :CommandT<CR>
 " nnoremap <Leader>t :CommandT<CR>
 nnoremap <Leader>t :CtrlP<CR>
+nnoremap <Leader>r :call RenameFile()<CR>
 nnoremap <Leader>f :call fullscreen#Toggle()<CR>
 nnoremap <Leader># :execute "leftabove split " . bufname("#")<CR>
 " nnoremap <Leader>w :match Error /\v\s+$/<cr>
