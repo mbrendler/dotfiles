@@ -40,6 +40,7 @@ Bundle 'tpope/vim-projectionist'
 Bundle 'Raimondi/delimitMate'
 Bundle 'tpope/vim-surround'
 Bundle 'tomtom/tcomment_vim'
+Bundle 'terryma/vim-multiple-cursors'
 
 " search plugins
 "" shows the number of matches on (/, ?, n, N, *, #)
