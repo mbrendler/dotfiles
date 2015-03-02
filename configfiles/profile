@@ -12,12 +12,6 @@ if [ "$HOMEBREW_PATH" != '' ] ; then
 fi
 
 
-# Orr:
-if test -d "$HOME/privateroot/orr/orr_dir/bin" ; then
-    export PATH=$HOME/privateroot/orr/orr_dir/bin:$PATH
-fi
-
-
 export PYTHONSTARTUP=$HOME/.pystartup
 
 
