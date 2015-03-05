@@ -15,3 +15,6 @@ fi
 pushd ~/.vim/bundle/jedi-vim/
 git submodule update --init
 popd
+
+pip install -U mercurial-keyring
+pip install -U hg-git
