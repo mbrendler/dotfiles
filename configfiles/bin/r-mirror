@@ -4,7 +4,7 @@ CACHE_DIR="$HOME/.r-mirror"
 
 GITHUB_BASE="https://github.com/mbrendler"
 
-function run_push() {
+function r_mirror_run_push() {
   hg push
   local repo_name="$(basename "$(hg paths default)")"
   local cache_dir="$CACHE_DIR/$repo_name.git"
@@ -14,6 +14,4 @@ function run_push() {
   git -C "$cache_dir" push "$GITHUB_BASE/$repo_name.git" master
 }
 
-CMD="$1"
-
-"run_$CMD"
+r_mirror_run_push
