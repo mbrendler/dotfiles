@@ -92,6 +92,13 @@ augroup END
 
 " }}}
 
+function! ComputerName()
+  if has('mac')
+    return substitute(system('scutil --get ComputerName'), "\n", "", "")
+  else
+    return hostname()
+  endif
+endfunction
 
 " GUI Settings -- {{{
 if has("gui_running")
@@ -113,19 +120,19 @@ if has("gui_running")
     autocmd GUIEnter * set guitablabel=%N\ %M%t
   augroup end
 
-  if hostname() ==# 'macmini.local'
+  if ComputerName() ==# 'macmini'
     set guifont=Monaco:h13
     set lines=55
-  elseif hostname() ==# 'janneke.local'
+  elseif ComputerName() ==# 'janneke'
     set guifont=Menlo:h14
     winpos 653 22
     set antialias
     set lines=63
-  elseif hostname() ==# 'Maik-Brendlers-MacBook-Pro.local' || hostname() ==# 'maikbredlersmbp.local' || hostname() ==# 'MaikBredlersMBP.local'
+  elseif ComputerName() ==# 'Maik Brendlers MacBook Pro'
     set guifont=Menlo:h15
     set antialias
     set lines=63
-  elseif hostname() ==# 'atom'
+  elseif ComputerName() ==# 'atom'
     set guifont=Monospace\ 9.5
     winpos 298 16
     augroup gui_size
