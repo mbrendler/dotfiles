@@ -2,14 +2,14 @@ setlocal expandtab
 setlocal shiftwidth=2
 setlocal softtabstop=2
 
-function! b:ruby_go_to_test()
+function! Ruby_go_to_test()
   let l:base_filename = expand('%:t:r')
   let l:spec_filename = l:base_filename . '_spec.rb'
   let l:test_file = findfile(l:spec_filename, getcwd() . '/**')
   execute 'edit ' . l:test_file
 endfunction
 
-function! b:ruby_go_to_implementation()
+function! Ruby_go_to_implementation()
   let l:base_filename = expand('%:t:r')
   if l:base_filename =~ '_spec$'
     let l:impl_filename = l:base_filename[:-6] . '.rb'
@@ -18,16 +18,16 @@ function! b:ruby_go_to_implementation()
   endif
 endfunction
 
-function! b:ruby_toggle_test_and_impl_file()
+function! Ruby_toggle_test_and_impl_file()
   let l:filename = expand('%:t:r')
   if l:filename =~ 'spec'
-    call b:ruby_go_to_implementation()
+    call Ruby_go_to_implementation()
   else
-    call b:ruby_go_to_test()
+    call Ruby_go_to_test()
   endif
 endfunction
 
-function! b:ruby_run(filename)
+function! Ruby_run(filename)
   let l:command = 'ruby'
   if strlen(findfile('Gemfile', ';')) != 0
     let l:command = 'bundle exec ruby'
@@ -35,9 +35,9 @@ function! b:ruby_run(filename)
   execute '!' . l:command . ' ' . a:filename . ' | cat'
 endfunction
 
-nnoremap <LocalLeader>r :w<cr>:call b:ruby_run(expand('%'))<cr>
+nnoremap <LocalLeader>r :w<cr>:call Ruby_run(expand('%'))<cr>
 " nnoremap <LocalLeader>r :w<cr>:!ruby %<cr>
-nnoremap <LocalLeader>o :call b:ruby_toggle_test_and_impl_file()<cr>
+nnoremap <LocalLeader>o :call Ruby_toggle_test_and_impl_file()<cr>
 
 
 
