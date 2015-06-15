@@ -56,7 +56,7 @@ vdiffnowin = True
 tabwidth = 4
 
 [hostfingerprints]
-bitbucket.org = 45:ad:ae:1a:cf:0e:73:47:06:07:e0:88:f5:cc:10:e5:fa:1c:f7:99
+bitbucket.org = 46:de:34:e7:9b:18:cd:7f:ae:fd:8b:e3:bc:f4:1a:5e:38:d7:ac:24
 github.com = a0:c4:a7:46:00:ed:a7:2d:c0:be:cb:9a:8c:b6:07:ca:58:ee:74:5e
 
 %include ~/.hgrc_local
