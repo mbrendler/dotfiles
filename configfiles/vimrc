@@ -40,6 +40,7 @@ set t_vb=
 set foldlevelstart=99
 set ttimeoutlen=100  " decrease timeout for faster insert with 'O'
 set shiftround " When at 3 spaces and I hit >>, go to 4, not 5.
+set lisp " '-' is a word character
 
 set wildmenu
 set wildignore+=.DS_Store
@@ -201,6 +202,13 @@ nnoremap <Leader># :execute "leftabove split " . bufname("#")<CR>
 " nnoremap <Leader>w :match Error /\v\s+$/<cr>
 " nnoremap <Leader>W :match none<cr>
 nnoremap <Leader><C-w> :%s/\s\+$//g<cr>
+
+nnoremap <Leader>cc :call ChangeWord('ToCamelCaseLower')<CR>
+nnoremap <Leader>cC :call ChangeWord('ToCamelCaseUpper')<CR>
+nnoremap <Leader>cs :call ChangeWord('ToSnakeCaseLower')<CR>
+nnoremap <Leader>cS :call ChangeWord('ToSnakeCaseUpper')<CR>
+nnoremap <Leader>cm :call ChangeWord('ToMinusCase')<CR>
+
 nnoremap <Leader>ev :split $MYVIMRC<CR>
 nnoremap <Leader>sv :source $MYVIMRC<CR>
 let $FT_DIR = expand("$VIMHOME/after/ftplugin/")
