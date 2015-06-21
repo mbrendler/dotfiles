@@ -41,6 +41,7 @@ set foldlevelstart=99
 set ttimeoutlen=100  " decrease timeout for faster insert with 'O'
 set shiftround " When at 3 spaces and I hit >>, go to 4, not 5.
 set lisp " '-' is a word character
+set nrformats-=octal " No octal number handling with C-a and C-x
 
 set wildmenu
 set wildignore+=.DS_Store
