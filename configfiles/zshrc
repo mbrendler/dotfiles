@@ -2,152 +2,77 @@
 test -z "$TMUX" && export TERM=xterm-256color
 
 if test ! "$PROFILE_SOURCED" -eq 1 ; then
-    if test -e "$HOME/.profile" ; then
-        source "$HOME/.profile"
-    fi
-fi
-
-# Import oh-my-zsh-stuff by hand, because calling: source $ZSH/oh-my-zsh.sh is
-# too much and too slow:
-ZSH=$HOME/.zsh/oh-my-zsh
-if test -d "$ZSH" ; then
-    DISABLE_AUTO_UPDATE="true"
-    plugins=()
-    source "$ZSH/lib/completion.zsh"
-    # if [[ "$TERM" != screen-256color ]]; then
-    #     source "$ZSH/lib/termsupport.zsh"
-    # fi
-
-    fpath=($HOME/.zsh/site-functions $fpath)
+  if test -e "$HOME/.profile" ; then
+    source "$HOME/.profile"
+  fi
 fi
 
 PATH=/Users/mbrendler/.bin:/Users/mbrendler/privateroot/usr/bin:/Users/mbrendler/privateroot/gnu/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
-# Configure prompt:
-local red="[31m"
-local green="[32m"
-local bold_blue="[01;34m"
-local bold_yellow="[01;33m"
-local clear="[0m"
-if test $UID -eq 0 ; then
-    local caretcolor=$red
-elif test ! -z "$SSH_CLIENT" ; then
-    local caretcolor=$bold_yellow
-else
-    local caretcolor=$bold_blue
-fi
-
-if test ! 20 -lt "$(hostname | wc -m)" ; then
-  local prompt_start="%m"
-else
-  local prompt_start=""
-fi
-PROMPT="$prompt_start%{$caretcolor%}::%{$clear%}%{$green%}%~ %{$caretcolor%}»%{$clear%} "
-local return_code="%(?..%{$red%}%? ↵%{$clear%})"
-RPS1="${return_code}"
-
-
 # VirtualEnvWrapper:
 export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
 if test -e $VIRTUALENVWRAPPER_SCRIPT ; then
-    export WORKON_HOME=$HOME/.virtualenvs
-    VIRTUALENVWRAPPER_SCRIPT_LAZY=${VIRTUALENVWRAPPER_SCRIPT%.sh}_lazy.sh
-    if test -e $VIRTUALENVWRAPPER_SCRIPT_LAZY ; then
-        source $VIRTUALENVWRAPPER_SCRIPT_LAZY
-    else
-        source $VIRTUALENVWRAPPER_SCRIPT
-    fi
+  export WORKON_HOME=$HOME/.virtualenvs
+  VIRTUALENVWRAPPER_SCRIPT_LAZY=${VIRTUALENVWRAPPER_SCRIPT%.sh}_lazy.sh
+  if test -e $VIRTUALENVWRAPPER_SCRIPT_LAZY ; then
+    source $VIRTUALENVWRAPPER_SCRIPT_LAZY
+  else
+    source $VIRTUALENVWRAPPER_SCRIPT
+  fi
 fi
 
-
-# Ruby:
-# export RUBYOPT=rubygems
-# RUBY_GEMS_DIR=$HOME/.gem/ruby/1.8
-# if test -d "$RUBY_GEMS_DIR" ; then
-#     export GEM_HOME=$RUBY_GEMS_DIR
-#     export GEM_PATH=$RUBY_GEMS_DIR:$GEM_PATH
-#     export PATH=$RUBY_GEMS_DIR/bin:$PATH
-# fi
 test -e "$HOME/.rvm/bin" && PATH=$PATH:$HOME/.rvm/bin
 
-if test -d "$ZSH" ; then
-    fpath=($HOME/.zsh/site-functions $fpath)
+fpath=($HOME/.zsh/site-functions $fpath)
+
+# Prompt #####################################################################
+
+red="[31m"
+green="[32m"
+bold_blue="[01;34m"
+bold_yellow="[01;33m"
+clear="[0m"
+if test $UID -eq 0 ; then
+  caretcolor=$red
+elif test ! -z "$SSH_CLIENT" ; then
+  caretcolor=$bold_yellow
+else
+  caretcolor=$bold_blue
 fi
 
+if test ! 20 -lt "$(hostname | wc -m)" ; then
+  prompt_start="%m"
+else
+  prompt_start=""
+fi
+PROMPT="$prompt_start%{$caretcolor%}::%{$clear%}%{$green%}%~ %{$caretcolor%}»%{$clear%} "
+return_code="%(?..%{$red%}%? ↵%{$clear%})"
+RPS1="${return_code}"
 
-##############################################################################
-
+# Aliases and Functions ######################################################
 
 if which dircolors > /dev/null 2> /dev/null ; then
-    eval "$(dircolors -b)"
-    alias ls="ls --color"
+  eval "$(dircolors -b)"
+  alias ls="ls --color"
 fi
-alias .=source
-alias grep="grep --color"
-alias pbpwd="pwd | pbcopy"
-
-
-if [[ $(uname) == "Linux" ]] ; then
-    alias pbcopy='xsel --clipboard --input'
-    alias pbpaste='xsel --clipboard --output'
-elif [[ $(uname) == "Darwin" ]] ; then
-    alias gvim=mvim
-fi
-
-alias hlcat="source-highlight --output=STDOUT --out-format=esc -i"
-alias b=bundle\ exec
-
-pbecho() { echo "$*" | pbcopy; }
-
 
 CLICOLOR=1
 LSCOLORS=Dxfxcxdxbxegedabagacad
 CLICOLOR=LSCOLORS
 
+alias .=source
+alias grep="grep --color"
+alias hlcat="source-highlight --output=STDOUT --out-format=esc -i"
+alias b=bundle\ exec
+alias pbpwd="pwd | pbcopy"
+pbecho() { echo "$*" | pbcopy; }
 
-##############################################################################
-
-
-# Lines configured by zsh-newuser-install
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
-setopt APPEND_HISTORY
-setopt EXTENDED_HISTORY
-HISTFILE=~/.histfile
-HISTSIZE=10000
-SAVEHIST=10000
-
-bindkey -e
-bindkey '\e.' insert-last-word
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename "$HOME/.zshrc"
-#eval `gdircolors`
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-setopt BASH_AUTO_LIST
-setopt NO_AUTO_MENU
-setopt NO_ALWAYS_LAST_PROMPT
-setopt NO_CORRECT
-setopt NO_CORRECTALL
-setopt AUTO_PUSHD
-setopt NO_INC_APPEND_HISTORY
-setopt NO_SHARE_HISTORY
-setopt NO_CDABLEVARS
-
-autoload -Uz compinit
-compinit
-
-if test -d "$ZSH"; then
-    source "$ZSH/plugins/django/django.plugin.zsh"
+if [[ $(uname) == "Linux" ]] ; then
+  alias pbcopy='xsel --clipboard --input'
+  alias pbpaste='xsel --clipboard --output'
+elif [[ $(uname) == "Darwin" ]] ; then
+  alias gvim=mvim
 fi
-
-
-###############################################################################
-
-# syntax-highlighting
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
-source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 function i {
   if test "$1" = cd ; then
@@ -158,6 +83,80 @@ function i {
   fi
 }
 
+# History ####################################################################
+
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt APPEND_HISTORY
+setopt EXTENDED_HISTORY
+setopt NO_INC_APPEND_HISTORY
+setopt NO_SHARE_HISTORY
+HISTFILE=~/.histfile
+HISTSIZE=10000
+SAVEHIST=10000
+
+# Behavior ###################################################################
+
+setopt BASH_AUTO_LIST
+setopt NO_AUTO_MENU
+setopt NO_ALWAYS_LAST_PROMPT
+setopt NO_CORRECT
+setopt NO_CORRECTALL
+setopt AUTO_PUSHD
+setopt NO_CDABLEVARS
+
+# Completion: ################################################################
+
+zmodload -i zsh/complist
+zstyle :compinstall filename "$HOME/.zshrc"
+# case insensitive completion:
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+
+zstyle ':completion:*:*:*:*:*' menu select
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+if [ "$OSTYPE[0,7]" = "solaris" ]
+then
+  zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm"
+else
+  zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
+fi
+
+# disable named-directories autocompletion
+zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
+
+# Use caching so that commands like apt and dpkg complete are useable
+zstyle ':completion::complete:*' use-cache 1
+zstyle ':completion::complete:*' cache-path $ZSH_CACHE_DIR
+
+# Don't complete uninteresting users
+zstyle ':completion:*:*:*:users' ignored-patterns \
+        adm amanda apache at avahi avahi-autoipd beaglidx bin cacti canna \
+        clamav daemon dbus distcache dnsmasq dovecot fax ftp games gdm \
+        gkrellmd gopher hacluster haldaemon halt hsqldb ident junkbust kdm \
+        ldap lp mail mailman mailnull man messagebus  mldonkey mysql nagios \
+        named netdump news nfsnobody nobody nscd ntp nut nx obsrun openvpn \
+        operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd \
+        rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
+        usbmux uucp vcsa wwwrun xfs '_*'
+
+# ... unless we really want to.
+zstyle '*' single-ignored show
+
+autoload -Uz compinit
+compinit
+
+# syntax-highlighting ########################################################
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
+# Key bindings ###############################################################
+
+bindkey -e
+bindkey '\e.' insert-last-word
+
 # Jump to next/last word by Alt+f / Alt+b:
 bindkey ƒ forward-word
 bindkey ∫ backward-word
@@ -166,7 +165,8 @@ if [[ $(uname) == "Darwin" ]] ; then
     bindkey "^[[3~" delete-char
 fi
 
-# simplify search path
+# Simplify Search Path #######################################################
+
 export PATH=$(echo -n "$PATH" | tr : \\n | cat -n | sort -uk2 | sort -nk1 | cut -f2- | tr \\n :)
 
 fortune -s 2> /dev/null || true
