@@ -303,6 +303,7 @@ command! W w
 command! Wq wq
 
 command! Now :normal a<C-R>="".strftime('%H:%M %d.%m.%Y')<CR><Esc>
+command! Today :normal a<C-R>="".strftime('%d.%m.%Y')<CR><Esc>
 
 function! s:big_font()
   let g:gui_font = &guifont
