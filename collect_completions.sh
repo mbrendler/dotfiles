@@ -19,7 +19,7 @@ COMPLETION_DEFINITIONS=(
   "rvm:$HOME/.rvm/scripts/zsh/Completion/_rvm"
   "tig:/usr/local/etc/bash_completion.d/tig-completion.bash"
   "tmux:/usr/local/etc/bash_completion.d/tmux"
-  "vagrant:$HOME/.zsh/oh-my-zsh/plugins/vagrant/_vagrant"
+  "vagrant:$HOME/.zsh/zsh-completions/src/_vagrant"
 )
 
 
