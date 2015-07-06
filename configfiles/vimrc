@@ -5,43 +5,51 @@ let $VIMHOME=expand("$HOME/.vim")
 " include plug-ins by vundle plugin:
 source $VIMHOME/vundle_config.vim
 
-set regexpengine=1
-
-" Basic settings -- {{{
-set t_Co=256
-" syntax off
-" set synmaxcol=200
 syntax on
-"colorscheme evening
 colorscheme Mustang
+
+" Behavior -------------------------------------------------------------------
+
+set regexpengine=1
+set hidden " restore history of buffer coming from background
+set modeline
+set clipboard=unnamed,unnamedplus
+set ttimeoutlen=100  " decrease timeout for faster insert with 'O'
+set ttyfast
+set lazyredraw
+
+" Input ----------------------------------------------------------------------
+
+set nrformats-=octal " No octal number handling with C-a and C-x
+set cpoptions=B$ " cw-like commands mark end with $ instead of deleting.
+set tildeop
+set backspace=2
+set spelllang=de,en
+set spell
+
+" UI -------------------------------------------------------------------------
+
+set antialias
+set t_Co=256
+set colorcolumn=81
+set noerrorbells
+let &visualbell = has('mac')
+set t_vb=
+set scrolloff=3 " scroll three lines before window start / end
+set showcmd
+set ruler " show cursor position
+set hlsearch " highlight search results
+set incsearch " highlight search while entering search string
+
+" Format ---------------------------------------------------------------------
 
 set encoding=utf-8
 set autoindent
-set hidden " restore history of buffer coming from background
-set ruler " show cursor position
-set scrolloff=3 " scroll three lines before window start / end
-set hlsearch
-set incsearch  " highlight search while entering search string
-set spelllang=de,en
-set spell
-set showcmd
-set backspace=2
-set noantialias
-set cpoptions=B$ " cw-like commands mark end with $ instead of deleting.
-set modeline
-set tildeop
-set noerrorbells
-if has('mac')
-  set visualbell
-else
-  set novisualbell
-endif
-set t_vb=
-set foldlevelstart=99
-set ttimeoutlen=100  " decrease timeout for faster insert with 'O'
+set formatoptions+=j
 set shiftround " When at 3 spaces and I hit >>, go to 4, not 5.
 set lisp " '-' is a word character
-set nrformats-=octal " No octal number handling with C-a and C-x
+
+" Completion -----------------------------------------------------------------
 
 set wildmenu
 set wildignore+=.DS_Store
@@ -57,14 +65,21 @@ set wildignore+=tmp
 " Completion menu also on omni completion
 set completeopt=longest,menuone
 
-if exists('&colorcolumn')
-  set colorcolumn=81
-endif
+" Status line ----------------------------------------------------------------
 
-" }}}
+set statusline=%<%f\ %h%m%r\ %{SyntasticStatuslineFlag()}%=%-14.(%l,%c%V%)\ %P
 
+augroup modedetection
+  autocmd InsertEnter * hi statusline guibg=#bb1111
+  autocmd InsertEnter * hi CursorLine guibg=#c9d9e9
+  autocmd InsertEnter * hi CursorColumn guibg=#c9d9e9
+  autocmd InsertLeave * hi statusline guibg=#8090a0
+  autocmd InsertLeave * hi CursorLine guibg=#f6f6f6
+  autocmd InsertLeave * hi CursorColumn guibg=#eaeaea
+augroup END
 
-" Filetype stuff -- {{{
+" Filetype stuff -------------------------------------------------------------
+
 filetype plugin on
 filetype plugin indent on
 
@@ -84,7 +99,6 @@ endfunction
 augroup filetypedetect
   " This group is created by vim, so don't use 'autocmd!'.
   autocmd BufRead,BufNewFile *.m set filetype=objc
-
   autocmd BufRead,BufNewFile *.h call s:SetHeaderFiletype()
 
   " Add html FileType for djangohtml files, to activate some html specific
@@ -92,7 +106,7 @@ augroup filetypedetect
   autocmd FileType htmldjango set ft=htmldjango.html
 augroup END
 
-" }}}
+" GUI ------------------------------------------------------------------------
 
 function! ComputerName()
   if has('mac')
@@ -102,20 +116,14 @@ function! ComputerName()
   endif
 endfunction
 
-" GUI Settings -- {{{
 if has("gui_running")
   colorscheme pyte
-  set formatoptions+=j
-  set ttyfast
-  set lazyredraw
   set number
-  " defualt: guioptions=aegimrLt
   set guioptions='iecrL'
   set columns=88
-  set clipboard=unnamed,unnamedplus
-  set laststatus=2
   set cursorline
   set cursorcolumn
+  set laststatus=2
 
   augroup gui_stuff
     autocmd!
@@ -128,11 +136,9 @@ if has("gui_running")
   elseif ComputerName() ==# 'janneke'
     set guifont=Menlo:h14
     winpos 653 22
-    set antialias
     set lines=63
   elseif ComputerName() ==# 'Maik Brendlers MacBook Pro'
     set guifont=Menlo:h15
-    set antialias
     set lines=63
   elseif ComputerName() ==# 'atom'
     set guifont=Monospace\ 9.5
@@ -144,36 +150,7 @@ if has("gui_running")
     set nocursorline
     set nocursorcolumn
   endif
-
-  if has('mac')
-    " Map Apple-ö and Apple ä to previous and next tabs
-    nnoremap <D-ö> :tabprevious<CR>
-    nnoremap <D-ä> :tabnext<CR>
-    vnoremap <D-ö> <ESC>:tabprevious<CR>
-    vnoremap <D-ä> <ESC>:tabnext<CR>
-    inoremap <D-ö> <ESC>:tabprevious<CR>
-    inoremap <D-ä> <ESC>:tabnext<CR>
-  endif
-
-  if &diff
-    augroup gui_size
-      autocmd!
-      autocmd GUIEnter * call fullscreen#Start()
-      wincmd =
-      if isdirectory(argv(0))
-        autocmd GUIEnter * call s:DirDiffWithArguments()
-      endif
-    augroup END
-  endif
 endif
-
-function! s:DirDiffWithArguments()
-  next
-  execute "DirDiff" fnameescape(argv(0)) fnameescape(argv(1))
-endfunction
-
-" }}}
-
 
 " rename current file, via Gary Bernhardt
 function! RenameFile()
@@ -186,16 +163,13 @@ function! RenameFile()
   endif
 endfunction
 
+" Mappings -------------------------------------------------------------------
 
-" Mappings -- {{{
 let mapleader = ","
 nnoremap <Leader>n :TlistClose<CR>:NERDTreeToggle<CR>
 nnoremap <Leader>ü :NERDTreeClose<CR>:TlistToggle<CR>
-nnoremap <Leader>u :NERDTreeClose<CR>:TlistClose<CR>:GundoToggle<CR>
 nnoremap <Leader>k :SrcExplToggle<CR>
 nnoremap <Leader>b :LustyBufferExplorer<CR>
-" nnoremap <Leader>m :CommandT<CR>
-" nnoremap <Leader>t :CommandT<CR>
 nnoremap <Leader>t :CtrlP<CR>
 nnoremap <Leader>r :call RenameFile()<CR>
 nnoremap <Leader>f :call fullscreen#Toggle()<CR>
@@ -220,8 +194,6 @@ nnoremap <Leader>eg :split $HOME/.gitconfig<CR>
 nnoremap <Leader>es :execute "split $HOME/.vim/snippets/" . &filetype . ".snippets"<CR>
 nnoremap <Leader>ee :e %<CR>
 
-let maplocalleader = "ö"
-
 noremap <Leader>m1 :call Tmux_select_window("1")<CR>
 noremap <Leader>m2 :call Tmux_select_window("2")<CR>
 noremap <Leader>m3 :call Tmux_select_window("3")<CR>
@@ -244,12 +216,12 @@ noremap <Leader>ms :call Tmux_send_text("hg st \|\| git status\n")<CR>
 vnoremap <Leader>mm "ry :call Tmux_send_text(@r)<CR>
 vnoremap <C-c><C-c> "ry :call Tmux_send_text(@r)<CR>
 
+let maplocalleader = "ö"
 
 augroup filetype_mappings
   autocmd!
   autocmd FileType c,objc,cpp,javascript nnoremap <buffer> <LocalLeader>; :execute "normal! mqA;\e`q"<cr>
 augroup END
-
 
 " Split line (sister to [J]oin lines)
 " The normal use of S is covered by cc, so don't worry about shadowing it.
@@ -268,7 +240,6 @@ onoremap il[ :<c-u>normal! F]vi[<cr>
 onoremap in< :<c-u>normal! f<vi<<cr>
 onoremap il< :<c-u>normal! F>vi<<cr>
 
-
 nnoremap ü <C-]>
 nnoremap Ü <C-O>
 
@@ -285,7 +256,6 @@ function! s:relative_completion()
 endfunction
 inoremap <C-X><C-G> <esc>:call <SID>relative_completion()<cr>
 
-" inoremap jk <esc>
 " inoremap <left> <nop>
 " inoremap <down> <nop>
 " inoremap <up> <nop>
@@ -295,10 +265,9 @@ inoremap <C-X><C-G> <esc>:call <SID>relative_completion()<cr>
 " noremap <up> <nop>
 " noremap <right> <nop>
 
-"  }}}
 
+" Commands -------------------------------------------------------------------
 
-" Own commands -- {{{
 command! W w
 command! Wq wq
 
@@ -325,8 +294,7 @@ endfunction
 command! Big :call <SID>big_font()
 command! Normal :call <SID>normal_font()
 
-" }}}
-
+" Highlighting ---------------------------------------------------------------
 
 " highlight trailing whitespace
 highlight ExtraWhitespace ctermbg=1 guibg=red
@@ -336,12 +304,9 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
+" Plugin Settings ------------------------------------------------------------
 
-" Plugin Settings -- {{{
 let NERDTreeIgnore = ['\.pyc$', '\.orig$']
-" let clam_winpos = 'topleft'
-" let g:Powerline_symbols = 'fancy'
-" let g:Powerline_cache_enabled = 1
 
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 " let g:syntastic_stl_format = "%E{E:%e} %W{W:%w}"
@@ -368,9 +333,6 @@ let g:jedi#rename_command = "<localleader>r"
 let g:jedi#show_call_signatures = "1"
 
 " Ruby
-" let ruby_operators = 1
-" let ruby_space_errors = 1
-" let ruby_fold = 1
 let g:ruby_path="/usr/bin/ruby"
 
 " Haskell-Mode
@@ -378,24 +340,14 @@ let g:haddock_browser = "open"
 let g:haddock_browser_callformat = "%s %s"
 let g:haddock_indexfiledir = "$HOME/.vim/"
 
+" Tag list
 let Tlist_Use_Right_Window = 1
 let Tlist_Inc_Winwidth = 1
 let Tlist_Enable_Fold_Column = 0
 let Tlist_Display_Prototype = 0
 let Tlist_Display_Tag_Scope = 0
 
-" }}}
-
-set statusline=%<%f\ %h%m%r\ %{SyntasticStatuslineFlag()}%=%-14.(%l,%c%V%)\ %P
-
-augroup modedetection
-  autocmd InsertEnter * hi statusline guibg=#bb1111
-  autocmd InsertEnter * hi CursorLine guibg=#c9d9e9
-  autocmd InsertEnter * hi CursorColumn guibg=#c9d9e9
-  autocmd InsertLeave * hi statusline guibg=#8090a0
-  autocmd InsertLeave * hi CursorLine guibg=#f6f6f6
-  autocmd InsertLeave * hi CursorColumn guibg=#eaeaea
-augroup END
+" Find and load local vimrc --------------------------------------------------
 
 let g:local_vimrc = fnamemodify(findfile('.vimrc', ';'), ':p')
 if strlen(g:local_vimrc) != 0 && expand('~/.vimrc') != g:local_vimrc
