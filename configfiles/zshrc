@@ -27,27 +27,23 @@ fpath=($HOME/.zsh/site-functions $fpath)
 
 # Prompt #####################################################################
 
-red="[31m"
-green="[32m"
-bold_blue="[01;34m"
-bold_yellow="[01;33m"
-clear="[0m"
+autoload -U colors
+colors
+
 if test $UID -eq 0 ; then
-  caretcolor=$red
+  caretcolor=$fg_no_bold[red]
 elif test ! -z "$SSH_CLIENT" ; then
-  caretcolor=$bold_yellow
+  caretcolor=$fg_bold[yellow]
 else
-  caretcolor=$bold_blue
+  caretcolor=$fg_bold[blue]
 fi
 
 if test ! 20 -lt "$(hostname | wc -m)" ; then
   prompt_start="%m"
-else
-  prompt_start=""
 fi
-PROMPT="$prompt_start%{$caretcolor%}::%{$clear%}%{$green%}%~ %{$caretcolor%}»%{$clear%} "
-return_code="%(?..%{$red%}%? ↵%{$clear%})"
-RPS1="${return_code}"
+
+PROMPT="$prompt_start%{$caretcolor%}::%{$reset_color%}%{$fg_no_bold[green]%}%~ %{$caretcolor%}»%{$reset_color%} "
+RPROMPT="%(?..%{$fg_no_bold[red]%}%? ↵%{$reset_color%})"
 
 # Aliases and Functions ######################################################
 
