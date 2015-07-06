@@ -157,6 +157,8 @@ source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 bindkey -e
 bindkey '\e.' insert-last-word
 
+bindkey '^W' vi-backward-kill-word
+
 # Jump to next/last word by Alt+f / Alt+b:
 bindkey ƒ forward-word
 bindkey ∫ backward-word
