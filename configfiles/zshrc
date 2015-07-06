@@ -60,7 +60,6 @@ if which dircolors > /dev/null 2> /dev/null ; then
   alias ls="ls --color"
 fi
 
-CLICOLOR=1
 LSCOLORS=Dxfxcxdxbxegedabagacad
 CLICOLOR=LSCOLORS
 
