@@ -7,9 +7,19 @@ if test ! "$PROFILE_SOURCED" -eq 1 ; then
   fi
 fi
 
-PATH=/Users/mbrendler/.bin:/Users/mbrendler/privateroot/usr/bin:/Users/mbrendler/privateroot/gnu/bin:/usr/local/bin:/usr/local/sbin:$PATH
+typeset -U path
+path=(
+  $HOME/.bin
+  $HOME/privateroot/usr/bin
+  $HOME/privateroot/gnu/bin
+  $HOME/.rvm/bin
+  /usr/local/bin
+  /usr/local/sbin
+  $path
+)
 
-# VirtualEnvWrapper:
+test -e "$HOME/.rvm/bin" && path=($path $HOME/.rvm/bin)
+
 export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
 if test -e $VIRTUALENVWRAPPER_SCRIPT ; then
   export WORKON_HOME=$HOME/.virtualenvs
@@ -20,8 +30,6 @@ if test -e $VIRTUALENVWRAPPER_SCRIPT ; then
     source $VIRTUALENVWRAPPER_SCRIPT
   fi
 fi
-
-test -e "$HOME/.rvm/bin" && PATH=$PATH:$HOME/.rvm/bin
 
 fpath=($HOME/.zsh/site-functions $fpath)
 
@@ -164,8 +172,6 @@ if [[ $(uname) == "Darwin" ]] ; then
   bindkey "^[[3~" delete-char
 fi
 
-# Simplify Search Path #######################################################
-
-export PATH=$(echo -n "$PATH" | tr : \\n | cat -n | sort -uk2 | sort -nk1 | cut -f2- | tr \\n :)
+##############################################################################
 
 fortune -s 2> /dev/null || true
