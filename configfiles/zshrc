@@ -106,6 +106,7 @@ setopt NO_ALWAYS_LAST_PROMPT
 setopt NO_CORRECT
 setopt NO_CORRECTALL
 setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
 setopt NO_CDABLEVARS
 
 # Completion: ################################################################
