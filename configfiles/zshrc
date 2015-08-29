@@ -77,6 +77,14 @@ elif [[ $(uname) == "Darwin" ]] ; then
   alias gvim=mvim
 fi
 
+function until-kapput {
+  local i=0
+  while (eval $@) {
+    i=$(($i + 1))
+    echo "$fg_no_bold[green]successful runs $i$reset_color"
+  } && echo "$fg_no_bold[red]fail after $i successful runs $reset_color" && say kaputt
+}
+
 function i {
   if test "$1" = cd ; then
     shift
@@ -151,6 +159,7 @@ zstyle '*' single-ignored show
 
 autoload -Uz compinit
 compinit
+compdef -e _command until-kapput
 
 # syntax-highlighting ########################################################
 
