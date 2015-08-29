@@ -20,6 +20,7 @@ COMPLETION_DEFINITIONS=(
   "tig:/usr/local/etc/bash_completion.d/tig-completion.bash"
   "tmux:/usr/local/etc/bash_completion.d/tmux"
   "vagrant:$HOME/.zsh/zsh-completions/src/_vagrant"
+  "watch:$HOME/.zsh/zsh-completions/src/_watch"
 )
 
 
