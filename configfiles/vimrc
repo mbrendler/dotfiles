@@ -209,9 +209,7 @@ noremap <Leader>ml :call Tmux_next_window()<CR>
 noremap <Leader>m<Enter> :call Tmux_send_key("C-m")<CR>
 noremap <Leader>mm :call Tmux_send_key("C-m")<CR>
 noremap <Leader>m<C-u> :call Tmux_send_key("C-u")<CR>
-" ppage")<CR>
 noremap <Leader>m<C-d> :call Tmux_send_key("C-d")<CR>
-" npage")<CR>
 noremap <Leader>ms :call Tmux_send_text("hg st \|\| git status\n")<CR>
 vnoremap <Leader>mm "ry :call Tmux_send_text(@r)<CR>
 vnoremap <C-c><C-c> "ry :call Tmux_send_text(@r)<CR>
