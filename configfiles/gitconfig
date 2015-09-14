@@ -22,6 +22,7 @@
 	kd = difftool --tool=kdiff3 --dir-diff --no-prompt
 	od = difftool --tool=sourcetree --no-prompt
 	cre = crecord
+	crb = crebase
 [color]
 	branch = auto
 	diff = auto
