@@ -33,11 +33,7 @@ atexit.register(save_history)
 
 # Tab completion: ##############################################################
 
-if sys.version_info[0] == 2 and sys.platform == 'darwin':
-    readline.parse_and_bind("bind ^I rl_complete")
-else:
-    readline.parse_and_bind("tab: complete")
+readline.parse_and_bind("tab: complete")
 
 
 del os, sys, atexit, readline, rlcompleter, save_history, history_path
-
