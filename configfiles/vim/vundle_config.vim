@@ -13,7 +13,6 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'sjbach/lusty'
 Bundle 'kien/ctrlp.vim'
 
-" Bundle 'Lokaltog/vim-powerline'
 Bundle 'int3/vim-taglist-plus'
 Bundle 'vim-scripts/taglist.vim'
 
@@ -47,10 +46,6 @@ Bundle 'terryma/vim-multiple-cursors'
 Bundle 'henrik/vim-indexed-search'
 "" Completion in search lines
 " Bundle 'SearchComplete'
-
-" Bundle 'sjl/clam.vim'
-" Creates a buffer, which is not saved
-" Bundle 'kana/vim-scratch'
 
 " if has('mac')
 "   Bundle 'rizzatti/funcoo.vim'
