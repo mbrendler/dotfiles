@@ -3,11 +3,19 @@
 import sys
 import os
 import commands
-import curses
+
+from menu import Menu
 
 
 def git_log():
     return commands.getoutput('git log --oneline master..')
+
+
+def git_create_backup_branch():
+    branch = commands.getoutput('git rev-parse --abbrev-ref HEAD')
+    backup_branch = 'before-c-rebase--%s' % branch
+    os.system('git branch %s' % backup_branch)
+    sys.stdout.write("Backup branch '%s' created." % backup_branch)
 
 
 def parse_log(log):
@@ -33,101 +41,54 @@ def git_rebase(rebase_actions):
 # x, exec = run command (the rest of the line) using shell
 
 
-class Menu(object):
-    SCROLL_OFFSET = 3
-
-    def __init__(self, logs):
-        self._logs = logs
-        self.selected = 0
-        self._top = 0
+class RebaseMenu(Menu):
+    def __init__(self, changesets):
+        super(RebaseMenu, self).__init__(scroll_offset=3)
+        self._changesets = changesets
         self.rebase_actions = {}
+        self._key_actions.update({
+            ord('q'): lambda *_: False,
+            ord('j'): self.select_next,
+            ord('k'): self.select_previous,
+            ord('g'): self.select_first,
+            ord('G'): self.select_last,
+            ord('p'): self.rebase_action_pick,
+            ord('e'): self.build_rebase_action('edit'),
+            ord('r'): self.build_rebase_action('reword'),
+            ord('s'): self.build_rebase_action('squash'),
+            ord('f'): self.build_rebase_action('fixup'),
+        })
 
-    def select_previous(self, window):
-        self.selected = min(len(self._logs) - 1, self.selected + 1)
-        height, _ = window.getmaxyx()
-        if self.selected >= self._top + height - self.SCROLL_OFFSET:
-            last_top = len(self._logs) - height
-            self._top = min(last_top, self._top + 1)
+    def entries(self):
+        return self._changesets
 
-    def select_next(self, _):
-        self.selected = max(0, self.selected - 1)
-        if self.selected < self._top + self.SCROLL_OFFSET:
-            self._top = max(0, self._top - 1)
-
-    def select_first(self, _):
-        self.selected = 0
-        self._top = 0
-
-    def select_last(self, window):
-        self.selected = len(self._logs) - 1
-        height, _ = window.getmaxyx()
-        self._top = len(self._logs) - height
+    def displayed_text_by_entry(self, entry):
+        rev_hash, text = entry
+        action_shortcut = self.rebase_actions.get(rev_hash, ' ')[0][0]
+        return "%s %s" % (action_shortcut, text)
 
     def rev_hash(self):
-        return self._logs[self.selected][0]
+        return self._changesets[self._selected][0]
 
-    def _build_rebase_action(action_name):  # pylint: disable=no-self-argument
-        def __action__(self, _):
-            self.rebase_actions[self.rev_hash()] = (action_name, self.selected)
+    def build_rebase_action(self, action_name):
+        def __action__(*_):
+            self.rebase_actions[self.rev_hash()] = (action_name, self._selected)
         return __action__
 
-    def rebase_action_pick(self, _):
+    def rebase_action_pick(self, *_):
         if self.rev_hash() in self.rebase_actions:
             del self.rebase_actions[self.rev_hash()]
 
-    ACTIONS = {
-        ord('j'): select_previous,
-        ord('k'): select_next,
-        ord('g'): select_first,
-        ord('G'): select_last,
-        ord('p'): rebase_action_pick,
-        ord('e'): _build_rebase_action('edit'),
-        ord('r'): _build_rebase_action('reword'),
-        ord('s'): _build_rebase_action('squash'),
-        ord('f'): _build_rebase_action('fixup'),
-    }
-
-    def run(self):
-        return curses.wrapper(self._log_selection)
-
-    def _refresh(self, window):
-        window.refresh()
-        height, width = window.getmaxyx()
-        last_line_displayed = self._top + height
-        for i, log in enumerate(self._logs[self._top:last_line_displayed]):
-            action = self.rebase_actions.get(log[0], ' ')[0][0]
-            window.addstr(i, 0, "%s %s" % (action, log[1][:width - 2]))
-            window.clrtoeol()
-            if self.selected == self._top + i:
-                window.chgat(i, 0, curses.A_REVERSE)
-            else:
-                window.chgat(i, 0, curses.A_NORMAL)
-
-    def _log_selection(self, window):
-        while 1:
-            self._refresh(window)
-            key_code = window.getch()
-            if key_code in (27, ord('q')):
-                return False
-            elif key_code in (curses.KEY_ENTER, 10):
-                return True
-            else:
-                self.ACTIONS.get(key_code, lambda _a, _b: None)(self, window)
-
 
 def main():
-    logs = parse_log(git_log())
-    menu = Menu(logs)
+    changesets = parse_log(git_log())
+    menu = RebaseMenu(changesets)
     if menu.run():
-        branch = commands.getoutput('git rev-parse --abbrev-ref HEAD')
-        backup_branch = 'before-c-rebase--%s' % branch
-        os.system('git branch %s' % backup_branch)
+        git_create_backup_branch()
         if menu.rebase_actions:
-            result = git_rebase(menu.rebase_actions)
+            return git_rebase(menu.rebase_actions)
         else:
-            result = os.system('git rebase -i HEAD~%s' % (menu.selected + 1))
-        sys.stdout.write('Delete branch %s.\n' % backup_branch)
-        return result
+            return os.system('git rebase -i HEAD~%s' % (menu.selected() + 1))
     else:
         return 1
 
