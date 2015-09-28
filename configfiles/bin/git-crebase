@@ -17,7 +17,7 @@ def git_create_backup_branch():
     now = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
     backup_branch = 'before-c-rebase--%s--%s' % (branch, now)
     os.system('git branch %s' % backup_branch)
-    sys.stdout.write("Backup branch '%s' created." % backup_branch)
+    sys.stdout.write("Backup branch '%s' created.\n" % backup_branch)
 
 
 def parse_log(log):
