@@ -30,7 +30,6 @@ def git_rebase(rebase_actions):
     for rev_hash, (action, index) in rebase_actions.items():
         edit_cmd += " -e 's/pick %s/%s %s/'" % (rev_hash, action, rev_hash)
         max_index = max(index, max_index)
-    print repr(rebase_actions)
     os.environ['GIT_SEQUENCE_EDITOR'] = edit_cmd
     return os.system('git rebase -i HEAD~%s' % (max_index + 1))
 
