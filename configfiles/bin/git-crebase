@@ -34,12 +34,24 @@ def git_rebase(rebase_actions):
     return os.system('git rebase -i HEAD~%s' % (max_index + 1))
 
 
-# p, pick = use commit
-# r, reword = use commit, but edit the commit message
-# e, edit = use commit, but stop for amending
-# s, squash = use commit, but meld into previous commit
-# f, fixup = like "squash", but discard this commit's log message
+HELP = """
+  p - (pick) use commit
+  r - (reword)use commit, but edit the commit message
+  e - (edit) use commit, but stop for amending
+  s - (squash) use commit, but meld into previous commit
+  f - (fixup) like "squash", but discard this commit's log message
+
+  q - quit
+  j - donw
+  k - up
+  g - select first commit
+  G - select last commit
+  ? - this help message
+
+  Press any key to continue
+"""
 # x, exec = run command (the rest of the line) using shell
+# TODO: change commit order
 
 
 class RebaseMenu(Menu):
@@ -53,6 +65,7 @@ class RebaseMenu(Menu):
             ord('k'): self.select_previous,
             ord('g'): self.select_first,
             ord('G'): self.select_last,
+            ord('?'): self.display_help,
             ord('p'): self.rebase_action_pick,
             ord('e'): self.build_rebase_action('edit'),
             ord('r'): self.build_rebase_action('reword'),
@@ -79,6 +92,16 @@ class RebaseMenu(Menu):
     def rebase_action_pick(self, *_):
         if self.rev_hash() in self.rebase_actions:
             del self.rebase_actions[self.rev_hash()]
+
+    @staticmethod
+    def display_help(window, _):
+        window.refresh()
+        window.move(0, 0)
+        window.clrtobot()
+        for i, line in enumerate(HELP.splitlines()):
+            window.addstr(i, 0, line)
+        window.clrtobot()
+        window.getch()
 
 
 def main():
