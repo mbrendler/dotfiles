@@ -26,7 +26,7 @@ def parse_log(log):
 
 def git_rebase(rebase_actions):
     max_index = 0
-    edit_cmd = 'sed -i'
+    edit_cmd = 'sed -i ""'
     for rev_hash, (action, index) in rebase_actions.items():
         edit_cmd += " -e 's/pick %s/%s %s/'" % (rev_hash, action, rev_hash)
         max_index = max(index, max_index)
