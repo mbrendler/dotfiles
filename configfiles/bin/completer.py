@@ -110,7 +110,7 @@ def files(content):
 
 
 def fuzzy_matcher(entry, string):
-    mappings = {'.': '\\.', '\\': '\\\\'}
+    mappings = {'.': '\\.', '\\': '\\\\', '+': '\\+'}
     pattern = ''
     for character in string:
         character = mappings.get(character, character)
