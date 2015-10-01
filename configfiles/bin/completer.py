@@ -142,9 +142,7 @@ def main():
     args = parse_options()
     pane = previous_pane_id()
     pane_content = open(args.filename).read()
-    completion_list = list(reversed(unique_list(
-        args.parse_input(pane_content)
-    )))
+    completion_list = unique_list(reversed(args.parse_input(pane_content)))
     menu = CompletionListWindow(
         completion_list, initial_text(pane_content), args.matcher
     )
