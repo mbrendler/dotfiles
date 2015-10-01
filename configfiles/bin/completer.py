@@ -86,10 +86,11 @@ def unique_list(a_list):
     return OrderedDict(groupby(a_list)).keys()
 
 
-def initial_text(pane_content):
-    last_line = pane_content.splitlines()[-1]
-    if last_line and last_line[-1] != ' ':
-        return last_line.split()[-1]
+def initial_text(_):
+    # TODO
+    # last_line = pane_content.splitlines()[-1]
+    # if last_line and last_line[-1] != ' ':
+    #     return last_line.split()[-1]
     return ''
 
 
