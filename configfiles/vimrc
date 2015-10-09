@@ -167,6 +167,7 @@ endfunction
 
 let mapleader = ","
 nnoremap <Leader>n :TlistClose<CR>:NERDTreeToggle<CR>
+nnoremap <Leader>m :TlistClose<CR>:NERDTreeFind<CR>
 nnoremap <Leader>ü :NERDTreeClose<CR>:TlistToggle<CR>
 nnoremap <Leader>k :SrcExplToggle<CR>
 nnoremap <Leader>b :LustyBufferExplorer<CR>
