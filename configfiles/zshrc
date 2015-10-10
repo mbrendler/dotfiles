@@ -108,7 +108,7 @@ SAVEHIST=10000
 
 # Behavior ###################################################################
 
-setopt BASH_AUTO_LIST
+setopt NO_LIST_AMBIGUOUS
 setopt NO_AUTO_MENU
 setopt NO_ALWAYS_LAST_PROMPT
 setopt NO_CORRECT
