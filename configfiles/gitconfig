@@ -23,6 +23,7 @@
 	od = difftool --tool=sourcetree --no-prompt
 	cre = crecord
 	crb = crebase
+	glog = log --graph --decorate --oneline
 [color]
 	branch = auto
 	diff = auto
