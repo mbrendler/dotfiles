@@ -121,12 +121,13 @@ def files(content):
 
 
 def fuzzy_matcher(entry, string):
-    mappings = {'.': '\\.', '\\': '\\\\', '+': '\\+'}
-    pattern = ''
-    for character in string:
-        character = mappings.get(character, character)
-        pattern += '.*' + character
-    return re.match(pattern, entry) is not None
+    for sc in string:
+        index = entry.find(sc)
+        if index >= 0:
+            entry = entry[index:]
+        else:
+            return False
+    return True
 
 
 def starts_with_matcher(entry, string):
