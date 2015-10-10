@@ -102,12 +102,22 @@ def previous_pane_id():
     return panes.strip()
 
 
-def words(content):
-    return content.split()
+def words(content, extra_chars=(), must_contain=''):
+    result = []
+    current = ''
+    for c in content:
+        i = ord(c)
+        if 48 <= i <= 57 or 65 <= i <= 90 or 97 <= i <= 122 or c in extra_chars:
+            current += c
+        else:
+            if current and must_contain in current and current not in result:
+                result.append(current)
+            current = ''
+    return result
 
 
 def files(content):
-    return [path for path in content.split() if '/' in path]
+    return words(content, extra_chars=('/'), must_contain='/')
 
 
 def fuzzy_matcher(entry, string):
