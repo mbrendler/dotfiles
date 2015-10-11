@@ -14,9 +14,10 @@ let colors_name = "mustang"
 
 " Vim >= 7.0 specific colors
 if version >= 700
+  hi clear CursorLine
   hi CursorLine guibg=#2d2d2d ctermbg=236
   hi CursorColumn guibg=#2d2d2d ctermbg=236
-  hi MatchParen guifg=#d0ffc0 guibg=#2f2f2f gui=bold ctermfg=157 ctermbg=237 cterm=bold
+  hi MatchParen guifg=#d0ffc0 guibg=#2f2f2f gui=bold cterm=bold,inverse
   hi Pmenu 		guifg=#ffffff guibg=#444444 ctermfg=255 ctermbg=238
   hi PmenuSel 	guifg=#000000 guibg=#b1d631 ctermfg=0 ctermbg=148
 endif
@@ -49,6 +50,11 @@ hi Number		guifg=#ff9800 gui=none ctermfg=208
 hi Special		guifg=#ff9800 gui=none ctermfg=208
 hi PreProc 		guifg=#faf4c6 gui=none ctermfg=230
 hi Todo         guifg=#000000 guibg=#e6ea50 gui=italic
+
+hi clear SpellBad
+hi SpellBad cterm=underline ctermfg=1
+hi clear SpellCap
+hi SpellCap cterm=underline ctermfg=13
 
 " Code-specific colors
 hi pythonOperator guifg=#7e8aa2 gui=none ctermfg=103
