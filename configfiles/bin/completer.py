@@ -110,7 +110,7 @@ def words(content, extra_chars='$-', must_contain=''):
         if 48 <= i <= 57 or 65 <= i <= 90 or 97 <= i <= 122 or c in extra_chars:
             current += c
         else:
-            if current and must_contain in current and current not in result:
+            if current and must_contain in current:
                 result.append(current)
             current = ''
     return result
