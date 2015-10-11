@@ -1,7 +1,5 @@
 glob:*.orig
-glob:configfiles/vim/.netrwhist
+glob:*.pyc
 glob:configfiles/vim/haskellmode.config
 glob:configfiles/vim/bundle
-glob:configfiles/vim/sessions
 glob:configfiles/vim/spell
-glob:configfiles/bin/menu.pyc
