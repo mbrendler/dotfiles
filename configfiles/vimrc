@@ -32,6 +32,8 @@ set spell
 set antialias
 set t_Co=256
 set colorcolumn=81
+set cursorline
+set cursorcolumn
 set noerrorbells
 let &visualbell = has('mac')
 set t_vb=
@@ -121,8 +123,6 @@ if has("gui_running")
   set number
   set guioptions='iecrL'
   set columns=88
-  set cursorline
-  set cursorcolumn
   set laststatus=2
 
   augroup gui_stuff
