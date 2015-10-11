@@ -40,6 +40,8 @@ Bundle 'Raimondi/delimitMate'
 Bundle 'tpope/vim-surround'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'terryma/vim-multiple-cursors'
+"" Historic key bindings in command line:
+Bundle 'vim-utils/vim-husk'
 
 " search plugins
 "" shows the number of matches on (/, ?, n, N, *, #)
