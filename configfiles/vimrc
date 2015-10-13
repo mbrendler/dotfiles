@@ -48,6 +48,7 @@ set incsearch " highlight search while entering search string
 set encoding=utf-8
 set autoindent
 set formatoptions+=j
+set formatoptions-=o
 set shiftround " When at 3 spaces and I hit >>, go to 4, not 5.
 set lisp " '-' is a word character
 
