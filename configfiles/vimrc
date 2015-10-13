@@ -65,7 +65,7 @@ set wildignore+=.git
 set wildignore+=.svn
 set wildignore+=tmp
 
-" Completion menu also on omni completion
+" Completion menu also with omni completion
 set completeopt=longest,menuone
 
 " Status line ----------------------------------------------------------------
