@@ -172,11 +172,9 @@ let mapleader = ","
 nnoremap <Leader>n :TlistClose<CR>:NERDTreeToggle<CR>
 nnoremap <Leader>m :TlistClose<CR>:NERDTreeFind<CR>
 nnoremap <Leader>ü :NERDTreeClose<CR>:TlistToggle<CR>
-nnoremap <Leader>k :SrcExplToggle<CR>
 nnoremap <Leader>b :LustyBufferExplorer<CR>
 nnoremap <Leader>t :CtrlP<CR>
 nnoremap <Leader>r :call RenameFile()<CR>
-nnoremap <Leader>f :call fullscreen#Toggle()<CR>
 nnoremap <Leader># :execute "leftabove split " . bufname("#")<CR>
 " nnoremap <Leader>w :match Error /\v\s+$/<cr>
 " nnoremap <Leader>W :match none<cr>
@@ -243,7 +241,6 @@ onoremap in< :<c-u>normal! f<vi<<cr>
 onoremap il< :<c-u>normal! F>vi<<cr>
 
 nnoremap ü <C-]>
-nnoremap Ü <C-O>
 
 " C-X C-G: relative version of file completions
 let g:old_cwd = getcwd()
