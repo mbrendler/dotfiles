@@ -103,7 +103,8 @@ function! s:SetHeaderFiletype()
 endfunction
 
 augroup filetypedetect
-  " This group is created by vim, so don't use 'autocmd!'.
+  " This group is created by Vim, so don't use 'autocmd!'.
+
   autocmd BufRead,BufNewFile *.m set filetype=objc
   autocmd BufRead,BufNewFile *.h call s:SetHeaderFiletype()
 
