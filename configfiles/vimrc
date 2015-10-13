@@ -79,6 +79,8 @@ augroup modedetection
   autocmd InsertLeave * hi statusline guibg=#8090a0
   autocmd InsertLeave * hi CursorLine guibg=#f6f6f6
   autocmd InsertLeave * hi CursorColumn guibg=#eaeaea
+set laststatus=2  " always show status line
+
 augroup END
 
 " Filetype stuff -------------------------------------------------------------
@@ -124,7 +126,6 @@ if has("gui_running")
   set number
   set guioptions='iecrL'
   set columns=88
-  set laststatus=2
 
   augroup gui_stuff
     autocmd!
