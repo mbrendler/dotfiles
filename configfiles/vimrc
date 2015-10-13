@@ -72,15 +72,16 @@ set completeopt=longest,menuone
 
 set statusline=%<%f\ %h%m%r\ %{SyntasticStatuslineFlag()}%=%-14.(%l,%c%V%)\ %P
 
-augroup modedetection
-  autocmd InsertEnter * hi statusline guibg=#bb1111
-  autocmd InsertEnter * hi CursorLine guibg=#c9d9e9
-  autocmd InsertEnter * hi CursorColumn guibg=#c9d9e9
-  autocmd InsertLeave * hi statusline guibg=#8090a0
-  autocmd InsertLeave * hi CursorLine guibg=#f6f6f6
-  autocmd InsertLeave * hi CursorColumn guibg=#eaeaea
 set laststatus=2  " always show status line
 
+" Change StatusLine, CursorLine and CursorColumn color in insert mode:
+augroup ModeDetection
+  autocmd InsertEnter * hi StatusLine guibg=#bb1111 ctermfg=52 ctermbg=255
+  autocmd InsertEnter * hi CursorLine guibg=#c9d9e9 ctermbg=52
+  autocmd InsertEnter * hi CursorColumn guibg=#c9d9e9 ctermbg=52
+  autocmd InsertLeave * hi StatusLine guibg=#8090a0 ctermfg=253 ctermbg=238
+  autocmd InsertLeave * hi CursorLine guibg=#f6f6f6 ctermbg=236
+  autocmd InsertLeave * hi CursorColumn guibg=#eaeaea ctermbg=236
 augroup END
 
 " Filetype stuff -------------------------------------------------------------
