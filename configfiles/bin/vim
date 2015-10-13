@@ -1,7 +1,0 @@
-#! /bin/bash
-
-if test -d /usr/local/Cellar/macvim/ ; then
-  /usr/local/Cellar/macvim/*/MacVim.app/Contents/MacOS/Vim $*
-else
-  /usr/bin/vim $*
-fi
