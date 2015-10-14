@@ -63,6 +63,14 @@ fi
 LSCOLORS=Dxfxcxdxbxegedabagacad
 CLICOLOR=LSCOLORS
 
+export MANPAGER="\
+    col -b -x | \
+    vim -R \
+        -c 'set ft=man nomod nolist laststatus=1 colorcolumn=0 nospell' \
+        -c 'map q :q<CR>' \
+        -c 'nmap K :Man <C-R>=expand(\"<cword>\")<CR><CR>' \
+        -"
+
 alias .=source
 alias grep="grep --color"
 alias hlcat="source-highlight --output=STDOUT --out-format=esc -i"
