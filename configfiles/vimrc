@@ -349,7 +349,7 @@ let Tlist_Display_Tag_Scope = 0
 
 " Find and load local vimrc --------------------------------------------------
 
-let g:local_vimrc = fnamemodify(findfile('.vimrc', ';'), ':p')
-if strlen(g:local_vimrc) != 0 && expand('~/.vimrc') != g:local_vimrc
-  execute "source " . g:local_vimrc
+let g:local_vimrc = findfile('.vimrc', ';')
+if g:local_vimrc != "" && expand('~/.vimrc') != fnamemodify(g:local_vimrc, ':p')
+  execute "source " . fnamemodify(g:local_vimrc, ':p')
 endif
