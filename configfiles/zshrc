@@ -1,42 +1,45 @@
-
-test -z "$TMUX" && export TERM=xterm-256color
-
-if test ! "$PROFILE_SOURCED" -eq 1 ; then
-  if test -e "$HOME/.profile" ; then
-    source "$HOME/.profile"
-  fi
-fi
+# Exports ---------------------------------------------------------------------
 
 typeset -U path
 path=(
   $HOME/.bin
   $HOME/privateroot/usr/bin
-  $HOME/privateroot/gnu/bin
-  $HOME/.rvm/bin
   /usr/local/bin
   /usr/local/sbin
   $path
 )
 
-test -e "$HOME/.rvm/bin" && path=($path $HOME/.rvm/bin)
-
-export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
-if test -e $VIRTUALENVWRAPPER_SCRIPT ; then
-  export WORKON_HOME=$HOME/.virtualenvs
-  VIRTUALENVWRAPPER_SCRIPT_LAZY=${VIRTUALENVWRAPPER_SCRIPT%.sh}_lazy.sh
-  if test -e $VIRTUALENVWRAPPER_SCRIPT_LAZY ; then
-    source $VIRTUALENVWRAPPER_SCRIPT_LAZY
-  else
-    source $VIRTUALENVWRAPPER_SCRIPT
-  fi
-fi
-
 fpath=($HOME/.zsh/site-functions $fpath)
 
-# Prompt #####################################################################
+export LC_ALL=en_GB.utf-8
+export LANG=en_GB.utf-8
 
-autoload -U colors
-colors
+export EDITOR=vim
+
+export MANPAGER="\
+  col -b -x | \
+  vim -R \
+      -c 'set ft=man nomod nolist laststatus=1 colorcolumn=0 nospell' \
+      -c 'map q :q<CR>' \
+      -c 'nmap K :Man <C-R>=expand(\"<cword>\")<CR><CR>' \
+      -"
+
+### Homebrew *PATH extensions
+if test -f /usr/local/bin/brew ; then
+    export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
+    export NODE_PATH=/usr/local/lib/node_modules:$NODE_PATH
+fi
+
+export PYTHONSTARTUP=$HOME/.pystartup
+
+if test -s "$HOME/.rvm/scripts/rvm" ; then
+  path=($HOME/.rvm/bin $path)
+  source "$HOME/.rvm/scripts/rvm"
+fi
+
+# Prompt ----------------------------------------------------------------------
+
+autoload -U colors ; colors
 
 if test $UID -eq 0 ; then
   caretcolor=$fg_no_bold[red]
@@ -46,53 +49,46 @@ else
   caretcolor=$fg_bold[blue]
 fi
 
-if test ! 20 -lt "$(hostname | wc -m)" ; then
-  prompt_start="%m"
-fi
-
-PROMPT="$prompt_start%{$caretcolor%}::%{$reset_color%}%{$fg_no_bold[green]%}%~ %{$caretcolor%}»%{$reset_color%} "
+PROMPT="%{$fg_no_bold[green]%}%~ %{$caretcolor%}»%{$reset_color%} "
 RPROMPT="%(?..%{$fg_no_bold[red]%}%? ↵%{$reset_color%})"
 
-# Aliases and Functions ######################################################
+# Aliases and Functions -------------------------------------------------------
 
-if which dircolors > /dev/null 2> /dev/null ; then
-  eval "$(dircolors -b)"
-  alias ls="ls --color"
-fi
-
-LSCOLORS=Dxfxcxdxbxegedabagacad
-CLICOLOR=LSCOLORS
-
-export MANPAGER="\
-    col -b -x | \
-    vim -R \
-        -c 'set ft=man nomod nolist laststatus=1 colorcolumn=0 nospell' \
-        -c 'map q :q<CR>' \
-        -c 'nmap K :Man <C-R>=expand(\"<cword>\")<CR><CR>' \
-        -"
-
-alias .=source
 alias grep="grep --color"
 alias hlcat="source-highlight --output=STDOUT --out-format=esc -i"
-alias b=bundle\ exec
+alias b="bundle exec"
 alias pbpwd="pwd | pbcopy"
-pbecho() { echo "$*" | pbcopy; }
+pbecho() { echo "$*" | pbcopy }
 
-if [[ $(uname) == "Linux" ]] ; then
+if test "$(uname)" = "Darwin" ; then
+  alias gvim=mvim
+elif test "$(uname)" = "Linux" ; then
   alias pbcopy='xsel --clipboard --input'
   alias pbpaste='xsel --clipboard --output'
-elif [[ $(uname) == "Darwin" ]] ; then
-  alias gvim=mvim
 fi
 
-function until-kapput {
+### configure `ls` coloring
+if which dircolors > /dev/null 2> /dev/null ; then
+  # Gnu core utils are installed.
+  eval "$(TERM=xterm-256color dircolors -b)"
+  alias ls="ls --color"
+else
+  # Use BSD user land.
+  export CLICOLOR=
+fi
+
+### loop command until it returns an error
+function kaputt {
   local i=0
   while (eval $@) {
     i=$(($i + 1))
     echo "$fg_no_bold[green]successful runs $i$reset_color"
-  } && echo "$fg_no_bold[red]fail after $i successful runs $reset_color" && say kaputt
+  } && \
+    echo "$fg_no_bold[red]fail after $i successful runs $reset_color" && \
+    say kaputt
 }
 
+### `i` simplifies the work with projects: ## https://github.com/mbrendler/i
 function i {
   if test "$1" = cd ; then
     shift
@@ -102,60 +98,58 @@ function i {
   fi
 }
 
-# History ####################################################################
+# History ---------------------------------------------------------------------
 
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
+setopt HIST_IGNORE_DUPS      # no duplicated history entries
+setopt HIST_IGNORE_SPACE     # ignore commands starting with space
 setopt APPEND_HISTORY
-setopt EXTENDED_HISTORY
-setopt NO_INC_APPEND_HISTORY
-setopt NO_SHARE_HISTORY
-HISTFILE=~/.histfile
-HISTSIZE=10000
-SAVEHIST=10000
+setopt EXTENDED_HISTORY      # history contains timestamps
+setopt NO_INC_APPEND_HISTORY # history is only updated after closing zsh
+setopt NO_SHARE_HISTORY      # history is not shared between zsh processes
 
-# Behavior ###################################################################
+export HISTFILE=~/.histfile
+export HISTSIZE=10000
+export SAVEHIST=10000
 
-setopt NO_LIST_AMBIGUOUS
+# Behavior --------------------------------------------------------------------
+
+setopt NO_LIST_AMBIGUOUS    # show completion list when completion is inserted
 setopt NO_AUTO_MENU
-setopt NO_ALWAYS_LAST_PROMPT
-setopt NO_CORRECT
-setopt NO_CORRECTALL
-setopt AUTO_PUSHD
-setopt PUSHD_IGNORE_DUPS
-setopt NO_CDABLEVARS
-setopt BEEP
-setopt NO_LIST_BEEP
-setopt NO_HIST_BEEP
+setopt NO_ALWAYS_LASTPROMPT
+setopt NO_CORRECT           # no auto correction
+setopt NO_CORRECTALL        # no auto correction
+setopt AUTO_PUSHD           # pushd via cd
+setopt PUSHD_IGNORE_DUPS    # no duplications in directory stack
+setopt NO_CDABLEVARS        # do not expand cdable variables
+setopt BEEP                 # beep
+setopt NO_LIST_BEEP         # no beep when displaying completion list
+setopt NO_HIST_BEEP         # no beep when history search
 
-# Completion: ################################################################
+# Completion ------------------------------------------------------------------
 
 zmodload -i zsh/complist
 zstyle :compinstall filename "$HOME/.zshrc"
 
-# case insensitive completion:
+### case insensitive completion:
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
+### process completion
 zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
-if [ "$OSTYPE[0,7]" = "solaris" ] ; then
-  zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm"
-else
-  zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
-fi
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
 
-# disable named-directories autocompletion
+### disable named-directories autocompletion
 zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
 
-# Use caching so that commands like apt and dpkg complete are useable
+### Use caching so that commands like apt and dpkg complete are useable
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion::complete:*' use-cache 1
 zstyle ':completion::complete:*' cache-path $ZSH_CACHE_DIR
 
-# Don't complete uninteresting users
+### Don't complete uninteresting users
 zstyle ':completion:*:*:*:users' ignored-patterns \
         adm amanda apache at avahi avahi-autoipd beaglidx bin cacti canna \
         clamav daemon dbus distcache dnsmasq dovecot fax ftp games gdm \
@@ -165,34 +159,33 @@ zstyle ':completion:*:*:*:users' ignored-patterns \
         operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd \
         rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
         usbmux uucp vcsa wwwrun xfs '_*'
-
-# ... unless we really want to.
+### ... unless we really want to.
 zstyle '*' single-ignored show
 
-autoload -Uz compinit
-compinit
-compdef -e _command until-kapput
+autoload -Uz compinit ; compinit
 
-# syntax-highlighting ########################################################
+### command completion for kaputt
+compdef -e _command kaputt
+
+# syntax-highlighting ---------------------------------------------------------
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-# Key bindings ###############################################################
+# Key bindings ----------------------------------------------------------------
 
 bindkey -e
-bindkey '\e.' insert-last-word
 
+bindkey '\e.' insert-last-word
 bindkey '^W' vi-backward-kill-word
 
 # Jump to next/last word by Alt+f / Alt+b:
-bindkey ƒ forward-word
-bindkey ∫ backward-word
-if [[ $(uname) == "Darwin" ]] ; then
-  # Delete Key (fn + Backspace) on OS X
-  bindkey "^[[3~" delete-char
+bindkey ƒ forward-word   # Alt+f
+bindkey ∫ backward-word  # Alt+b
+if test "$(uname)" = "Darwin" ; then
+  bindkey "^[[3~" delete-char  # fn + Backspace on Mac
 fi
 
-##############################################################################
+# Fortune ---------------------------------------------------------------------
 
 fortune -s 2> /dev/null || true
