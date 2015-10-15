@@ -9,6 +9,8 @@ source $VIMHOME/vundle_config.vim
 syntax on
 colorscheme Mustang
 
+set shell=~/.zsh/run_script_with_zshrc
+
 " Behavior -------------------------------------------------------------------
 
 set regexpengine=1
