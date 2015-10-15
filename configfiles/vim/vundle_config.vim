@@ -21,11 +21,9 @@ Bundle 'scrooloose/syntastic'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'vim-scripts/Cpp11-Syntax-Support'
 Bundle 'lukerandall/haskellmode-vim'
-Bundle 'derekwyatt/vim-scala'
 Bundle 'davidhalter/jedi-vim'
-Bundle 'sellerie/vim-gradle'
-Bundle 'elixir-lang/vim-elixir.git'
-Bundle 'ap/vim-css-color.git'
+Bundle 'elixir-lang/vim-elixir'
+Bundle 'ap/vim-css-color'
 Bundle 'vim-emblem'
 Bundle 'dsawardekar/ember.vim'
 "" automatically close code blocks in ruby
@@ -46,12 +44,3 @@ Bundle 'vim-utils/vim-husk'
 " search plugins
 "" shows the number of matches on (/, ?, n, N, *, #)
 Bundle 'henrik/vim-indexed-search'
-"" Completion in search lines
-" Bundle 'SearchComplete'
-
-" if has('mac')
-"   Bundle 'rizzatti/funcoo.vim'
-"   Bundle 'rizzatti/dash.vim'
-" endif
-
-" Bundle 'tpope/vim-fugitive'
