@@ -1,3 +1,7 @@
+# -----------------------------------------------------------------------------
+
+PLATFORM=$(uname)
+
 # Exports ---------------------------------------------------------------------
 
 typeset -U path
@@ -76,9 +80,9 @@ alias benchmark-vimrc="time vim +q"
 alias pbpwd="pwd | pbcopy"
 pbecho() { echo "$*" | pbcopy }
 
-if test "$(uname)" = "Darwin" ; then
+if test "$PLATFORM" = "Darwin" ; then
   alias gvim=mvim
-elif test "$(uname)" = "Linux" ; then
+elif test "$PLATFORM" = "Linux" ; then
   alias pbcopy='xsel --clipboard --input'
   alias pbpaste='xsel --clipboard --output'
 fi
@@ -198,7 +202,7 @@ bindkey '^W' vi-backward-kill-word
 # Jump to next/last word by Alt+f / Alt+b:
 bindkey ƒ forward-word   # Alt+f
 bindkey ∫ backward-word  # Alt+b
-if test "$(uname)" = "Darwin" ; then
+if test "$PLATFORM" = "Darwin" ; then
   bindkey "^[[3~" delete-char  # fn + Backspace on Mac
 fi
 
