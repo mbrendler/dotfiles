@@ -70,6 +70,9 @@ RPROMPT="%(?..%{$fg_no_bold[red]%}%? ↵%{$reset_color%})"
 alias grep="grep --color"
 alias hlcat="source-highlight --output=STDOUT --out-format=esc -i"
 alias b="bundle exec"
+alias benchmark-zshrc="time zsh -i -c exit"
+alias benchmark-vimrc="time vim +q"
+
 alias pbpwd="pwd | pbcopy"
 pbecho() { echo "$*" | pbcopy }
 
