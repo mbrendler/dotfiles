@@ -198,6 +198,13 @@ function! Run_interactive_file(filename)
   execute 'call ' . l:prefix . '_run_interactive("' . a:filename . '")'
 endfunction
 
+function! SourceLocalVimrc()
+  let local_vimrc = findfile('.vimrc', ';')
+  if local_vimrc != "" && expand('~/.vimrc') != fnamemodify(local_vimrc, ':p')
+    execute "source " . fnamemodify(local_vimrc, ':p')
+  endif
+endfunction
+
 " Mappings -------------------------------------------------------------------
 
 let mapleader = ","
@@ -351,9 +358,8 @@ let Tlist_Enable_Fold_Column = 0
 let Tlist_Display_Prototype = 0
 let Tlist_Display_Tag_Scope = 0
 
-" Find and load local vimrc --------------------------------------------------
+" Find and load local .vimrc -------------------------------------------------
 
-let g:local_vimrc = findfile('.vimrc', ';')
-if g:local_vimrc != "" && expand('~/.vimrc') != fnamemodify(g:local_vimrc, ':p')
-  execute "source " . fnamemodify(g:local_vimrc, ':p')
+if ! has("gui_running")
+  call SourceLocalVimrc()
 endif
