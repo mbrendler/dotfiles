@@ -207,9 +207,7 @@ nnoremap <Leader>ü :NERDTreeClose<CR>:TlistToggle<CR>
 nnoremap <Leader>b :LustyBufferExplorer<CR>
 nnoremap <Leader>t :CtrlP<CR>
 nnoremap <Leader>r :call RenameFile()<CR>
-nnoremap <Leader># :execute "leftabove split " . bufname("#")<CR>
-" nnoremap <Leader>w :match Error /\v\s+$/<cr>
-" nnoremap <Leader>W :match none<cr>
+nnoremap <Leader># :leftabove split #<CR>
 nnoremap <Leader><C-w> :%s/\s\+$//g<cr>
 
 nnoremap <Leader>cc :call ChangeWord('ToCamelCaseLower')<CR>
@@ -228,25 +226,7 @@ nnoremap <Leader>eg :split $HOME/.gitconfig<CR>
 nnoremap <Leader>es :execute "split $HOME/.vim/snippets/" . &filetype . ".snippets"<CR>
 nnoremap <Leader>ee :e %<CR>
 
-noremap <Leader>m1 :call Tmux_select_window("1")<CR>
-noremap <Leader>m2 :call Tmux_select_window("2")<CR>
-noremap <Leader>m3 :call Tmux_select_window("3")<CR>
-noremap <Leader>m4 :call Tmux_select_window("4")<CR>
-noremap <Leader>m5 :call Tmux_select_window("5")<CR>
-noremap <Leader>m6 :call Tmux_select_window("6")<CR>
-noremap <Leader>m7 :call Tmux_select_window("7")<CR>
-noremap <Leader>m8 :call Tmux_select_window("8")<CR>
-noremap <Leader>m9 :call Tmux_select_window("9")<CR>
-noremap <Leader>m0 :call Tmux_select_window("0")<CR>
-noremap <Leader>mh :call Tmux_previous_window()<CR>
-noremap <Leader>ml :call Tmux_next_window()<CR>
-noremap <Leader>m<Enter> :call Tmux_send_key("C-m")<CR>
-noremap <Leader>mm :call Tmux_send_key("C-m")<CR>
-noremap <Leader>m<C-u> :call Tmux_send_key("C-u")<CR>
-noremap <Leader>m<C-d> :call Tmux_send_key("C-d")<CR>
-noremap <Leader>ms :call Tmux_send_text("hg st \|\| git status\n")<CR>
-vnoremap <Leader>mm "ry :call Tmux_send_text(@r)<CR>
-vnoremap <C-c><C-c> "ry :call Tmux_send_text(@r)<CR>
+nnoremap <Leader>ms :call Tmux_run_command("git status 2>/dev/null \|\| hg st 2>/dev/null")<CR>
 
 let maplocalleader = "ö"
 
@@ -262,19 +242,15 @@ nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 nnoremap <S-Enter> O<Esc>j
 nnoremap <C-Enter> o<Esc>k
 
-onoremap in( :<c-u>normal! f(vi(<cr>
-onoremap il( :<c-u>normal! F)vi(<cr>
-onoremap in{ :<c-u>normal! f{vi{<cr>
-onoremap il{ :<c-u>normal! F}vi{<cr>
-onoremap in[ :<c-u>normal! f[vi[<cr>
-onoremap il[ :<c-u>normal! F]vi[<cr>
-onoremap in< :<c-u>normal! f<vi<<cr>
-onoremap il< :<c-u>normal! F>vi<<cr>
+nnoremap j gj
+nnoremap k gk
 
 nnoremap ü <C-]>
 
-" C-X C-G: relative version of file completions
-let g:old_cwd = getcwd()
+autocmd BufEnter * if &readonly | nnoremap <buffer> q :q<cr> | endif
+
+""" C-X C-G: relative version of file completions (C-X X-F)
+let g:old_cwd = '.'
 augroup file_completion_end
   autocmd!
   autocmd CompleteDone * execute "lcd " . g:old_cwd
@@ -284,25 +260,24 @@ function! s:relative_completion()
   lcd %:p:h
   call feedkeys("a\<C-X>\<C-F>")
 endfunction
-inoremap <C-X><C-G> <esc>:call <SID>relative_completion()<cr>
+inoremap <C-X><C-G> <esc>:call RelativeCompletion()<cr>
 
-" inoremap <left> <nop>
-" inoremap <down> <nop>
-" inoremap <up> <nop>
-" inoremap <right> <nop>
-" noremap <left> <nop>
-" noremap <down> <nop>
-" noremap <up> <nop>
-" noremap <right> <nop>
-
+onoremap in( :<c-u>normal! f(vi(<cr>
+onoremap il( :<c-u>normal! F)vi(<cr>
+onoremap in{ :<c-u>normal! f{vi{<cr>
+onoremap il{ :<c-u>normal! F}vi{<cr>
+onoremap in[ :<c-u>normal! f[vi[<cr>
+onoremap il[ :<c-u>normal! F]vi[<cr>
+onoremap in< :<c-u>normal! f<vi<<cr>
+onoremap il< :<c-u>normal! F>vi<<cr>
 
 " Commands -------------------------------------------------------------------
 
 command! W w
 command! Wq wq
 
-command! Now :normal a<C-R>="".strftime('%H:%M %d.%m.%Y')<CR><Esc>
-command! Today :normal a<C-R>="".strftime('%d.%m.%Y')<CR><Esc>
+command! Now :normal a<C-R>=strftime('%H:%M %d.%m.%Y')<CR><Esc>
+command! Today :normal a<C-R>=strftime('%d.%m.%Y')<CR><Esc>
 
 function! s:big_font()
   let g:gui_font = &guifont
