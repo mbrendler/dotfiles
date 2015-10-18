@@ -193,6 +193,11 @@ function! Run_file(filename)
   execute 'call ' . l:prefix . '_run("' . a:filename . '")'
 endfunction
 
+function! Run_interactive_file(filename)
+  let l:prefix = substitute(&filetype, "^.", "\\U&", "")
+  execute 'call ' . l:prefix . '_run_interactive("' . a:filename . '")'
+endfunction
+
 " Mappings -------------------------------------------------------------------
 
 let mapleader = ","
