@@ -15,8 +15,6 @@ COMPLETION_DEFINITIONS=(
   "node:$HOME/.zsh/zsh-completions/src/_node"
   "npm:/usr/local/etc/bash_completion.d/npm"
   "pip:$HOME/.zsh/oh-my-zsh/plugins/pip/_pip"
-  "powder:$HOME/.zsh/oh-my-zsh/plugins/powder/_powder"
-  "rvm:$HOME/.rvm/scripts/zsh/Completion/_rvm"
   "tig:/usr/local/etc/bash_completion.d/tig-completion.bash"
   "tmux:/usr/local/etc/bash_completion.d/tmux"
   "vagrant:$HOME/.zsh/zsh-completions/src/_vagrant"
