@@ -29,6 +29,8 @@ set tildeop
 set backspace=2
 set spelllang=de,en
 set spell
+set mouse=n
+set ttymouse=xterm2
 
 " UI -------------------------------------------------------------------------
 
