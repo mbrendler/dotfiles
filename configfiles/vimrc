@@ -1,25 +1,35 @@
-set nocompatible
+" ----------------------------------------------------------------------------
 
 let $VIMHOME=expand("$HOME/.vim")
+let $FT_DIR=expand("$VIMHOME/after/ftplugin/")
 let $MANPAGER=""
 
-" include plug-ins by vundle plugin:
+set nocompatible
+
+""" include plug-ins by vundle plugin:
 source $VIMHOME/vundle_config.vim
+
+" Highlighting ---------------------------------------------------------------
 
 syntax on
 colorscheme Mustang
 
-set shell=~/.zsh/run_script_with_zshrc
+""" highlight trailing whitespace
+highlight ExtraWhitespace ctermbg=1 guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter,InsertEnter,InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
 
 " Behavior -------------------------------------------------------------------
 
-set regexpengine=1
+set regexpengine=1 " improves performance with highlighting ruby files
 set hidden " restore history of buffer coming from background
 set modeline
 set clipboard=unnamed,unnamedplus
 set ttimeoutlen=100  " decrease timeout for faster insert with 'O'
 set ttyfast
 set lazyredraw
+set shell=~/.zsh/run_script_with_zshrc
 
 " Input ----------------------------------------------------------------------
 
@@ -77,52 +87,7 @@ set wildignore+=.beam
 " Completion menu also with omni completion
 set completeopt=longest,menuone
 
-" Status line ----------------------------------------------------------------
-
-set statusline=%<%f\ %h%m%r\ %{SyntasticStatuslineFlag()}%=%-14.(%l,%c%V%)\ %P
-
-set laststatus=2  " always show status line
-
-" Change StatusLine, CursorLine and CursorColumn color in insert mode:
-augroup ModeDetection
-  autocmd InsertEnter * hi StatusLine guibg=#bb1111 ctermfg=52 ctermbg=255
-  autocmd InsertEnter * hi CursorLine guibg=#c9d9e9 ctermbg=52
-  autocmd InsertEnter * hi CursorColumn guibg=#c9d9e9 ctermbg=52
-  autocmd InsertLeave * hi StatusLine guibg=#8090a0 ctermfg=253 ctermbg=238
-  autocmd InsertLeave * hi CursorLine guibg=#f6f6f6 ctermbg=236
-  autocmd InsertLeave * hi CursorColumn guibg=#eaeaea ctermbg=236
-augroup END
-
-" Filetype stuff -------------------------------------------------------------
-
-filetype plugin on
-filetype plugin indent on
-
-function! s:SetHeaderFiletype()
-  let file_no_extension=expand("%:p:r")
-  if filereadable(file_no_extension . ".cpp")
-    set filetype=cpp
-  elseif filereadable(file_no_extension . ".c")
-    set filetype=c
-  elseif filereadable(file_no_extension . ".m")
-    set filetype=objc
-  else
-    echom "no .cpp, .c or .m file found."
-  endif
-endfunction
-
-augroup filetypedetect
-  " This group is created by Vim, so don't use 'autocmd!'.
-
-  autocmd BufRead,BufNewFile *.m set filetype=objc
-  autocmd BufRead,BufNewFile *.h call s:SetHeaderFiletype()
-
-  " Add html FileType for djangohtml files, to activate some html specific
-  " plugins, like SnipeMate-Completion on htmldjango files.
-  autocmd FileType htmldjango set ft=htmldjango.html
-augroup END
-
-" GUI ------------------------------------------------------------------------
+" Functions ------------------------------------------------------------------
 
 function! ComputerName()
   if has('mac')
@@ -132,40 +97,6 @@ function! ComputerName()
   endif
 endfunction
 
-if has("gui_running")
-  colorscheme pyte
-  set number
-  set guioptions='iecrL'
-  set columns=88
-
-  augroup gui_stuff
-    autocmd!
-    autocmd GUIEnter * set guitablabel=%N\ %M%t
-  augroup end
-
-  if ComputerName() ==# 'macmini'
-    set guifont=Monaco:h13
-    set lines=55
-  elseif ComputerName() ==# 'janneke'
-    set guifont=Menlo:h14
-    winpos 653 22
-    set lines=63
-  elseif ComputerName() ==# 'Maik Brendlers MacBook Pro'
-    set guifont=Menlo:h15
-    set lines=63
-  elseif ComputerName() ==# 'atom'
-    set guifont=Monospace\ 9.5
-    winpos 298 16
-    augroup gui_size
-      autocmd!
-      autocmd GUIEnter * set lines=37 columns=88
-    augroup END
-    set nocursorline
-    set nocursorcolumn
-  endif
-endif
-
-" rename current file, via Gary Bernhardt
 function! RenameFile()
   let old_name = expand('%')
   let new_name = input('New file name: ', old_name)
@@ -182,6 +113,16 @@ function! RenameFile()
   endif
 endfunction
 
+function! SetCHeaderFiletype()
+  let file_no_extension=expand("%:p:r")
+  if filereadable(file_no_extension . ".cpp")
+    set filetype=cpp
+  elseif filereadable(file_no_extension . ".c")
+    set filetype=c
+  elseif filereadable(file_no_extension . ".m")
+    set filetype=objc
+  endif
+endfunction
 
 function! Save_buffer_if_modified()
   if &modified == 1
@@ -278,9 +219,26 @@ endfunction
 nnoremap K :call Rtfm(expand("<cword>"))<CR>
 vnoremap K :call Rtfm(VisualSelection())<CR>
 
+" Filetype stuff -------------------------------------------------------------
+
+filetype plugin on
+filetype plugin indent on
+
+augroup filetypedetect
+  " This group is created by Vim, so don't use 'autocmd!'.
+
+  autocmd BufRead,BufNewFile *.m set filetype=objc
+  autocmd BufRead,BufNewFile *.h call SetCHeaderFiletype()
+
+  " Add html FileType for djangohtml files, to activate some html specific
+  " plugins, like SnipeMate-Completion on htmldjango files.
+  autocmd FileType htmldjango set filetype=htmldjango.html
+augroup END
+
 " Mappings -------------------------------------------------------------------
 
 let mapleader = ","
+
 nnoremap <Leader>n :TlistClose<CR>:NERDTreeToggle<CR>
 nnoremap <Leader>m :TlistClose<CR>:NERDTreeFind<CR>
 nnoremap <Leader>ü :NERDTreeClose<CR>:TlistToggle<CR>
@@ -288,6 +246,7 @@ nnoremap <Leader>b :LustyBufferExplorer<CR>
 nnoremap <Leader>t :CtrlP<CR>
 nnoremap <Leader>r :call RenameFile()<CR>
 nnoremap <Leader># :leftabove split #<CR>
+nnoremap <Leader>' :rightbelow vsplit #<CR>
 nnoremap <Leader><C-w> :%s/\s\+$//g<cr>
 
 nnoremap <Leader>cc :call ChangeWord('ToCamelCaseLower')<CR>
@@ -313,11 +272,10 @@ nnoremap <LocalLeader>; :execute "normal! mqA;\e`q"<cr>
 nnoremap <LocalLeader>rr :call Save_buffer_if_modified()<cr>:call Run_file(expand('%'))<cr>
 nnoremap <LocalLeader>ri :call Save_buffer_if_modified()<cr>:call Run_interactive_file(expand('%'))<cr>
 
-" Split line (sister to [J]oin lines)
-" The normal use of S is covered by cc, so don't worry about shadowing it.
+""" Split line (sister to [J]oin lines)
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 
-" Insert new line without entering insert mode.
+""" Insert new line without entering insert mode.
 nnoremap <S-Enter> O<Esc>j
 nnoremap <C-Enter> o<Esc>k
 
@@ -358,56 +316,38 @@ command! Wq wq
 command! Now :normal a<C-R>=strftime('%H:%M %d.%m.%Y')<CR><Esc>
 command! Today :normal a<C-R>=strftime('%d.%m.%Y')<CR><Esc>
 
-function! s:big_font()
-  let g:gui_font = &guifont
-  let g:win_pos_x = getwinposx()
-  let g:win_pos_y = getwinposy()
-  let g:lines = &lines
-  let g:columns = &columns
-  set guifont=Menlo:h24
-endfunction
-function! s:normal_font()
-  if exists('g:gui_font')
-    let &guifont=g:gui_font
-    let &lines=g:lines
-    let &columns=g:columns
-    execute "winpos " . g:win_pos_x . " " . g:win_pos_y
-  endif
-endfunction
 command! -nargs=+ -complete=shellcmd Rtfm :call Rtfm("<args>")
 
-command! Big :call <SID>big_font()
-command! Normal :call <SID>normal_font()
+" Status line ----------------------------------------------------------------
 
-" Highlighting ---------------------------------------------------------------
+set statusline=%<%f\ %h%m%r\ %{SyntasticStatuslineFlag()}%=%-14.(%l,%c%V%)\ %P
 
-" highlight trailing whitespace
-highlight ExtraWhitespace ctermbg=1 guibg=red
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
+set laststatus=2  " always show status line
+
+""" Change StatusLine, CursorLine and CursorColumn color in insert mode:
+augroup ModeDetection
+  autocmd InsertEnter *
+    \ hi StatusLine guibg=#bb1111 ctermfg=52 ctermbg=255 |
+    \ hi CursorLine guibg=#c9d9e9 ctermbg=52 |
+    \ hi CursorColumn guibg=#c9d9e9 ctermbg=52
+  autocmd InsertLeave *
+    \ hi StatusLine guibg=#8090a0 ctermfg=253 ctermbg=238 |
+    \ hi CursorLine guibg=#f6f6f6 ctermbg=236 |
+    \ hi CursorColumn guibg=#eaeaea ctermbg=236
+augroup END
 
 " Plugin Settings ------------------------------------------------------------
 
 let NERDTreeIgnore = ['\.pyc$', '\.orig$']
 
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
-" let g:syntastic_stl_format = "%E{E:%e} %W{W:%w}"
 let g:syntastic_cpp_compiler = "clang++"
 
-" clang_complete
-"" TODO: make this more standard
-let LLVM_PREFIX = expand("$HOME/privateroot/opt/llvm/BD2/Release+Asserts/")
-if isdirectory(LLVM_PREFIX . "/lib/")
-  let g:clang_use_library = 1
-  let g:clang_library_path = expand(LLVM_PREFIX . "/lib/")
-endif
+""" clang_complete
 let g:clang_use_library = 1
 let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
 
-" Python
+""" Python
 let g:jedi#popup_on_dot = 0
 let g:jedi#goto_assignments_command = "<localleader>g"
 let g:jedi#goto_definitions_command = "<localleader>d"
@@ -415,17 +355,14 @@ let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<localleader>n"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<localleader>r"
-let g:jedi#show_call_signatures = "1"
+let g:jedi#show_call_signatures = 0
 
-" Ruby
-let g:ruby_path="/usr/bin/ruby"
-
-" Haskell-Mode
+""" Haskell-Mode
 let g:haddock_browser = "open"
 let g:haddock_browser_callformat = "%s %s"
 let g:haddock_indexfiledir = "$HOME/.vim/"
 
-" Tag list
+""" Tag list
 let Tlist_Use_Right_Window = 1
 let Tlist_Inc_Winwidth = 1
 let Tlist_Enable_Fold_Column = 0

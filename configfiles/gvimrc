@@ -1,0 +1,45 @@
+colorscheme pyte
+
+set number
+set guioptions='iecrL'
+set columns=88
+
+augroup gui_stuff
+  autocmd!
+  autocmd GUIEnter * set guitablabel=%N\ %M%t
+augroup end
+
+if ComputerName() ==# 'macmini'
+  set guifont=Monaco:h13
+  set lines=55
+elseif ComputerName() ==# 'janneke'
+  set guifont=Menlo:h14
+  winpos 653 22
+  set lines=63
+elseif ComputerName() ==# 'Maik Brendlers MacBook Pro'
+  set guifont=Menlo:h15
+  set lines=63
+endif
+
+function! BigFont()
+  let g:gui_font = &guifont
+  let g:win_pos_x = getwinposx()
+  let g:win_pos_y = getwinposy()
+  let g:lines = &lines
+  let g:columns = &columns
+  set guifont=Menlo:h24
+endfunction
+
+function! NormalFont()
+  if exists('g:gui_font')
+    let &guifont=g:gui_font
+    let &lines=g:lines
+    let &columns=g:columns
+    execute "winpos " . g:win_pos_x . " " . g:win_pos_y
+  endif
+endfunction
+
+command! Big :call BigFont()
+command! Normal :call NormalFont()
+
+call SourceLocalVimrc()
