@@ -167,11 +167,17 @@ endif
 " rename current file, via Gary Bernhardt
 function! RenameFile()
   let old_name = expand('%')
-  let new_name = input('New file name: ', expand('%'))
+  let new_name = input('New file name: ', old_name)
   if new_name != '' && new_name != old_name
-    exec ':saveas ' . new_name
-    exec ':silent !rm ' . old_name
-    redraw!
+    if system('git ls-files ' . old_name) == ""
+      execute ':saveas ' . new_name
+      execute ':silent !rm ' . old_name
+      redraw!
+    else
+      call system('git mv ' . old_name . ' ' . new_name . ' 2> /dev/null')
+      execute 'edit ' . new_name
+    endif
+    execute 'bd ' . old_name
   endif
 endfunction
 
