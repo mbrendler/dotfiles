@@ -32,7 +32,7 @@ function! Ruby_run(filename)
   if strlen(findfile('Gemfile', ';')) != 0
     let l:command = 'bundle exec ruby'
   endif
-  execute '!' . l:command . ' ' . a:filename . ' | cat'
+  call Tmux_run_command(l:command . ' ' . a:filename)
 endfunction
 
 nnoremap <LocalLeader>r :w<cr>:call Ruby_run(expand('%'))<cr>
