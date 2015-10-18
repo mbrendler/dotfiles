@@ -23,11 +23,7 @@ export EDITOR=vim
 
 export MANPAGER="\
   col -b -x | \
-  vim -R \
-      -c 'set ft=man nomod nolist laststatus=1 colorcolumn=0 nospell' \
-      -c 'map q :q<CR>' \
-      -c 'nmap K :Man <C-R>=expand(\"<cword>\")<CR><CR>' \
-      -"
+  vim -R -c 'set ft=man nomod nolist laststatus=1 colorcolumn=0 nospell' -"
 
 ### Homebrew *PATH extensions
 if test -f /usr/local/bin/brew ; then
