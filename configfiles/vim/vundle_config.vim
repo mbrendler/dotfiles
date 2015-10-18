@@ -28,7 +28,6 @@ Bundle 'vim-emblem'
 Bundle 'dsawardekar/ember.vim'
 "" automatically close code blocks in ruby
 Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-rake'
 Bundle 'tpope/vim-projectionist'
 
