@@ -43,6 +43,10 @@ PREFIX="$HOME/.usr"
 plugin zsh zsh-users/zsh-syntax-highlighting
 plugin zsh zsh-users/zsh-completions
 
+# tmux plugins ----------------------------------------------------------------
+
+plugin tmux tmux-plugins/tmux-yank
+
 # vim plugins -----------------------------------------------------------------
 
 ### file and buffer access
