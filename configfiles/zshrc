@@ -94,7 +94,7 @@ else
 fi
 
 ### loop command until it returns an error
-function kaputt {
+kaputt() {
   local i=0
   while (eval $@) {
     i=$(($i + 1))
@@ -105,7 +105,7 @@ function kaputt {
 }
 
 ### `i` simplifies the work with projects: ## https://github.com/mbrendler/i
-function i {
+i() {
   if test "$1" = cd ; then
     shift
     cd "$(command i dir "$@")"
