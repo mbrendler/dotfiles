@@ -72,6 +72,7 @@ set wildignore+=.hg
 set wildignore+=.git
 set wildignore+=.svn
 set wildignore+=tmp
+set wildignore+=.beam
 
 " Completion menu also with omni completion
 set completeopt=longest,menuone
