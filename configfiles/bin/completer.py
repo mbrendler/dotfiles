@@ -102,7 +102,7 @@ def previous_pane_id():
     return panes.strip()
 
 
-def words(content, extra_chars='$-', must_contain=''):
+def words(content, extra_chars='$-_', must_contain=''):
     result = []
     current = ''
     for c in content:
@@ -117,7 +117,7 @@ def words(content, extra_chars='$-', must_contain=''):
 
 
 def files(content):
-    return words(content, extra_chars='/~.$-', must_contain='/')
+    return words(content, extra_chars='/~.$-_', must_contain='/')
 
 
 def fuzzy_matcher(entry, string):
