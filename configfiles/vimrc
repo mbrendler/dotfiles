@@ -28,7 +28,7 @@ set cpoptions=B$ " cw-like commands mark end with $ instead of deleting.
 set tildeop
 set backspace=2
 set spelllang=de,en
-set spell
+set nospell
 set mouse=n
 set ttymouse=xterm2
 
