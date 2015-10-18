@@ -170,6 +170,18 @@ function! RenameFile()
   endif
 endfunction
 
+
+function! Save_buffer_if_modified()
+  if &modified == 1
+    write
+  endif
+endfunction
+
+function! Run_file(filename)
+  let l:prefix = substitute(&filetype, "^.", "\\U&", "")
+  execute 'call ' . l:prefix . '_run("' . a:filename . '")'
+endfunction
+
 " Mappings -------------------------------------------------------------------
 
 let mapleader = ","
@@ -226,6 +238,8 @@ augroup filetype_mappings
   autocmd!
   autocmd FileType c,objc,cpp,javascript nnoremap <buffer> <LocalLeader>; :execute "normal! mqA;\e`q"<cr>
 augroup END
+nnoremap <LocalLeader>rr :call Save_buffer_if_modified()<cr>:call Run_file(expand('%'))<cr>
+nnoremap <LocalLeader>ri :call Save_buffer_if_modified()<cr>:call Run_interactive_file(expand('%'))<cr>
 
 " Split line (sister to [J]oin lines)
 " The normal use of S is covered by cc, so don't worry about shadowing it.
