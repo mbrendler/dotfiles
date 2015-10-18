@@ -6,8 +6,15 @@ let $MANPAGER=""
 
 set nocompatible
 
-""" include plug-ins by vundle plugin:
-source $VIMHOME/vundle_config.vim
+" Extend runtimepath with plugin directories ---------------------------------
+
+function! ExtendRuntimepath()
+  for plugin_path in split(globpath(expand('~/.usr/plugins/vim'), '*'))
+    execute 'set runtimepath+=' . plugin_path
+  endfor
+endfunction
+
+call ExtendRuntimepath()
 
 " Highlighting ---------------------------------------------------------------
 

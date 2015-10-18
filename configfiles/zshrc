@@ -190,7 +190,7 @@ fi
 
 if test "$IS_INTERACTIVE" != no ; then
   ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
-  source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+  source ~/.usr/plugins/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 # Key bindings ----------------------------------------------------------------
