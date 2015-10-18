@@ -1,0 +1,59 @@
+#! /bin/bash
+
+set -euo pipefail
+
+function finish {
+  rm -rf "$TMP"
+}
+
+if test $# -gt 1 ; then
+  echo usage: "$0" TARGET
+fi
+
+SEARCH=$1
+
+TMP=$(mktemp)
+trap finish EXIT
+
+cat > "$TMP" << EOF
+defmodule Compls do
+  def completions(search) do
+    Compls.compls(search, IEx.Autocomplete.expand(Enum.reverse(search)))
+  end
+
+  def compls(_, {:no, _, _}), do: nil
+  def compls(search, {:yes, extra, []}), do: completions(search ++ extra)
+  def compls(search, {:yes, _, more}) do
+    to_string(search)
+    |> String.split(".")
+    |> List.delete_at(-1)
+    |> Enum.join(".")
+    |> fill_completion(more)
+    |> Enum.join("\n")
+    |> IO.puts
+  end
+
+  defp fill_completion("", more), do: more
+  defp fill_completion(module, more) do
+    Enum.map(more, &Enum.join([module, &1], "."))
+  end
+end
+
+:ok = Application.start(:iex)
+Compls.completions('$SEARCH')
+EOF
+SEARCH="$(elixir "$TMP")"
+
+if test -z "$SEARCH" ; then
+  exit 1
+fi
+
+cat > "$TMP" << EOF
+require IEx.Helpers
+:ok = Application.start(:iex)
+$(for s in $SEARCH ; do echo IO.puts "\"- \`$s\`\"" ; done)
+IO.puts ""
+$(for s in $SEARCH ; do echo IEx.Helpers.h "$s" ; done)
+EOF
+
+elixir "$TMP"
