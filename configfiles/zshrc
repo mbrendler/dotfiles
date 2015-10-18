@@ -32,9 +32,22 @@ fi
 
 export PYTHONSTARTUP=$HOME/.pystartup
 
-if test -s "$HOME/.rvm/scripts/rvm" ; then
-  path=($HOME/.rvm/bin $path)
-  source "$HOME/.rvm/scripts/rvm"
+### Initialize rbenv, if its installed
+if which rbenv > /dev/null; then
+  # The following lines are read from 'rbenv init -'. (this is faster)
+  path=("$HOME/.rbenv/shims" $path)
+  source /usr/local/Cellar/rbenv/0.4.0/completions/rbenv.zsh
+  rbenv() {
+    typeset command
+    command="$1"
+    test "$#" -gt 0 && shift
+    case "$command" in
+    rehash|shell)
+      eval `rbenv "sh-$command" "$@"`;;
+    *)
+      command rbenv "$command" "$@";;
+    esac
+  }
 fi
 
 # Prompt ----------------------------------------------------------------------
