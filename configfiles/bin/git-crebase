@@ -12,14 +12,6 @@ def git_log():
     return commands.getoutput('git log --oneline master..')
 
 
-def git_create_backup_branch():
-    branch = commands.getoutput('git rev-parse --abbrev-ref HEAD')
-    now = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
-    backup_branch = 'before-c-rebase--%s--%s' % (branch, now)
-    os.system('git branch %s' % backup_branch)
-    sys.stdout.write("Backup branch '%s' created.\n" % backup_branch)
-
-
 def parse_log(log):
     return [log_line.split(' ', 1) for log_line in log.splitlines()]
 
@@ -108,7 +100,6 @@ def main():
     changesets = parse_log(git_log())
     menu = RebaseMenu(changesets)
     if menu.run():
-        git_create_backup_branch()
         if menu.rebase_actions:
             return git_rebase(menu.rebase_actions)
         else:
