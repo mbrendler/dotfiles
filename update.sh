@@ -30,8 +30,9 @@ function git_plugin() {
 }
 
 function plugin() {
+  local type=$1
   local dst
-  dst="$PREFIX/plugins/$1/$(cut -d/ -f 2 <(echo "$2"))"
+  dst="$PREFIX/plugins/$type/$(cut -d/ -f 2 <(echo "$2"))"
   local src="https://www.github.com/$2"
   git_plugin "$src" "$dst" &
 }
