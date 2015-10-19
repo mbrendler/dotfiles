@@ -10,7 +10,13 @@ set nocompatible
 
 function! ExtendRuntimepath()
   for plugin_path in split(globpath(expand('~/.usr/plugins/vim'), '*'))
-    execute 'set runtimepath+=' . plugin_path
+    if 0 != isdirectory(plugin_path) && -1 == match(&runtimepath, plugin_path)
+      execute 'set runtimepath+=' . plugin_path
+      let l:after_path = plugin_path . '/after'
+      if isdirectory(l:after_path)
+        execute 'set runtimepath+=' . l:after_path
+      endif
+    endif
   endfor
 endfunction
 
