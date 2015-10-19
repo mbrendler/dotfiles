@@ -102,3 +102,9 @@ if test -e "$LOCAL_PYTHON_PACKAGES/crecord" ; then
 else
   hg clone https://bitbucket.org/edgimar/crecord "$LOCAL_PYTHON_PACKAGES/crecord"
 fi
+
+# Initialize Vim helptags -----------------------------------------------------
+
+for plugin_doc_dir in $(/bin/ls -d "$PREFIX"/plugins/vim/*/doc) ; do
+  vim "+helptags $plugin_doc_dir" +qall
+done
