@@ -299,7 +299,7 @@ augroup file_completion_end
   autocmd!
   autocmd CompleteDone * execute "lcd " . g:old_cwd
 augroup END
-function! s:relative_completion()
+function! RelativeCompletion()
   let g:old_cwd = getcwd()
   lcd %:p:h
   call feedkeys("a\<C-X>\<C-F>")
