@@ -62,6 +62,10 @@ function! Tmux_get_target_pane()
   return g:tmux_target_pane
 endfunction
 
+function! Tmux_select_target_pane()
+  call system("tmux select-pane -t " . Tmux_get_target_pane())
+endfunction
+
 " Commands -------------------------------------------------------------------
 
 command! -nargs=+ -complete=shellcmd T :call Tmux_run_command("<args>")
