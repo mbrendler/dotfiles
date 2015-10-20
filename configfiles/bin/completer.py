@@ -102,7 +102,17 @@ def previous_pane_id():
     return panes.strip()
 
 
-def words(content, extra_chars='$-_', must_contain=''):
+def pane_pwd(pane_id):
+    cmd = 'tmux list-panes -F "#{pane_id},#{pane_current_path}"'
+    panes = commands.getoutput(cmd)
+    for pane in panes.splitlines():
+        if pane.startswith(pane_id + ','):
+            return pane[len(pane_id) + 1:]
+    return ''
+
+def words(content, extra_chars='$-_', must_contain='', ignore=None):
+    if ignore is None:
+        ignore = set()
     result = []
     current = ''
     for c in content:
@@ -110,14 +120,30 @@ def words(content, extra_chars='$-_', must_contain=''):
         if 48 <= i <= 57 or 65 <= i <= 90 or 97 <= i <= 122 or c in extra_chars:
             current += c
         else:
-            if current and must_contain in current:
+            if current and must_contain in current and current not in ignore:
                 result.append(current)
             current = ''
     return result
 
 
-def files(content):
-    return words(content, extra_chars='/~.$-_', must_contain='/')
+def prepare_file_ignore_list(ignore):
+    if ignore is None:
+        ignore = set([])
+    home = os.getenv('HOME')
+    ignore.add(home)
+    for path in set(ignore):
+        if path.startswith(home):
+            ignore.add(path.replace(home, '~', 1))
+    for path in set(ignore):
+        if path[-1] == '/':
+            ignore.add(path[:-1])
+        else:
+            ignore.add(path + '/')
+
+
+def files(content, ignore=None):
+    ignore = prepare_file_ignore_list(ignore)
+    return words(content, extra_chars='/~.$-_', must_contain='/', ignore=ignore)
 
 
 def fuzzy_matcher(entry, string):
@@ -154,7 +180,9 @@ def main():
     args = parse_options()
     pane = previous_pane_id()
     pane_content = open(args.filename).read()
-    completion_list = unique_list(reversed(args.parse_input(pane_content)))
+    ignore = set([pane_pwd(pane)])
+    parsed = args.parse_input(pane_content, ignore=ignore)
+    completion_list = unique_list(reversed(parsed))
     menu = CompletionListWindow(
         completion_list, initial_text(pane_content), args.matcher
     )
