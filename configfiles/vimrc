@@ -356,6 +356,9 @@ let NERDTreeIgnore = ['\.pyc$', '\.orig$']
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 let g:syntastic_cpp_compiler = "clang++"
 
+""" TComment
+let g:tcommentMapLeader1 = ""
+
 """ clang_complete
 let g:clang_use_library = 1
 let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
