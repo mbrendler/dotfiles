@@ -24,6 +24,19 @@ if version >= 700
   hi PmenuSel 	guifg=#000000 guibg=#b1d631 ctermfg=0 ctermbg=148
 endif
 
+""" Change StatusLine, CursorLine and CursorColumn color in insert mode:
+augroup ModeDetection
+  autocmd!
+  autocmd InsertEnter *
+    \ hi StatusLine guibg=#bb1111 ctermfg=52 ctermbg=255 |
+    \ hi CursorLine guibg=#c9d9e9 ctermbg=52 |
+    \ hi CursorColumn guibg=#c9d9e9 ctermbg=52
+  autocmd InsertLeave *
+    \ hi StatusLine guibg=#8090a0 ctermfg=253 ctermbg=238 |
+    \ hi CursorLine guibg=#f6f6f6 ctermbg=236 |
+    \ hi CursorColumn guibg=#eaeaea ctermbg=236
+augroup END
+
 " General colors
 hi Cursor 		guifg=NONE    guibg=#626262 gui=none ctermbg=241
 hi Normal 		guifg=#e2e2e5 guibg=#202020 gui=none ctermfg=253 ctermbg=234
