@@ -25,7 +25,7 @@ call ExtendRuntimepath()
 " Highlighting ---------------------------------------------------------------
 
 syntax on
-colorscheme Mustang
+colorscheme mbr-light
 
 """ highlight trailing whitespace
 highlight ExtraWhitespace ctermbg=1 guibg=red
