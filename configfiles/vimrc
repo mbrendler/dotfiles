@@ -251,6 +251,22 @@ function! VisualSelection()
   endtry
 endfunction
 
+function! GetBufferList()
+  redir =>buflist
+  silent! ls
+  redir END
+  return split(buflist, '\n')
+endfunction
+
+function! ToggleLocations()
+  if empty(filter(GetBufferList(), 'v:val =~ "Location List"'))
+    Errors
+    lopen
+  else
+    lclose
+  endif
+endfunction
+
 nnoremap K :call Rtfm(expand("<cword>"))<CR>
 vnoremap K :call Rtfm(VisualSelection())<CR>
 
@@ -280,6 +296,7 @@ nnoremap <Leader>ü :NERDTreeClose<CR>:TlistToggle<CR>
 nnoremap <Leader>b :LustyBufferExplorer<CR>
 nnoremap <Leader>t :CtrlP<CR>
 nnoremap <Leader>r :call RenameFile()<CR>
+nnoremap <Leader>a :call ToggleLocations()<cr>
 nnoremap <Leader># :leftabove split #<CR>
 nnoremap <Leader>' :rightbelow vsplit #<CR>
 nnoremap <Leader><C-w> :%s/\s\+$//g<cr>
