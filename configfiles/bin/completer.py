@@ -4,7 +4,6 @@ import sys
 import os
 import commands
 import argparse
-import re
 from itertools import groupby
 from collections import OrderedDict
 from curses import KEY_DOWN, KEY_UP, KEY_BACKSPACE
@@ -109,6 +108,7 @@ def pane_pwd(pane_id):
         if pane.startswith(pane_id + ','):
             return pane[len(pane_id) + 1:]
     return ''
+
 
 def words(content, extra_chars='$-_', must_contain='', ignore=None):
     if ignore is None:
