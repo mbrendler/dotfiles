@@ -126,29 +126,34 @@ def words(content, extra_chars='$-_', must_contain='', ignore=None):
     return result
 
 
-def prepare_file_ignore_list(ignore):
-    if ignore is None:
-        ignore = set([])
+def expand_home_directory(paths):
     home = os.getenv('HOME')
-    ignore.add(home)
-    for path in set(ignore):
+    for path in set(paths):
         if path.startswith(home):
-            ignore.add(path.replace(home, '~', 1))
-    for path in set(ignore):
+            paths.add(path.replace(home, '~', 1))
+        elif path[0] == '~':
+            paths.add(path.replace('~', home, 1))
+
+
+def add_trailing_slash(paths):
+    for path in set(paths):
         if path[-1] == '/':
-            ignore.add(path[:-1])
+            paths.add(path[:-1])
         else:
-            ignore.add(path + '/')
+            paths.add(path + '/')
 
 
 def files(content, ignore=None):
-    ignore = prepare_file_ignore_list(ignore)
+    ignore = ignore or set()
+    ignore.add(os.getenv('HOME'))
+    add_trailing_slash(ignore)
+    expand_home_directory(ignore)
     return words(content, extra_chars='/~.$-_', must_contain='/', ignore=ignore)
 
 
 def fuzzy_matcher(entry, string):
-    for sc in string:
-        index = entry.find(sc)
+    for character in string:
+        index = entry.find(character)
         if index >= 0:
             entry = entry[index:]
         else:
