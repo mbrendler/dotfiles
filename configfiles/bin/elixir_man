@@ -35,7 +35,7 @@ defmodule Compls do
 
   defp fill_completion("", more), do: more
   defp fill_completion(module, more) do
-    Enum.map(more, &Enum.join([module, &1], "."))
+    [module | Enum.map(more, &Enum.join([module, &1], "."))]
   end
 end
 
