@@ -295,6 +295,7 @@ nnoremap <Leader>m :TlistClose<CR>:NERDTreeFind<CR>
 nnoremap <Leader>ü :NERDTreeClose<CR>:TlistToggle<CR>
 nnoremap <Leader>b :LustyBufferExplorer<CR>
 nnoremap <Leader>t :CtrlP<CR>
+nnoremap <Leader>T :CtrlPTag<CR>
 nnoremap <Leader>r :call RenameFile()<CR>
 nnoremap <Leader>a :call ToggleLocations()<cr>
 nnoremap <Leader># :leftabove split #<CR>
@@ -335,6 +336,7 @@ nnoremap j gj
 nnoremap k gk
 
 nnoremap ü <C-]>
+nnoremap gü g]
 
 autocmd BufEnter * if &readonly | nnoremap <buffer> q :q<cr> | endif
 
