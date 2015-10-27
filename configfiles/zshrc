@@ -5,6 +5,8 @@ PLATFORM=$(uname)
 
 # Exports ---------------------------------------------------------------------
 
+test ! -z "$TMUX" && export TERM=screen-256color-italic
+
 typeset -U path
 path=(
   $HOME/.bin
