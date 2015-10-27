@@ -1,4 +1,0 @@
-glob:*.orig
-glob:*.pyc
-glob:configfiles/vim/haskellmode.config
-glob:configfiles/vim/spell
