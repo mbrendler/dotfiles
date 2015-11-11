@@ -353,6 +353,8 @@ function! RelativeCompletion()
 endfunction
 inoremap <C-X><C-G> <esc>:call RelativeCompletion()<cr>
 
+inoremap <C-X><ü> <C-X><C-]>
+
 nnoremap <C-_> <esc>:call Tmux_select_target_pane()<cr>
 
 onoremap in( :<c-u>normal! f(vi(<cr>
