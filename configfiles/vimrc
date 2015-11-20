@@ -298,7 +298,7 @@ nnoremap <Leader>t :CtrlP<CR>
 nnoremap <Leader>T :CtrlPTag<CR>
 nnoremap <Leader>r :call RenameFile()<CR>
 nnoremap <Leader>a :call ToggleLocations()<cr>
-nnoremap <Leader># :leftabove split #<CR>
+nnoremap <Leader># :CtrlPFindAlternatives<cr>
 nnoremap <Leader>' :rightbelow vsplit #<CR>
 nnoremap <Leader><C-w> :%s/\s\+$//g<cr>
 
@@ -374,6 +374,8 @@ command! Wq wq
 command! Now :normal a<C-R>=strftime('%H:%M %d.%m.%Y')<CR><Esc>
 command! Today :normal a<C-R>=strftime('%d.%m.%Y')<CR><Esc>
 
+command! CtrlPFindAlternatives call ctrlp#find_alternatives#start(expand("%"))
+
 command! -nargs=+ -complete=shellcmd Rtfm :call Rtfm("<args>")
 
 " Status line ----------------------------------------------------------------
@@ -386,7 +388,10 @@ set laststatus=2  " always show status line
 
 let NERDTreeIgnore = ['\.pyc$', '\.orig$']
 
+let g:ctrlp_extensions = ['find_alternatives']
+
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+let g:syntastic_python_checkers = ['pylint', 'pep8']
 let g:syntastic_cpp_compiler = "clang++"
 
 """ TComment
