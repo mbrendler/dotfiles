@@ -3,7 +3,7 @@
 import sys
 import os
 import commands
-from datetime import datetime
+import curses
 
 from menu import Menu
 
@@ -94,6 +94,10 @@ class RebaseMenu(Menu):
             window.addstr(i, 0, line)
         window.clrtobot()
         window.getch()
+
+    def _loop(self, window):
+        curses.curs_set(0)
+        super(RebaseMenu, self)._loop(window)
 
 
 def main():
