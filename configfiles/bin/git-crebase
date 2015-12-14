@@ -97,7 +97,7 @@ class RebaseMenu(Menu):
 
     def _loop(self, window):
         curses.curs_set(0)
-        super(RebaseMenu, self)._loop(window)
+        return super(RebaseMenu, self)._loop(window)
 
 
 def main():
