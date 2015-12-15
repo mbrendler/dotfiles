@@ -75,6 +75,7 @@ plugin vim tpope/vim-projectionist
 ### editing
 plugin vim Raimondi/delimitMate # Automatic closing of quotes, parentheses, ...
 plugin vim tpope/vim-surround
+plugin vim tpope/vim-repeat
 plugin vim tomtom/tcomment_vim
 plugin vim terryma/vim-multiple-cursors
 plugin vim vim-utils/vim-husk # Historic key bindings in command line
