@@ -35,7 +35,4 @@ function! Ruby_run(filename)
   call Tmux_run_command(l:command . ' ' . a:filename)
 endfunction
 
-" TODO
-" nnoremap <LocalLeader>rt :call Save_buffer_if_modified()<cr>:call Ruby_run(Ruby_find_test())<cr>
-" nnoremap <LocalLeader>rs :call Save_buffer_if_modified()<cr>:call Ruby_run_spec(Ruby_find_spec())<cr>
 nnoremap <LocalLeader>o :call Ruby_toggle_test_and_impl_file()<cr>
