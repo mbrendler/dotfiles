@@ -3,14 +3,14 @@
 set -euo pipefail
 
 function retry() {
-  $*
+  "$@"
   if test $? -ne 0 ; then
     sleep 1
-    $*
+    "$@"
   fi
   if test $? -ne 0 ; then
     sleep 1
-    $*
+    "$@"
   fi
 }
 
@@ -31,13 +31,12 @@ function git_plugin() {
 
 function plugin() {
   local type=$1
-  local dst
-  dst="$PREFIX/plugins/$type/$(cut -d/ -f 2 <(echo "$2"))"
+  local dst; dst="$PREFIX/plugins/$type/$(cut -d/ -f 2 <(echo "$2"))"
   local src="https://www.github.com/$2"
   git_plugin "$src" "$dst" &
 }
 
-PREFIX="$HOME/.usr"
+readonly PREFIX="$HOME/.usr"
 
 # zsh plugins -----------------------------------------------------------------
 
@@ -97,7 +96,7 @@ pip install -U pip
 pip install -U mercurial-keyring
 pip install -U hg-git
 
-LOCAL_PYTHON_PACKAGES="$PREFIX/python_packages"
+readonly LOCAL_PYTHON_PACKAGES="$PREFIX/python_packages"
 mkdir -p "$LOCAL_PYTHON_PACKAGES"
 if test -e "$LOCAL_PYTHON_PACKAGES/crecord" ; then
   hg -R "$LOCAL_PYTHON_PACKAGES/crecord" pull -u
