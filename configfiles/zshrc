@@ -110,6 +110,12 @@ kaputt() {
     say kaputt
 }
 
+### find and require tests in an directory
+test-dir() {
+  local directory="$1"
+  find "$directory" -name '*_test.rb' | sed "s/.*/require '.\/&'/"
+}
+
 ### `i` simplifies the work with projects: ## https://github.com/mbrendler/i
 i() {
   if test "$1" = cd ; then
