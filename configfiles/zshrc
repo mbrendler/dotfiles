@@ -85,6 +85,10 @@ elif test "$PLATFORM" = "Linux" ; then
   alias pbpaste='xsel --clipboard --output'
 fi
 
+clean-vim() {
+  vim -u <(echo 'set nocompatible\nfiletype plugin on') "$@"
+}
+
 ### configure `ls` coloring
 if which dircolors > /dev/null 2> /dev/null ; then
   # Gnu core utils are installed.
