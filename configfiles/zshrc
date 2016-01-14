@@ -126,6 +126,10 @@ i() {
   fi
 }
 
+define() {
+  curl "dict://dict.org/d:$1"
+}
+
 # History ---------------------------------------------------------------------
 
 setopt HIST_IGNORE_DUPS      # no duplicated history entries
