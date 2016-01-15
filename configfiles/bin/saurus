@@ -1,0 +1,55 @@
+#! /usr/bin/env python
+# pylint: disable=missing-docstring
+import sys
+from argparse import ArgumentParser
+from urllib2 import urlopen, HTTPError
+import json
+
+
+URL_TEMPLATE = (
+    'https://www.openthesaurus.de/synonyme/search?q=%s&format=application/json'
+)
+
+
+def get_json(word):
+    try:
+        connection = urlopen(URL_TEMPLATE % word)
+    except HTTPError as error:
+        sys.stderr.write(str(error) + '\n')
+        sys.exit(1)
+    return json.loads(connection.read())
+
+
+def print_terms(content):
+    for synset in reversed(content.get('synsets', [])):
+        categories = synset.get('categories', [])
+        print '\033[38;5;7m----\033[0m %s' % ', '.join(categories)
+        for term in reversed(synset['terms']):
+            output = term['term']
+            if 'level' in term:
+                output += ' \033[38;5;3m[%s]\033[0m' % term['level']
+            print '  ' + output
+
+
+def print_json(content):
+    print json.dumps(content, indent=2)
+
+
+def parse_options():
+    parser = ArgumentParser()
+    parser.add_argument('word', metavar="WORD")
+    parser.add_argument(
+        '--json', dest='puts', help='only print JSON response',
+        default=print_terms, const=print_json, action='store_const'
+    )
+    return parser.parse_args()
+
+
+def main():
+    opts = parse_options()
+    content = get_json(opts.word)
+    opts.puts(content)
+
+
+if __name__ == '__main__':
+    main()
