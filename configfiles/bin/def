@@ -1,0 +1,41 @@
+#! /usr/bin/env python
+# pylint: disable=missing-docstring,superfluous-parens
+import os
+from textwrap import wrap
+
+from api_client import main
+
+
+URL_TEMPLATE = (
+    'https://%(lang)s.wikipedia.org/w/api.php'
+    '?format=json'
+    '&action=query'
+    '&prop=extracts'
+    '&exintro='
+    '&explaintext='
+    '&redirects='
+    '&titles=%(words)s'
+)
+
+
+def extra_arguments(parser):
+    parser.add_argument('--lang', '-l', metavar='LANGUAGE', default='en')
+    return parser
+
+
+def print_extract(content, opts):
+    terminal_width = int(os.popen('stty size').read().split()[-1])
+    for pageid, page in content['query']['pages'].iteritems():
+        lang = opts.lang
+        www_url = 'https://%s.wikipedia.org/wiki?curid=%s' % (lang, pageid)
+        print('\033[38;5;3m%s\033[0m' % page['title'])
+        print('  (\033[38;5;10m%s\033[0m)' % www_url)
+        for paragraph in page.get('extract', '').split('\n'):
+            if not paragraph:
+                continue
+            print('  ' + '\n  '.join(wrap(paragraph, terminal_width - 2)))
+            print('')
+
+
+if __name__ == '__main__':
+    main(URL_TEMPLATE, print_extract, extra_arguments=extra_arguments)
