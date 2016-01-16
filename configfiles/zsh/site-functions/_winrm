@@ -1,0 +1,15 @@
+#compdef winrm
+
+if (( CURRENT > 2 )); then
+  (( CURRENT-- ))
+  (( CURRENT-- ))
+  shift words
+  shift words
+  test "$CURRENT" -eq "${#words}" && words[-1]=()
+  cmds=$(sed -nE "s/^${words} ?([^ ]*)(.*)$/\\1[\\2]/p" ~/.winrm.commands 2> /dev/null)
+  cmds_array=("${(f)cmds}")
+  test -z "$cmds_array" || _values "winrm command" $cmds_array
+else
+  cmds=("${(@f)$(winrm -l | sed -nEe 's#^([^ ]*)[^-]*-- (.*)#\1[\2]#p')}")
+  _values "winrm command" $cmds
+fi
