@@ -2,6 +2,7 @@
 
 
 COMPLETION_DEFINITIONS=(
+  "ag:/Users/mbrendler/.usr/plugins/zsh/zsh-completions/src/_ag"
   "bower:$HOME/.usr/plugins/zsh/zsh-completions/src/_bower"
   "brew:/usr/local/Library/Contributions/brew_zsh_completion.zsh"
   "bundler:$HOME/.usr/plugins/zsh/zsh-completions/src/_bundle"
