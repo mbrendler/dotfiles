@@ -59,7 +59,7 @@ def main():
                 else:
                     backup(destination_path, BACKUP_DIR)
                     warning('backup ')
-            os.symlink(source_path, destination_path)
+            os.system('ln -fs %s %s' % (source_path, destination_path))
             info('created\n')
 
 
