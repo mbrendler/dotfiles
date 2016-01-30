@@ -222,6 +222,10 @@ if test "$PLATFORM" = "Darwin" ; then
   bindkey "^[[3~" delete-char  # fn + Backspace on Mac
 fi
 
+# Source local zshrc ----------------------------------------------------------
+
+test -e ~/.zshrc_local && source ~/.zshrc_local
+
 # Fortune ---------------------------------------------------------------------
 
 if test "$IS_INTERACTIVE" != no ; then
