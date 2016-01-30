@@ -47,7 +47,7 @@ def main():
         if not os.path.isdir(source_dir):
             continue
         for filename in os.listdir(source_dir):
-            if filename in IGNORE_FILES:
+            if filename in IGNORE_FILES or filename[0] == '.':
                 continue
             source_path = os.path.join(source_dir, filename)
             destination_path = os.path.join(DESTINATION_DIR, '.' + filename)
