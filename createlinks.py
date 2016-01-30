@@ -19,13 +19,6 @@ BACKUP_DIR = os.path.join(DESTINATION_DIR, 'configsbackup', '%d' % time.time())
 IGNORE_FILES = ('.DS_Store', '_darwin', '_linux')
 
 
-def error(message):
-    """Prints a red error message to stderr.
-    """
-    sys.stderr.write("\033[38;5;1m" + str(message) + "\033[0m")
-    sys.stderr.flush()
-
-
 def warning(message):
     """Prints a yellow message to stdout.
     """
