@@ -14,7 +14,7 @@ function retry() {
   fi
 }
 
-function git_plugin() {
+function git-plugin() {
   local src=$1
   local dst=$2
   if test ! -d "$dst" ; then
@@ -33,7 +33,7 @@ function plugin() {
   local type=$1
   local dst; dst="$PREFIX/plugins/$type/$(cut -d/ -f 2 <(echo "$2"))"
   local src="https://www.github.com/$2"
-  git_plugin "$src" "$dst" &
+  git-plugin "$src" "$dst" &
 }
 
 readonly PREFIX="$HOME/.usr"
