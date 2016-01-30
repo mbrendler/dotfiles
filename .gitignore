@@ -1,2 +1,2 @@
 *.pyc
-configfiles/vim/haskellmode.config
+dot/vim/haskellmode.config

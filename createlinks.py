@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Creates symbolic links for every file and directory from 'configfiles'.
+"""Creates symbolic links for every file and directory from 'dot'.
 
 The links are created in home directory of the current user. Every link gets a
 '.' prefix.
@@ -11,7 +11,7 @@ import platform
 
 
 HERE = os.path.dirname(__file__)
-SOURCE_DIR = os.path.abspath(os.path.join(HERE, 'configfiles'))
+SOURCE_DIR = os.path.abspath(os.path.join(HERE, 'dot'))
 OS_SPECIFIC_SOURCE_DIR = os.path.abspath(
     os.path.join(SOURCE_DIR, '_' + platform.system().lower()))
 DESTINATION_DIR = os.getenv('HOME')
