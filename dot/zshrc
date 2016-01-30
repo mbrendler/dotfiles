@@ -39,7 +39,7 @@ export PYTHONSTARTUP=$HOME/.pystartup
 if which rbenv > /dev/null; then
   # The following lines are read from 'rbenv init -'. (this is faster)
   path=("$HOME/.rbenv/shims" $path)
-  source "$(ls -dr /usr/local/Cellar/rbenv/* | head -n 1)/completions/rbenv.zsh"
+  source "$(/bin/ls -dr /usr/local/Cellar/rbenv/* | head -n 1)/completions/rbenv.zsh"
   rbenv() {
     typeset command
     command="$1"
