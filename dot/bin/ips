@@ -1,0 +1,19 @@
+#! /usr/bin/env ruby
+require 'socket'
+
+def cidr(netmask)
+  return '?' unless netmask && netmask.ipv4?
+  mask = netmask.ip_address
+  n = mask.split('.').each_with_index.inject(0) do |a, (value, index)|
+    a + value.to_i * (1 << (index * 8))
+  end
+  n.to_s(2).delete('0').size
+end
+
+external_ip = `dig +short myip.opendns.com @resolver1.opendns.com`
+puts "  extern: #{external_ip}"
+
+Socket.getifaddrs.each do |entry|
+  next unless entry.addr.ipv4? # || entry.addr.ipv6?
+  puts "#{entry.name.rjust(8)}: #{entry.addr.ip_address}/#{cidr(entry.netmask)}"
+end
