@@ -10,7 +10,7 @@
 	ts = status
 	ci = commit
 	co = checkout
-	out = log origin/master..HEAD
+	out = log --oneline origin/master..HEAD
 	branches = branch -a
 	kd = difftool --tool=kdiff3 --dir-diff --no-prompt
 	od = difftool --tool=sourcetree --no-prompt
