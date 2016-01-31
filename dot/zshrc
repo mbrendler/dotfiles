@@ -70,7 +70,7 @@ PROMPT="%(?..%{$fg_no_bold[red]%}%?%{$reset_color%} )%{$fg_no_bold[green]%}%~ %{
 # Aliases and Functions -------------------------------------------------------
 
 alias grep="grep --color"
-alias hlcat="python -c 'from pygments.cmdline import main ; main()' -f terminal"
+alias hlcat="pygmentize -f terminal"
 alias b="bundle exec"
 alias benchmark-zshrc="time zsh -i -c exit"
 alias benchmark-vimrc="time vim +q"
