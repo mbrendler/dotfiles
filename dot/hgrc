@@ -3,17 +3,17 @@ merge = kdiff3
 ignore=$HOME/.hgignore_global
 
 [extensions]
-#zeroconf = 
+#zeroconf =
 hgext.bookmarks =
 hgext.convert =
 hgext.churn=
 hgext.extdiff =
-mq = 
+mq =
 rebase =
-graphlog =  
+graphlog =
 purge =
-color = 
-#hgsubversion = 
+color =
+#hgsubversion =
 mercurial_keyring =
 hggit =
 crecord = ~/.usr/python_packages/crecord/crecord
