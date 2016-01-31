@@ -1,6 +1,5 @@
 [user]
 	name = Maik Brendler
-	email = sellerieschnitzel@googlemail.com
 [core]
 	excludesfile = ~/.gitignore_global
 [difftool "sourcetree"]

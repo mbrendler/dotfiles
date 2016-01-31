@@ -1,5 +1,4 @@
 [ui]
-username=Maik Brendler <sellerieschnitzel@googlemail.com>
 merge = kdiff3
 ignore=$HOME/.hgignore_global
 
