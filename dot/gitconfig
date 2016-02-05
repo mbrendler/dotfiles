@@ -12,6 +12,7 @@
 	co = checkout
 	out = log --oneline origin/master..HEAD
 	branches = branch -a
+        tags = tag --list
 	kd = difftool --tool=kdiff3 --dir-diff --no-prompt
 	od = difftool --tool=sourcetree --no-prompt
 	cre = crecord
