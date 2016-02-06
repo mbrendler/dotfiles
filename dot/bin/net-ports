@@ -56,7 +56,17 @@ done
 
 test ! -f "$PORTS_CSV_FILE" && download-port-list
 
-for port_number in $(echo "$@" | tr \  \\n | sort -un) ; do
+function get-open-ports() {
+  netstat -anv | grep LISTEN | awk '{ print $4; }' | sed -E 's/^.*\.([0-9]+)$/\1/'
+}
+
+if test -z "$@" ; then
+  readonly ports=$(get-open-ports)
+else
+  readonly ports="$*"
+fi
+
+for port_number in $(echo "$ports" | tr \  \\n | sort -un) ; do
   echo "$port_number":
   port-infos "$port_number"
 done
