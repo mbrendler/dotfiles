@@ -29,7 +29,7 @@ endfunction
 
 function! Rtfm_elixir(search)
   " TODO: what's the correct filetype?
-  if Rtfm_perfom(a:search, "~/.bin/elixir_man " . a:search, "elixir-doc") == 0
+  if Rtfm_perfom(a:search, "~/.bin/elixir-man " . a:search, "elixir-doc") == 0
     call Rtfm_erlang(a:search)
   endif
 endfunction
