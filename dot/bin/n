@@ -5,4 +5,4 @@ set -euo pipefail
 readonly MESSAGE="${1-"Something happend"}"
 readonly TITLE="${2-Notification}"
 
-osascript -e "display notification \"$MESSAGE\" with title \"$TITLE\""
+osascript -e "display notification \"$MESSAGE\" with title \"$TITLE\"" &
