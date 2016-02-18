@@ -301,6 +301,10 @@ set laststatus=2  " always show status line
 
 " Plugin Settings ------------------------------------------------------------
 
+if !exists('g:loaded_matchit')
+  runtime macros/matchit.vim
+endif
+
 let NERDTreeIgnore = ['\.pyc$', '\.orig$']
 
 let g:ctrlp_extensions = ['find_alternatives']
