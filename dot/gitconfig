@@ -18,6 +18,7 @@
 	cre = crecord
 	crb = crebase
 	glog = log --graph --decorate --oneline
+        purge = clean -fd
 [color]
 	branch = auto
 	diff = auto
