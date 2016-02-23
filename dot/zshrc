@@ -16,6 +16,7 @@ path=(
   $path
 )
 
+typeset -U fpath
 fpath=($HOME/.zsh/site-functions $fpath)
 
 export LC_ALL=en_GB.utf-8
