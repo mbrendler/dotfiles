@@ -127,6 +127,8 @@ i() {
   fi
 }
 
+p() { I_ENVIRONMENT=p i "$@" }
+
 define() {
   curl "dict://dict.org/d:$1"
 }
