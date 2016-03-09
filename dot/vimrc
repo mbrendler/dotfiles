@@ -43,6 +43,7 @@ set ttimeoutlen=100  " decrease timeout for faster insert with 'O'
 set ttyfast
 set lazyredraw
 set shell=~/.zsh/run_script_with_zshrc
+set nofoldenable
 
 " Input ----------------------------------------------------------------------
 
