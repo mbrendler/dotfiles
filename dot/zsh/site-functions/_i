@@ -1,6 +1,6 @@
-#compdef i
+#compdef i p
 
-local subcmds=(i)
+local subcmds=( $words[1] )
 local current=$CURRENT
 local i=1
 
