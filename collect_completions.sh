@@ -13,7 +13,7 @@ COMPLETION_DEFINITIONS=(
   "ghc:$HOME/.usr/plugins/zsh/zsh-completions/src/_ghc"
   "go:$HOME/.usr/plugins/zsh/zsh-completions/src/_go"
   "hg:$HOME/usr/local/opt/mercurial/share/zsh/site-functions/_hg"
-  "i:$HOME/Documents/src/i/zsh-completion/_i"
+  "i:$HOME/Documents/src/projects/i/zsh-completion/_i"
   "jq:$HOME/.usr/plugins/zsh/zsh-completions/src/_jq"
   "node:$HOME/.usr/plugins/zsh/zsh-completions/src/_node"
   "npm:/usr/local/etc/bash_completion.d/npm"
