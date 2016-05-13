@@ -17,6 +17,7 @@ COMPLETION_DEFINITIONS=(
   "jq:$HOME/.usr/plugins/zsh/zsh-completions/src/_jq"
   "node:$HOME/.usr/plugins/zsh/zsh-completions/src/_node"
   "npm:/usr/local/etc/bash_completion.d/npm"
+  "pgsql_utils:$HOME/.usr/plugins/zsh/zsh-completions/src/_pgsql_utils"
   "pip:$HOME/.usr/plugins/zsh/oh-my-zsh/plugins/pip/_pip"
   "tig:/usr/local/etc/bash_completion.d/tig-completion.bash"
   "tmux:/usr/local/etc/bash_completion.d/tmux"
