@@ -13,11 +13,19 @@ class Menu(object):  # pylint: disable=abstract-class-not-used
         self._selected = selected
         self._top = 0
         self._key_actions = {
-            27: lambda *_: False,
+            27: self.meta_key,
             10: lambda *_: True,
             KEY_ENTER: lambda *_: True,
             KEY_RESIZE: lambda *_: None,
         }
+        self._meta_key_actions = {
+            27: lambda *_: False
+        }
+
+    def meta_key(self, window, _key_code):
+        key_code = window.getch()
+        action = self._meta_key_actions.get(key_code, lambda *_: None)
+        return action(window, key_code)
 
     def entries(self):
         raise NotImplementedError
