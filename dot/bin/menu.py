@@ -35,7 +35,7 @@ class Menu(object):  # pylint: disable=abstract-class-not-used
         return height - self._list_top
 
     def select_next(self, window, key_code):
-        self._selected = (self._selected + 1) % self.entries_count()
+        self._selected = min(self._selected + 1, self.entries_count() - 1)
         if self._selected == 0:
             self.select_first(window, key_code)
         elif self._selected >= self._top + self.list_height(window) - self._scroll_offset:
@@ -43,7 +43,7 @@ class Menu(object):  # pylint: disable=abstract-class-not-used
             self._top = min(last_top, self._top + 1)
 
     def select_previous(self, window, key_code):
-        self._selected = (self._selected - 1) % self.entries_count()
+        self._selected = max(self._selected - 1, 0)
         if self._selected == self.entries_count() - 1:
             self.select_last(window, key_code)
         elif self._selected < self._top + self._scroll_offset:
