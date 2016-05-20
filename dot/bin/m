@@ -1,0 +1,252 @@
+#! /usr/bin/env python
+# pylint: disable=invalid-name,missing-docstring
+# pip install fuzzywuzzy
+# pip install python-Levenshtein
+# pip install rl
+import sys
+import os
+import re
+from curses import (
+    KEY_DOWN, KEY_UP, KEY_BACKSPACE, KEY_DC,
+    use_default_colors, color_pair, init_pair, COLOR_RED, COLOR_BLUE,
+)
+
+# from fuzzywuzzy import process
+
+from menu import Menu
+
+
+class LineMenu(Menu):
+    def __init__(self, lines):
+        super(LineMenu, self).__init__(selected=-1, list_top=1, list_bottom=1)
+        self._entries = lines
+        self._input = u''
+        self._cursor_pos = 0
+        self._key_actions.update({
+            KEY_DOWN: self.select_next,
+            ord(''): self.select_next,
+            KEY_UP: self.select_previous,
+            ord(''): self.select_previous,
+            KEY_BACKSPACE: self.backspace,
+            127: self.backspace,
+            KEY_DC: self.delte_char,
+            ord(''): self.delte_char,
+            ord(''): self.begin_of_line,
+            ord(''): self.end_of_line,
+            ord(''): self.forward_char,
+            ord(''): self.backward_char,
+            ord(''): self.kill_line,
+            ord(''): self.kill_to_eol,
+            ord(''): self.kill_word,
+            ord(''): self.toggle_matcher,
+        })
+        self._meta_key_actions.update({
+            ord('f'): self.forward_word,
+            ord('b'): self.backward_word,
+            ord('d'): self.kill_word_forward,
+            ord('n'): self.select_next,
+            ord('p'): self.select_previous,
+        })
+        self.match = self.match_in
+        # self._es = None
+
+    def entries(self):
+        # if self._input:
+        #     if not self._es:
+        #         es = process.extract(self._input, self._entries, limit=None)
+        #         es = [(e, r) for e, r in es if r > 40]
+        #         es.sort(cmp=lambda x, y: cmp(x[1], y[1]), reverse=True)
+        #         self._es = zip(*es)[0]
+        #     return self._es
+        # return self._entries
+        search = self._input.lower()
+        return [e for e in self._entries if self.match(e, search)]
+
+    def toggle_matcher(self, *_):
+        if self.match == self.match_in:
+            self.match = self.match_re
+        elif self.match == self.match_re:
+            self.match = self.match_in_chars
+        else:
+            self.match = self.match_in
+
+    @staticmethod
+    def match_in(entry, string):
+        """in"""
+        return string in entry.lower().decode('utf-8')
+
+    @staticmethod
+    def match_in_chars(entry, string):
+        """chars-in"""
+        entry = entry.lower().decode('utf-8')
+        for character in string:
+            index = entry.find(character)
+            if index >= 0:
+                entry = entry[index:]
+            else:
+                return False
+        return True
+
+    def match_re(self, entry, _):
+        """re"""
+        return re.match(self._input.encode('utf-8'), entry) != None
+
+    def clear_selection(self):
+        self._selected = -1
+        self._top = 0
+        # self._es = None
+
+    @staticmethod
+    def get_char(win, key_code):
+        def get_check_next_byte():
+            key_code = win.getch()
+            if 128 <= key_code <= 191:
+                return key_code
+            else:
+                raise UnicodeError
+
+        bs = []
+        if key_code <= 127:
+            # 1 bytes
+            bs.append(key_code)
+        elif 194 <= key_code <= 223:
+            # 2 bytes
+            bs.append(key_code)
+            bs.append(get_check_next_byte())
+        elif 224 <= key_code <= 239:
+            # 3 bytes
+            bs.append(key_code)
+            bs.append(get_check_next_byte())
+            bs.append(get_check_next_byte())
+        elif 240 <= key_code <= 244:
+            # 4 bytes
+            bs.append(key_code)
+            bs.append(get_check_next_byte())
+            bs.append(get_check_next_byte())
+            bs.append(get_check_next_byte())
+        return ''.join(chr(b) for b in bs).decode('utf-8')
+
+    def default_key_action(self, window, key_code):
+        try:
+            self._input = self._input[:self._cursor_pos] + \
+                self.get_char(window, key_code) + \
+                self._input[self._cursor_pos:]
+        except ValueError:
+            return
+        self.clear_selection()
+        self._cursor_pos += 1
+
+    def delte_char(self, *_):
+        self.clear_selection()
+        self._input = self._input[:self._cursor_pos] + \
+            self._input[self._cursor_pos + 1:]
+        self._cursor_pos = min(len(self._input), self._cursor_pos)
+
+    def backspace(self, *_):
+        self.clear_selection()
+        self._input = self._input[:self._cursor_pos - 1] + \
+            self._input[self._cursor_pos:]
+        self._cursor_pos = max(0, self._cursor_pos - 1)
+
+    def begin_of_line(self, *_):
+        self._cursor_pos = 0
+
+    def end_of_line(self, *_):
+        self._cursor_pos = len(self._input)
+
+    def forward_char(self, *_):
+        self._cursor_pos = min(self._cursor_pos + 1, len(self._input))
+
+    def backward_char(self, *_):
+        self._cursor_pos = max(self._cursor_pos - 1, 0)
+
+    def forward_word(self, *_):
+        index = self._input.find(' ', self._cursor_pos + 1)
+        if index > 0:
+            self._cursor_pos = index
+        else:
+            self.end_of_line()
+
+    def backward_word(self, *_):
+        index = self._input.rfind(' ', 0, self._cursor_pos)
+        if index > 0:
+            self._cursor_pos = index
+        else:
+            self.begin_of_line()
+
+    def kill_line(self, *_):
+        self.clear_selection()
+        self._input = u''
+        self._cursor_pos = 0
+
+    def kill_to_eol(self, *_):
+        self.clear_selection()
+        self._input = self._input[self._cursor_pos:]
+
+    def kill_word(self, *_):
+        self.clear_selection()
+        index = self._input.rfind(' ', 0, self._cursor_pos)
+        if index < 0:
+            index = 0
+        self._input = self._input[:index] + self._input[self._cursor_pos:]
+        self._cursor_pos = index
+
+    def kill_word_forward(self, *_):
+        self.clear_selection()
+        index = self._input.find(' ', self._cursor_pos + 1)
+        if index < 0:
+            index = len(self._input)
+        self._input = self._input[:self._cursor_pos] + self._input[index:]
+
+    def _loop(self, window):
+        use_default_colors()
+        init_pair(3, COLOR_RED, -1)
+        init_pair(4, -1, COLOR_BLUE)
+        return super(LineMenu, self)._loop(window)
+
+    def _refresh(self, window):
+        result = super(LineMenu, self)._refresh(window)
+        max_y, max_x = window.getmaxyx()
+        window.addstr(max_y - 1, 0, self._status_line()[:max_x], color_pair(4))
+        window.clrtoeol()
+        window.chgat(color_pair(4))
+        window.addstr(0, 0, self._input[-max_x + 1:].encode('utf-8'), color_pair(3))
+        window.clrtoeol()
+        window.move(0, min(self._cursor_pos, max_x - 1))
+        return result
+
+    def _status_line(self):
+        return " count: %s   selected: %s   matcher: %s" % (
+            self.entries_count(),
+            self._selected,
+            self.match.__doc__,
+        )
+
+
+def main():
+    lines = sys.stdin.read().splitlines()
+    sys.stdin.close()
+    sys.stdin = open('/dev/tty')
+    os.dup2(sys.stdin.fileno(), 0)
+
+    std_desc = sys.stdout.fileno()
+    other_desc = os.dup(std_desc)
+    tty_name = os.ttyname(sys.stderr.fileno())
+    tty_f_desc = open(tty_name, 'wb+', buffering=0)
+    os.dup2(tty_f_desc.fileno(), std_desc)
+    sys.stdout = os.fdopen(other_desc, 'w')
+
+    menu = LineMenu(lines)
+    try:
+        if menu.run():
+            if menu.selected() < 0:
+                sys.stdout.write('\n'.join(menu.entries()) + '\n')
+            else:
+                sys.stdout.write(menu.entries()[menu.selected()] + '\n')
+            return 0
+    except KeyboardInterrupt:
+        pass
+    return 1
+
+if __name__ == '__main__':
+    sys.exit(main())
