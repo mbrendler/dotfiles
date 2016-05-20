@@ -6,10 +6,11 @@ import locale
 
 locale.setlocale(locale.LC_ALL, '')
 
-class Menu(object):  # pylint: disable=abstract-class-not-used
-    def __init__(self, selected=0, scroll_offset=0, list_top=0):
+class Menu(object):
+    def __init__(self, selected=0, scroll_offset=0, list_top=0, list_bottom=0):
         self._scroll_offset = scroll_offset
         self._list_top = list_top
+        self._list_bottom = list_bottom
         self._selected = selected
         self._top = 0
         self._key_actions = {
@@ -44,7 +45,7 @@ class Menu(object):  # pylint: disable=abstract-class-not-used
 
     def list_height(self, window):
         height, _ = window.getmaxyx()
-        return height - self._list_top
+        return height - self._list_top - self._list_bottom
 
     def select_next(self, window, key_code):
         self._selected = min(self._selected + 1, self.entries_count() - 1)
@@ -75,7 +76,7 @@ class Menu(object):  # pylint: disable=abstract-class-not-used
     def _refresh(self, window):
         window.refresh()
         height, width = window.getmaxyx()
-        list_height = height - self._list_top
+        list_height = height - self._list_top - self._list_bottom
         entries_to_display = self.entries()[self._top:self._top + list_height]
         for i, entry in enumerate(entries_to_display, start=self._list_top):
             window.addstr(i, 0, self.displayed_text_by_entry(entry)[:width - 2])
