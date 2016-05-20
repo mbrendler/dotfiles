@@ -21,7 +21,7 @@ class LineMenu(Menu):
         super(LineMenu, self).__init__(selected=-1, list_top=1, list_bottom=1)
         self._entries = lines
         self._input = u''
-        self._cursor_pos = 0
+        self._cursor = 0
         self._key_actions.update({
             KEY_DOWN: self.select_next,
             ord(''): self.select_next,
@@ -37,7 +37,7 @@ class LineMenu(Menu):
             ord(''): self.backward_char,
             ord(''): self.kill_line,
             ord(''): self.kill_to_eol,
-            ord(''): self.kill_word,
+            ord(''): self.kill_word_backward,
             ord(''): self.toggle_matcher,
         })
         self._meta_key_actions.update({
@@ -128,75 +128,79 @@ class LineMenu(Menu):
 
     def default_key_action(self, window, key_code):
         try:
-            self._input = self._input[:self._cursor_pos] + \
+            self._input = self._input[:self._cursor] + \
                 self.get_char(window, key_code) + \
-                self._input[self._cursor_pos:]
+                self._input[self._cursor:]
         except ValueError:
             return
         self.clear_selection()
-        self._cursor_pos += 1
+        self._cursor += 1
 
     def delte_char(self, *_):
         self.clear_selection()
-        self._input = self._input[:self._cursor_pos] + \
-            self._input[self._cursor_pos + 1:]
-        self._cursor_pos = min(len(self._input), self._cursor_pos)
+        self._input = self._input[:self._cursor] + \
+            self._input[self._cursor + 1:]
+        self._cursor = min(len(self._input), self._cursor)
 
     def backspace(self, *_):
         self.clear_selection()
-        self._input = self._input[:self._cursor_pos - 1] + \
-            self._input[self._cursor_pos:]
-        self._cursor_pos = max(0, self._cursor_pos - 1)
+        self._input = self._input[:self._cursor - 1] + \
+            self._input[self._cursor:]
+        self._cursor = max(0, self._cursor - 1)
 
     def begin_of_line(self, *_):
-        self._cursor_pos = 0
+        self._cursor = 0
 
     def end_of_line(self, *_):
-        self._cursor_pos = len(self._input)
+        self._cursor = len(self._input)
 
     def forward_char(self, *_):
-        self._cursor_pos = min(self._cursor_pos + 1, len(self._input))
+        self._cursor = min(self._cursor + 1, len(self._input))
 
     def backward_char(self, *_):
-        self._cursor_pos = max(self._cursor_pos - 1, 0)
+        self._cursor = max(self._cursor - 1, 0)
 
     def forward_word(self, *_):
-        index = self._input.find(' ', self._cursor_pos + 1)
+        index = self._input.find(' ', self._cursor + 1)
         if index > 0:
-            self._cursor_pos = index
+            while index < len(self._input) and self._input[index].isspace():
+                index += 1
+            self._cursor = index
         else:
             self.end_of_line()
 
     def backward_word(self, *_):
-        index = self._input.rfind(' ', 0, self._cursor_pos)
-        if index > 0:
-            self._cursor_pos = index
-        else:
-            self.begin_of_line()
+        while self._cursor > 0 and self._input[self._cursor - 1].isspace():
+            self._cursor -= 1
+        self._cursor = self._input.rfind(' ', 0, self._cursor) + 1
 
     def kill_line(self, *_):
         self.clear_selection()
         self._input = u''
-        self._cursor_pos = 0
+        self._cursor = 0
 
     def kill_to_eol(self, *_):
         self.clear_selection()
-        self._input = self._input[self._cursor_pos:]
+        self._input = self._input[:self._cursor]
 
-    def kill_word(self, *_):
+    def kill_word_backward(self, *_):
         self.clear_selection()
-        index = self._input.rfind(' ', 0, self._cursor_pos)
-        if index < 0:
-            index = 0
-        self._input = self._input[:index] + self._input[self._cursor_pos:]
-        self._cursor_pos = index
+        index = self._cursor
+        while index > 0 and self._input[index - 1].isspace():
+            index -= 1
+        index = max(0, self._input.rfind(' ', 0, index))
+        self._input = self._input[:index] + self._input[self._cursor:]
+        self._cursor = index
 
     def kill_word_forward(self, *_):
         self.clear_selection()
-        index = self._input.find(' ', self._cursor_pos + 1)
+        index = self._cursor
+        while index < len(self._input) and self._input[index].isspace():
+            index += 1
+        index = self._input.find(' ', index)
         if index < 0:
             index = len(self._input)
-        self._input = self._input[:self._cursor_pos] + self._input[index:]
+        self._input = self._input[:self._cursor] + self._input[index:]
 
     def _loop(self, window):
         use_default_colors()
@@ -210,9 +214,10 @@ class LineMenu(Menu):
         window.addstr(max_y - 1, 0, self._status_line()[:max_x], color_pair(4))
         window.clrtoeol()
         window.chgat(color_pair(4))
-        window.addstr(0, 0, self._input[-max_x + 1:].encode('utf-8'), color_pair(3))
+        inp = self._input[-max_x + 1:].encode('utf-8')
+        window.addstr(0, 0, inp, color_pair(3))
         window.clrtoeol()
-        window.move(0, min(self._cursor_pos, max_x - 1))
+        window.move(0, min(self._cursor, max_x - 1))
         return result
 
     def _status_line(self):
