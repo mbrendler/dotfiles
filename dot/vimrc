@@ -257,6 +257,14 @@ nnoremap gü g]
 
 autocmd BufEnter * if &readonly | nnoremap <buffer> q :q<cr> | endif
 
+""" Vim-Tmux-Navigator mappings
+let g:tmux_navigator_no_mappings = 0
+nnoremap <silent> <ESC>h :TmuxNavigateLeft<cr>
+nnoremap <silent> <ESC>j :TmuxNavigateDown<cr>
+nnoremap <silent> <ESC>k :TmuxNavigateUp<cr>
+nnoremap <silent> <ESC>l :TmuxNavigateRight<cr>
+nnoremap <silent> <ESC>o :TmuxNavigatePrevious<cr>
+
 """ C-X C-G: relative version of file completions (C-X X-F)
 let g:old_cwd = '.'
 augroup file_completion_end
