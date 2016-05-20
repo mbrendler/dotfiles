@@ -82,11 +82,14 @@ class Menu(object):
             window.addstr(i, 0, self.displayed_text_by_entry(entry)[:width - 2])
             window.clrtobot()
             is_selected = self._selected == self._top + i - self._list_top
-            window.chgat(i, 0, A_REVERSE if is_selected else A_NORMAL)
+            window.chgat(i, 0, color_pair(2) if is_selected else color_pair(1))
         if not entries_to_display:
             window.clear()
 
     def _loop(self, window):
+        use_default_colors()
+        init_pair(1, -1, -1)
+        init_pair(2, -1, COLOR_GREEN)
         while 1:
             self._refresh(window)
             key_code = window.getch()
