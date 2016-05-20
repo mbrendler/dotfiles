@@ -263,7 +263,6 @@ nnoremap <silent> <ESC>h :TmuxNavigateLeft<cr>
 nnoremap <silent> <ESC>j :TmuxNavigateDown<cr>
 nnoremap <silent> <ESC>k :TmuxNavigateUp<cr>
 nnoremap <silent> <ESC>l :TmuxNavigateRight<cr>
-nnoremap <silent> <ESC>o :TmuxNavigatePrevious<cr>
 
 """ C-X C-G: relative version of file completions (C-X X-F)
 let g:old_cwd = '.'
