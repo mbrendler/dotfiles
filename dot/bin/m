@@ -46,6 +46,8 @@ class LineMenu(Menu):
             ord('d'): self.kill_word_forward,
             ord('n'): self.select_next,
             ord('p'): self.select_previous,
+            ord('<'): self.select_first,
+            ord('>'): self.select_last,
         })
         self.match = self.match_in
         # self._es = None
