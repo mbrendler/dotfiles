@@ -218,6 +218,10 @@ bindkey -e
 bindkey '\e.' insert-last-word
 bindkey '^W' vi-backward-kill-word
 
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey '^X^E' edit-command-line
+
 if test "$PLATFORM" = "Darwin" ; then
   bindkey "^[[3~" delete-char  # fn + Backspace on Mac
 fi
