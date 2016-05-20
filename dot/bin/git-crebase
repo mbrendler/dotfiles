@@ -8,8 +8,17 @@ import curses
 from menu import Menu
 
 
-def git_log():
-    return commands.getoutput('git log --oneline master..')
+def git_to_branch():
+    status, out = commands.getstatusoutput(
+        'git rev-parse --abbrev-ref --symbolic-full-name @{u}'
+    )
+    if status == 0:
+        return out
+    return 'master'
+
+
+def git_log(rev):
+    return commands.getoutput('git log --oneline %s..' % rev)
 
 
 def parse_log(log):
@@ -100,8 +109,12 @@ class RebaseMenu(Menu):
         return super(RebaseMenu, self)._loop(window)
 
 
-def main():
-    changesets = parse_log(git_log())
+def main(argv):
+    if argv:
+        rev = argv[0]
+    else:
+        rev = git_to_branch()
+    changesets = parse_log(git_log(rev))
     menu = RebaseMenu(changesets)
     if menu.run():
         if menu.rebase_actions:
@@ -112,4 +125,4 @@ def main():
         return 1
 
 if __name__ == '__main__':
-    sys.exit(main())
+    sys.exit(main(sys.argv[1:]))
