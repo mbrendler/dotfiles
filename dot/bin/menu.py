@@ -83,6 +83,8 @@ class Menu(object):
             window.clrtobot()
             is_selected = self._selected == self._top + i - self._list_top
             window.chgat(i, 0, A_REVERSE if is_selected else A_NORMAL)
+        if not entries_to_display:
+            window.clear()
 
     def _loop(self, window):
         while 1:
