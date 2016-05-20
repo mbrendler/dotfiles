@@ -218,9 +218,6 @@ bindkey -e
 bindkey '\e.' insert-last-word
 bindkey '^W' vi-backward-kill-word
 
-# Jump to next/last word by Alt+f / Alt+b:
-bindkey ƒ forward-word   # Alt+f
-bindkey ∫ backward-word  # Alt+b
 if test "$PLATFORM" = "Darwin" ; then
   bindkey "^[[3~" delete-char  # fn + Backspace on Mac
 fi
