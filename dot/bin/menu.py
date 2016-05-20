@@ -1,4 +1,7 @@
-from curses import wrapper, A_REVERSE, A_NORMAL, KEY_ENTER
+from curses import (
+    wrapper, A_REVERSE, A_NORMAL, KEY_ENTER, KEY_RESIZE,
+    use_default_colors, color_pair, init_pair, COLOR_GREEN
+)
 import locale
 
 locale.setlocale(locale.LC_ALL, '')
@@ -13,6 +16,7 @@ class Menu(object):  # pylint: disable=abstract-class-not-used
             27: lambda *_: False,
             10: lambda *_: True,
             KEY_ENTER: lambda *_: True,
+            KEY_RESIZE: lambda *_: None,
         }
 
     def entries(self):
