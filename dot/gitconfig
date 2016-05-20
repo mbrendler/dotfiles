@@ -11,7 +11,7 @@
 	ci = commit
 	co = checkout
 	out = log --graph --decorate --oneline origin/master..HEAD
-	branches = branch -a
+	branches = branch -a -vv
         tags = tag --list
 	kd = difftool --tool=kdiff3 --dir-diff --no-prompt
 	od = difftool --tool=sourcetree --no-prompt
