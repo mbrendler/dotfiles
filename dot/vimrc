@@ -301,7 +301,7 @@ command! -nargs=+ -complete=shellcmd Rtfm :call Rtfm("<args>")
 
 " Status line ----------------------------------------------------------------
 
-set statusline=%<%f\ %h%m%r\ %{SyntasticStatuslineFlag()}%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %h%m%r\ %{neomake#statusline#LoclistStatus()}%=%-14.(%l,%c%V%)\ %P
 
 set laststatus=2  " always show status line
 
@@ -327,9 +327,9 @@ function! s:DeleteBuffer()
   exec "norm \<F5>"
 endfunction
 
-let g:syntastic_ruby_checkers = ['mri', 'rubocop']
-let g:syntastic_python_checkers = ['pylint', 'pep8']
-let g:syntastic_cpp_compiler = "clang++"
+""" Neomake
+autocmd! BufWritePost * Neomake
+let g:neomake_place_signs=1
 
 """ TComment
 let g:tcommentMapLeader1 = ""
