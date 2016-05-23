@@ -51,7 +51,6 @@ plugin tmux tmux-plugins/tmux-yank
 
 ### file and buffer access
 plugin vim scrooloose/nerdtree
-plugin vim sjbach/lusty
 plugin vim ctrlpvim/ctrlp.vim
 plugin vim christoomey/vim-tmux-navigator
 
