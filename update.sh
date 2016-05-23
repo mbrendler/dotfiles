@@ -58,7 +58,7 @@ plugin vim int3/vim-taglist-plus
 plugin vim vim-scripts/taglist.vim
 
 ### programming languages
-plugin vim scrooloose/syntastic
+plugin vim neomake/neomake
 plugin vim Rip-Rip/clang_complete
 plugin vim vim-scripts/Cpp11-Syntax-Support
 plugin vim lukerandall/haskellmode-vim
