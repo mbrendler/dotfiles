@@ -113,14 +113,6 @@ endif
 
 " Functions ------------------------------------------------------------------
 
-function! ComputerName()
-  if has('mac')
-    return substitute(system('scutil --get ComputerName'), "\n", "", "")
-  else
-    return hostname()
-  endif
-endfunction
-
 function! RenameFile()
   let old_name = expand('%')
   let new_name = input('New file name: ', old_name)
