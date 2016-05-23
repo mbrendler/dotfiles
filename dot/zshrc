@@ -80,9 +80,7 @@ alias mkill="ps -A | m | awk '{ print \$1 }' | xargs kill"
 alias pbpwd="pwd | pbcopy"
 pbecho() { echo "$*" | pbcopy }
 
-if test "$PLATFORM" = "Darwin" ; then
-  alias gvim=mvim
-elif test "$PLATFORM" = "Linux" ; then
+if test "$PLATFORM" = "Linux" ; then
   alias pbcopy='xsel --clipboard --input'
   alias pbpaste='xsel --clipboard --output'
 fi
