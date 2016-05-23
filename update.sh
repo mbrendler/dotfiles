@@ -93,11 +93,12 @@ git -C "$PREFIX"/plugins/vim/jedi-vim/ submodule update --init
 
 # Install Python dependencies -------------------------------------------------
 
-pip install -U pip
-pip install -U mercurial-keyring
-pip install -U hg-git
-pip install -U pygments
-pip install -U pygments-markdown-lexer
+pip install --user -U pip
+pip install --user -U neovim
+pip install --user -U mercurial-keyring
+pip install --user -U hg-git
+pip install --user -U pygments
+pip install --user -U pygments-markdown-lexer
 
 readonly LOCAL_PYTHON_PACKAGES="$PREFIX/python_packages"
 mkdir -p "$LOCAL_PYTHON_PACKAGES"
