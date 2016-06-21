@@ -14,19 +14,19 @@
 	co = checkout
 	out = log --graph --decorate --oneline origin/master..HEAD
 	branches = branch -a -vv
-        tags = tag --list
+	tags = tag --list
 	kd = difftool --tool=kdiff3 --dir-diff --no-prompt
 	cre = crecord
 	crb = crebase
 	glog = log --graph --decorate --oneline
-        purge = clean -fd
+	purge = clean -fd
 [color]
 	branch = auto
 	diff = auto
 	interactive = auto
 	status = auto
 [include]
-        path = ~/.gitconfig_local
+	path = ~/.gitconfig_local
 [credential]
 	helper = osxkeychain
 [push]
