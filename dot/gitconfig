@@ -14,7 +14,6 @@
 	branches = branch -a -vv
         tags = tag --list
 	kd = difftool --tool=kdiff3 --dir-diff --no-prompt
-	od = difftool --tool=sourcetree --no-prompt
 	cre = crecord
 	crb = crebase
 	glog = log --graph --decorate --oneline
