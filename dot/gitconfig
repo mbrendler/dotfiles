@@ -2,6 +2,8 @@
 	name = Maik Brendler
 [core]
 	excludesfile = ~/.gitignore_global
+[diff]
+	compactionHeuristic = on
 [difftool "kdiff3"]
 	path = kdiff3
 	trustExitCode = false
