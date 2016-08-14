@@ -92,19 +92,23 @@ git -C "$PREFIX"/plugins/vim/jedi-vim/ submodule update --init
 
 # Install Python dependencies -------------------------------------------------
 
-pip install --user -U pip
-pip install --user -U neovim
-pip install --user -U mercurial-keyring
-pip install --user -U hg-git
-pip install --user -U pygments
-pip install --user -U pygments-markdown-lexer
+if which pip > /dev/null 2> /dev/null ; then
+  pip install --user -U pip
+  pip install --user -U neovim
+  pip install --user -U mercurial-keyring
+  pip install --user -U hg-git
+  pip install --user -U pygments
+  pip install --user -U pygments-markdown-lexer
+fi
 
+if which hg > /dev/null 2> /dev/null ; then
 readonly LOCAL_PYTHON_PACKAGES="$PREFIX/python_packages"
 mkdir -p "$LOCAL_PYTHON_PACKAGES"
-if test -e "$LOCAL_PYTHON_PACKAGES/crecord" ; then
-  hg -R "$LOCAL_PYTHON_PACKAGES/crecord" pull -u
-else
-  hg clone https://bitbucket.org/edgimar/crecord "$LOCAL_PYTHON_PACKAGES/crecord"
+  if test -e "$LOCAL_PYTHON_PACKAGES/crecord" ; then
+    hg -R "$LOCAL_PYTHON_PACKAGES/crecord" pull -u
+  else
+    hg clone https://bitbucket.org/edgimar/crecord "$LOCAL_PYTHON_PACKAGES/crecord"
+  fi
 fi
 
 # Initialize Vim helptags -----------------------------------------------------
