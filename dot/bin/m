@@ -15,6 +15,12 @@ from curses import (
 
 from menu import Menu
 
+if sys.version_info >= (3,):
+    def decode(s):
+        return s
+else:
+    def decode(s):
+        return s.decode('utf-8')
 
 class LineMenu(Menu):
     def __init__(self, lines):
@@ -75,12 +81,12 @@ class LineMenu(Menu):
     @staticmethod
     def match_in(entry, string):
         """in"""
-        return string in entry.lower().decode('utf-8')
+        return string in decode(entry.lower())
 
     @staticmethod
     def match_in_chars(entry, string):
         """chars-in"""
-        entry = entry.lower().decode('utf-8')
+        entry = decode(entry.lower())
         for character in string:
             index = entry.find(character)
             if index >= 0:
@@ -126,7 +132,7 @@ class LineMenu(Menu):
             bs.append(get_check_next_byte())
             bs.append(get_check_next_byte())
             bs.append(get_check_next_byte())
-        return ''.join(chr(b) for b in bs).decode('utf-8')
+        return decode(''.join(chr(b) for b in bs))
 
     def default_key_action(self, window, key_code):
         try:

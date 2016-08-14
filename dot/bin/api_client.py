@@ -1,9 +1,14 @@
 # pylint: disable=missing-docstring
 import sys
 from argparse import ArgumentParser
-from urllib import quote_plus
-from urllib2 import urlopen, HTTPError
 import json
+try:
+    from urllib.parse import quote_plus
+    from urllib.request import urlopen
+    from urllib.error import HTTPError
+except ImportError:
+    from urllib import quote_plus
+    from urllib2 import urlopen, HTTPError
 
 
 def get_json(url_template, opts):
@@ -12,11 +17,11 @@ def get_json(url_template, opts):
     except HTTPError as error:
         sys.stderr.write(str(error) + '\n')
         sys.exit(1)
-    return json.loads(connection.read())
+    return json.loads(connection.read().decode('utf-8'))
 
 
 def print_json(content, _):
-    print json.dumps(content, indent=2)
+    print(json.dumps(content, indent=2))
 
 
 def parse_options(default_print, extra_arguments):

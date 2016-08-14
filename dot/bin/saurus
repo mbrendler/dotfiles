@@ -13,12 +13,12 @@ URL_TEMPLATE = (
 def print_terms(content, _):
     for synset in reversed(content.get('synsets', [])):
         categories = synset.get('categories', [])
-        print '\033[38;5;7m----\033[0m %s' % ', '.join(categories)
+        print('\033[38;5;7m----\033[0m %s' % ', '.join(categories))
         for term in reversed(synset['terms']):
             output = term['term']
             if 'level' in term:
                 output += ' \033[38;5;3m[%s]\033[0m' % term['level']
-            print '  ' + output
+            print('  ' + output)
 
 
 if __name__ == '__main__':

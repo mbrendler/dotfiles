@@ -2,8 +2,11 @@
 # pylint: disable=invalid-name,missing-docstring
 import sys
 import os
-import commands
 import curses
+try:
+    import commands
+except ImportError:
+    import subprocess as commands
 
 from menu import Menu
 
