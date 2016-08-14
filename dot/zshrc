@@ -60,7 +60,7 @@ autoload -U colors ; colors
 
 if test $UID -eq 0 ; then
   caretcolor=$fg_no_bold[red]
-elif test ! -z "$SSH_CLIENT" ; then
+elif test ! -z "$SSH_CONNECTION" ; then
   caretcolor=$fg_bold[yellow]
 else
   caretcolor=$fg_bold[blue]
