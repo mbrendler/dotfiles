@@ -24,9 +24,13 @@ export LANG=en_GB.utf-8
 
 export EDITOR=vim
 
-export MANPAGER="\
-  col -b -x | \
-  vim -R -c 'set ft=man nomod nolist laststatus=1 colorcolumn=0 nospell' -"
+if test "$PLATFORM" = "Linux" ; then
+  export MANPAGER=less
+else
+  export MANPAGER="\
+    col -b -x | \
+    vim -R -c 'set ft=man nomod nolist laststatus=1 colorcolumn=0 nospell' -"
+fi
 
 ### Homebrew *PATH extensions
 if test -f /usr/local/bin/brew ; then
