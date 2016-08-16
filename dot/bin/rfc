@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+
+readonly RFC_INDEX_FILE=rfc-index.txt
+readonly RFC_INDEX_URL="https://www.ietf.org/download/$RFC_INDEX_FILE"
+readonly RFC_URL_PREFIX=https://www.ietf.org/rfc
+readonly CACHE_DIR="$HOME/.cache/rfc"
+
+MENU=
+INDEX=
+FORCE_REFRESH=
+
+while grep "^-" <<<"$1" >> /dev/null 2>&1 ; do
+  case "$1" in
+    -h|--help) ;;
+    -m|--menu) MENU=yes ;;
+    -i|--index) INDEX=yes ;;
+    --force-refresh) FORCE_REFRESH=yes ;;
+    *) echo "unknown option '$1'" >&2 ; exit 1 ;;
+  esac
+  shift
+done
+
+if ([ "$#" -eq 0 ] || [ "$1" = '-h' ] || [ "$1" = '--help' ]) && [ -z "$MENU$INDEX" ] ; then
+  cat <<EOF
+usage: $0 [OPTIONS] NUMBER|SEARCH-STRING
+
+OPTIONS
+  -h / --help      -- show this help message
+  -m / --menu      -- use menu to select RFC
+  -i / --index     -- (download and) show index
+  --force-refresh  -- download file even if it exists
+EOF
+  exit 1
+fi
+
+function download() {
+  local url="$1"
+  local filename=;filename="$CACHE_DIR/$(basename "$url")"
+  mkdir -p "$CACHE_DIR"
+  if [ -n "$FORCE_REFRESH" ] || [ ! -e "$filename" ] ; then
+    wget -q --progress=bar --output-document="$filename" "$url"
+  fi
+}
+
+function download-rfc() {
+  download "$RFC_URL_PREFIX/rfc$1.txt"
+}
+
+function view-rfc() {
+  vim -R "$CACHE_DIR/rfc$1.txt"
+}
+
+function download-rfc-index() {
+  download "$RFC_INDEX_URL"
+}
+
+function rfc-list() {
+  local index_filename="$CACHE_DIR/$RFC_INDEX_FILE"
+  grep -E "^[0-9]+" "$index_filename"
+}
+
+function search-rfcs() {
+  rfc-list | grep -i "$@" || true
+}
+
+
+if [ -n "$INDEX" ] ; then
+  download-rfc-index
+  vim -R "$CACHE_DIR/$RFC_INDEX_FILE"
+elif grep -E "^[0-9]+$" <<<"$1" > /dev/null ; then
+  download-rfc "$1"
+  view-rfc "$1"
+else
+  download-rfc-index
+  if [ -z "$MENU" ] ; then
+    readonly rfcs="$(search-rfcs "$@")"
+  else
+    readonly rfcs="$(rfc-list | m)"
+  fi
+  if [ -z "$rfcs" ] ; then
+    echo no rfc found for "'$*'" >&2
+  elif [ "$(wc -l <<<"$rfcs")" -eq 1 ] ; then
+    readonly rfc="$(sed -nE "s/^0*([1-9][0-9]*).*$/\1/p" <<<"$rfcs")"
+    download-rfc "$rfc"
+    view-rfc "$rfc"
+  else
+    echo multiple rfcs found:
+    echo "$rfcs"
+  fi
+fi
