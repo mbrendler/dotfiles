@@ -56,6 +56,7 @@ class LineMenu(Menu):
             ord('>'): self.select_last,
         })
         self.match = self.match_in
+        self._update_entry_cache()
         # self._es = None
 
     def entries(self):
@@ -67,11 +68,19 @@ class LineMenu(Menu):
         #         self._es = zip(*es)[0]
         #     return self._es
         # return self._entries
-        if self._input is '':
-            return self._entries
-        else:
-            search = self._input.lower()
-            return [e for e in self._entries if self.match(e, search)]
+        update_cache = self._input != self._entry_cache['search'] or \
+            self.match != self._entry_cache['match']
+        if update_cache:
+            self._update_entry_cache()
+        return self._entry_cache['entries']
+
+    def _update_entry_cache(self):
+        search = self._input.lower()
+        self._entry_cache = {
+            'search': self._input,
+            'match': self.match,
+            'entries': [e for e in self._entries if self.match(e, search)]
+        }
 
     def toggle_matcher(self, *_):
         if self.match == self.match_in:
