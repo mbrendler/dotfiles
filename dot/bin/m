@@ -67,8 +67,11 @@ class LineMenu(Menu):
         #         self._es = zip(*es)[0]
         #     return self._es
         # return self._entries
-        search = self._input.lower()
-        return [e for e in self._entries if self.match(e, search)]
+        if self._input is '':
+            return self._entries
+        else:
+            search = self._input.lower()
+            return [e for e in self._entries if self.match(e, search)]
 
     def toggle_matcher(self, *_):
         if self.match == self.match_in:
