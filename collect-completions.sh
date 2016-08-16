@@ -1,5 +1,4 @@
-#!/bin/zsh
-
+#! /usr/bin/env zsh
 
 COMPLETION_DEFINITIONS=(
   "ag:/Users/mbrendler/.usr/plugins/zsh/zsh-completions/src/_ag"
@@ -28,10 +27,8 @@ COMPLETION_DEFINITIONS=(
   "watch:$HOME/.usr/plugins/zsh/zsh-completions/src/_watch"
 )
 
-
 ZSH_SITE_FUNCTIONS=$HOME/.zsh/site-functions
 mkdir -p "$ZSH_SITE_FUNCTIONS"
-
 
 for COMPLETION_DEFINITION in "${COMPLETION_DEFINITIONS[@]}" ; do
   NAME="${COMPLETION_DEFINITION%%:*}"
