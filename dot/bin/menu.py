@@ -91,13 +91,16 @@ class Menu(object):
             window.clear()
 
     def _loop(self, window):
-        use_default_colors()
-        init_pair(1, -1, -1)
-        init_pair(2, -1, COLOR_GREEN)
-        while 1:
-            self._refresh(window)
-            key_code = window.getch()
-            action = self._key_actions.get(key_code, self.default_key_action)
-            result = action(window, key_code)
-            if result is not None:
-                return result
+        try:
+            use_default_colors()
+            init_pair(1, -1, -1)
+            init_pair(2, -1, COLOR_GREEN)
+            while 1:
+                self._refresh(window)
+                key = window.getch()
+                action = self._key_actions.get(key, self.default_key_action)
+                result = action(window, key)
+                if result is not None:
+                    return result
+        except KeyboardInterrupt:
+            pass

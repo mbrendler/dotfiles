@@ -250,15 +250,12 @@ def main():
     sys.stdout = os.fdopen(other_desc, 'w')
 
     menu = LineMenu(lines)
-    try:
-        if menu.run():
-            if menu.selected() < 0:
-                sys.stdout.write('\n'.join(menu.entries()) + '\n')
-            else:
-                sys.stdout.write(menu.entries()[menu.selected()] + '\n')
-            return 0
-    except KeyboardInterrupt:
-        pass
+    if menu.run():
+        if menu.selected() < 0:
+            sys.stdout.write('\n'.join(menu.entries()) + '\n')
+        else:
+            sys.stdout.write(menu.entries()[menu.selected()] + '\n')
+        return 0
     return 1
 
 if __name__ == '__main__':
