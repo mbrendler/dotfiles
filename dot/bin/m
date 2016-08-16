@@ -35,8 +35,8 @@ class LineMenu(Menu):
             ord(''): self.select_previous,
             KEY_BACKSPACE: self.backspace,
             127: self.backspace,
-            KEY_DC: self.delte_char,
-            ord(''): self.delte_char,
+            KEY_DC: self.delete_char,
+            ord(''): self.delete_char,
             ord(''): self.begin_of_line,
             ord(''): self.end_of_line,
             ord(''): self.forward_char,
@@ -144,7 +144,7 @@ class LineMenu(Menu):
         self.clear_selection()
         self._cursor += 1
 
-    def delte_char(self, *_):
+    def delete_char(self, *_):
         self.clear_selection()
         self._input = self._input[:self._cursor] + \
             self._input[self._cursor + 1:]
