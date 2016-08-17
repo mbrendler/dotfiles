@@ -245,6 +245,7 @@ nnoremap k gk
 nnoremap ü <C-]>
 nnoremap gü g]
 
+let g:no_man_maps = 1
 autocmd BufEnter * if &readonly | nnoremap <buffer> q :q<cr> | endif
 
 """ Vim-Tmux-Navigator mappings
