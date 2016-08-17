@@ -3,12 +3,15 @@ function! Rtfm_perfom(search, command, filetype)
   if v:shell_error == 0
     tabnew
     execute "setlocal filetype=" . a:filetype
+    setlocal modifiable
+    setlocal noreadonly
     setlocal nolist
     setlocal colorcolumn=0
     setlocal nospell
     put! =l:manual
     setlocal nomodified
     setlocal readonly
+    setlocal nomodifiable
     nnoremap <buffer> q :bw<cr>
     silent execute "file RTFM-'" . a:search . "'"
     1
