@@ -113,6 +113,8 @@ fi
 
 # Initialize Vim helptags -----------------------------------------------------
 
-for plugin_doc_dir in $(/bin/ls -d "$PREFIX"/plugins/vim/*/doc) ; do
-  vim "+helptags $plugin_doc_dir" +qall
-done
+if which vim > /dev/null 2> /dev/null ; then
+  for plugin_doc_dir in $(/bin/ls -d "$PREFIX"/plugins/vim/*/doc) ; do
+    vim "+helptags $plugin_doc_dir" +qall
+  done
+fi
