@@ -1,0 +1,104 @@
+#! /usr/bin/env bash
+
+set -euo pipefail
+
+usage () {
+  cat <<EOF
+usage: $0 [options] C-STATEMENTS... [-- ARG...]
+
+  C-STATEMENTS -- content of the main function
+  ARG          -- command-line argument to the compiled program
+
+options:
+  -h / --help
+  --include FILE         -- include file
+  --prefix C-STATEMENTS  -- add c-statements in front of main
+  --no-run               -- don't run the compiled program
+  --src                  -- print src
+  --c++                  -- use C++ instead of C
+  --debug                -- run in debugger
+
+  and options of the 'cc' / 'c++' command
+EOF
+}
+
+if [ "$#" -eq 0 ] ; then
+  usage
+  exit 1
+fi
+
+FILENAME="/tmp/runc-$$"
+
+cleanup () {
+  rm -f "$FILENAME.c" "$FILENAME.c++" "$FILENAME"
+}
+
+trap cleanup EXIT
+
+if which lldb > /dev/null 2> /dev/null ; then
+  debugger=lldb
+else
+  debugger=gdb
+fi
+compiler="${CC-cc}"
+language=c
+options=( -Wpedantic -Wall )
+content=""
+prefix="#include <stdio.h>
+"
+run=yes
+print_source=no
+debug=no
+
+while [ "$#" -gt 0 ] ; do
+  case "$1" in
+    --help|-h) usage ; exit 0 ;;
+    --include) prefix="${prefix}#include <$2>
+" ; shift ;;
+    --prefix)  prefix="${prefix}$2
+;" ; shift ;;
+    --no-run)  run=no ;;
+    --src)     print_source=yes ;;
+    --c++)     compiler="${CXX-"c++"}" ; language=c++ ;;
+    --debug)   debug=yes ;;
+    --)        shift ; break ;;
+    -*)        options+=("$1") ;;
+    *)         content="${content}  $1;
+" ;;
+  esac
+  shift
+done
+
+cat <<EOF > "$FILENAME.$language"
+$prefix
+int main(int argc, char *argv[]) {
+$content
+  return 0;
+}
+EOF
+
+print-source () {
+  if [ -t 1 ] && [ ! -p /dev/stdout ] && which pygmentize > /dev/null 2>&1 ; then
+    pygmentize -l "${1-"$language"}" -f terminal
+  else
+    cat
+  fi
+}
+
+if [ "$print_source" = yes ] ; then
+  print-source < "$FILENAME.$language"
+fi
+
+"${compiler}" -o "$FILENAME" "$FILENAME.$language" "${options[@]}"
+
+if [ "$run" = yes ] ; then
+  if grep ' -E ' <<<" ${options[*]} "; then
+    print-source <"$FILENAME"
+  elif grep ' -S ' <<<" ${options[*]} "; then
+    print-source asm <"$FILENAME"
+  elif [ "$debug" = yes ] ; then
+    "$debugger" "$FILENAME" "$@"
+  else
+    "$FILENAME" "$@"
+  fi
+fi
