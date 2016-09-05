@@ -151,6 +151,7 @@ export SAVEHIST=10000
 
 # Behavior --------------------------------------------------------------------
 
+setopt INTERACTIVE_COMMENTS
 setopt NO_LIST_AMBIGUOUS    # show completion list when completion is inserted
 setopt NO_AUTO_MENU
 setopt NO_ALWAYS_LASTPROMPT
