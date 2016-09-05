@@ -1,19 +1,7 @@
 
-
 function! s:InsertGuard()
-  let guardname = substitute(toupper(expand("%:t")), "\\.", "_", "g")
-  let id = substitute(system("uuidgen"), "[-\n]", "", "g")
-  let guardname = guardname . "__" . id
-  execute "normal! i/* vim: set filetype=" . &filetype . ": */"
-  execute "normal! o#ifndef " . guardname
-  execute "normal! o#define " . guardname
-  execute "normal! o"
-  execute "normal! o"
-  execute "normal! o"
-  execute "normal! Go#endif /* " . guardname . " */"
-  normal! kk
+  execute "normal! i#pragma once"
 endfunction
-
 
 augroup insert_c_cpp_objc_header_guard
   autocmd!
