@@ -73,7 +73,6 @@ cat <<EOF > "$FILENAME.$language"
 $prefix
 int main(int argc, char *argv[]) {
 $content
-  return 0;
 }
 EOF
 
