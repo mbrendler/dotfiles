@@ -55,8 +55,8 @@ while [ "$#" -gt 0 ] ; do
     --help|-h) usage ; exit 0 ;;
     --include) prefix="${prefix}#include <$2>
 " ; shift ;;
-    --prefix)  prefix="${prefix}$2
-;" ; shift ;;
+    --prefix)  prefix="${prefix}$2;
+" ; shift ;;
     --no-run)  run=no ;;
     --src)     print_source=yes ;;
     --c++)     compiler="${CXX-"c++"}" ; language=c++ ;;
