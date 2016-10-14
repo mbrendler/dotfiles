@@ -37,6 +37,10 @@ function! Rtfm_elixir(search)
   endif
 endfunction
 
+function! Rtfm_go(search)
+  call Rtfm_perfom(a:search, "go fmt " + a:search, "")
+endfunction
+
 function! Rtfm_vim(search)
   execute "tab help " . a:search
   nnoremap <buffer> q :bw<cr>
