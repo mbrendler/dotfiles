@@ -60,13 +60,9 @@ plugin vim vim-scripts/taglist.vim
 ### programming languages
 plugin vim neomake/neomake
 plugin vim Rip-Rip/clang_complete
-plugin vim vim-scripts/Cpp11-Syntax-Support
 plugin vim lukerandall/haskellmode-vim
 plugin vim davidhalter/jedi-vim
 plugin vim elixir-lang/vim-elixir
-plugin vim ap/vim-css-color
-plugin vim vim-scripts/vim-emblem
-plugin vim dsawardekar/ember.vim
 plugin vim tpope/vim-endwise # automatically close code blocks in ruby
 plugin vim tpope/vim-rake
 plugin vim tpope/vim-projectionist
