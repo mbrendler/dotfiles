@@ -122,12 +122,15 @@ test-dir() {
 
 ### `i` simplifies the work with projects: ## https://github.com/mbrendler/i
 i() {
-  if test "$1" = cd ; then
-    shift
-    cd "$(command i dir "$@")"
-  else
-    command i "$@"
-  fi
+  local arr=($@)
+  for i in {1..$#} ; do
+    if test "$@[i]" = 'cd' ; then
+      arr[$i]=dir
+      cd "$(command i $arr)"
+      return
+    fi
+  done
+  command i "$@"
 }
 
 p() { I_ENVIRONMENT=p i "$@" }
