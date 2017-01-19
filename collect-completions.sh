@@ -52,6 +52,8 @@ for COMPLETION_DEFINITION in "${COMPLETION_DEFINITIONS[@]}" ; do
   fi
 done
 
+sed -Ei '' 's/^#compdef i.*$/#compdef i p post drain/' dot/zsh/site-functions/_i
+
 # rebuild zcompdumb:
 rm -f ~/.zcompdump
 compinit () {
