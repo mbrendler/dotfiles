@@ -218,6 +218,9 @@ nnoremap <Leader>ev :split $MYVIMRC<CR>
 nnoremap <Leader>sv :source $MYVIMRC<CR>
 nnoremap <Leader>ef :execute "split " . $FT_DIR . &filetype . ".vim"<CR>
 nnoremap <Leader>sf :execute "source " . $FT_DIR . &filetype . ".vim"<CR>
+nnoremap <Leader>ss :e .scratch<CR>
+nnoremap <Leader>sS :split .scratch<CR>
+nnoremap <Leader>st :tabnew .scratch<CR>
 nnoremap <Leader>eh :split $HOME/.hgrc<CR>
 nnoremap <Leader>eg :split $HOME/.gitconfig<CR>
 nnoremap <Leader>es :execute "split $HOME/.vim/snippets/" . &filetype . ".snippets"<CR>
@@ -225,6 +228,8 @@ nnoremap <Leader>ee :e %<CR>
 
 nnoremap <Leader>ms :call Tmux_run_command("git status 2>/dev/null \|\| hg st 2>/dev/null")<CR>
 nnoremap <Leader>md :call Tmux_run_command("git diff 2>/dev/null \|\| hg diff 2>/dev/null")<CR>
+
+nnoremap <leader>M  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
 
 let maplocalleader = "ö"
 
@@ -238,6 +243,8 @@ nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 """ Insert new line without entering insert mode.
 nnoremap <S-Enter> O<Esc>j
 nnoremap <C-Enter> o<Esc>k
+nnoremap ± O<Esc>j
+nnoremap  o<Esc>k
 
 nnoremap j gj
 nnoremap k gk
