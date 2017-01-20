@@ -28,3 +28,7 @@ for src_file in "$SOURCE_DIR"/* "$OS_SPECIFIC_SOURCE_DIR"/* ; do
     ln -sf "$src_file" "$dst_file"
   fi
 done
+
+ln -fs "$SOURCE_DIR/vimrc" "$SOURCE_DIR/vim/init.vim"
+mkdir -p "$HOME/.config"
+ln -fs "$SOURCE_DIR/vim" "$HOME/.config/nvim"

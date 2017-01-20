@@ -1,2 +1,3 @@
 *.pyc
 dot/vim/haskellmode.config
+dot/vim/init.vim
