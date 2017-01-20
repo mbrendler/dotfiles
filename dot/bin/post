@@ -1,0 +1,117 @@
+#! /bin/bash
+
+set -euo pipefail
+
+if test "${DEBUG+x}" ; then
+  set -x
+fi
+
+readonly MAIL_DIR="$HOME/Mail"
+readonly ACCOUNTS="$(find "$MAIL_DIR/" -depth 1 -type d -exec basename {} \;)"
+readonly DEFAULT_ACCOUNT=blue
+
+function cmd-help() {
+  cat <<EOF
+$0 [CMD|ACCOUNT|-d|-s]
+
+  check [-d|-s]  -- check for new mails
+  help [-a]      -- this help
+  mutt [ACCOUNT] -- start mutt with the given account
+  sync           -- synchronize mail accounts
+EOF
+  if [ "${1-}" = "-a" ] ; then
+    echo "  _list-accounts -- list accounts"
+    for account in $ACCOUNTS ; do
+      echo "  $account -- "
+    done
+  fi
+}
+
+function cmd-_list-accounts() {
+  echo "$ACCOUNTS"
+}
+
+function cmd-check() {
+  if [ "${1-}" = '-s' ] ; then
+    find "$MAIL_DIR"/*/INBOX/new -type f 2> /dev/null | wc -l
+  fi
+  details=no
+  if [ "${1-}" = '-d' ] ; then
+    details=yes
+  fi
+
+  for account in $ACCOUNTS ; do
+    new_mails="$(find "${MAIL_DIR}/${account}/INBOX/new" -type f)"
+    new_mails_count="$(grep -cv '^$' <<<"$new_mails" || true)"
+    if [ "$new_mails_count" -gt 0 ] ; then
+      printf '%5s: %s\n' "$account" "$new_mails_count"
+      if [ "$details" = yes ] ; then
+        while read -r mail ; do
+          LC_ALL=C sed -nE "s/^Subject: (.*)$/       \1/p" "$mail" || true
+        done <<<"$new_mails"
+      fi
+    fi
+  done
+}
+
+function cmd-mutt() {
+  local account;account="$(complete-account "${1:-}" "$DEFAULT_ACCOUNT")"
+  if [ -z "$account" ] ; then
+    exit 1
+  fi
+  exec mutt -f "$MAIL_DIR/$account/INBOX"
+}
+
+function cmd-sync() {
+  offlineimap -o
+}
+
+function complete() {
+  local name="$1"
+  local values="$2"
+  local to_complete="$3"
+  local default="$4"
+  if [ -z "$to_complete" ] ; then
+    echo "$default"
+    return
+  fi
+  local completed;completed="$(grep "^$to_complete" <<<"$values" || true)"
+  if [ -z "$completed" ] ; then
+    >&2 echo "unknown $name"
+  elif [ "$(wc -l <<<"$completed")" -gt 1 ] ; then
+    >&2 echo "$name '$to_complete' is ambiguous:"
+    >&2 tr \\n \  <<< "  $completed"
+    >&2 echo
+  else
+    echo "$completed"
+  fi
+}
+
+function complete-account() {
+  local accounts;accounts="$(tr \  \\n <<<"$ACCOUNTS")"
+  complete account "$accounts" "$1" "${2-}"
+}
+
+function complete-command() {
+  local commands;commands="$(cmd-help -a | sed -E "s/  ([^ ]*) .*$/\1/g")"
+  complete command "$commands" "$1" "${2-}"
+}
+
+readonly accnt="$(complete-account "${1-}" 2> /dev/null)"
+if [ -z "$accnt" ] ; then
+  if [[ "${1-}" =~ '-' ]] ; then
+    cmd-check "$@"
+  else
+    readonly cmd="$(complete-command "${1-}" check)"
+    if [ -z "$cmd" ] ; then
+      cmd-help
+      exit 1
+    fi
+    if [ "$#" -gt 0 ] ; then
+      shift
+    fi
+    "cmd-$cmd" "$@"
+  fi
+else
+  cmd-mutt "$accnt"
+fi
