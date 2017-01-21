@@ -92,7 +92,6 @@ if which pip > /dev/null 2> /dev/null ; then
   pip install --user -U pip
   pip install --user -U neovim
   pip install --user -U mercurial-keyring
-  pip install --user -U hg-git
   pip install --user -U pygments
   pip install --user -U pygments-markdown-lexer
 fi
