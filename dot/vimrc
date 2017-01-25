@@ -37,7 +37,7 @@ autocmd BufWinLeave * call clearmatches()
 
 set regexpengine=1 " improves performance with highlighting ruby files
 set hidden " restore history of buffer coming from background
-set modeline
+set nomodeline
 set clipboard=unnamed,unnamedplus
 set ttimeoutlen=100  " decrease timeout for faster insert with 'O'
 set ttyfast
