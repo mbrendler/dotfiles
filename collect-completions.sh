@@ -2,7 +2,6 @@
 
 COMPLETION_DEFINITIONS=(
   "ag:/Users/mbrendler/.usr/plugins/zsh/zsh-completions/src/_ag"
-  "bower:$HOME/.usr/plugins/zsh/zsh-completions/src/_bower"
   "brew:/usr/local/Library/Contributions/brew_zsh_completion.zsh"
   "bundler:$HOME/.usr/plugins/zsh/zsh-completions/src/_bundle"
   "cabal:$HOME/.usr/plugins/zsh/zsh-completions/src/_cabal"
@@ -13,21 +12,15 @@ COMPLETION_DEFINITIONS=(
   "gem:$HOME/.usr/plugins/zsh/zsh-completions/src/_gem"
   "ghc:$HOME/.usr/plugins/zsh/zsh-completions/src/_ghc"
   "go:$HOME/.usr/plugins/zsh/zsh-completions/src/_go"
-  "hg:$HOME/usr/local/opt/mercurial/share/zsh/site-functions/_hg"
   "i:$HOME/Documents/src/projects/i/zsh-completion/_i"
   "jq:$HOME/.usr/plugins/zsh/zsh-completions/src/_jq"
-  "node:$HOME/.usr/plugins/zsh/zsh-completions/src/_node"
-  "npm:/usr/local/etc/bash_completion.d/npm"
   "rails:$HOME/.usr/plugins/zsh/zsh-completions/src/_rails"
   "redis-cli:$HOME/.usr/plugins/zsh/zsh-completions/src/_redis-cli"
   "pgsql_utils:$HOME/.usr/plugins/zsh/zsh-completions/src/_pgsql_utils"
-  "pip:$HOME/.usr/plugins/zsh/oh-my-zsh/plugins/pip/_pip"
   "tig:/usr/local/etc/bash_completion.d/tig-completion.bash"
   "tmux:/usr/local/etc/bash_completion.d/tmux"
-  "vagrant:$HOME/.usr/plugins/zsh/zsh-completions/src/_vagrant"
   "virtualbox:$HOME/.usr/plugins/zsh/zsh-completions/src/_virtualbox"
-  "winrm:$HOME/Documents/src/projects/winrm/zsh_completion/_winrm"
-  "watch:$HOME/.usr/plugins/zsh/zsh-completions/src/_watch"
+  "winrm:$HOME/Documents/src/projects/winrm-terminal/zsh_completion/_winrm"
 )
 
 ZSH_SITE_FUNCTIONS=$HOME/.zsh/site-functions
