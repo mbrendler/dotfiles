@@ -187,6 +187,9 @@ defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 # Prevent Time Machine from prompting to use new hard drives as backup volume
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
+# Do not start Photos.app when connection an iPhone
+defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool YES
+
 # Kill affected applications
 for app in Safari Finder Dock Mail SystemUIServer; do killall "$app" > /dev/null 2>&1; done
 echo "Done. Note that some of these changes require a logout/restart to take effect."
