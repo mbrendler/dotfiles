@@ -1,7 +1,7 @@
 #compdef iwfm
 
-endpoints=( "${(@f)$(iwfm endpoints | sed -nE 's/^ *([^:]+): (.*)$/\\:\1[\2]/p')}" )
-endpoints=( $endpoints 'iwfm\://' 'iwfms\://' )
+endpoints=( "${(@f)$(sed -E 's/^.*(:[^:]+): +(.+)$/\\\1[\2]/' ~/.iwfm_endpoints)}" )
+endpoints=( $endpoints 'iwfm\://[iwfm]' 'iwfms\://[iwfms]' )
 if (( CURRENT == 2 )) ; then
   cmds=( "${(@f)$(iwfm help | sed -nE 's/^  ([^ ]+).*- (.+)$/\1[\2]/p')}" )
   cmds=( $cmds $endpoints )
