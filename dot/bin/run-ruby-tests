@@ -1,0 +1,13 @@
+#! /bin/sh
+### find and require tests in an directory
+
+set -euo pipefail
+
+readonly directory="$1"
+
+shift
+
+(
+  echo "require 'minitest/autorun'"
+  find "$directory" -name '*_test.rb' | sed "s/.*/require '.\/&'/"
+) | ruby - "$@"
