@@ -249,7 +249,9 @@ nnoremap  o<Esc>k
 nnoremap j gj
 nnoremap k gk
 
-nnoremap ü <C-]>
+nnoremap ü ]
+nnoremap ä [
+nnoremap Ü <C-]>
 nnoremap gü g]
 
 let g:no_man_maps = 1
