@@ -40,10 +40,6 @@ function decode-rfc-1342() {
   fi
 }
 
-function indent() {
-  sed "s/^/$1/"
-}
-
 function cmd-check() {
   if [ "${1-}" = '-s' ] ; then
     find "$MAIL_DIR"/*/INBOX/new -type f 2> /dev/null | wc -l
@@ -60,9 +56,10 @@ function cmd-check() {
       printf '%5s: %s\n' "$account" "$new_mails_count"
       if [ "$details" = yes ] ; then
         while read -r mail ; do
+          echo -n "       $(sed -nE 's/^From:.*<(.*)>$/\1/p' "$mail"): "
           (
             LC_ALL=C sed -nE 's/^Subject: *([^ ].*)$/\1/p' "$mail" || true
-          ) | decode-rfc-1342 | indent '       '
+          ) | decode-rfc-1342
         done <<<"$new_mails"
       fi
     fi
