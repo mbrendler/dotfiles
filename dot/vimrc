@@ -338,6 +338,15 @@ endfunction
 """ Neomake
 autocmd! BufWritePost * Neomake
 let g:neomake_place_signs=1
+let g:neomake_cpp_enable_markers = ['clang']
+let g:neomake_cpp_clang_args = ["-std=c++14", "-Wall", "-Wpedantic"]
+let g:neomake_c_enable_markers = ['clang']
+let g:neomake_c_clang_args = ["-Wall", "-Wpedantic"]
+
+if filereadable('.clang_complete')
+  let g:neomake_cpp_clang_args = readfile('.clang_complete')
+  let g:neomake_c_clang_args = g:neomake_cpp_clang_args
+endif
 
 """ TComment
 let g:tcommentMapLeader1 = ""
