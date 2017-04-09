@@ -20,6 +20,8 @@ options:
   --show-asm             -- show assembler code instead of running
 
   and options of the 'cc' / 'c++' command
+
+  Read from stdin with given '-' option.
 EOF
 }
 
@@ -50,6 +52,7 @@ prefix="#include <stdio.h>
 run=yes
 print_source=no
 debug=no
+read_from_stdin=no
 
 while [ "$#" -gt 0 ] ; do
   case "$1" in
@@ -64,6 +67,7 @@ while [ "$#" -gt 0 ] ; do
     --debug)    debug=yes ;;
     --show-asm) options+=('-S' '-masm=intel') ;;
     --)         shift ; break ;;
+    -)          read_from_stdin=yes ;;
     -*)         options+=("$1") ;;
     *)          content="${content}  $1;
 " ;;
@@ -71,12 +75,16 @@ while [ "$#" -gt 0 ] ; do
   shift
 done
 
-cat <<EOF > "$FILENAME.$language"
+if [ "$read_from_stdin" = yes ] ; then
+  (echo "$prefix" ; cat) > "$FILENAME.$language"
+else
+  cat <<EOF > "$FILENAME.$language"
 $prefix
 int main(int argc, char *argv[]) {
 $content
 }
 EOF
+fi
 
 print-source () {
   if [ -t 1 ] && [ ! -p /dev/stdout ] && which pygmentize > /dev/null 2>&1 ; then
