@@ -17,6 +17,7 @@ options:
   --src                  -- print src
   --c++                  -- use C++ instead of C
   --debug                -- run in debugger
+  --show-asm             -- show assembler code instead of running
 
   and options of the 'cc' / 'c++' command
 EOF
@@ -52,18 +53,19 @@ debug=no
 
 while [ "$#" -gt 0 ] ; do
   case "$1" in
-    --help|-h) usage ; exit 0 ;;
-    --include) prefix="${prefix}#include <$2>
+    --help|-h)  usage ; exit 0 ;;
+    --include)  prefix="${prefix}#include <$2>
 " ; shift ;;
-    --prefix)  prefix="${prefix}$2;
+    --prefix)   prefix="${prefix}$2;
 " ; shift ;;
-    --no-run)  run=no ;;
-    --src)     print_source=yes ;;
-    --c++)     compiler="${CXX-"c++"}" ; language=c++ ;;
-    --debug)   debug=yes ;;
-    --)        shift ; break ;;
-    -*)        options+=("$1") ;;
-    *)         content="${content}  $1;
+    --no-run)   run=no ;;
+    --src)      print_source=yes ;;
+    --c++)      compiler="${CXX-"c++"}" ; language=c++ ;;
+    --debug)    debug=yes ;;
+    --show-asm) options+=('-S' '-masm=intel') ;;
+    --)         shift ; break ;;
+    -*)         options+=("$1") ;;
+    *)          content="${content}  $1;
 " ;;
   esac
   shift
