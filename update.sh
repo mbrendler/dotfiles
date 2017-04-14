@@ -91,7 +91,6 @@ git -C "$PREFIX"/plugins/vim/jedi-vim/ submodule update --init
 if which pip > /dev/null 2> /dev/null ; then
   pip install --user -U pip
   pip install --user -U neovim
-  pip install --user -U mercurial-keyring
   pip install --user -U pygments
   pip install --user -U pygments-markdown-lexer
 fi
@@ -103,6 +102,10 @@ mkdir -p "$LOCAL_PYTHON_PACKAGES"
     hg -R "$LOCAL_PYTHON_PACKAGES/crecord" pull -u
   else
     hg clone https://bitbucket.org/edgimar/crecord "$LOCAL_PYTHON_PACKAGES/crecord"
+  fi
+
+  if which pip > /dev/null 2> /dev/null ; then
+    pip install --user -U mercurial-keyring
   fi
 fi
 
