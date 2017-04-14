@@ -96,8 +96,8 @@ if which pip > /dev/null 2> /dev/null ; then
 fi
 
 if which hg > /dev/null 2> /dev/null ; then
-readonly LOCAL_PYTHON_PACKAGES="$PREFIX/python_packages"
-mkdir -p "$LOCAL_PYTHON_PACKAGES"
+  readonly LOCAL_PYTHON_PACKAGES="$PREFIX/python_packages"
+  mkdir -p "$LOCAL_PYTHON_PACKAGES"
   if test -e "$LOCAL_PYTHON_PACKAGES/crecord" ; then
     hg -R "$LOCAL_PYTHON_PACKAGES/crecord" pull -u
   else
