@@ -1,0 +1,6 @@
+#! /usr/bin/env ruby
+
+require 'yaml'
+require 'json'
+
+YAML.dump(JSON.parse($stdin.read), $stdout)
