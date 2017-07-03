@@ -14,6 +14,7 @@ COMPLETION_DEFINITIONS=(
   "go:$HOME/.usr/plugins/zsh/zsh-completions/src/_go"
   "i:$HOME/Documents/src/projects/i/zsh-completion/_i"
   "jq:$HOME/.usr/plugins/zsh/zsh-completions/src/_jq"
+  "mix:$HOME/.usr/plugins/zsh/zsh-completions/src/_mix"
   "rails:$HOME/.usr/plugins/zsh/zsh-completions/src/_rails"
   "redis-cli:$HOME/.usr/plugins/zsh/zsh-completions/src/_redis-cli"
   "pgsql_utils:$HOME/.usr/plugins/zsh/zsh-completions/src/_pgsql_utils"
