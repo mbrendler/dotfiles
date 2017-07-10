@@ -1,0 +1,29 @@
+#compdef iwfmlogs
+
+if (( CURRENT == 2 )) ; then
+  local cmds=("${(@f)$(
+    iwfmlogs help -a | sed -nE 's/^    ([^ ]*).*-- (.*)$/\1[\2]/p'
+  )}")
+  _values "iwfmlogs command" $cmds
+else
+  local cmd=$words[2]
+  local argtypes=("${(@f)$(
+    iwfmlogs help -a |
+      sed -nE "s/^    [^ ]*${cmd}[^ ]* (.*) --.*$/\1/p" |
+      tr \  \\n |
+      grep -v '^ *$' |
+      tr -d '[]' |
+      tr A-Z a-z
+  )}")
+  local argtype=$argtypes[$((CURRENT - 2))]
+  if [ "$argtype" = file ] || [ "$argtype" = path_to_iwfm_source ] ; then
+    _files
+  elif [ -n "$argtype" ] ; then
+    IFS=$'\n' local completions=($(iwfmlogs _list-${argtype}s $words[3,-1] 2> /dev/null))
+    if [[ "$completions" =~ "\[*\]" ]] ; then
+      _values "iwfmlogs _list-${argtype}s" $completions
+    else
+      _describe "$argtype" completions
+    fi
+  fi
+fi

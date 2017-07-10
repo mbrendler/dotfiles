@@ -13,6 +13,7 @@ COMPLETION_DEFINITIONS=(
   "ghc:$HOME/.usr/plugins/zsh/zsh-completions/src/_ghc"
   "go:$HOME/.usr/plugins/zsh/zsh-completions/src/_go"
   "i:$HOME/Documents/src/projects/i/zsh-completion/_i"
+  "iwfmlogs:$HOME/work/iwfm-logs/zsh-completion/_iwfmlogs"
   "jq:$HOME/.usr/plugins/zsh/zsh-completions/src/_jq"
   "mix:$HOME/.usr/plugins/zsh/zsh-completions/src/_mix"
   "rails:$HOME/.usr/plugins/zsh/zsh-completions/src/_rails"
