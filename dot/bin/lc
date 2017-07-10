@@ -1,0 +1,13 @@
+#! /bin/sh
+
+odd_bg="$(tput setab 236)"
+odd_fg="$(tput setaf 236)"
+odd="$odd_bg$odd_fg"
+
+even_bg="$(tput setab 235)"
+even_fg="$(tput setaf 235)"
+even="$even_bg$even_fg"
+
+clear="$(tput op)"
+
+awk "NR%2==0 { print \"$even\" \$0 \"$clear\" } ; NR%2==1 { print \"$odd\" \$0 \"$clear\" }"
