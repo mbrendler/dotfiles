@@ -226,6 +226,9 @@ nnoremap <Leader>eg :split $HOME/.gitconfig<CR>
 nnoremap <Leader>es :execute "split $HOME/.vim/snippets/" . &filetype . ".snippets"<CR>
 nnoremap <Leader>ee :e %<CR>
 
+nnoremap <Leader>l :lopen<CR>
+nnoremap <Leader>L :lclose<CR>
+
 nnoremap <Leader>ms :call Tmux_run_command("git status 2>/dev/null \|\| hg st 2>/dev/null")<CR>
 nnoremap <Leader>md :call Tmux_run_command("git diff 2>/dev/null \|\| hg diff 2>/dev/null")<CR>
 
