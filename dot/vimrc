@@ -314,7 +314,17 @@ command! -nargs=+ -complete=shellcmd Rtfm :call Rtfm("<args>")
 
 " Status line ----------------------------------------------------------------
 
-set statusline=%<%f\ %h%m%r\ %{neomake#statusline#LoclistStatus()}%=%-14.(%l,%c%V%)\ %P
+highlight User1 ctermfg=7 ctermbg=1 cterm=italic,bold
+
+function! NeomakeStatusLine()
+  let content = neomake#statusline#LoclistStatus()
+  if empty(content)
+    return ""
+  endif
+  return " " . content . " "
+endfunction
+
+set statusline=%<%f\ %h%m%r\ %1*%{NeomakeStatusLine()}%*\ %{tagbar#currenttag('%s','','f')}%=%-14.(%l,%c%V%)\ %P
 
 set laststatus=2  " always show status line
 
