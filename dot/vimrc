@@ -196,9 +196,9 @@ augroup END
 
 let mapleader = ","
 
-nnoremap <Leader>n :TlistClose<CR>:NERDTreeToggle<CR>
-nnoremap <Leader>N :TlistClose<CR>:NERDTreeFind<CR>
-nnoremap <Leader>ü :NERDTreeClose<CR>:TlistToggle<CR>
+nnoremap <Leader>n :TagbarClose<CR>:NERDTreeFind<CR>
+nnoremap <Leader>N :TagbarClose<CR>:NERDTreeToggle<CR>
+nnoremap <Leader>ü :NERDTreeClose<CR>:TagbarToggle<CR>
 nnoremap <Leader>b :CtrlPBuffer<CR>
 nnoremap <Leader>t :CtrlP<CR>
 nnoremap <Leader>T :CtrlPTag<CR>

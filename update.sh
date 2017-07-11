@@ -54,11 +54,9 @@ plugin vim scrooloose/nerdtree
 plugin vim ctrlpvim/ctrlp.vim
 plugin vim christoomey/vim-tmux-navigator
 
-plugin vim int3/vim-taglist-plus
-plugin vim vim-scripts/taglist.vim
-
 ### programming languages
 plugin vim neomake/neomake
+plugin vim majutsushi/tagbar
 plugin vim Rip-Rip/clang_complete
 plugin vim lukerandall/haskellmode-vim
 plugin vim davidhalter/jedi-vim
