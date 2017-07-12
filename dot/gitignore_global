@@ -3,6 +3,7 @@
 *.swp
 *.swo
 tags
+cscope.out
 /.bundle
 .scratch
 .clang_complete
