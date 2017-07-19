@@ -1,13 +1,16 @@
 #! /bin/sh
 
 odd_bg="$(tput setab 236)"
-odd_fg="$(tput setaf 236)"
-odd="$odd_bg$odd_fg"
+# odd_fg="$(tput setaf 236)"
+odd="$odd_bg"
 
 even_bg="$(tput setab 235)"
-even_fg="$(tput setaf 235)"
-even="$even_bg$even_fg"
+# even_fg="$(tput setaf 235)"
+even="$even_bg"
 
-clear="$(tput op)"
+# from https://stackoverflow.com/questions/19915208/extending-terminal-colors-to-the-end-of-line
+clear_to_eol='\x1B[K'
 
-awk "NR%2==0 { print \"$even\" \$0 \"$clear\" } ; NR%2==1 { print \"$odd\" \$0 \"$clear\" }"
+# clear="$(tput op)"
+
+awk "NR%2==0 { print \"$even\" \$0 \"$clear_to_eol\" } ; NR%2==1 { print \"$odd\" \$0 \"$clear_to_eol\"}"
