@@ -8,3 +8,4 @@ cscope.out
 /.bundle
 .scratch
 .clang_complete
+.tgrep
