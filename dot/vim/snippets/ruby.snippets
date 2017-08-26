@@ -1,10 +1,20 @@
 # #!/usr/bin/ruby
 snippet #!
 	#! /usr/bin/env ruby
+snippet frozen
+	# frozen_string_literal: true
+snippet fro
+	# frozen_string_literal: true
 snippet pry
 	require 'pry'; binding.pry
 snippet pp
 	require 'pp'; pp ${1}
+snippet main
+	def main(args)
+	  ${1}
+	end
+	
+	exit(main(ARGV)) if $PROGRAM_NAME == __FILE__
 # New Block
 snippet =b
 	=begin rdoc
