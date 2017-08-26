@@ -74,7 +74,7 @@ else
   caretcolor=$fg_bold[blue]
 fi
 
-PROMPT="%(?..%{$fg_no_bold[red]%}%?%{$reset_color%} )%{$fg_no_bold[green]%}%~ %{$caretcolor%}»%{$reset_color%} "
+PROMPT="%(?..%{$fg_no_bold[red]%}%?%{$reset_color%} )%{$fg_no_bold[green]%}%~%{$reset_color%} %(1j.%j .)%{$caretcolor%}»%{$reset_color%} "
 
 # Aliases and Functions -------------------------------------------------------
 
