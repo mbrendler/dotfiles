@@ -51,6 +51,7 @@ hi Visual ctermfg=254 ctermbg=4
 
 hi Search ctermbg=226 ctermfg=0
 hi IncSearch term=reverse cterm=reverse gui=reverse
+hi QuickFixLine term=reverse cterm=reverse gui=reverse
 
 hi StatusLine guifg=white guibg=#8090a0 gui=bold,italic ctermfg=231 ctermbg=25 cterm=bold,italic
 hi StatusLineNC guifg=#506070 guibg=#a0b0c0 gui=italic ctermfg=16 ctermbg=243 cterm=italic
