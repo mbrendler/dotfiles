@@ -7,6 +7,9 @@ PLATFORM=$(uname)
 
 test ! -z "$TMUX" && export TERM=screen-256color
 
+# report CPU usage for commands running longer that 10 seconds
+export REPORTTIME=10
+
 typeset -U path
 path=(
   $HOME/.bin
