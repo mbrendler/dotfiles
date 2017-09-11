@@ -74,6 +74,8 @@ set ruler " show cursor position
 set hlsearch " highlight search results
 set incsearch " highlight search while entering search string
 set display=lastline " display parts of the last line
+set listchars=tab:→ 
+set list
 
 " Format ---------------------------------------------------------------------
 
