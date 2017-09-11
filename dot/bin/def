@@ -25,7 +25,7 @@ def extra_arguments(parser):
 
 def print_extract(content, opts):
     terminal_width = int(os.popen('stty size').read().split()[-1])
-    for pageid, page in content['query']['pages'].iteritems():
+    for pageid, page in content['query']['pages'].items():
         lang = opts.lang
         www_url = 'https://%s.wikipedia.org/wiki?curid=%s' % (lang, pageid)
         print('\033[38;5;3m%s\033[0m' % page['title'])
