@@ -179,6 +179,19 @@ function! ToggleLocations()
   endif
 endfunction
 
+function! CloseHiddenBuffers()
+  let visible = {}
+  for t in range(1, tabpagenr('$'))
+    for b in tabpagebuflist(t)
+      let visible[b] = 1
+    endfor
+  endfor
+  for b in range(1, bufnr('$'))
+    if bufloaded(b) && !has_key(visible, b)
+      execute 'bd ' . b
+    endif
+  endfor
+endfun
 
 " Filetype stuff -------------------------------------------------------------
 
