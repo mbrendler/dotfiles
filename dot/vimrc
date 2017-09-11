@@ -207,7 +207,6 @@ nnoremap <Leader>b :CtrlPBuffer<CR>
 nnoremap <Leader>t :CtrlP<CR>
 nnoremap <Leader>T :CtrlPTag<CR>
 nnoremap <Leader>r :call RenameFile()<CR>
-nnoremap <Leader>a :call ToggleLocations()<cr>
 nnoremap <Leader># :CtrlPFindAlternatives<cr>
 nnoremap <Leader>' :rightbelow vsplit #<CR>
 nnoremap <Leader><C-w> :%s/\s\+$//g<cr>
@@ -230,7 +229,7 @@ nnoremap <Leader>eg :split $HOME/.gitconfig<CR>
 nnoremap <Leader>es :execute "split $HOME/.vim/snippets/" . &filetype . ".snippets"<CR>
 nnoremap <Leader>ee :e %<CR>
 
-nnoremap <Leader>l :lopen<CR>
+nnoremap <Leader>l :call ToggleLocations()<cr>
 nnoremap <Leader>L :lclose<CR>
 
 nnoremap <Leader>ms :call Tmux_run_command("git status 2>/dev/null \|\| hg st 2>/dev/null")<CR>
