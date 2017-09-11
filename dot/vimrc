@@ -405,6 +405,9 @@ endif
 let g:clang_snippets = 1  " complete with arguments
 let g:clang_snippets_engine = 'clang_complete'
 
+""" Ruby
+let g:ruby_indent_assignment_style = 'variable'
+
 """ Python
 let g:jedi#popup_on_dot = 0
 let g:jedi#goto_assignments_command = "<localleader>g"
