@@ -1,3 +1,9 @@
 *.pyc
 dot/vim/haskellmode.config
 dot/vim/init.vim
+dot/w3m/*.gz
+dot/w3m/w3mcache*
+dot/w3m/w3msrc*
+dot/w3m/cookie
+dot/w3m/history
+dot/w3m/bookmark.html
