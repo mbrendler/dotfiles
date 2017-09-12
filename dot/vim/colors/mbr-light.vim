@@ -60,7 +60,7 @@ hi VertSplit guifg=#a0b0c0 guibg=#a0b0c0 gui=NONE ctermfg=243 ctermbg=243 cterm=
 " hi Folded    guifg=#708090 guibg=#c0d0e0
 hi Folded    guifg=#a0a0a0 guibg=#e8e8e8 gui=italic
 
-hi NonText   guifg=#c0c0c0 guibg=#e0e0e0
+hi NonText ctermfg=250 cterm=italic
 " Kommentare
 hi Comment   guifg=#a0b0c0 gui=italic ctermfg=243 cterm=italic
 
