@@ -3,12 +3,12 @@
 ### Install
 
 ```
-  $ curl https://raw.githubusercontent.com/mbrendler/dotfiles/master/install.sh | bash
+$ curl https://raw.githubusercontent.com/mbrendler/dotfiles/master/install.sh | bash
 ```
 
 ### Add italic support to iTerm2 and tmux
 
 ```
-tic kram/xterm-256color.terminfo
-tic kram/screen-256color.terminfo
+$ tic kram/xterm-256color.terminfo
+$ tic kram/screen-256color.terminfo
 ```
