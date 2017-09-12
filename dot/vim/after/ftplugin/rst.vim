@@ -10,6 +10,8 @@ setlocal iskeyword+=ä,ö,ü,Ä,Ö,Ü,ß
 
 setlocal spell
 
+setlocal suffixesadd=.rst,.md
+
 " heading convention for Python documents
 " (http://sphinx-doc.org/rest.html#sections):
 " # with overline, for parts
