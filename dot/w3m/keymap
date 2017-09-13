@@ -59,11 +59,11 @@ keymap	D	DOWNLOAD_LIST
 keymap	E	EDIT
 keymap	F	FRAME
 keymap	G	END
-keymap	H	BACK
+keymap	H	PREV
 keymap	I	VIEW_IMAGE
 keymap	J       NEXT_TAB
 keymap	K	PREV_TAB
-keymap	L	LIST
+keymap	L	NEXT
 keymap	M	EXTERN
 keymap	N	SEARCH_PREV
 keymap	O	GOTO
@@ -73,7 +73,7 @@ keymap	S	SAVE_SCREEN
 keymap	T	NEW_TAB
 keymap	U	GOTO
 keymap	V	LOAD
-keymap	W	PREV_WORD
+keymap	W	NEXT_WORD
 keymap	Z	CENTER_H
 keymap	[	LINK_BEGIN
 keymap	]	LINK_END
@@ -129,6 +129,7 @@ keymap	M-t	TAB_MENU
 keymap	M-u	GOTO_RELATIVE
 keymap	M-v	PREV_PAGE
 keymap	M-w	DICT_WORD
+keymap	M-?	HELP
 
 keymap	UP	MOVE_UP
 keymap	DOWN	MOVE_DOWN
@@ -145,4 +146,3 @@ keymap	M-[4~	END
 keymap	M-[5~	PREV_PAGE
 keymap	M-[6~	NEXT_PAGE
 keymap	M-[28~	MENU
-
