@@ -1,0 +1,18 @@
+#compdef cheat
+
+if (( CURRENT == 2 )) ; then
+  local cmds=( "${(@f)$(cheat help | sed -nE 's/^  ([^ ]+) .*-- *(.*)$/\1[\2]/p')}" )
+  _values "cheat cmds" $cmds
+else
+  local cmd=${words[2]}
+  local index=$(( CURRENT - 2 ))
+  local argument_type="$(
+    cheat help |
+    sed -nE 's/^  '"$cmd"'[^ ]* (.*) *--.*$/\1/p' |
+    cut -d\  -f "${index}"
+  )"
+  if [ "$argument_type" = SHEET ] ; then
+    local sheets=( "${(@f)$(cheat list)}" )
+    _values "cheat sheets" "$sheets"
+  fi
+fi
