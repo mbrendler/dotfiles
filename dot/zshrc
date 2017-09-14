@@ -35,6 +35,10 @@ else
     vim -R -c 'set ft=man nomod nolist laststatus=1 colorcolumn=0 nospell' -"
 fi
 
+export LESS_TERMCAP_so=$'\e[7m'
+export LESS_TERMCAP_se=$'\e[27m'
+export LESS="QRXFPslines %lt-%lb (%Pt-%Pb\%) %f"
+
 ### Homebrew *PATH extensions
 if test -f /usr/local/bin/brew ; then
   export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
