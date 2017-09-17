@@ -83,7 +83,7 @@ class RebaseMenu(Menu):
     def displayed_text_by_entry(self, entry):
         rev_hash, text = entry
         action_shortcut = self.rebase_actions.get(rev_hash, ' ')[0][0]
-        return "%s %s" % (action_shortcut, text)
+        return "%s %s %s" % (action_shortcut, rev_hash, text)
 
     def rev_hash(self):
         return self._changesets[self._selected][0]
