@@ -111,11 +111,23 @@ class RebaseMenu(Menu):
         return super(RebaseMenu, self)._loop(window)
 
 
-def main(argv):
+def usage():
+    print('usage: git crebase [<revision>]')
+    print('\nin-program commands:')
+    print(HELP)
+
+
+def parse_args(argv):
+    if '-h' in argv:
+        usage()
+        sys.exit(0)
     if argv:
-        rev = argv[0]
-    else:
-        rev = git_to_branch()
+        return argv[0]
+    return git_to_branch()
+
+
+def main(argv):
+    rev = parse_args(argv)
     changesets = parse_log(git_log(rev))
     menu = RebaseMenu(changesets)
     if menu.run():
