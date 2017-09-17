@@ -39,20 +39,18 @@ def git_rebase(rebase_actions):
 
 
 HELP = """
-  p - (pick) use commit
-  r - (reword)use commit, but edit the commit message
-  e - (edit) use commit, but stop for amending
+  p - (pick)   use commit
+  r - (reword) use commit, but edit the commit message
+  e - (edit)   use commit, but stop for amending
   s - (squash) use commit, but meld into previous commit
-  f - (fixup) like "squash", but discard this commit's log message
+  f - (fixup)  like "squash", but discard this commit's log message
 
   q - quit
-  j - donw
+  j - down
   k - up
   g - select first commit
   G - select last commit
   ? - this help message
-
-  Press any key to continue
 """
 # x, exec = run command (the rest of the line) using shell
 # TODO: change commit order
@@ -104,6 +102,7 @@ class RebaseMenu(Menu):
         window.clrtobot()
         for i, line in enumerate(HELP.splitlines()):
             window.addstr(i, 0, line)
+        window.addstr(i + 2, 0, 'Press any key to continue')
         window.clrtobot()
         window.getch()
 
