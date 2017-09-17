@@ -44,6 +44,7 @@ HELP = """
   e - (edit)   use commit, but stop for amending
   s - (squash) use commit, but meld into previous commit
   f - (fixup)  like "squash", but discard this commit's log message
+  d - (drop)   remove commit
 
   q - quit
   j - down
@@ -73,6 +74,7 @@ class RebaseMenu(Menu):
             ord('r'): self.build_rebase_action('reword'),
             ord('s'): self.build_rebase_action('squash'),
             ord('f'): self.build_rebase_action('fixup'),
+            ord('d'): self.build_rebase_action('drop')
         })
 
     def entries(self):
