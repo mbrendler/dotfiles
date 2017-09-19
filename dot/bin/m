@@ -15,12 +15,14 @@ from curses import (
 
 from menu import Menu
 
+
 if sys.version_info >= (3,):
     def decode(s):
         return s
 else:
     def decode(s):
         return s.decode('utf-8')
+
 
 class LineMenu(Menu):
     def __init__(self, lines):
