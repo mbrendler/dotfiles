@@ -1,0 +1,161 @@
+#! /usr/bin/env python
+import os
+import sys
+import locale
+from curses import KEY_DOWN, KEY_UP
+from itertools import takewhile
+from argparse import ArgumentParser
+
+from menu import Menu
+
+
+locale.setlocale(locale.LC_ALL, '')
+
+
+def leading_spaces(s):
+    return len(list(takewhile(str.isspace, s)))
+
+
+class TreeMenu(Menu):
+    def __init__(self, lines, expand=0):
+        super(TreeMenu, self).__init__(scroll_offset=3)
+        self._lines = lines
+        self._expanded = []
+        self._init_expanded(expand)
+        self._update_entries()
+        self._key_actions.update({
+            ord('q'): lambda *_: False,
+            KEY_DOWN: self.select_next,
+            ord(''): self.select_next,
+            ord('j'): self.select_next,
+            KEY_UP: self.select_previous,
+            ord(''): self.select_previous,
+            ord('k'): self.select_previous,
+            ord('g'): self.select_first,
+            ord('G'): self.select_last,
+            ord('h'): self.collapse,
+            ord('l'): self.expand,
+            # ord(''): self.scroll_down,
+            # ord(''): self.scroll_up,  # stty dsusp undef
+            # ord(''): self.half_page_down,
+            # ord(''): self.half_page_up,
+        })
+
+    def _init_expanded(self, depth):
+        ls = leading_spaces(self._lines[0])
+        d = 0
+        for i, line in enumerate(self._lines):
+            current_ls = leading_spaces(line)
+            if ls < current_ls and d < depth:
+                d += 1
+                ls = current_ls
+            if ls >= current_ls:
+                self._expanded.append(i)
+
+    def index(self):
+        return self._expanded[self.selected()]
+
+    def _is_leaf(self, index):
+        return index >= len(self._lines) - 1 or \
+            leading_spaces(self._lines[index + 1]) <= leading_spaces(self._lines[index])
+
+    def _update_entries(self):
+        self._entries = []
+        for index in self._expanded:
+            if self._is_leaf(index):
+                self._entries.append('  %s' % self._lines[index])
+            else:
+                self._entries.append('+ %s' % self._lines[index])
+
+    def entries(self):
+        return self._entries
+
+    def expand(self, *_):
+        index = self.index()
+        ls = leading_spaces(self._lines[index])
+        next_ls = leading_spaces(self._lines[min(len(self._lines) - 1, index + 1)])
+        if ls >= next_ls:
+            return
+        for i in range(index + 1, len(self._lines)):
+            if next_ls > leading_spaces(self._lines[i]):
+                break
+            if next_ls < leading_spaces(self._lines[i]):
+                continue
+            if i not in self._expanded:
+                self._expanded.append(i)
+        self._expanded.sort()
+        self._update_entries()
+
+    def collapse(self, *_):
+        index = self.index()
+        ls = leading_spaces(self._lines[index])
+        next_ls = leading_spaces(self._lines[min(len(self._lines) - 1, index + 1)])
+        if ls >= next_ls:
+            return
+        for i in range(index + 1, len(self._lines)):
+            if next_ls > leading_spaces(self._lines[i]):
+                break
+            if i in self._expanded:
+                self._expanded.remove(i)
+        self._update_entries()
+
+
+def join_branch(tree, index, sep):
+    entries = [tree[index].strip()]
+    ls = leading_spaces(tree[index])
+    for i in range(index - 1, -1, -1):
+        next_ls = leading_spaces(tree[i])
+        if ls > next_ls:
+            ls = next_ls
+            entries.append(tree[i].strip())
+    entries.reverse()
+    return sep.join(entries)
+
+
+def new_stdin():
+    sys.stdin.close()
+    sys.stdin = open('/dev/tty')
+    os.dup2(sys.stdin.fileno(), 0)
+
+
+def new_stdout():
+    std_desc = sys.stdout.fileno()
+    other_desc = os.dup(std_desc)
+    tty_name = os.ttyname(sys.stderr.fileno())
+    tty_f_desc = open(tty_name, 'wb+', buffering=0)
+    os.dup2(tty_f_desc.fileno(), std_desc)
+    sys.stdout = os.fdopen(other_desc, 'w')
+
+
+def parse_options():
+    parser = ArgumentParser()
+    parser.add_argument(
+        'separator',
+        metavar='SEPARATOR',
+        help='separator used to join the menu-branch'
+    )
+    parser.add_argument(
+        '-e', '--expand', dest='expand', metavar='LEVEL', type=int,
+        nargs='?', default=0, const=1000,
+        help='expand to given level'
+    )
+    return parser.parse_args()
+
+def main():
+    opts = parse_options()
+    lines = sys.stdin.read().splitlines()
+    new_stdin()
+    new_stdout()
+
+    menu = TreeMenu(lines, expand=opts.expand)
+    if not menu.run():
+        return
+    if opts.separator is None:
+        sys.stdout.write(lines[menu.index()])
+    else:
+        sys.stdout.write(join_branch(lines, menu.index(), opts.separator))
+    sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    main()
