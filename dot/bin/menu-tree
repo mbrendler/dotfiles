@@ -12,8 +12,11 @@ from menu import Menu
 locale.setlocale(locale.LC_ALL, '')
 
 
+TREE_CHARS = []
+
+
 def leading_spaces(s):
-    return len(list(takewhile(str.isspace, s)))
+    return len(list(takewhile(lambda x: str.isspace(x) or x in TREE_CHARS, s)))
 
 
 class TreeMenu(Menu):
@@ -139,10 +142,16 @@ def parse_options():
         nargs='?', default=0, const=1000,
         help='expand to given level'
     )
+    parser.add_argument(
+        '--tree', dest='tree', action='store_true',
+        help='use chars |-` as tree markers'
+    )
     return parser.parse_args()
 
 def main():
     opts = parse_options()
+    if opts.tree:
+        TREE_CHARS.extend(['|', '-', '`'])
     lines = sys.stdin.read().splitlines()
     new_stdin()
     new_stdout()
