@@ -149,7 +149,7 @@ def main():
 
     menu = TreeMenu(lines, expand=opts.expand)
     if not menu.run():
-        return
+        sys.exit(1)
     if opts.separator is None:
         sys.stdout.write(lines[menu.index()])
     else:
