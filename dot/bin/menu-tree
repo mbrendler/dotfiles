@@ -135,6 +135,7 @@ def parse_options():
     parser.add_argument(
         'separator',
         metavar='SEPARATOR',
+        nargs='?',
         help='separator used to join the menu-branch'
     )
     parser.add_argument(
