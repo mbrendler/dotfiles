@@ -28,4 +28,5 @@ endfunction
 function! ChangeWord(fn)
   let l:newWord = function(a:fn)(expand("<cword>"))
   execute ":normal ciw" . l:newWord
+  call repeat#set(":call ChangeWord(\"".a:fn."\")\n")
 endfunction
