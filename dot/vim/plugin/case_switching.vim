@@ -27,5 +27,5 @@ endfunction
 
 function! ChangeWord(fn)
   let l:newWord = function(a:fn)(expand("<cword>"))
-  :execute ":normal ciw" . l:newWord
+  execute ":normal ciw" . l:newWord
 endfunction
