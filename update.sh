@@ -67,6 +67,7 @@ plugin vim tpope/vim-projectionist
 plugin vim leafgarland/typescript-vim # typescript syntax
 plugin vim Shougo/vimproc.vim
 plugin vim Quramy/tsuquyomi # typescript completion
+plugin vim flowtype/vim-flow
 
 ### editing
 plugin vim Raimondi/delimitMate # Automatic closing of quotes, parentheses, ...
