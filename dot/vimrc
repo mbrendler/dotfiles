@@ -388,6 +388,7 @@ let g:neomake_cpp_clang_args = ["-fsyntax-only", "-std=c++14", "-Wall", "-Wextra
 let g:neomake_c_enable_markers = ['clang']
 let g:neomake_c_clang_args = ["-fsyntax-only", "-Wall", "-Wextra", "-Wpedantic"]
 
+let g:neomake_typescript_enabled_makers = ['tsuquyomi', 'tslint']
 """ TComment
 let g:tcommentMapLeader1 = ""
 
@@ -422,6 +423,10 @@ let g:jedi#show_call_signatures = 0
 let g:haddock_browser = "open"
 let g:haddock_browser_callformat = "%s %s"
 let g:haddock_indexfiledir = "$HOME/.vim/"
+
+""" Typescript
+let g:tsuquyomi_disable_default_mappings = 1
+let g:tsuquyomi_disable_quickfix = 1
 
 """ Tag list
 let Tlist_Use_Right_Window = 1
