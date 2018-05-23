@@ -54,11 +54,12 @@ function cmd-check() {
     new_mails_count="$(grep -cv '^$' <<<"$new_mails" || true)"
     if [ "$new_mails_count" -gt 0 ] ; then
       printf '%5s: %s\n' "$account" "$new_mails_count"
+      LC_ALL=C
       if [ "$details" = yes ] ; then
         while read -r mail ; do
           echo -n "       $(sed -nE 's/^From:.*<(.*)>$/\1/p' "$mail"): "
           (
-            LC_ALL=C sed -nE 's/^Subject: *([^ ].*)$/\1/p' "$mail" || true
+            sed -nE 's/^Subject: *([^ ].*)$/\1/p' "$mail" || true
           ) | decode-rfc-1342
         done <<<"$new_mails"
       fi
