@@ -2,5 +2,5 @@ setlocal expandtab
 setlocal shiftwidth=2
 setlocal softtabstop=2
 
-setlocal makeprg=jsl\ -nologo\ -nofilelisting\ -nosummary\ -nocontext\ -conf\ '$HOME/.jsl.conf'\ -process\ %
-setlocal errorformat=%f(%l):\ %m
+nnoremap <LocalLeader>o :call JavaScript_toggle_test_and_impl_file()<CR>
+nnoremap <LocalLeader>f :call JavaScript_fix()<CR>
