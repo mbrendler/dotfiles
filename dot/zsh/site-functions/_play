@@ -1,0 +1,6 @@
+#compdef play
+
+if (( CURRENT == 2 )) ; then
+  local lists=( "${(@f)$(sed -E "s/^([^  ]+)	(.+)\$/\1[\2]/" "$HOME/.play")}" )
+  _values "play lists" $lists
+fi

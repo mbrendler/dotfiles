@@ -1,0 +1,47 @@
+#! /bin/sh
+
+usage() {
+  cat <<EOF
+usage: $0 [options] PLAYLIST
+
+~/.play is a tab separated file of:
+PLAYLIST_NAME\\tYOUTUBE_PLAYLIST_URL
+
+OPTIONS
+  --lists -- show all playlists from ~/.play
+  --help  -- show usage
+EOF
+}
+
+if [ "$#" = 0 ] ; then
+  usage
+  exit 1
+fi
+
+if echo " $* " | grep ' --help ' > /dev/null 2> /dev/null ; then
+  usage
+  exit 0
+fi
+
+if echo " $* " | grep ' --lists ' > /dev/null 2> /dev/null ; then
+  cat "$HOME/.play"
+  exit 0
+fi
+
+name=$*
+
+url="$(sed -nE "s/^${name}	(.*)\$/\1/p" "$HOME/.play")"
+
+if [ -z "$url" ] ; then
+  >&2 echo unknown playlist
+  exit 1
+elif [ "$(echo "$url" | wc -l)" -gt 1 ] ; then
+  >&2 echo ambiguos playlist
+  exit 1
+fi
+
+exec mpv \
+  --ytdl-raw-options='yes-playlist=' \
+  --load-unsafe-playlists \
+  --ytdl-format=140 \
+  "$url"
