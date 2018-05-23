@@ -389,6 +389,12 @@ let g:neomake_c_enable_markers = ['clang']
 let g:neomake_c_clang_args = ["-fsyntax-only", "-Wall", "-Wextra", "-Wpedantic"]
 
 let g:neomake_typescript_enabled_makers = ['tsuquyomi', 'tslint']
+let g:neomake_javascript_eslint_exe = getcwd() . '/node_modules/.bin/eslint'
+let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
+
+""" vim-flow
+let g:flow#enable = 0
+
 """ TComment
 let g:tcommentMapLeader1 = ""
 
