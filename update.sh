@@ -64,6 +64,9 @@ plugin vim elixir-lang/vim-elixir
 plugin vim tpope/vim-endwise # automatically close code blocks in ruby
 plugin vim tpope/vim-rake
 plugin vim tpope/vim-projectionist
+plugin vim leafgarland/typescript-vim # typescript syntax
+plugin vim Shougo/vimproc.vim
+plugin vim Quramy/tsuquyomi # typescript completion
 
 ### editing
 plugin vim Raimondi/delimitMate # Automatic closing of quotes, parentheses, ...
@@ -83,6 +86,10 @@ done
 # Update jedi-vim subrepositories ---------------------------------------------
 
 git -C "$PREFIX"/plugins/vim/jedi-vim/ submodule update --init
+
+pushd "$PREFIX/plugins/vim/vimproc.vim"
+make
+popd
 
 # Install Python dependencies -------------------------------------------------
 
