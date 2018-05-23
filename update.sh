@@ -61,6 +61,7 @@ plugin vim Rip-Rip/clang_complete
 plugin vim lukerandall/haskellmode-vim
 plugin vim davidhalter/jedi-vim
 plugin vim elixir-lang/vim-elixir
+plugin vim slashmili/alchemist.vim
 plugin vim tpope/vim-endwise # automatically close code blocks in ruby
 plugin vim tpope/vim-rake
 plugin vim tpope/vim-projectionist
