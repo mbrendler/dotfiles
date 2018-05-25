@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+readonly selection="$(ps -A -o pid,user,time,command | m)"
+echo "$selection"
+readonly user="$(awk '{ print $2 }' <<<"$selection")"
+readonly pid="$(awk '{ print $1 }' <<<"$selection")"
+
+if [ "$USER" != "$user" ] ; then
+  sudo kill "$pid"
+else
+  kill "$pid"
+fi

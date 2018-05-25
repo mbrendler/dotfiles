@@ -89,7 +89,6 @@ alias hlcat="pygmentize -f terminal"
 alias b="bundle exec"
 alias benchmark-zshrc="time zsh -i -c exit"
 alias benchmark-vimrc="time vim +q"
-alias mkill="ps -A | m | awk '{ print \$1 }' | xargs kill"
 
 alias pbpwd="pwd | pbcopy"
 pbecho() { /bin/echo -n "$*" | pbcopy }
