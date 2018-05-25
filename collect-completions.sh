@@ -1,7 +1,7 @@
 #! /usr/bin/env zsh
 
 COMPLETION_DEFINITIONS=(
-  "ag:/Users/mbrendler/.usr/plugins/zsh/zsh-completions/src/_ag"
+  "ag:$HOME/.usr/plugins/zsh/zsh-completions/src/_ag"
   "brew:/usr/local/Library/Contributions/brew_zsh_completion.zsh"
   "bundler:$HOME/.usr/plugins/zsh/zsh-completions/src/_bundle"
   "cabal:$HOME/.usr/plugins/zsh/zsh-completions/src/_cabal"
