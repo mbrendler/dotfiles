@@ -2,7 +2,8 @@
 
 COMPLETION_DEFINITIONS=(
   "ag:$HOME/.usr/plugins/zsh/zsh-completions/src/_ag"
-  "brew:/usr/local/Library/Contributions/brew_zsh_completion.zsh"
+  "brew:/usr/local/Homebrew//completions/zsh/_brew"
+  "brew_cask:/usr/local/Homebrew//completions/zsh/_brew_cask"
   "bundler:$HOME/.usr/plugins/zsh/zsh-completions/src/_bundle"
   "cabal:$HOME/.usr/plugins/zsh/zsh-completions/src/_cabal"
   "cmake:$HOME/.usr/plugins/zsh/zsh-completions/src/_cmake"
