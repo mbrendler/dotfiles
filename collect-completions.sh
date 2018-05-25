@@ -1,9 +1,9 @@
 #! /usr/bin/env zsh
 
 COMPLETION_DEFINITIONS=(
-  "ag:$HOME/.usr/plugins/zsh/zsh-completions/src/_ag"
-  "brew:/usr/local/Homebrew//completions/zsh/_brew"
-  "brew_cask:/usr/local/Homebrew//completions/zsh/_brew_cask"
+  "ag:/usr/local/share/zsh/site-functions/_the_silver_searcher"
+  "brew:/usr/local/share/zsh/site-functions/_brew"
+  "brew_cask:/usr/local/share/zsh/site-functions/_brew_cask"
   "bundler:$HOME/.usr/plugins/zsh/zsh-completions/src/_bundle"
   "cabal:$HOME/.usr/plugins/zsh/zsh-completions/src/_cabal"
   "cmake:$HOME/.usr/plugins/zsh/zsh-completions/src/_cmake"
@@ -11,6 +11,7 @@ COMPLETION_DEFINITIONS=(
   "docker:/Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion"
   "gem:$HOME/.usr/plugins/zsh/zsh-completions/src/_gem"
   "ghc:$HOME/.usr/plugins/zsh/zsh-completions/src/_ghc"
+  "git:/usr/local/share/zsh/site-functions/_git"
   "go:$HOME/.usr/plugins/zsh/zsh-completions/src/_go"
   "i:$HOME/Documents/src/projects/i/zsh-completion/_i"
   "iwfmlogs:$HOME/work/iwfm-logs/zsh-completion/_iwfmlogs"
@@ -19,10 +20,11 @@ COMPLETION_DEFINITIONS=(
   "rails:$HOME/.usr/plugins/zsh/zsh-completions/src/_rails"
   "redis-cli:$HOME/.usr/plugins/zsh/zsh-completions/src/_redis-cli"
   "pgsql_utils:$HOME/.usr/plugins/zsh/zsh-completions/src/_pgsql_utils"
-  "tig:/usr/local/etc/bash_completion.d/tig-completion.bash"
+  "tig:/usr/local/share/zsh/site-functions/_tig"
   "tmux:/usr/local/etc/bash_completion.d/tmux"
   "virtualbox:$HOME/.usr/plugins/zsh/zsh-completions/src/_virtualbox"
   "winrm:$HOME/Documents/src/projects/winrm-terminal/zsh_completion/_winrm"
+  "youtube-dl:/usr/local/share/zsh/site-functions/_youtube-dl"
 )
 
 ZSH_SITE_FUNCTIONS=$HOME/.zsh/site-functions
