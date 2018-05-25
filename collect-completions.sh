@@ -11,7 +11,6 @@ COMPLETION_DEFINITIONS=(
   "docker:/Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion"
   "gem:$HOME/.usr/plugins/zsh/zsh-completions/src/_gem"
   "ghc:$HOME/.usr/plugins/zsh/zsh-completions/src/_ghc"
-  "git:/usr/local/share/zsh/site-functions/_git"
   "go:$HOME/.usr/plugins/zsh/zsh-completions/src/_go"
   "i:$HOME/Documents/src/projects/i/zsh-completion/_i"
   "iwfmlogs:$HOME/work/iwfm-logs/zsh-completion/_iwfmlogs"
