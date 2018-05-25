@@ -7,7 +7,6 @@ COMPLETION_DEFINITIONS=(
   "cabal:$HOME/.usr/plugins/zsh/zsh-completions/src/_cabal"
   "cmake:$HOME/.usr/plugins/zsh/zsh-completions/src/_cmake"
   "docker-compose:/Applications/Docker.app/Contents/Resources/etc/docker-compose.zsh-completion"
-  "docker-machine:/Applications/Docker.app/Contents/Resources/etc/docker-machine.zsh-completion"
   "docker:/Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion"
   "gem:$HOME/.usr/plugins/zsh/zsh-completions/src/_gem"
   "ghc:$HOME/.usr/plugins/zsh/zsh-completions/src/_ghc"
