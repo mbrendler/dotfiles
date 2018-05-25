@@ -1,5 +1,17 @@
 #! /bin/sh
 
+usage() {
+    cat <<EOF
+usage: lc < FILE
+
+  Prints the given text with alternating background colors of lines.
+EOF
+}
+
+case "$*" in
+  *-h*) usage ; exit ;;
+esac
+
 odd_bg="$(tput setab 236)"
 # odd_fg="$(tput setaf 236)"
 odd="$odd_bg"
