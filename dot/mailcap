@@ -1,0 +1,4 @@
+application/pdf; open -a Preview.app %s;
+image/jpg;       open -a Preview.app %s;
+text/html;       w3m -I %{charset} -T text/html %s; nametemplate=%s.html
+text/html;       w3m -I %{charset} -T text/html -dump %s; nametemplate=%s.html; copiousoutput
