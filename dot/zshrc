@@ -7,7 +7,7 @@ PLATFORM=$(uname)
 
 test ! -z "$TMUX" && export TERM=screen-256color
 
-# report CPU usage for commands running longer that 10 seconds
+# report CPU usage for commands running longer than 10 seconds
 export REPORTTIME=10
 
 typeset -U path
@@ -27,7 +27,7 @@ export LANG=en_GB.utf-8
 
 export EDITOR=vim
 
-if test "$PLATFORM" = "Linux" ; then
+if [ "$PLATFORM" = "Linux" ] ; then
   export MANPAGER=less
 else
   export MANPAGER="\
@@ -64,9 +64,9 @@ fi
 
 autoload -U colors ; colors
 
-if test $UID -eq 0 ; then
+if [ $UID -eq 0 ] ; then
   caretcolor=$fg_no_bold[red]
-elif test ! -z "$SSH_CONNECTION" ; then
+elif [ -n "$SSH_CONNECTION" ] ; then
   caretcolor=$fg_bold[yellow]
 else
   caretcolor=$fg_bold[blue]
@@ -98,11 +98,11 @@ clean-vim() {
 
 ### configure `ls` coloring
 if which dircolors > /dev/null 2> /dev/null ; then
-  # Gnu core utils are installed.
+  # GNU core utils:
   eval "$(dircolors -b)"
   alias ls="ls --color"
 else
-  # Use BSD user land.
+  # BSD user land:
   export CLICOLOR=
 fi
 
