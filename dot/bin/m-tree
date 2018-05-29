@@ -104,13 +104,13 @@ class TreeMenu(Menu):
 
 
 def join_branch(tree, index, sep):
-    entries = [tree[index].strip()]
     ls = leading_spaces(tree[index])
+    entries = [tree[index][ls:].strip()]
     for i in range(index - 1, -1, -1):
         next_ls = leading_spaces(tree[i])
         if ls > next_ls:
             ls = next_ls
-            entries.append(tree[i].strip())
+            entries.append(tree[i][ls:].strip())
     entries.reverse()
     return sep.join(entries)
 
@@ -161,7 +161,9 @@ def main():
     if not menu.run():
         sys.exit(1)
     if opts.separator is None:
-        sys.stdout.write(lines[menu.index()])
+        line = lines[menu.index()]
+        ls = leading_spaces(line)
+        sys.stdout.write(line[ls:].strip())
     else:
         sys.stdout.write(join_branch(lines, menu.index(), opts.separator))
     sys.stdout.write('\n')
