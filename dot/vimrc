@@ -396,7 +396,7 @@ let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
 let g:flow#enable = 0
 
 """ TComment
-let g:tcommentMapLeader1 = ""
+let g:tcomment_mapleader1 = ""
 
 """ tagbar
 let g:tagbar_autofocus = 1
