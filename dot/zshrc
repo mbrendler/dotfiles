@@ -60,6 +60,10 @@ if which rbenv > /dev/null; then
   }
 fi
 
+if which exenv > /dev/null ; then
+  eval "$(exenv init - zsh)"
+fi
+
 # Prompt ----------------------------------------------------------------------
 
 autoload -U colors ; colors
