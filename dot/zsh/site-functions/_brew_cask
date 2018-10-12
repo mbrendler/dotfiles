@@ -19,7 +19,7 @@ __brew_cask() {
 __brew_all_casks() {
   local -a list
   local expl
-  list=( $(__brew_cask search) )
+  list=( $(brew search --casks) )
   _wanted list expl 'all casks' compadd -a list
 }
 
@@ -35,7 +35,6 @@ __brew_cask_commands() {
   commands=(
     'audit:verifies installability of Casks'
     'cat:dump raw source of the given Cask to the standard output'
-    'cleanup:cleans up cached downloads and tracker symlinks'
     'create:creates the given Cask and opens it in an editor'
     'doctor:checks for configuration issues'
     'edit:edits the given Cask'
@@ -46,7 +45,6 @@ __brew_cask_commands() {
     'list:with no args, lists installed Casks; given installed Casks, lists staged files'
     'outdated:list the outdated installed Casks'
     'reinstall:reinstalls the given Cask'
-    'search:searches all known Casks'
     'style:checks Cask style using RuboCop'
     'uninstall:uninstalls the given Cask'
     'upgrade:upgrade installed Casks with newer versions'
@@ -89,10 +87,6 @@ _brew_cask_cat() {
 
 _brew_cask_cat() {
   __brew_all_casks
-}
-
-_brew_cask_cleanup() {
-  _arguments '--outdated:only clean up cached downloads older than 10 days old'
 }
 
 _brew_cask_create() {
