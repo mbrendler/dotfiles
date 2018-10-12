@@ -1,0 +1,151 @@
+#! /usr/bin/env python3 -E
+# -*- coding: utf-8 -*-
+import sys
+import re
+from argparse import ArgumentParser
+
+try:
+    from subprocess import getoutput
+except ImportError:
+    from subprocess import check_output
+    def getoutput(cmd):
+        return check_output(['sh', '-c', '%s ; exit 0' % cmd])
+
+
+V_BLOCKS = (' ', '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█')
+H_BLOCKS = ('', '▏', '▎', '▍', '▌', '▋', '▊', '▉')
+FULL_BLOCK = '█'
+FULL_BLOCK_FAKED = '\x1b[7m \x1b[0m'
+
+
+class TputNull:
+    @staticmethod
+    def color(i):
+        return ''
+
+    @staticmethod
+    def clear():
+        return ''
+
+
+class Tput:
+    TPUT_CLEAR = None
+    TPUT_COLORS = [None] * 15
+
+    @staticmethod
+    def color(i):
+        i %= 15
+        if Tput.TPUT_COLORS[i] is None:
+            Tput.TPUT_COLORS[i] = getoutput('tput setaf %d' % (i + 1))
+        return Tput.TPUT_COLORS[i]
+
+    @staticmethod
+    def clear():
+        if Tput.TPUT_CLEAR is None:
+            Tput.TPUT_CLEAR = getoutput('tput op')
+        return Tput.TPUT_CLEAR
+
+
+def generate_h_bars(count):
+    return FULL_BLOCK * (count // 8) + H_BLOCKS[count % 8]
+
+
+def generate_v_bars(count):
+    if sys.stdout.isatty():
+        full_block = FULL_BLOCK_FAKED
+    else:
+        full_block = FULL_BLOCK
+    return [V_BLOCKS[count % 8]] + ([full_block] * (count // 8))
+
+
+def draw_v_diagrams(diagrams, sep=' ', legend=None, tput=TputNull):
+    height = max(map(len, diagrams))
+    for i in range(height - 1, -1, -1):
+        for j, diagram in enumerate(diagrams):
+            offset = 0
+            if legend:
+                offset = (len(legend[j]) - 1) / 2.0
+            sys.stdout.write(' ' * int(offset + 0.5))
+            if len(diagram) > i:
+                sys.stdout.write(tput.color(j))
+                sys.stdout.write(diagram[i])
+                sys.stdout.write(tput.clear())
+            else:
+                sys.stdout.write(' ')
+            sys.stdout.write(' ' * int(offset))
+            sys.stdout.write(sep)
+        sys.stdout.write('\n')
+    if legend:
+        print(sep.join(legend))
+
+
+def to_int(string):
+    return int((re.findall(r'[+-]?\d+', string) + [0])[0])
+
+
+def get_field(string, field, delimiter):
+    if not field:
+        return string
+    try:
+        return re.split(delimiter, string)[field - 1]
+    except IndexError:
+        return ''
+
+
+def int_field(string, field, delimiter):
+    return to_int(get_field(string, field, delimiter))
+
+
+def draw_h_bars(args, opts):
+    max_width = max(map(len, args))
+    for i, arg in enumerate(args):
+        print("%s %s%s%s" % (
+            opts.adjust_label(arg, max_width),
+            opts.tput.color(i),
+            generate_h_bars(int_field(arg, opts.field, opts.delimiter)),
+            opts.tput.clear()
+        ))
+
+
+def draw_v_bars(args, opts):
+    draw_v_diagrams([
+        list(reversed(generate_v_bars(int_field(arg, opts.field, opts.delimiter))))
+        for arg in args
+    ], legend=args, tput=opts.tput)
+
+
+def parse_options(args):
+    parser = ArgumentParser()
+    parser.add_argument('ints', metavar='N', nargs='*')
+    parser.add_argument(
+        '-v', '--vertical', dest='draw', action='store_const',
+        default=draw_h_bars, const=draw_v_bars, help='draw vertical bars'
+    )
+    parser.add_argument(
+        '-f', '--field', dest='field', metavar='INT', type=int, default=None,
+        help='select field for bar'
+    )
+    parser.add_argument(
+        '-d', '--delimiter', dest='delimiter', metavar='DELIM', default=r'\s+',
+        help='use delimiter as field separator (RE)'
+    )
+    parser.add_argument(
+        '--rainbow', dest='tput', action='store_const',
+        default=TputNull, const=Tput, help='colorful output'
+    )
+    parser.add_argument(
+        '-l', '--ljust', dest='adjust_label', action='store_const',
+        default=str.rjust, const=str.ljust, help='left adjust label'
+    )
+    return parser.parse_args()
+
+
+def main(args):
+    opts = parse_options(args)
+    args = opts.ints or [s for s in sys.stdin.read().split('\n') if s]
+    opts.draw(args, opts)
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main(sys.argv[1:]))
