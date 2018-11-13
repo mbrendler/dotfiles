@@ -24,6 +24,7 @@ COMPLETION_DEFINITIONS=(
   "tmux:/usr/local/etc/bash_completion.d/tmux"
   "virtualbox:$HOME/.usr/plugins/zsh/zsh-completions/src/_virtualbox"
   "winrm:$HOME/Documents/src/projects/winrm-terminal/zsh_completion/_winrm"
+  "yarn:$HOME/.usr/plugins/zsh/zsh-completions/src/_yarn"
   "youtube-dl:/usr/local/share/zsh/site-functions/_youtube-dl"
 )
 
