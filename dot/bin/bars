@@ -52,7 +52,7 @@ def generate_h_bars(count):
 
 def generate_v_bars(count):
     if sys.stdout.isatty():
-        full_block = FULL_BLOCK_FAKED
+        full_block = FULL_BLOCK #_FAKED
     else:
         full_block = FULL_BLOCK
     return [V_BLOCKS[count % 8]] + ([full_block] * (count // 8))
