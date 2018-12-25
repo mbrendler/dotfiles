@@ -1,72 +1,52 @@
 #! /bin/bash
 
-set -euo pipefail
+SHOW_HEADER=no
 
-readonly PORTS_CSV_FILE="$HOME/.usr/share/service-names-port-numbers.csv"
-readonly PORTS_CSV_URL="http://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.csv"
+ports=()
 
 function usage() {
   cat <<EOF
-$0 [-u] [-r] [PORT_NUMBER ...]
+  $0 [options] [PORT...]
 
-  -u ... update ports description file
-  -r ... show raw output
-  -h ... help
+  PORT ... port number or name
+
+  --header -- show header above table
+  --help   -- show this help message
 EOF
 }
 
-function download-port-list() {
-  echo "download ports info:"
-  mkdir -p "$(dirname "$PORTS_CSV_FILE")"
-  curl \
-    --progress \
-    -o "$PORTS_CSV_FILE" \
-    --remote-name \
-    "$PORTS_CSV_URL"
-}
-
-function port-infos() {
-  local port_number=$1
-  test "$RAW" -eq 1 && grep -E "^[^,]*,$port_number," "$PORTS_CSV_FILE"
-  awk -F "\"*,\"*" "\$2 == $port_number {print \" \" \$1 \" \" \$3 \" \" \$4 \" \" \$9}" "$PORTS_CSV_FILE"
-}
-
-RAW=0
-
-while getopts 'ruh $*' option ; do
-  case $option in
-    r)
-      RAW=1
-      shift
-      ;;
-    u)
-      download-port-list
-      shift
-      ;;
-    h)
-      usage
-      exit 0
-      ;;
-    *)
-      usage
-      exit 1
-      ;;
+while [ $# -gt 0 ] ; do
+  case "$1" in
+    --header) SHOW_HEADER=yes ;;
+    --help|-h) usage ; exit 0 ;;
+    *) ports+=("$1") ;;
   esac
+  shift
 done
 
-test ! -f "$PORTS_CSV_FILE" && download-port-list
-
-function get-open-ports() {
-  netstat -anv | grep LISTEN | awk '{ print $4; }' | sed -E 's/^.*\.([0-9]+)$/\1/'
+function service-name() {
+  local transport;transport="$(sed -E 's/[46]*$//' <<<"$1")"
+  local port="$2"
+  sed -nE "s/^([^ 	#]+)[ 	]+${port}\/${transport} +.*$/\1/p" /etc/services
 }
 
-if test -z "$@" ; then
-  readonly ports=$(get-open-ports)
-else
-  readonly ports="$*"
-fi
+if [ "${#ports[@]}" = 0 ] ; then
+  if [ "$SHOW_HEADER" = yes ] ; then
+    printf "%16s  %5s  %s\\n" Address PID Command
+  fi
 
-for port_number in $(echo "$ports" | tr \  \\n | sort -un) ; do
-  echo "$port_number":
-  port-infos "$port_number"
-done
+  netstat -anv | grep LISTEN | while read -r transport _ _ addr _ _ _ _ pid _ ; do
+    # port=$(sed -E 's/^.*\.([0-9]+).*$/\1/' <<<"$addr")
+    # service="$(service-name "$transport" "$port")"
+    cmd="$(ps -ocomm= "-p$pid")"
+    aaddr="$(sed -E 's/\.([^.]+)$/-\1/' <<<"$addr")"
+    printf "%16s  %5s  %s\\n" "$aaddr" "$pid" "$cmd"
+  done | \
+    sort -k2 -t- -g | \
+    sed 's/-/:/' | \
+    uniq
+else
+  for port in "${ports[@]}" ; do
+    grep --color=auto -E "\s${port}\/|^${port}\s" /etc/services
+  done
+fi
