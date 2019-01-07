@@ -1,0 +1,7 @@
+#! /bin/sh
+
+if [ -t 0 ] || [ -e "$GPG_TTY" ] ; then
+  exec pinentry-curses "$@"
+else
+  exec pinentry-mac "$@"
+fi
