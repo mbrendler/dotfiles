@@ -19,6 +19,7 @@ COMPLETION_DEFINITIONS=(
   "mix:$HOME/.usr/plugins/zsh/zsh-completions/src/_mix"
   "rails:$HOME/.usr/plugins/zsh/zsh-completions/src/_rails"
   "redis-cli:$HOME/.usr/plugins/zsh/zsh-completions/src/_redis-cli"
+  "pass:/usr/local/share/zsh/site-functions/_pass"
   "pgsql_utils:$HOME/.usr/plugins/zsh/zsh-completions/src/_pgsql_utils"
   "tig:/usr/local/share/zsh/site-functions/_tig"
   "tmux:/usr/local/etc/bash_completion.d/tmux"
