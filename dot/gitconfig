@@ -28,7 +28,8 @@
 [include]
 	path = ~/.gitconfig_local
 [credential]
-	helper = osxkeychain
+	helper = pass
+	# helper = osxkeychain
 [push]
 	default = simple
 [pull]
