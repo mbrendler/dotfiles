@@ -1,3 +1,0 @@
-#! /bin/sh
-
-find "$HOME/Mail"/*/INBOX/new -type f 2> /dev/null | wc -l

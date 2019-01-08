@@ -43,6 +43,7 @@ function decode-rfc-1342() {
 function cmd-check() {
   if [ "${1-}" = '-s' ] ; then
     find "$MAIL_DIR"/*/INBOX/new -type f 2> /dev/null | wc -l
+    exit 0
   fi
   details=no
   if [ "${1-}" = '-d' ] ; then
