@@ -266,6 +266,5 @@ test -e ~/.zshrc_local && source ~/.zshrc_local
 # Fortune ---------------------------------------------------------------------
 
 if test "$IS_INTERACTIVE" != no ; then
-  fortune -s 2> /dev/null || \
-    whatis $(/bin/ls $path 2>/dev/null | shuf -n 1) | shuf -n 1 2> /dev/null
+  whatis $(/bin/ls $path 2>/dev/null | shuf -n 1) | shuf -n 1 2> /dev/null
 fi
