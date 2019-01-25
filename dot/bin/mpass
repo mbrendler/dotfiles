@@ -1,0 +1,21 @@
+#! /bin/sh
+
+settings=$(stty -g)
+
+on_exit() {
+  stty "${settings}"
+}
+
+trap on_exit EXIT
+
+cd ~/.password-store || exit 1
+
+path=$(find -- * -type f -name '*.gpg' | sed -E 's/\.gpg$//' | m)
+
+if [ -n "$path" ] ; then
+  if [ $# -eq 0 ] ; then
+    pass show -c "$path"
+  else
+    pass "$@" "$path"
+  fi
+fi
