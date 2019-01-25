@@ -17,6 +17,7 @@ path=(
   $HOME/.bin
   $HOME/.usr/bin
   $HOME/.rbenv/shims
+  $HOME/.exenv/shims
   /usr/local/bin
   /usr/local/sbin
   $path
@@ -67,8 +68,25 @@ if which rbenv > /dev/null; then
   }
 fi
 
+### Initialize exenv, if its installed
 if which exenv > /dev/null ; then
-  eval "$(exenv init - zsh)"
+  # The following lines are read from 'exenv init - zsh'. (this is faster)
+  # export PATH="$HOME/.exenv/shims:${PATH}"
+  source "/usr/local/Cellar/exenv/0.1.0/libexec/../completions/exenv.zsh"
+  # exenv rehash 2>/dev/null
+  exenv() {
+    local command="$1"
+    if [ "$#" -gt 0 ]; then
+      shift
+    fi
+
+    case "$command" in
+    shell)
+      eval `exenv "sh-$command" "$@"`;;
+    *)
+      command exenv "$command" "$@";;
+    esac
+  }
 fi
 
 # Prompt ----------------------------------------------------------------------
