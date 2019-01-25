@@ -23,7 +23,11 @@ path=(
 )
 
 typeset -U fpath
-fpath=($HOME/.zsh/site-functions $fpath)
+fpath=(
+  $HOME/.zsh/site-functions
+  /usr/local/share/zsh/site-functions
+  $fpath
+)
 
 export LC_ALL=en_GB.utf-8
 export LANG=en_GB.utf-8
