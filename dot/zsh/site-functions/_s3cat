@@ -18,6 +18,7 @@ if [ "$slash_count" -lt 3 ] ; then
 else
   local file=$cache_dir/$(sed 's#/#_#g' <<<"$word")
   if [ ! -e "$file" ] ; then
+    mkdir -p "$cache_dir"
     aws s3 ls "$word" > "$file"
   fi
   local files=( $(
