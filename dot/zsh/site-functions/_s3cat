@@ -1,25 +1,28 @@
 #compdef s3cat
 
-word=$(sed -E 's#/[^/]*$#/#' <<<"$words[$CURRENT]")
-slash_count=$(tr -dc '/' <<<"$word" | wc -c)
+local word=$(sed -E 's#/[^/]*$#/#' <<<"$words[$CURRENT]")
+local slash_count=$(tr -dc '/' <<<"$word" | wc -c)
+local cache_dir="$HOME/.cache/s3-completion/"
+
+find "$cache_dir/s3"* -mmin +30 -exec rm {} +
 
 if [ "$slash_count" -lt 3 ] ; then
-  if [ ! -e "$HOME/.cache/s3-completion/buckets" ] ; then
-    mkdir -p "$HOME/.cache/s3-completion"
+  if [ ! -e "$cache_dir/buckets" ] ; then
+    mkdir -p "$cache_dir"
     aws s3api list-buckets \
     | sed -nE 's/^ +"Name": "([^"]+)",?$/\1/p' \
-    | sed -E 's#^(.*)$#s3\\://\1/#' > "$HOME/.cache/s3-completion/buckets"
+    | sed -E 's#^(.*)$#s3\\://\1/#' > "$cache_dir/buckets"
   fi
-  buckets=( $(cat "$HOME/.cache/s3-completion/buckets") )
+  local buckets=( $(cat "$cache_dir/buckets") )
   _describe s3buckets buckets
 else
-  file=$HOME/.cache/s3-completion/$(sed 's#/#_#g' <<<"$word")
-  if [ ! -e "$file" ] || [ "$(find "$file" -mmin +30 2>/dev/null)" ] ; then
+  local file=$cache_dir/$(sed 's#/#_#g' <<<"$word")
+  if [ ! -e "$file" ] ; then
     aws s3 ls "$word" > "$file"
   fi
-  files=( $(
+  local files=( $(
     < "$file" \
-    sed -nE 's#(^[^ ]+ [^ ]+ +[^ ]+| +PRE) ([^ ]+)$#'$word'\2#p' \
+    sed -nE 's#^([^ ]+ [^ ]+ +[^ ]+| +PRE) ([^ ]+)$#'$word'\2#p' \
     | sed 's/:/\\:/g'
   ) )
   _describe files files
