@@ -1,3 +1,5 @@
 #!/bin/sh
 
-exec aws s3 cp --quiet "$1" /dev/stdout
+for path in "$@" ; do
+  aws s3 cp --quiet "$path" /dev/stdout
+done
