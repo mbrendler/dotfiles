@@ -1,0 +1,26 @@
+#compdef s3cat
+
+word=$(sed -E 's#/[^/]*$#/#' <<<"$words[$CURRENT]")
+slash_count=$(tr -dc '/' <<<"$word" | wc -c)
+
+if [ "$slash_count" -lt 3 ] ; then
+  if [ ! -e "$HOME/.cache/s3-completion/buckets" ] ; then
+    mkdir -p "$HOME/.cache/s3-completion"
+    aws s3api list-buckets \
+    | sed -nE 's/^ +"Name": "([^"]+)",?$/\1/p' \
+    | sed -E 's#^(.*)$#s3\\://\1/#' > "$HOME/.cache/s3-completion/buckets"
+  fi
+  buckets=( $(cat "$HOME/.cache/s3-completion/buckets") )
+  _describe s3buckets buckets
+else
+  file=$HOME/.cache/s3-completion/$(sed 's#/#_#g' <<<"$word")
+  if [ ! -e "$file" ] || [ "$(find "$file" -mmin +30 2>/dev/null)" ] ; then
+    aws s3 ls "$word" > "$file"
+  fi
+  files=( $(
+    < "$file" \
+    sed -nE 's#(^[^ ]+ [^ ]+ +[^ ]+| +PRE) ([^ ]+)$#'$word'\2#p' \
+    | sed 's/:/\\:/g'
+  ) )
+  _describe files files
+fi
