@@ -4,7 +4,7 @@ local word=$(sed -E 's#/[^/]*$#/#' <<<"$words[$CURRENT]")
 local slash_count=$(tr -dc '/' <<<"$word" | wc -c)
 local cache_dir="$HOME/.cache/s3-completion/"
 
-find "$cache_dir/s3"* -mmin +30 -exec rm {} +
+find "$cache_dir" -name 's3*' -mmin +30 -exec rm {} +
 
 if [ "$slash_count" -lt 3 ] ; then
   if [ ! -e "$cache_dir/buckets" ] ; then
