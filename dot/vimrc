@@ -339,15 +339,18 @@ command! -nargs=+ -complete=shellcmd Rtfm :call Rtfm("<args>")
 
 highlight User1 ctermfg=7 ctermbg=1 cterm=italic,bold
 
-function! NeomakeStatusLine()
-  let content = neomake#statusline#LoclistStatus()
-  if empty(content)
-    return ""
-  endif
-  return " " . content . " "
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+    if l:counts.total == 0
+      return ""
+    else
+      let l:all_errors = l:counts.error + l:counts.style_error
+      let l:all_non_errors = l:counts.total - l:all_errors
+      return printf(' W:%d,E:%d ', all_non_errors, all_errors)
+    end
 endfunction
 
-set statusline=%<%f\ %h%m%r\ %1*%{NeomakeStatusLine()}%*\ %{tagbar#currenttag('%s','','f')}%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %h%m%r\ %1*%{LinterStatus()}%*\ %{tagbar#currenttag('%s','','f')}%=%-14.(%l,%c%V%)\ %P
 
 set laststatus=2  " always show status line
 
@@ -373,24 +376,44 @@ function! s:DeleteBuffer()
   exec "norm \<F5>"
 endfunction
 
+""" ALE
+let g:ale_echo_msg_format = '%s [%linter%]'
+let g:ale_sign_error = 'E'
+let g:ale_sign_warning = 'W'
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+let g:ale_completion_enabled = 0
+
+""" Syntastic
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_stl_format = " E:%e,W:%w "  " :h syntastic_stl_format
+
+let g:syntastic_python_checkers = ['flake8'] " , 'python']
+let g:syntastic_ruby_checkers = ['rubocop', 'mri']
+
 """ Neomake
-function! NeomakeLoadFile()
-  if filereadable('.clang_complete')
-    let g:neomake_cpp_clang_args = readfile('.clang_complete')
-    let g:neomake_c_clang_args = g:neomake_cpp_clang_args
-  endif
-endfunction
-
-autocmd! BufWritePost * call NeomakeLoadFile() | Neomake
-let g:neomake_place_signs=1
-let g:neomake_cpp_enable_markers = ['clang++']
-let g:neomake_cpp_clang_args = ["-fsyntax-only", "-std=c++14", "-Wall", "-Wextra", "-Wpedantic"]
-let g:neomake_c_enable_markers = ['clang']
-let g:neomake_c_clang_args = ["-fsyntax-only", "-Wall", "-Wextra", "-Wpedantic"]
-
-let g:neomake_typescript_enabled_makers = ['tsuquyomi', 'tslint']
-let g:neomake_javascript_eslint_exe = getcwd() . '/node_modules/.bin/eslint'
-let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
+" function! NeomakeLoadFile()
+"   if filereadable('.clang_complete')
+"     let g:neomake_cpp_clang_args = readfile('.clang_complete')
+"     let g:neomake_c_clang_args = g:neomake_cpp_clang_args
+"   endif
+" endfunction
+"
+" " autocmd! BufWritePost * call NeomakeLoadFile() | Neomake
+" let g:neomake_place_signs=1
+" let g:neomake_cpp_enable_markers = ['clang++']
+" let g:neomake_cpp_clang_args = ["-fsyntax-only", "-std=c++14", "-Wall", "-Wextra", "-Wpedantic"]
+" let g:neomake_c_enable_markers = ['clang']
+" let g:neomake_c_clang_args = ["-fsyntax-only", "-Wall", "-Wextra", "-Wpedantic"]
+"
+" let g:neomake_typescript_enabled_makers = ['tsuquyomi', 'tslint']
+" let g:neomake_javascript_eslint_exe = getcwd() . '/node_modules/.bin/eslint'
+" let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
+"
+" let g:neomake_python_flake8_exe = 'python3'
+" let g:neomake_python_enabled_makers = ['flake8']
 
 """ vim-flow
 let g:flow#enable = 0

@@ -56,6 +56,7 @@ plugin vim christoomey/vim-tmux-navigator
 
 ### programming languages
 plugin vim neomake/neomake
+plugin vim w0rp/ale
 plugin vim majutsushi/tagbar
 plugin vim Rip-Rip/clang_complete
 plugin vim lukerandall/haskellmode-vim
