@@ -247,6 +247,7 @@ nnoremap <Leader>L :lclose<CR>
 
 nnoremap <Leader>ms :call Tmux_run_command("git status 2>/dev/null \|\| hg st 2>/dev/null")<CR>
 nnoremap <Leader>md :call Tmux_run_command("git diff 2>/dev/null \|\| hg diff 2>/dev/null")<CR>
+nnoremap <Leader>mD :call Tmux_run_command("git diff ' . expand('%') . ' 2>/dev/null")<CR>
 
 nnoremap <leader>M  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
 
