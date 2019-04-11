@@ -4,7 +4,7 @@ local word=$(sed -E 's#/[^/]*$#/#' <<<"$words[$CURRENT]")
 local slash_count=$(tr -dc '/' <<<"$word" | wc -c)
 local cache_dir="$HOME/.cache/s3-completion/"
 
-find "$cache_dir" -name 's3*' -mmin +30 -exec rm {} +
+find "$cache_dir" -name 's3*' -mmin +30 -type f -exec rm {} +
 
 if [ "$slash_count" -lt 3 ] ; then
   if [ ! -e "$cache_dir/buckets" ] ; then
@@ -14,6 +14,7 @@ if [ "$slash_count" -lt 3 ] ; then
     | sed -E 's#^(.*)$#s3\\://\1/#' > "$cache_dir/buckets"
   fi
   local buckets=( $(cat "$cache_dir/buckets") )
+  buckets+=--show-path
   _describe s3buckets buckets
 else
   local file=$cache_dir/$(sed 's#/#_#g' <<<"$word")
