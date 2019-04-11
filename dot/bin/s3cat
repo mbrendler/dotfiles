@@ -1,5 +1,16 @@
-#!/bin/sh
+#! /usr/bin/env bash
+
+show_path=no
+
+if [[ " $* " =~ [[:space:]]--show-path[[:space:]] ]] ; then
+  show_path=yes
+fi
 
 for path in "$@" ; do
-  aws s3 cp --quiet "$path" /dev/stdout
+  if [ "$path" != --show-path ] ; then
+    if [ "$show_path" = yes ] ; then
+      echo "==> $path <=="
+    fi
+    aws s3 cp --quiet "$path" /dev/stdout
+  fi
 done
