@@ -6,6 +6,6 @@ setlocal makeprg=pylint\ -r\ n\ -i\ y\ -f\ parseable\ %
 setlocal errorformat=%f:%l:\ %m
 
 function! Python_run(filename)
-  let l:command = 'python'
+  let l:command = 'python3'
   call Tmux_run_command(l:command . ' ' . a:filename)
 endfunction
