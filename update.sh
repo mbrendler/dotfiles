@@ -97,11 +97,11 @@ popd
 
 # Install Python dependencies -------------------------------------------------
 
-if which pip > /dev/null 2> /dev/null ; then
-  pip install --user -U pip
-  pip install --user -U neovim
-  pip install --user -U pygments
-  pip install --user -U pygments-markdown-lexer
+if which pip3 > /dev/null 2> /dev/null ; then
+  pip3 install --user -U pip
+  pip3 install --user -U neovim
+  pip3 install --user -U pygments
+  pip3 install --user -U pygments-markdown-lexer
 fi
 
 if which hg > /dev/null 2> /dev/null ; then
@@ -113,8 +113,8 @@ if which hg > /dev/null 2> /dev/null ; then
     hg clone https://bitbucket.org/edgimar/crecord "$LOCAL_PYTHON_PACKAGES/crecord"
   fi
 
-  if which pip > /dev/null 2> /dev/null ; then
-    pip install --user -U mercurial-keyring
+  if which pip3 > /dev/null 2> /dev/null ; then
+    pip3 install --user -U mercurial-keyring
   fi
 fi
 
