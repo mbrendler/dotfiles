@@ -4,8 +4,11 @@ setlocal softtabstop=2
 
 function! Ruby_run(filename)
   let l:command = 'ruby'
+  if a:filename =~ '_spec.rb$'
+    let l:command = 'rspec'
+  endif
   if strlen(findfile('Gemfile', ';')) != 0
-    let l:command = 'bundle exec ruby'
+    let l:command = 'bundle exec ' . l:command
   endif
   call Tmux_run_command(l:command . ' ' . a:filename)
 endfunction
