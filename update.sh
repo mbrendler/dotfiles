@@ -100,6 +100,7 @@ popd
 if which pip3 > /dev/null 2> /dev/null ; then
   pip3 install --user -U pip
   pip3 install --user -U neovim
+  pip3 install --user -U pynvim
   pip3 install --user -U pygments
   pip3 install --user -U pygments-markdown-lexer
 fi
