@@ -331,8 +331,8 @@ onoremap il< :<c-u>normal! F>vi<<cr>
 command! W w
 command! Wq wq
 
-command! Now :normal a<C-R>=strftime('%H:%M %d.%m.%Y')<CR><Esc>
-command! Today :normal a<C-R>=strftime('%d.%m.%Y')<CR><Esc>
+command! Now :normal a<C-R>=strftime('%Y-%m-%dT%H:%M')<CR><Esc>
+command! Today :normal a<C-R>=strftime('%Y-%m-%d')<CR><Esc>
 
 command! CtrlPFindAlternatives call ctrlp#find_alternatives#start(expand("%"))
 
