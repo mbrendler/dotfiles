@@ -416,9 +416,6 @@ let g:syntastic_ruby_checkers = ['rubocop', 'mri']
 " let g:neomake_python_flake8_exe = 'python3'
 " let g:neomake_python_enabled_makers = ['flake8']
 
-""" vim-flow
-let g:flow#enable = 0
-
 """ TComment
 let g:tcomment_mapleader1 = ""
 

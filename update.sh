@@ -69,7 +69,6 @@ plugin vim tpope/vim-projectionist
 plugin vim leafgarland/typescript-vim # typescript syntax
 plugin vim Shougo/vimproc.vim
 plugin vim Quramy/tsuquyomi # typescript completion
-plugin vim flowtype/vim-flow
 plugin vim 1995parham/vim-zimpl
 
 ### editing
