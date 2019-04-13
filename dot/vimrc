@@ -387,14 +387,8 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_completion_enabled = 0
 
-""" Syntastic
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_stl_format = " E:%e,W:%w "  " :h syntastic_stl_format
-
-let g:syntastic_python_checkers = ['flake8'] " , 'python']
-let g:syntastic_ruby_checkers = ['rubocop', 'mri']
+" let g:syntastic_python_checkers = ['flake8'] " , 'python']
+" let g:syntastic_ruby_checkers = ['rubocop', 'mri']
 
 """ Neomake
 " function! NeomakeLoadFile()
