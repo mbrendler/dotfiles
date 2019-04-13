@@ -34,4 +34,5 @@ endfunction
 function! Run_interactive_file(filename)
   let l:prefix = substitute(&filetype, "^.", "\\U&", "")
   execute 'call ' . l:prefix . '_run_interactive("' . a:filename . '")'
+  call Tmux_select_target_pane()
 endfunction
