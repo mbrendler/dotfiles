@@ -55,8 +55,6 @@ plugin vim ctrlpvim/ctrlp.vim
 plugin vim christoomey/vim-tmux-navigator
 
 ### programming languages
-# plugin vim neomake/neomake
-# plugin vim vim-syntastic/syntastic
 plugin vim w0rp/ale
 plugin vim majutsushi/tagbar
 plugin vim Rip-Rip/clang_complete
