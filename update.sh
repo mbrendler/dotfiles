@@ -103,6 +103,11 @@ if command -v pip3 > /dev/null 2> /dev/null ; then
   pip3 install --user --upgrade pynvim
   pip3 install --user --upgrade pygments
   pip3 install --user --upgrade pygments-markdown-lexer
+  pip3 install --user --upgrade cmakelint
+
+  USER_PYTHON_BIN="$(find "$HOME/Library/Python" -name bin -depth 2 | tail -1)"
+
+  bin-link "$USER_PYTHON_BIN/cmakelint"
 fi
 
 if command -v hg > /dev/null 2> /dev/null ; then
