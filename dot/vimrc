@@ -258,6 +258,7 @@ let maplocalleader = "ö"
 nnoremap <LocalLeader>; :execute "normal! mqA;\e`q"<cr>
 nnoremap <LocalLeader>rr :call Save_buffer_if_modified()<cr>:call Run_file(expand('%'))<cr>
 nnoremap <LocalLeader>ri :call Save_buffer_if_modified()<cr>:call Run_interactive_file(expand('%'))<cr>
+nnoremap <LocalLeader>f :ALEFix<cr>
 
 """ Split line (sister to [J]oin lines)
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
