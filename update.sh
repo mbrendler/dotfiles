@@ -120,7 +120,7 @@ if command -v hg > /dev/null 2> /dev/null ; then
   fi
 
   if command -v pip3 > /dev/null 2> /dev/null ; then
-    pip3 install --user -U mercurial-keyring
+    pip3 install --user --upgrade mercurial-keyring
   fi
 fi
 
