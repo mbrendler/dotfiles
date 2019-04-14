@@ -107,7 +107,7 @@ if command -v pip3 > /dev/null 2> /dev/null ; then
 
   USER_PYTHON_BIN="$(find "$HOME/Library/Python" -name bin -depth 2 | tail -1)"
 
-  bin-link "$USER_PYTHON_BIN/cmakelint"
+  bin-link "$USER_PYTHON_BIN/cmakelint" || true
 fi
 
 if command -v hg > /dev/null 2> /dev/null ; then
