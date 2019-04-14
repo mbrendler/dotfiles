@@ -399,9 +399,6 @@ let g:ale_fixers = {
 \ 'ruby': ['rubocop'],
 \}
 
-" let g:syntastic_python_checkers = ['flake8'] " , 'python']
-" let g:syntastic_ruby_checkers = ['rubocop', 'mri']
-
 """ Neomake
 " function! NeomakeLoadFile()
 "   if filereadable('.clang_complete')
