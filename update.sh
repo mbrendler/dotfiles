@@ -104,10 +104,18 @@ if command -v pip3 > /dev/null 2> /dev/null ; then
   pip3 install --user --upgrade pygments
   pip3 install --user --upgrade pygments-markdown-lexer
   pip3 install --user --upgrade cmakelint
+  pip3 install --user --upgrade 'flake8'
+  pip3 install --user --upgrade 'python-language-server[flake8]'
+  pip3 install --user --upgrade 'python-language-server[rope]'
+  pip3 install --user --upgrade 'python-language-server[yapf]'
+  pip3 install --user --upgrade 'yapf'
 
   USER_PYTHON_BIN="$(find "$HOME/Library/Python" -name bin -depth 2 | tail -1)"
 
   bin-link "$USER_PYTHON_BIN/cmakelint" || true
+  bin-link "$USER_PYTHON_BIN/flake8" || true
+  bin-link "$USER_PYTHON_BIN/pyls" || true
+  bin-link "$USER_PYTHON_BIN/yapf" || true
 fi
 
 if command -v hg > /dev/null 2> /dev/null ; then
