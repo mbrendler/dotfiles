@@ -97,7 +97,7 @@ popd
 
 # Install Python dependencies -------------------------------------------------
 
-if which pip3 > /dev/null 2> /dev/null ; then
+if command -v pip3 > /dev/null 2> /dev/null ; then
   pip3 install --user --upgrade pip
   pip3 install --user --upgrade neovim
   pip3 install --user --upgrade pynvim
@@ -105,7 +105,7 @@ if which pip3 > /dev/null 2> /dev/null ; then
   pip3 install --user --upgrade pygments-markdown-lexer
 fi
 
-if which hg > /dev/null 2> /dev/null ; then
+if command -v hg > /dev/null 2> /dev/null ; then
   readonly LOCAL_PYTHON_PACKAGES="$PREFIX/python_packages"
   mkdir -p "$LOCAL_PYTHON_PACKAGES"
   if test -e "$LOCAL_PYTHON_PACKAGES/crecord" ; then
@@ -114,14 +114,14 @@ if which hg > /dev/null 2> /dev/null ; then
     hg clone https://bitbucket.org/edgimar/crecord "$LOCAL_PYTHON_PACKAGES/crecord"
   fi
 
-  if which pip3 > /dev/null 2> /dev/null ; then
+  if command -v pip3 > /dev/null 2> /dev/null ; then
     pip3 install --user -U mercurial-keyring
   fi
 fi
 
 # Initialize Vim helptags -----------------------------------------------------
 
-if which vim > /dev/null 2> /dev/null ; then
+if command -v vim > /dev/null 2> /dev/null ; then
   for plugin_doc_dir in $(/bin/ls -d "$PREFIX"/plugins/vim/*/doc) ; do
     vim "+helptags $plugin_doc_dir" +qall
   done
