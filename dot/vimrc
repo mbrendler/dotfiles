@@ -274,7 +274,8 @@ nnoremap k gk
 
 nnoremap ü ]
 nnoremap ä [
-nnoremap Ü <C-]>
+" nnoremap Ü <C-]>
+nnoremap Ü :ALEGoToDefinition<cr>
 nnoremap gö g]
 vnoremap gö g]
 
