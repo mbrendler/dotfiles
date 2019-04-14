@@ -98,11 +98,11 @@ popd
 # Install Python dependencies -------------------------------------------------
 
 if which pip3 > /dev/null 2> /dev/null ; then
-  pip3 install --user -U pip
-  pip3 install --user -U neovim
-  pip3 install --user -U pynvim
-  pip3 install --user -U pygments
-  pip3 install --user -U pygments-markdown-lexer
+  pip3 install --user --upgrade pip
+  pip3 install --user --upgrade neovim
+  pip3 install --user --upgrade pynvim
+  pip3 install --user --upgrade pygments
+  pip3 install --user --upgrade pygments-markdown-lexer
 fi
 
 if which hg > /dev/null 2> /dev/null ; then
