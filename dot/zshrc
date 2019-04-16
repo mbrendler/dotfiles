@@ -193,7 +193,7 @@ setopt BEEP                 # beep
 setopt NO_LIST_BEEP         # no beep when displaying completion list
 setopt NO_HIST_BEEP         # no beep when history search
 
-setopt LONG_LIST_JOBS         # display PID when suspending processes
+setopt LONG_LIST_JOBS       # display PID when suspending processes
 
 # Completion ------------------------------------------------------------------
 
