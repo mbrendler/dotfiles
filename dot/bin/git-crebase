@@ -90,7 +90,8 @@ class RebaseMenu(Menu):
 
     def build_rebase_action(self, action_name):
         def __action__(*_):
-            self.rebase_actions[self.rev_hash()] = (action_name, self._selected)
+            self.rebase_actions[self.rev_hash()] = \
+                (action_name, self._selected)
         return __action__
 
     def rebase_action_pick(self, *_):
@@ -139,6 +140,7 @@ def main(argv):
             return os.system('git rebase -i HEAD~%s' % (menu.selected() + 1))
     else:
         return 1
+
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv[1:]))
