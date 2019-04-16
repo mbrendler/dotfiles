@@ -1,3 +1,10 @@
 #! /bin/bash
 
-ln -s "$(readlink -m "$1")" ~/.usr/bin
+force=
+
+if [ "$1" = '-f' ] ; then
+  force=-f
+  shift
+fi
+
+ln -s "$force" "$(readlink -m "$1")" ~/.usr/bin
