@@ -38,7 +38,7 @@ cleanup () {
 
 trap cleanup EXIT
 
-if which lldb > /dev/null 2> /dev/null ; then
+if command -v lldb > /dev/null 2> /dev/null ; then
   debugger=lldb
 else
   debugger=gdb
@@ -87,7 +87,7 @@ EOF
 fi
 
 print-source () {
-  if [ -t 1 ] && [ ! -p /dev/stdout ] && which pygmentize > /dev/null 2>&1 ; then
+  if [ -t 1 ] && [ ! -p /dev/stdout ] && command -v pygmentize > /dev/null 2>&1 ; then
     pygmentize -l "${1-"$language"}" -f terminal
   else
     cat
