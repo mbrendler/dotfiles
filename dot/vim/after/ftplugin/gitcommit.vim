@@ -5,7 +5,7 @@ if !exists("g:gitcommit_comp_count")
 endif
 
 function! gitcommit#omnifunction(findstart, base)
-  if a:findstart == 1
+  if a:findstart
     return 0
   else
     let l:msg_str = system("git log --oneline --pretty=format:%s | head -n " . g:gitcommit_comp_count)
