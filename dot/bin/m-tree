@@ -59,8 +59,10 @@ class TreeMenu(Menu):
         return self._expanded[self.selected()]
 
     def _is_leaf(self, index):
+        leading_spaces_this_line = leading_spaces(self._lines[index])
+        leading_spaces_next_line = leading_spaces(self._lines[index + 1])
         return index >= len(self._lines) - 1 or \
-            leading_spaces(self._lines[index + 1]) <= leading_spaces(self._lines[index])
+            leading_spaces_next_line <= leading_spaces_this_line
 
     def _update_entries(self):
         self._entries = []
@@ -76,7 +78,8 @@ class TreeMenu(Menu):
     def expand(self, *_):
         index = self.index()
         ls = leading_spaces(self._lines[index])
-        next_ls = leading_spaces(self._lines[min(len(self._lines) - 1, index + 1)])
+        line = self._lines[min(len(self._lines) - 1, index + 1)]
+        next_ls = leading_spaces(line)
         if ls >= next_ls:
             return
         for i in range(index + 1, len(self._lines)):
@@ -92,7 +95,8 @@ class TreeMenu(Menu):
     def collapse(self, *_):
         index = self.index()
         ls = leading_spaces(self._lines[index])
-        next_ls = leading_spaces(self._lines[min(len(self._lines) - 1, index + 1)])
+        line = self._lines[min(len(self._lines) - 1, index + 1)]
+        next_ls = leading_spaces(line)
         if ls >= next_ls:
             return
         for i in range(index + 1, len(self._lines)):
@@ -148,6 +152,7 @@ def parse_options():
         help='use chars |-` as tree markers'
     )
     return parser.parse_args()
+
 
 def main():
     opts = parse_options()
