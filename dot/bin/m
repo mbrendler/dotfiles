@@ -111,7 +111,7 @@ class LineMenu(Menu):
 
     def match_re(self, entry, _):
         """re"""
-        return re.match(self._input.encode('utf-8'), entry) != None
+        return re.match(self._input.encode('utf-8'), entry) is not None
 
     def clear_selection(self):
         self._selected = -1
@@ -271,6 +271,7 @@ def main():
             sys.stdout.write(menu.entries()[menu.selected()] + '\n')
         return 0
     return 1
+
 
 if __name__ == '__main__':
     sys.exit(main())
