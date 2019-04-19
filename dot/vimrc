@@ -2,6 +2,12 @@
 
 let g:python3_host_prog = '/usr/local/bin/python3'
 
+if strlen(findfile('Pipfile', ';')) != 0
+  let g:python_venv_dir = substitute(system('pipenv --venv 2> /dev/null'), '\n\+$', '', '')
+  let $PYTHONPATH = g:python_venv_dir . '/lib/python3.7/site-packages'
+  let $MYPYPATH = g:python_venv_dir . '/lib/python3.7/site-packages'
+endif
+
 let $VIMHOME=expand("$HOME/.vim")
 let $FT_DIR=expand("$VIMHOME/after/ftplugin/")
 let $MANPAGER=""
