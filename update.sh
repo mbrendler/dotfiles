@@ -107,6 +107,7 @@ if command -v pip3 > /dev/null 2> /dev/null ; then
   pip3 install --user --upgrade 'python-language-server[rope]'
   pip3 install --user --upgrade 'python-language-server[yapf]'
   pip3 install --user --upgrade 'yapf'
+  pip3 install --user --upgrade 'mypy'
 
   USER_PYTHON_BIN="$(find "$HOME/Library/Python" -name bin -depth 2 | tail -1)"
 
@@ -114,6 +115,7 @@ if command -v pip3 > /dev/null 2> /dev/null ; then
   bin-link -f "$USER_PYTHON_BIN/flake8" || true
   bin-link -f "$USER_PYTHON_BIN/pyls" || true
   bin-link -f "$USER_PYTHON_BIN/yapf" || true
+  bin-link -f "$USER_PYTHON_BIN/mypy" || true
 fi
 
 if command -v hg > /dev/null 2> /dev/null ; then
