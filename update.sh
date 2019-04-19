@@ -110,10 +110,10 @@ if command -v pip3 > /dev/null 2> /dev/null ; then
 
   USER_PYTHON_BIN="$(find "$HOME/Library/Python" -name bin -depth 2 | tail -1)"
 
-  bin-link "$USER_PYTHON_BIN/cmakelint" || true
-  bin-link "$USER_PYTHON_BIN/flake8" || true
-  bin-link "$USER_PYTHON_BIN/pyls" || true
-  bin-link "$USER_PYTHON_BIN/yapf" || true
+  bin-link -f "$USER_PYTHON_BIN/cmakelint" || true
+  bin-link -f "$USER_PYTHON_BIN/flake8" || true
+  bin-link -f "$USER_PYTHON_BIN/pyls" || true
+  bin-link -f "$USER_PYTHON_BIN/yapf" || true
 fi
 
 if command -v hg > /dev/null 2> /dev/null ; then
