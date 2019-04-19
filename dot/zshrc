@@ -109,7 +109,6 @@ disable r
 
 alias grep="grep --color"
 alias hlcat="pygmentize -f terminal"
-alias b="bundle exec"
 alias benchmark-zshrc="time zsh -i -c exit"
 alias benchmark-vimrc="time vim +q"
 
@@ -134,6 +133,14 @@ else
   # BSD user land:
   export CLICOLOR=
 fi
+
+b() {
+  if [ -f Pipfile ] ; then
+    pipenv run "$@"
+  else
+    bundle exec "$@"
+  fi
+}
 
 ### loop command until it returns an error
 kaputt() {
