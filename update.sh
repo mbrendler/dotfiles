@@ -96,18 +96,19 @@ popd
 # Install Python dependencies -------------------------------------------------
 
 if command -v pip3 > /dev/null 2> /dev/null ; then
-  pip3 install --user --upgrade pip
-  pip3 install --user --upgrade neovim
-  pip3 install --user --upgrade pynvim
-  pip3 install --user --upgrade pygments
-  pip3 install --user --upgrade pygments-markdown-lexer
-  pip3 install --user --upgrade cmakelint
-  pip3 install --user --upgrade 'flake8'
-  pip3 install --user --upgrade 'python-language-server[flake8]'
-  pip3 install --user --upgrade 'python-language-server[rope]'
-  pip3 install --user --upgrade 'python-language-server[yapf]'
-  pip3 install --user --upgrade 'yapf'
-  pip3 install --user --upgrade 'mypy'
+  pip3 install --user --upgrade \
+    pip \
+    neovim \
+    pynvim \
+    pygments \
+    pygments-markdown-lexer \
+    cmakelint \
+    flake8 \
+    python-language-server[flake8] \
+    python-language-server[rope] \
+    python-language-server[yapf] \
+    yapf \
+    mypy
 
   USER_PYTHON_BIN="$(find "$HOME/Library/Python" -name bin -depth 2 | tail -1)"
 
