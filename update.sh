@@ -109,14 +109,6 @@ if command -v pip3 > /dev/null 2> /dev/null ; then
     python-language-server[yapf] \
     yapf \
     mypy
-
-  USER_PYTHON_BIN="$(find "$HOME/Library/Python" -name bin -depth 2 | tail -1)"
-
-  bin-link -f "$USER_PYTHON_BIN/cmakelint" || true
-  bin-link -f "$USER_PYTHON_BIN/flake8" || true
-  bin-link -f "$USER_PYTHON_BIN/pyls" || true
-  bin-link -f "$USER_PYTHON_BIN/yapf" || true
-  bin-link -f "$USER_PYTHON_BIN/mypy" || true
 fi
 
 if command -v hg > /dev/null 2> /dev/null ; then

@@ -16,6 +16,7 @@ typeset -U path
 path=(
   $HOME/.bin
   $HOME/.usr/bin
+  $HOME/Library/Python/3.7/bin
   $HOME/.rbenv/shims
   $HOME/.exenv/shims
   /usr/local/bin
