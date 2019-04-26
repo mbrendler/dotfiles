@@ -63,6 +63,7 @@ plugin vim davidhalter/jedi-vim
 plugin vim elixir-lang/vim-elixir
 plugin vim slashmili/alchemist.vim
 plugin vim tpope/vim-endwise # automatically close code blocks in ruby
+plugin vim vim-ruby/vim-ruby
 plugin vim tpope/vim-rake
 plugin vim tpope/vim-projectionist
 plugin vim leafgarland/typescript-vim # typescript syntax
