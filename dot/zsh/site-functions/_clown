@@ -1,0 +1,3 @@
+#compdef clown
+
+eval "$(clown completion "$CURRENT" "${words[@]}")"
