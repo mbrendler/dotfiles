@@ -58,16 +58,13 @@ plugin vim christoomey/vim-tmux-navigator
 plugin vim w0rp/ale
 plugin vim majutsushi/tagbar
 plugin vim Rip-Rip/clang_complete
-plugin vim lukerandall/haskellmode-vim
 plugin vim davidhalter/jedi-vim
 plugin vim elixir-lang/vim-elixir
 plugin vim slashmili/alchemist.vim
 plugin vim tpope/vim-endwise # automatically close code blocks in ruby
 plugin vim vim-ruby/vim-ruby
-plugin vim tpope/vim-rake
-plugin vim tpope/vim-projectionist
 plugin vim leafgarland/typescript-vim # typescript syntax
-plugin vim Shougo/vimproc.vim
+plugin vim Shougo/vimproc.vim # needed by tsuquyomi
 plugin vim Quramy/tsuquyomi # typescript completion
 plugin vim 1995parham/vim-zimpl
 
@@ -76,7 +73,6 @@ plugin vim Raimondi/delimitMate # Automatic closing of quotes, parentheses, ...
 plugin vim tpope/vim-surround
 plugin vim tpope/vim-repeat
 plugin vim tomtom/tcomment_vim
-plugin vim terryma/vim-multiple-cursors
 plugin vim vim-utils/vim-husk # Historic key bindings in command line
 plugin vim henrik/vim-indexed-search # shows the number of search matches
 
@@ -125,7 +121,5 @@ fi
 # Initialize Vim helptags -----------------------------------------------------
 
 if command -v vim > /dev/null 2> /dev/null ; then
-  for plugin_doc_dir in $(/bin/ls -d "$PREFIX"/plugins/vim/*/doc) ; do
-    vim "+helptags $plugin_doc_dir" +qall
-  done
+  vim "+helptags ALL" +qall
 fi
