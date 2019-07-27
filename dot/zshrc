@@ -112,6 +112,7 @@ alias grep="grep --color"
 alias hlcat="pygmentize -f terminal"
 alias benchmark-zshrc="time zsh -i -c exit"
 alias benchmark-vimrc="time vim +q"
+alias gdb='gdb -q'
 
 alias pbpwd="pwd | pbcopy"
 pbecho() { /bin/echo -n "$*" | pbcopy }
