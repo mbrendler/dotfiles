@@ -471,13 +471,6 @@ let g:haddock_indexfiledir = "$HOME/.vim/"
 let g:tsuquyomi_disable_default_mappings = 1
 let g:tsuquyomi_disable_quickfix = 1
 
-""" Tag list
-let Tlist_Use_Right_Window = 1
-let Tlist_Inc_Winwidth = 1
-let Tlist_Enable_Fold_Column = 0
-let Tlist_Display_Prototype = 0
-let Tlist_Display_Tag_Scope = 0
-
 " Find and load local .vimrc -------------------------------------------------
 
 if ! has("gui_running")
