@@ -5,3 +5,11 @@ set history size 1000
 set history filename ~/.gdb_history
 
 source ~/.usr/plugins/gdb/GdbShellPipe/ShellPipeCommand.py
+
+define v
+  if $argc == 0
+    shell-pipe info frame | sed -nE 's/^.*\(([^;]+)\);.*$/\1/p' | xargs v
+  else
+    shell-pipe info frame $arg0 | sed -nE 's/^.*\(([^;]+)\);.*$/\1/p' | xargs v
+  end
+end
