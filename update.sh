@@ -47,6 +47,10 @@ plugin zsh zsh-users/zsh-completions
 
 plugin tmux tmux-plugins/tmux-yank
 
+# gdb plugins -----------------------------------------------------------------
+
+plugin gdb hq6/GdbShellPipe
+
 # vim plugins -----------------------------------------------------------------
 
 ### file and buffer access
