@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+
+import sys
+from os import environ
+from os.path import abspath
+import re
+from subprocess import getoutput
+from typing import Tuple, Optional
+
+from pynvim import attach
+from pynvim.api.nvim import Nvim
+
+
+def tmux_vim_pane_id() -> str:
+    return getoutput(
+        "tmux list-panes -F '#{pane_id}:#{pane_current_command}' | "
+        "sed -nE 's/:n?vim$//p' | "
+        "head -1"
+    )
+
+
+def tmux_select_pane(pane_id) -> str:
+    return getoutput('tmux select-pane -t' + pane_id)
+
+
+def vim_connect(tmux_pane_id: str) -> Nvim:
+    home = environ['HOME']
+    socket_file = home + '/.cache/nvim-sockets/tmux-pane-' + tmux_pane_id
+    return attach('socket', path=socket_file)
+
+
+def vim_open_file(filename: str, nvim: Nvim) -> Nvim:
+    filename, line_number = parse_filename(filename)
+    nvim.command('edit ' + abspath(filename))
+    if line_number:
+        nvim.command(line_number)
+
+
+def parse_filename(filename: str) -> Tuple[str, Optional[str]]:
+    match = re.findall("^(.+):([0-9]+)$", filename)
+    if match:
+        return match[0]
+    return filename, None
+
+
+def handle_arg(arg: str, nvim: Nvim):
+    if arg[0] == '+':
+        nvim.command(arg[1:])
+    else:
+        vim_open_file(arg, nvim)
+
+
+def main():
+    tmux_pane_id = tmux_vim_pane_id()
+    nvim = vim_connect(tmux_pane_id)
+    for arg in sys.argv[1:]:
+        handle_arg(arg, nvim)
+    tmux_select_pane(tmux_pane_id)
+
+
+if __name__ == '__main__':
+    main()
