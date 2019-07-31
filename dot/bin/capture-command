@@ -1,0 +1,37 @@
+#! /usr/bin/env python3
+
+import sys
+import re
+from itertools import dropwhile
+from subprocess import getoutput
+
+PROMPT_PATTERN = ' » '
+
+output = []
+
+CAPTURE = getoutput('tmux capture-pane -pJS -100000').splitlines()
+
+
+def is_empty(ls):
+    return ''.join(ls).strip() == ""
+
+
+if '--top' in sys.argv:
+    for line in CAPTURE:
+        if PROMPT_PATTERN in line:
+            break
+        output.append(line)
+    output.reverse()
+
+else:
+    pattern = PROMPT_PATTERN + ' '.join(sys.argv[1:])
+    for line in reversed(CAPTURE):
+        if PROMPT_PATTERN in line:
+            if not is_empty(output) and re.search(pattern, line):
+                break
+            output = []
+        else:
+            output.append(line)
+
+for line in reversed(list(dropwhile(lambda x: x.strip() == '', output))):
+    print(line)
