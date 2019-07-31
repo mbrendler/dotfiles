@@ -3,6 +3,7 @@
 import sys
 from os import environ
 from os.path import abspath
+from tempfile import NamedTemporaryFile
 import re
 from subprocess import getoutput
 from typing import Tuple, Optional
@@ -44,8 +45,12 @@ def parse_filename(filename: str) -> Tuple[str, Optional[str]]:
 
 
 def handle_arg(arg: str, nvim: Nvim):
-    if arg[0] == '+':
-        nvim.command(arg[1:])
+    if arg == 'cf':
+        with NamedTemporaryFile(mode='w') as fd:
+            fd.write(sys.stdin.read())
+            fd.flush()
+            nvim.command_output('cgetfile ' + fd.name)
+    elif arg[0] == '+':
         nvim.command_output(arg[1:])
     else:
         vim_open_file(arg, nvim)
