@@ -21,3 +21,7 @@ define fv
   frame $arg0
   v $arg0
 end
+
+define jd
+  shell-pipe printf "%d\n", $arg0 | xargs ruby -e 'require "date" ; puts(Date.jd(ARGV[0].to_i))'
+end
