@@ -16,3 +16,8 @@ define v
     shell-pipe info frame $arg0 | sed -nE 's/^.*\(([^;]+)\);.*$/\1/p' | xargs v
   end
 end
+
+define fv
+  frame $arg0
+  v $arg0
+end
