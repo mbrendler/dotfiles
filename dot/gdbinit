@@ -22,6 +22,16 @@ define fv
   v $arg0
 end
 
+define nv
+  next
+  v
+end
+
+define sv
+  step
+  v
+end
+
 define jd
   shell-pipe printf "%d\n", $arg0 | xargs ruby -e 'require "date" ; puts(Date.jd(ARGV[0].to_i))'
 end
