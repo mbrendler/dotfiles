@@ -35,6 +35,7 @@ def vim_open_file(filename: str, nvim: Nvim) -> Nvim:
     nvim.command('edit ' + abspath(filename))
     if line_number:
         nvim.command(line_number)
+        nvim.command('normal zz')
 
 
 def parse_filename(filename: str) -> Tuple[str, Optional[str]]:
