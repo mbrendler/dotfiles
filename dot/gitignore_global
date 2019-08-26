@@ -9,3 +9,4 @@ cscope.out
 .scratch
 .clang_complete
 .tgrep
+.mypy_cache
