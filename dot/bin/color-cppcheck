@@ -1,4 +1,6 @@
-#! /bin/sh
+#! /bin/bash
+
+set -o pipefail
 
 COLOR_ERROR="$(tput setaf 1)"
 COLOR_WARNING="$(tput setaf 3)"
