@@ -55,6 +55,14 @@ function! Tmux_set_target_pane(pane)
   let g:tmux_target_pane = a:pane
 endfunction
 
+function! Tmux_find_pane_by_command(command)
+  let l:pane = system("tmux list-panes -F '#{pane_index}:#{pane_current_command}' | grep -E ':" . a:command . "$' | sed 's/:.*$//g' | head -n1")
+  if len(split(l:pane, "\n")) == 1
+    return substitute(l:pane, '\n\+$', '', '')
+  endif
+  call Tmux_ask_for_target_pane()
+endfunction
+
 function! Tmux_get_target_pane()
   if exists('g:tmux_target_pane') == 0 || g:tmux_target_pane == ''
     let l:pane = system("tmux list-panes -F '#{pane_index}:#{pane_current_command}' | grep -Ev ':n?vim$' | sed 's/:.*$//g' | head -n1")
