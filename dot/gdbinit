@@ -8,6 +8,7 @@ set height 0
 set width 0
 
 source ~/.usr/plugins/gdb/GdbShellPipe/ShellPipeCommand.py
+source ~/.gdb/print_va_args.py
 
 define v
   if $argc == 0

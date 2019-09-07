@@ -22,3 +22,6 @@ function! Ruby_run_interactive(filename)
 endfunction
 
 nnoremap <LocalLeader>o :call Ruby_toggle_test_and_impl_file()<cr>
+
+" setlocal omnifunc=rubycomplete#Complete
+setlocal omnifunc=ale#completion#OmniFunc
