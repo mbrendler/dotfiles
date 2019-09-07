@@ -1,11 +1,13 @@
 #! /usr/bin/env bash
 
-pushd "$(dirname $0)" > /dev/null
+set -euo pipefail
+
+pushd "$(dirname "$0")" > /dev/null
 readonly HERE="$(pwd)"
 popd > /dev/null
 
 readonly SOURCE_DIR="$HERE/dot"
-readonly OS_SPECIFIC_SOURCE_DIR="$SOURCE_DIR/_$(uname | tr '[A-Z]' '[a-z]')"
+readonly OS_SPECIFIC_SOURCE_DIR="$SOURCE_DIR/_$(uname | tr '[:upper:]' '[:lower:]')"
 readonly BACKUP_DIR="$HOME/configsbackup/$(date --iso-8601)"
 
 function is-dotfile() {
