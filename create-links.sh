@@ -9,7 +9,7 @@ readonly OS_SPECIFIC_SOURCE_DIR="$SOURCE_DIR/_$(uname | tr '[A-Z]' '[a-z]')"
 readonly BACKUP_DIR="$HOME/configsbackup/$(date --iso-8601)"
 
 function is-dotfile() {
-  basename "$1" | grep -v '^.DS_Store$\|^_darwin$\|^_linux$' > /dev/null 2>&1
+  basename "$1" | grep -v '^[._]' > /dev/null 2>&1
 }
 
 function backup() {
