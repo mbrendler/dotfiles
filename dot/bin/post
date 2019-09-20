@@ -48,6 +48,9 @@ function cmd-check() {
   details=no
   if [ "${1-}" = '-d' ] ; then
     details=yes
+    if pgrep offlineimap > /dev/null ; then
+      >&2 echo warning: offlineimap is running
+    fi
   fi
 
   for account in $ACCOUNTS ; do
