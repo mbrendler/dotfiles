@@ -222,6 +222,8 @@ augroup filetypedetect
   autocmd BufRead,BufNewFile *.m set filetype=objc
   autocmd BufRead,BufNewFile *.h call SetCHeaderFiletype()
 
+  autocmd BufNewFile,BufRead Jenkinsfile set syntax=groovy
+
   " Add html FileType for djangohtml files, to activate some html specific
   " plugins, like SnipeMate-Completion on htmldjango files.
   autocmd FileType htmldjango set filetype=htmldjango.html
