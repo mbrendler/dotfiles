@@ -109,7 +109,10 @@ if command -v pip3 > /dev/null 2> /dev/null ; then
     python-language-server[rope] \
     python-language-server[yapf] \
     yapf \
-    mypy
+    mypy \
+    sphinx \
+    sphinx_bootstrap_theme \
+    recommonmark
 fi
 
 if command -v hg > /dev/null 2> /dev/null ; then
