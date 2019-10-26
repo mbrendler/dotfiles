@@ -3,7 +3,7 @@
 # Disable menu bar transparency
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
 
-# Show remaining battery time; hide percentage
+# Show remaining battery time; show percentage
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 
 # Expand save panel by default
