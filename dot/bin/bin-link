@@ -7,4 +7,4 @@ if [ "$1" = '-f' ] ; then
   shift
 fi
 
-ln -s "$force" "$(readlink -m "$1")" ~/.usr/bin
+ln -s $force "$(readlink -m "$1")" ~/.usr/bin
