@@ -17,7 +17,6 @@ path=(
   $HOME/.bin
   $HOME/.usr/bin
   $HOME/Library/Python/3.7/bin
-  $HOME/.rbenv/shims
   $HOME/.exenv/shims
   /usr/local/bin
   /usr/local/sbin
@@ -50,24 +49,7 @@ export LESS="QRXFPslines %lt-%lb (%Pt-%Pb\%) %f"
 
 export PYTHONSTARTUP=$HOME/.pystartup
 
-### Initialize rbenv, if its installed
-if which rbenv > /dev/null; then
-  # The following lines are read from 'rbenv init -'. (this is faster)
-  # path=("$HOME/.rbenv/shims" $path)
-  source "$(/bin/ls -dr /usr/local/Cellar/rbenv/* | head -n 1)/completions/rbenv.zsh"
-  # command rbenv rehash
-  rbenv() {
-    typeset command
-    command="$1"
-    test "$#" -gt 0 && shift
-    case "$command" in
-    rehash|shell)
-      eval `rbenv "sh-$command" "$@"`;;
-    *)
-      command rbenv "$command" "$@";;
-    esac
-  }
-fi
+source /usr/local/opt/asdf/asdf.sh
 
 ### Initialize exenv, if its installed
 if which exenv > /dev/null ; then
