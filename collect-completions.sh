@@ -35,6 +35,7 @@ mkdir -p "$ZSH_SITE_FUNCTIONS"
 cp \
   /usr/local/share/zsh/site-functions/git-completion.bash \
   /usr/local/share/zsh/site-functions/tig-completion.bash \
+  /usr/local/etc/bash_completion.d/asdf.bash \
   "$ZSH_SITE_FUNCTIONS"
 
 for COMPLETION_DEFINITION in "${COMPLETION_DEFINITIONS[@]}" ; do

@@ -1,0 +1,21 @@
+#compdef asdf
+#
+# zsh completion wrapper for asdf
+# ===============================
+#
+# You need to install this script to zsh fpath with asdf.bash.
+#
+# The recommended way to install this script is to copy this and asdf.bash
+# to '~/.zsh/_asdf' and '~/.zsh/asdf.bash' and
+# then add following to your ~/.zshrc file:
+#
+#  fpath=(~/.zsh $fpath)
+
+
+_asdf () {
+  local e
+  e=$(dirname ${funcsourcetrace[1]%:*})/asdf.bash
+  if [ -f $e ]; then
+    . $e
+  fi
+}
