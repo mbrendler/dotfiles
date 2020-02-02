@@ -66,8 +66,6 @@ PROMPT="%(?..%{$fg_no_bold[red]%}%?%{$reset_color%} )%{$fg_no_bold[green]%}%~%{$
 
 # Aliases and Functions -------------------------------------------------------
 
-disable r
-
 alias grep="grep --color"
 alias hlcat="pygmentize -f terminal"
 alias benchmark-zshrc="time zsh -i -c exit"
