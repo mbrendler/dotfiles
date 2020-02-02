@@ -47,6 +47,6 @@ if [ "${#ports[@]}" = 0 ] ; then
     uniq
 else
   for port in "${ports[@]}" ; do
-    grep --color=auto -E "\s${port}\/|^${port}\s" /etc/services
+    grep --color=auto -iE "\s${port}\/|^${port}\s" /etc/services
   done
 fi
