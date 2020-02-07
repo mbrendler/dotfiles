@@ -51,7 +51,7 @@ endif
 """ highlight trailing whitespace
 highlight ExtraWhitespace ctermbg=1 guibg=red
 match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter,InsertEnter,InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter,InsertEnter,InsertLeave * match ExtraWhitespace / \|\(\s\+$\)/
 autocmd BufWinLeave * call clearmatches()
 
 " Behavior -------------------------------------------------------------------
