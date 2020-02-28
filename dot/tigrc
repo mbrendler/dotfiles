@@ -1,0 +1,11 @@
+set tab-size = 2
+
+bind generic g :move-first-line
+bind tree g :move-first-line
+bind main g :move-first-line
+
+bind generic G :move-last-line
+bind tree G :move-last-line
+bind main G :move-last-line
+
+bind generic Y @sh -c "echo '%(commit)' | pbcopy"
