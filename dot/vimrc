@@ -56,7 +56,6 @@ autocmd BufWinLeave * call clearmatches()
 
 " Behavior -------------------------------------------------------------------
 
-set regexpengine=1 " improves performance with highlighting ruby files
 set hidden " restore history of buffer coming from background
 set nomodeline
 set clipboard=unnamed,unnamedplus
