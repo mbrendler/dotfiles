@@ -32,6 +32,7 @@
 # -------
 #
 #  * Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
+#  * Shohei YOSHIDA <syohex@gmail.com>
 #
 # ------------------------------------------------------------------------------
 
@@ -39,7 +40,7 @@ _commands=(
   'access'
   'autoclean:Clean and remove unnecessary files from package dependencies'
   'cache:List or clean every cached package'
-  "check:Verify package dependencies agains yarn's lock file"
+  "check:Verify package dependencies against yarn's lock file"
   'config:Manages the yarn configuration files'
   'generate-lock-entry:Generates a lock file entry'
   'global:Install packages globally on your operating system'
@@ -86,9 +87,11 @@ _yarn_scripts() {
   local i runJSON
 
   runJSON=$(yarn run --json 2>/dev/null)
-  binaries=($(sed -E '/Commands available/!d;s/.*Commands available from binary scripts: ([^"]+)".*/\1/;s/.*"items":\[([^]]+).*/\1/;s/[" ]//g;s/:/\\:/g;s/,/\n/g' <<< "$runJSON"))
-  scriptNames=($(sed -E '/possibleCommands/!d;s/.*"items":\[([^]]+).*/\1/;s/[" ]//g;s/:/\\:/g;s/,/\n/g' <<< "$runJSON"))
-  scriptCommands=("${(@f)$(sed -E '/possibleCommands/!d;s/.*"hints":\{([^}]+)\}.*/\1/;s/"[^"]+"://g;s/:/\\:/g;s/","/\n/g;s/(^"|"$)//g' <<< "$runJSON")}")
+  # Some sed utilities (e.g. Mac OS / BSD) don't interpret `\n` in a replacement
+  # pattern as a newline. See https://superuser.com/q/307165
+  binaries=($(sed -E '/Commands available/!d;s/.*Commands available from binary scripts: ([^"]+)".*/\1/;s/.*"items":\[([^]]+).*/\1/;s/[" ]//g;s/:/\\:/g;s/,/\'$'\n/g' <<< "$runJSON"))
+  scriptNames=($(sed -E '/possibleCommands/!d;s/.*"items":\[([^]]+).*/\1/;s/[" ]//g;s/:/\\:/g;s/,/\'$'\n/g' <<< "$runJSON"))
+  scriptCommands=("${(@f)$(sed -E '/possibleCommands/!d;s/.*"hints":\{(.+")\}.*/\1/;s/"[^"]+"://g;s/:/\\:/g;s/","/\'$'\n/g;s/(^"|"$)//g' <<< "$runJSON")}")
 
   for (( i=1; i <= $#scriptNames; i++ )); do
     scripts+=("${scriptNames[$i]}:${scriptCommands[$i]}")
@@ -106,6 +109,12 @@ _yarn_global_commands() {
 
 _yarn_commands() {
   _describe 'command' _commands -- _global_commands
+}
+
+_yarn_add_files() {
+  if compset -P "(file|link):"; then
+    _files
+  fi
 }
 
 _yarn() {
@@ -171,7 +180,7 @@ _yarn() {
             '(-O --optional)'{-O,--optional}'[install packages in optionalDependencies]' \
             '(-E --exact)'{-E,--exact}'[install packages as exact versions]' \
             '(-T --tilde)'{-T,--tilde}'[install the most recent release of the packages that have the same minor version]' \
-            '*:package-name:'
+            '*:package-name:_yarn_add_files'
         ;;
 
         cache)

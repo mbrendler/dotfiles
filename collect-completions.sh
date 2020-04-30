@@ -2,6 +2,7 @@
 
 COMPLETION_DEFINITIONS=(
   "ag:/usr/local/share/zsh/site-functions/_the_silver_searcher"
+  "asdf:/usr/local/share/zsh/site-functions/_asdf"
   "brew:/usr/local/share/zsh/site-functions/_brew"
   "brew_cask:/usr/local/share/zsh/site-functions/_brew_cask"
   "bundler:$HOME/.usr/plugins/zsh/zsh-completions/src/_bundle"
@@ -35,7 +36,6 @@ mkdir -p "$ZSH_SITE_FUNCTIONS"
 cp \
   /usr/local/share/zsh/site-functions/git-completion.bash \
   /usr/local/share/zsh/site-functions/tig-completion.bash \
-  /usr/local/etc/bash_completion.d/asdf.bash \
   "$ZSH_SITE_FUNCTIONS"
 
 for COMPLETION_DEFINITION in "${COMPLETION_DEFINITIONS[@]}" ; do
