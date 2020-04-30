@@ -277,7 +277,9 @@ let maplocalleader = "ö"
 nnoremap <LocalLeader>; :execute "normal! mqA;\e`q"<cr>
 nnoremap <LocalLeader>rr :call Save_buffer_if_modified()<cr>:call Run_file(expand('%'))<cr>
 nnoremap <LocalLeader>ri :call Save_buffer_if_modified()<cr>:call Run_interactive_file(expand('%'))<cr>
-nnoremap <LocalLeader>f :ALEFix<cr>
+nnoremap <LocalLeader>f :write \| :ALEFix \| :edit \| :ALELint<cr>
+nnoremap <LocalLeader>p :ALEPreviousWrap<cr>
+nnoremap <LocalLeader>n :ALENextWrap<cr>
 
 """ Split line (sister to [J]oin lines)
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
@@ -434,9 +436,11 @@ let g:ale_linters = {
 \}
 
 let g:ale_fixers = {
+\ '*': ['trim_whitespace', 'remove_trailing_lines'],
 \ 'javascript': ['eslint'],
 \ 'python': ['yapf'],
-\ 'ruby': ['rubocop'],
+\ 'ruby': ['ALE_extension_fixer_rbprettier'],
+\ 'typescript': ['eslint', 'prettier'],
 \}
 
 """ Neomake
