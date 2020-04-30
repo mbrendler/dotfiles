@@ -141,7 +141,7 @@ function! RenameFile()
   let old_name = expand('%')
   let new_name = input('New file name: ', old_name)
   if new_name != '' && new_name != old_name
-    if system('git ls-files ' . old_name) == ""
+    if system('git ls-files ' . old_name . ' 2> /dev/null') == ""
       execute ':saveas ' . new_name
       execute ':silent !rm ' . old_name
       redraw!
