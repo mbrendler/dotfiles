@@ -427,14 +427,6 @@ let g:ale_python_auto_pipenv = 0
 " let g:ale_python_mypy_use_global = 1
 " let g:ale_python_mypy_options = '--no-incremental'
 
-" function! MyAleOmniFunc(findstart, base)
-"   if a:findstart
-"     call ale#completion#GetCompletions(1)
-"   endif
-"   return ale#completion#OmniFunc(a:findstart, a:base)
-" endfunction
-"
-" set omnifunc=MyAleOmniFunc
 set omnifunc=ale#completion#OmniFunc
 
 let g:ale_linters = {
