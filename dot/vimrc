@@ -224,6 +224,8 @@ augroup filetypedetect
 
   autocmd BufRead,BufNewFile Jenkinsfile set syntax=groovy
 
+  autocmd BufRead,BufNewFile *.tsx set filetype=typescript
+
   " Add html FileType for djangohtml files, to activate some html specific
   " plugins, like SnipeMate-Completion on htmldjango files.
   autocmd FileType htmldjango set filetype=htmldjango.html
