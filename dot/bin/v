@@ -20,8 +20,8 @@ def tmux_vim_pane_id() -> str:
     )
 
 
-# def tmux_select_pane(pane_id) -> str:
-#     return getoutput('tmux select-pane -t' + pane_id)
+def tmux_select_pane(pane_id) -> str:
+    return getoutput('tmux select-pane -t' + pane_id)
 
 
 def vim_connect(tmux_pane_id: str) -> Nvim:
@@ -62,7 +62,7 @@ def main():
     nvim = vim_connect(tmux_pane_id)
     for arg in sys.argv[1:]:
         handle_arg(arg, nvim)
-    # tmux_select_pane(tmux_pane_id)
+    tmux_select_pane(tmux_pane_id)
 
 
 if __name__ == '__main__':
