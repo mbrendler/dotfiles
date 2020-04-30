@@ -51,6 +51,7 @@ def handle_arg(arg: str, nvim: Nvim):
             fd.write(sys.stdin.read())
             fd.flush()
             nvim.command_output('cgetfile ' + fd.name)
+            nvim.command('copen')
     elif arg[0] == '+':
         nvim.command_output(arg[1:])
     else:
