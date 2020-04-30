@@ -267,6 +267,11 @@ nnoremap <Leader>ee :e %<CR>
 nnoremap <Leader>l :call ToggleLocations()<cr>
 nnoremap <Leader>L :lclose<CR>
 
+nnoremap <F6> :cprevious<cr>
+nnoremap <F7> :cnext<cr>
+nnoremap <F8> :lprevious<cr>
+nnoremap <F9> :lnext<cr>
+
 nnoremap <Leader>ml :call Tmux_run_command("")<CR>
 nnoremap <Leader>ms :call Tmux_run_command("git status 2>/dev/null \|\| hg st 2>/dev/null")<CR>
 nnoremap <Leader>md :call Tmux_run_command("git diff 2>/dev/null \|\| hg diff 2>/dev/null")<CR>
