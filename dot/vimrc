@@ -485,9 +485,6 @@ let g:clang_snippets = 1  " complete with arguments
 let g:clang_snippets_engine = 'clang_complete'
 
 """ Ruby
-" let g:rubycomplete_buffer_loading = 1
-" let g:rubycomplete_classes_in_global = 1
-" let g:rubycomplete_rails = 1
 let g:ruby_indent_block_style = 'do'
 let g:ruby_indent_assignment_style = 'variable'
 
@@ -500,15 +497,6 @@ let g:jedi#usages_command = "<localleader>n"
 let g:jedi#completions_command = "<C-X><C-O>"
 let g:jedi#rename_command = "<localleader>r"
 let g:jedi#show_call_signatures = 0
-
-""" Haskell-Mode
-let g:haddock_browser = "open"
-let g:haddock_browser_callformat = "%s %s"
-let g:haddock_indexfiledir = "$HOME/.vim/"
-
-""" Typescript
-let g:tsuquyomi_disable_default_mappings = 1
-let g:tsuquyomi_disable_quickfix = 1
 
 " Find and load local .vimrc -------------------------------------------------
 
