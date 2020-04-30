@@ -435,6 +435,7 @@ set omnifunc=ale#completion#OmniFunc
 
 let g:ale_linters = {
 \ 'python': ['pyls', 'mypy'],
+\ 'typescript': ['tsserver', 'eslint'],
 \}
 
 let g:ale_fixers = {
