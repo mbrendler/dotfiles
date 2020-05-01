@@ -267,8 +267,8 @@ nnoremap <Leader>ee :e %<CR>
 
 nnoremap <Leader>l :call ToggleLocations()<cr>
 nnoremap <Leader>L :lclose<CR>
-nnoremap <Leader>k :call ToggleQuickfix()<cr>
-nnoremap <Leader>K :cclose<CR>
+nnoremap <Leader>q :call ToggleQuickfix()<cr>
+nnoremap <Leader>Q :cclose<CR>
 
 nnoremap <F6> :cprevious<cr>
 nnoremap <F7> :cnext<cr>
