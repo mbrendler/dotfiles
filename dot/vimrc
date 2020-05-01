@@ -409,6 +409,7 @@ function! s:DeleteBuffer()
 endfunction
 
 """ ALE
+let g:ale_set_loclist = 1
 let g:ale_echo_msg_format = '%s [%linter%]'
 let g:ale_sign_error = 'E'
 let g:ale_sign_warning = 'W'
