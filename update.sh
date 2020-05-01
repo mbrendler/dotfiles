@@ -74,6 +74,7 @@ plugin vim tpope/vim-repeat
 plugin vim tomtom/tcomment_vim
 plugin vim vim-utils/vim-husk # Historic key bindings in command line
 plugin vim henrik/vim-indexed-search # shows the number of search matches
+plugin vim SirVer/ultisnips # snippets
 
 # Wait for background processes -----------------------------------------------
 
