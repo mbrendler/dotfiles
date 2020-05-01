@@ -336,6 +336,7 @@ inoremap <C-X><C-G> <esc>:call RelativeCompletion()<cr>
 
 inoremap <C-X><ü> <C-X><C-]>
 
+" C-_ is the same as C-7
 nnoremap <C-_> <esc>:call Tmux_select_target_pane()<cr>
 
 onoremap in( :<c-u>normal! f(vi(<cr>
