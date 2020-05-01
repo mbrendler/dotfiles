@@ -196,6 +196,14 @@ function! ToggleLocations()
   endif
 endfunction
 
+function! ToggleQuickfix()
+  if empty(filter(GetBufferList(), 'v:val =~ "Quickfix List"'))
+    copen
+  else
+    cclose
+  endif
+endfunction
+
 function! CloseHiddenBuffers()
   let visible = {}
   for t in range(1, tabpagenr('$'))
@@ -259,6 +267,8 @@ nnoremap <Leader>ee :e %<CR>
 
 nnoremap <Leader>l :call ToggleLocations()<cr>
 nnoremap <Leader>L :lclose<CR>
+nnoremap <Leader>k :call ToggleQuickfix()<cr>
+nnoremap <Leader>K :cclose<CR>
 
 nnoremap <F6> :cprevious<cr>
 nnoremap <F7> :cnext<cr>
