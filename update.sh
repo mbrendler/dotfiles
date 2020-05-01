@@ -107,16 +107,6 @@ if command -v pip3 > /dev/null 2> /dev/null ; then
     recommonmark
 fi
 
-if command -v hg > /dev/null 2> /dev/null ; then
-  readonly LOCAL_PYTHON_PACKAGES="$PREFIX/python_packages"
-  mkdir -p "$LOCAL_PYTHON_PACKAGES"
-  if test -e "$LOCAL_PYTHON_PACKAGES/crecord" ; then
-    hg -R "$LOCAL_PYTHON_PACKAGES/crecord" pull -u
-  else
-    hg clone https://bitbucket.org/edgimar/crecord "$LOCAL_PYTHON_PACKAGES/crecord"
-  fi
-fi
-
 # Initialize Vim helptags -----------------------------------------------------
 
 if command -v vim > /dev/null 2> /dev/null ; then
