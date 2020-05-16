@@ -1,5 +1,7 @@
 set spell
 
+autocmd BufWinEnter,InsertEnter,InsertLeave * match Error /^# On branch master$/
+
 if !exists("g:gitcommit_comp_count")
   let g:gitcommit_comp_count = 30
 endif
