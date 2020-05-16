@@ -451,19 +451,6 @@ endif
 let NERDTreeIgnore = ['\.pyc$', '\.orig$']
 let NERDTreeHighlightCursorline = 0
 
-let g:ctrlp_buffer_func = { 'enter': 'CtrlPMappings' }
-
-function! CtrlPMappings()
-  nnoremap <buffer> <silent> <C-@> :call <sid>DeleteBuffer()<cr>
-endfunction
-
-function! s:DeleteBuffer()
-  let path = fnamemodify(getline('.')[2:], ':p')
-  let bufn = matchstr(path, '\v\d+\ze\*No Name')
-  exec "bd" bufn ==# "" ? path : bufn
-  exec "norm \<F5>"
-endfunction
-
 """ ALE
 let g:ale_set_loclist = 1
 let g:ale_echo_msg_format = '%s [%linter%]'
