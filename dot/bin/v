@@ -61,9 +61,12 @@ def handle_arg(arg: str, nvim: Nvim):
 def main():
     tmux_pane_id = tmux_vim_pane_id()
     nvim = vim_connect(tmux_pane_id)
+    select_vim_pane = False
     for arg in sys.argv[1:]:
+        select_vim_pane = select_vim_pane or not arg.startswith('+')
         handle_arg(arg, nvim)
-    tmux_select_pane(tmux_pane_id)
+    if select_vim_pane:
+        tmux_select_pane(tmux_pane_id)
 
 
 if __name__ == '__main__':
