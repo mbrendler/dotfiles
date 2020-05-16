@@ -31,6 +31,17 @@ function! Run_file(filename)
   endif
 endfunction
 
+function! Run_file_line(filename, line)
+  if exists('b:run_command')
+    call Tmux_run_command(b:run_command)
+  elseif exists('g:run_command')
+    call Tmux_run_command(g:run_command)
+  else
+    let l:prefix = substitute(&filetype, "^.", "\\U&", "")
+    execute 'call ' . l:prefix . '_run("' . a:filename . '", ' . a:line . ')'
+  endif
+endfunction
+
 function! Run_interactive_file(filename)
   let l:prefix = substitute(&filetype, "^.", "\\U&", "")
   execute 'call ' . l:prefix . '_run_interactive("' . a:filename . '")'

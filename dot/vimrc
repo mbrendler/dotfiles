@@ -268,7 +268,6 @@ nnoremap <Leader>l :call ToggleLocations()<cr>
 nnoremap <Leader>L :lclose<CR>
 nnoremap <Leader>q :call ToggleQuickfix()<cr>
 nnoremap <Leader>Q :cclose<CR>
-
 nnoremap <F6> :cprevious<cr>
 nnoremap <F7> :cnext<cr>
 nnoremap <F8> :lprevious<cr>
@@ -283,6 +282,7 @@ let maplocalleader = "ö"
 
 nnoremap <LocalLeader>; :execute "normal! mqA;\e`q"<cr>
 nnoremap <LocalLeader>rr :call Save_buffer_if_modified()<cr>:call Run_file(expand('%'))<cr>
+nnoremap <LocalLeader>rl :call Save_buffer_if_modified()<cr>:call Run_file_line(expand('%'), line('.'))<cr>
 nnoremap <LocalLeader>ri :call Save_buffer_if_modified()<cr>:call Run_interactive_file(expand('%'))<cr>
 nnoremap <LocalLeader>f :write \| :ALEFix \| :edit \| :ALELint<cr>
 nnoremap <LocalLeader>p :ALEPreviousWrap<cr>
