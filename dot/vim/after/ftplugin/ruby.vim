@@ -1,6 +1,3 @@
-setlocal expandtab
-setlocal shiftwidth=2
-setlocal softtabstop=2
 setlocal regexpengine=1 " improves performance with highlighting ruby files
 
 function! Ruby_has_gemfile()

@@ -1,7 +1,3 @@
-setlocal expandtab
-setlocal shiftwidth=2
-setlocal softtabstop=2
-
 function! Cucumber_run(filename)
   let l:command = 'cucumber'
   if strlen(findfile('Gemfile', ';')) != 0

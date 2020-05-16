@@ -1,5 +1,3 @@
-:setlocal nospell
-
 function! Elixir_run(filename)
   let l:command = 'elixir'
   if strlen(findfile('mix.exs', ';')) != 0
