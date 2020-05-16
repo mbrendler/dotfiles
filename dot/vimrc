@@ -284,6 +284,7 @@ nnoremap <LocalLeader>; :execute "normal! mqA;\e`q"<cr>
 nnoremap <LocalLeader>rr :call Save_buffer_if_modified()<cr>:call Run_file(expand('%'))<cr>
 nnoremap <LocalLeader>rl :call Save_buffer_if_modified()<cr>:call Run_file_line(expand('%'), line('.'))<cr>
 nnoremap <LocalLeader>ri :call Save_buffer_if_modified()<cr>:call Run_interactive_file(expand('%'))<cr>
+nnoremap <LocalLeader>r. :call Save_buffer_if_modified()<cr>:call Run_last_command()<cr>
 nnoremap <LocalLeader>f :write \| :ALEFix \| :edit \| :ALELint<cr>
 nnoremap <LocalLeader>p :ALEPreviousWrap<cr>
 nnoremap <LocalLeader>n :ALENextWrap<cr>
