@@ -1,3 +1,5 @@
+setlocal suffixesadd+=.ts
+setlocal suffixesadd+=.tsx
 
 nnoremap <buffer> <LocalLeader>o :call TypeScript_toggle_test_and_impl_file()<CR>
 
