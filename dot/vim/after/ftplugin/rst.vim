@@ -19,11 +19,11 @@ setlocal suffixesadd=.rst,.md
 " ^, for subsubsections
 " ", for paragraphs
 
-nnoremap <LocalLeader>h1 :normal! yypVr#yykP<cr>
-nnoremap <LocalLeader>h2 :normal! yypVr*yykP<cr>
-nnoremap <LocalLeader>h3 :normal! yypVr=<cr>
-nnoremap <LocalLeader>h4 :normal! yypVr-<cr>
-nnoremap <LocalLeader>h5 :normal! yypVr^<cr>
-nnoremap <LocalLeader>h6 :normal! yypVr"<cr>
+nnoremap <buffer> <LocalLeader>h1 :normal! yypVr#yykP<cr>
+nnoremap <buffer> <LocalLeader>h2 :normal! yypVr*yykP<cr>
+nnoremap <buffer> <LocalLeader>h3 :normal! yypVr=<cr>
+nnoremap <buffer> <LocalLeader>h4 :normal! yypVr-<cr>
+nnoremap <buffer> <LocalLeader>h5 :normal! yypVr^<cr>
+nnoremap <buffer> <LocalLeader>h6 :normal! yypVr"<cr>
 
 onoremap ih :<c-u>execute "normal! ?.\\+\\n[#*=-^\"]\\{2,}\r:nohlsearch\r0vg_"<cr>

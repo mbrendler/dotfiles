@@ -52,4 +52,4 @@ function! Ruby_run_interactive(filename)
   call Tmux_run_command(l:command . " --require " . getcwd() . '/' . a:filename)
 endfunction
 
-nnoremap <LocalLeader>o :call Ruby_toggle_test_and_impl_file()<cr>
+nnoremap <buffer> <LocalLeader>o :call Ruby_toggle_test_and_impl_file()<cr>

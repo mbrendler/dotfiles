@@ -1,5 +1,5 @@
 
-nnoremap <LocalLeader>o :call TypeScript_toggle_test_and_impl_file()<CR>
+nnoremap <buffer> <LocalLeader>o :call TypeScript_toggle_test_and_impl_file()<CR>
 
 function! Typescript_find_test_name(filename, line)
   let l:test_name = ''
