@@ -53,7 +53,7 @@ def handle_arg(arg: str, nvim: Nvim):
             nvim.command_output('cgetfile ' + fd.name)
             nvim.command('copen')
     elif arg[0] == '+':
-        nvim.command_output(arg[1:])
+        print(nvim.command_output(arg[1:]))
     else:
         vim_open_file(arg, nvim)
 
