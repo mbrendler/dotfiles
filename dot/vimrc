@@ -248,7 +248,7 @@ nnoremap <Leader>t :CtrlP<CR>
 nnoremap <Leader>T :CtrlPTag<CR>
 nnoremap <Leader>p :call ctrlp#paste#start()<CR>
 nnoremap <Leader>r :call RenameFile()<CR>
-nnoremap <Leader># :CtrlPFindAlternatives<cr>
+nnoremap <Leader># :call ctrlp#find_alternatives#start(expand("%"))<cr>
 nnoremap <Leader>' :rightbelow vsplit #<CR>
 
 nnoremap <Leader>cc :call ChangeWord('ToCamelCaseLower')<CR>
@@ -372,8 +372,6 @@ command! Wq wq
 command! Now :normal a<C-R>=strftime('%Y-%m-%dT%H:%M')<CR><Esc>
 command! Today :normal a<C-R>=strftime('%Y-%m-%d')<CR><Esc>
 
-command! CtrlPFindAlternatives call ctrlp#find_alternatives#start(expand("%"))
-
 command! -nargs=+ -complete=shellcmd Rtfm :call Rtfm("<args>")
 
 " Status line ----------------------------------------------------------------
@@ -452,7 +450,6 @@ endif
 let NERDTreeIgnore = ['\.pyc$', '\.orig$']
 let NERDTreeHighlightCursorline = 0
 
-let g:ctrlp_extensions = ['find_alternatives']
 let g:ctrlp_buffer_func = { 'enter': 'CtrlPMappings' }
 
 function! CtrlPMappings()
