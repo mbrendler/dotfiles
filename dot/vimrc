@@ -247,6 +247,7 @@ nnoremap <Leader>ü :NERDTreeClose<CR>:TagbarToggle<CR>
 nnoremap <Leader>b :CtrlPBuffer<CR>
 nnoremap <Leader>t :CtrlP<CR>
 nnoremap <Leader>T :CtrlPTag<CR>
+nnoremap <Leader>p :call ctrlp#paste#start()<CR>
 nnoremap <Leader>r :call RenameFile()<CR>
 nnoremap <Leader># :CtrlPFindAlternatives<cr>
 nnoremap <Leader>' :rightbelow vsplit #<CR>
