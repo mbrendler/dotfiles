@@ -28,12 +28,12 @@ endif
 augroup ModeDetection
   autocmd!
   autocmd InsertEnter *
-    \ hi StatusLine guibg=#bb1111 ctermfg=25 ctermbg=238 |
-    \ hi CursorLine guibg=#c9d9e9 ctermbg=52 |
+    \ hi StatusLine guibg=#bb1111 ctermfg=75 ctermbg=238 |
+    \ hi CursorLine guibg=#c9d9e9 ctermbg=52  ctermfg=252 |
     \ hi CursorColumn guibg=#c9d9e9 ctermbg=52
   autocmd InsertLeave *
     \ hi StatusLine guifg=white guibg=#8090a0 gui=bold,italic ctermfg=231 ctermbg=25 cterm=bold,italic |
-    \ hi CursorLine guibg=#f6f6f6 cterm=none ctermbg=231 |
+    \ hi CursorLine guibg=#f6f6f6 cterm=none ctermbg=231 ctermfg=none |
     \ hi CursorColumn guibg=#eaeaea cterm=none ctermbg=252
 augroup END
 
