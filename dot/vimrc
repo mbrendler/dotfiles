@@ -179,15 +179,13 @@ function! VisualSelection()
   endtry
 endfunction
 
-function! GetBufferList()
-  redir =>buflist
-  silent! ls
-  redir END
-  return split(buflist, '\n')
+function! QuickFixBuffersOfTab()
+  return filter(tabpagebuflist(), {i, buf -> getbufvar(buf, '&filetype') == 'qf'})
 endfunction
 
 function! ToggleLocations()
-  if empty(filter(GetBufferList(), 'v:val =~ "Location List"'))
+  cclose
+  if empty(QuickFixBuffersOfTab())
     ALELint
     lopen
   else
@@ -196,7 +194,8 @@ function! ToggleLocations()
 endfunction
 
 function! ToggleQuickfix()
-  if empty(filter(GetBufferList(), 'v:val =~ "Quickfix List"'))
+  lclose
+  if empty(QuickFixBuffersOfTab())
     copen
   else
     cclose
