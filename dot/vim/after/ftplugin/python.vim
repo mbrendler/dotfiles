@@ -2,18 +2,18 @@ setlocal expandtab
 setlocal shiftwidth=4
 setlocal softtabstop=4
 
-function! Python_run(filename)
+function! Run_python_file(filename)
   let l:command = 'python3'
-  if strlen(findfile('Pipfile', ';')) != 0
+  if !empty(findfile('Pipfile', ';'))
     let l:command = 'pipenv run ' . l:command
   endif
-  call Tmux_run_command(l:command . ' ' . a:filename)
+  call Run_run(l:command . ' ' . a:filename, 1)
 endfunction
 
-function! Python_run_interactive(filename)
+function! Run_python_file_interactve(filename)
   let l:command = 'python3'
-  if strlen(findfile('Pipfile', ';')) != 0
+  if !empty(findfile('Pipfile', ';'))
     let l:command = 'pipenv run ' . l:command
   endif
-  call Tmux_run_command(l:command . ' -i ' . a:filename)
+  call Run_run(l:command . ' -i ' . a:filename, 0)
 endfunction

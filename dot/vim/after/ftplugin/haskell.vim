@@ -1,4 +1,4 @@
-function! Haskell_run(filename)
+function! Run_haskell(filename)
   let l:command = 'runhaskell'
-  call Tmux_run_command(l:command . ' ' . a:filename)
+  call Run_run(l:command . ' ' . a:filename, 1)
 endfunction

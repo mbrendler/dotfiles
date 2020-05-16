@@ -1,15 +1,15 @@
-function! Elixir_run(filename)
+function! Run_elixir_file(filename)
   let l:command = 'elixir'
-  if strlen(findfile('mix.exs', ';')) != 0
+  if !empty(findfile('mix.exs', ';'))
     let l:command = 'mix run'
   endif
-  call Tmux_run_command(l:command . ' ' . a:filename)
+  call Run_run(l:command . ' ' . a:filename, 1)
 endfunction
 
-function! Elixir_run_interactive(filename)
-  if strlen(findfile('mix.exs', ';')) != 0
-    call Tmux_run_command('iex -S mix')
+function! Run_elixir_file_interactive(filename)
+  if !empty(findfile('mix.exs', ';'))
+    call Run_run('iex -S mix', 0)
   else
-    call Tmux_run_command('iex ' . a:filename)
+    call Run_run('iex ' . a:filename, 0)
   endif
 endfunction

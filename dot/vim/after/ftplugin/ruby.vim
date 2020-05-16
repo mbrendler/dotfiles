@@ -24,7 +24,7 @@ EOF
   return l:test_name
 endfunction
 
-function! Ruby_run(filename, ...)
+function! Run_ruby_file(filename, ...)
   let l:command = 'ruby'
   let l:filename = shellescape(a:filename)
   if a:filename =~ '_spec.rb$'
@@ -41,15 +41,15 @@ function! Ruby_run(filename, ...)
   if Ruby_has_gemfile()
     let l:command = 'bundle exec ' . l:command
   endif
-  call Tmux_run_command(l:command . ' ' . l:filename)
+  call Run_run(l:command . ' ' . l:filename, 1)
 endfunction
 
-function! Ruby_run_interactive(filename)
+function! Run_ruby_file_interactive(filename)
   let l:command = 'pry'
   " if strlen(findfile('Gemfile', ';')) != 0
   "   let l:command = 'bundle exec ' . l:command
   " endif
-  call Tmux_run_command(l:command . " --require " . getcwd() . '/' . a:filename)
+  call Run_run(l:command . " --require " . getcwd() . '/' . a:filename, 0)
 endfunction
 
 nnoremap <buffer> <LocalLeader>o :call Ruby_toggle_test_and_impl_file()<cr>

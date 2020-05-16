@@ -1,7 +1,7 @@
-function! Cucumber_run(filename)
+function! Run_cucumber_file(filename)
   let l:command = 'cucumber'
-  if strlen(findfile('Gemfile', ';')) != 0
+  if !empty(findfile('Gemfile', ';'))
     let l:command = 'bundle exec ' . l:command
   endif
-  call Tmux_run_command(l:command . ' ' . a:filename)
+  call Run_run(l:command . ' ' . a:filename, 1)
 endfunction

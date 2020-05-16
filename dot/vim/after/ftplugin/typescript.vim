@@ -34,14 +34,14 @@ EOF
   return l:test_name
 endfunction
 
-function! Typescript_run(filename, ...)
+function! Run_typescript_file(filename, ...)
   if a:filename =~ '.test.tsx\?$'
     let l:command = 'yarn jest'
     if a:0 > 0
       let l:test_name = shellescape(Typescript_find_test_name(a:filename, a:1))
       let l:command = 'yarn jest -t ' . test_name
     endif
-    call Tmux_run_command(l:command . ' ' . shellescape(a:filename))
+    call Run_run(l:command . ' ' . shellescape(a:filename), 1)
   else
     echom "Cannot run " . a:filename
   endif
