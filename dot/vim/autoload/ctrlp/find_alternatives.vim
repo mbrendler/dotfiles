@@ -53,7 +53,7 @@ function! ctrlp#find_alternatives#find(search_filename)
   if exists('g:ctrlp_find_alternatives_endings')
     let endings = g:ctrlp_find_alternatives_endings
   else
-    let endings = ['_test', '_spec']
+    let endings = ['_test', '_spec', '.test', '.spec']
   endif
   let filename = fnamemodify(a:search_filename, ':t')
   let extension = fnamemodify(a:search_filename, ':e')
