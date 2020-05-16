@@ -65,7 +65,6 @@ plugin vim Rip-Rip/clang_complete
 plugin vim davidhalter/jedi-vim
 plugin vim elixir-lang/vim-elixir
 plugin vim tpope/vim-endwise # automatically close code blocks in ruby
-plugin vim vim-ruby/vim-ruby
 
 ### editing
 plugin vim Raimondi/delimitMate # Automatic closing of quotes, parentheses, ...
