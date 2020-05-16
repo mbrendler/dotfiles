@@ -314,7 +314,7 @@ nnoremap K :call Rtfm(expand("<cword>"))<CR>
 vnoremap K :call Rtfm(VisualSelection())<CR>
 
 let g:no_man_maps = 1
-autocmd BufEnter * if &readonly | nnoremap <buffer> q :q<cr> | endif
+autocmd BufEnter * if &readonly | nnoremap <buffer> q :bd<cr> | endif
 
 """ Vim-Tmux-Navigator mappings
 let g:tmux_navigator_no_mappings = 0
