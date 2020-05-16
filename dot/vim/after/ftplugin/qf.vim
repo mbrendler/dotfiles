@@ -1,0 +1,2 @@
+
+nnoremap q :bd<cr>
