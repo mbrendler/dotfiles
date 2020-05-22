@@ -259,10 +259,7 @@ nnoremap <Leader>cs :call ChangeWord('ToSnakeCaseLower')<CR>
 nnoremap <Leader>cS :call ChangeWord('ToSnakeCaseUpper')<CR>
 nnoremap <Leader>cm :call ChangeWord('ToMinusCase')<CR>
 
-nnoremap <Leader>ev :split $MYVIMRC<CR>
-nnoremap <Leader>sv :source $MYVIMRC<CR>
 nnoremap <Leader>ef :execute "split " . $FT_DIR . &filetype . ".vim"<CR>
-nnoremap <Leader>sf :execute "source " . $FT_DIR . &filetype . ".vim"<CR>
 nnoremap <Leader>es :execute "split $HOME/.vim/snippets/" . &filetype . ".snippets"<CR>
 nnoremap <Leader>ee :e %<CR>
 
@@ -289,8 +286,6 @@ nnoremap <LocalLeader>ri :call Save_buffer_if_modified()<cr>:call Run_interactiv
 nnoremap <LocalLeader>r. :call Save_buffer_if_modified()<cr>:call Run_last_command()<cr>
 nnoremap <LocalLeader>rh :call ctrlp#run#start()<CR>
 nnoremap <LocalLeader>f :write \| :ALEFix \| :edit \| :ALELint<cr>
-nnoremap <LocalLeader>p :ALEPreviousWrap<cr>
-nnoremap <LocalLeader>n :ALENextWrap<cr>
 
 """ Split line (sister to [J]oin lines)
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
@@ -318,7 +313,7 @@ nnoremap K :call Rtfm(expand("<cword>"))<CR>
 vnoremap K :call Rtfm(VisualSelection())<CR>
 
 let g:no_man_maps = 1
-autocmd BufEnter * if &readonly | nnoremap <buffer> q :bd<cr> | endif
+autocmd BufEnter * if &readonly | nnoremap <buffer> q :q<cr> | endif
 
 """ Vim-Tmux-Navigator mappings
 let g:tmux_navigator_no_mappings = 0
