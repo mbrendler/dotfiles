@@ -188,7 +188,6 @@ endfunction
 function! ToggleLocations()
   cclose
   if empty(QuickFixBuffersOfTab())
-    ALELint
     lopen
   else
     lclose
@@ -231,7 +230,8 @@ augroup filetypedetect
 
   autocmd BufRead,BufNewFile Jenkinsfile set syntax=groovy
 
-  autocmd BufRead,BufNewFile *.tsx set filetype=typescript
+  autocmd BufRead,BufNewFile *.tsx set syntax=typescript
+  autocmd BufRead,BufNewFile *.jsx set syntax=javascript
 
   " Add html FileType for djangohtml files, to activate some html specific
   " plugins, like SnipeMate-Completion on htmldjango files.
@@ -285,7 +285,14 @@ nnoremap <LocalLeader>rl :call Save_buffer_if_modified()<cr>:call Run_file_line(
 nnoremap <LocalLeader>ri :call Save_buffer_if_modified()<cr>:call Run_interactive_file(expand('%'))<cr>
 nnoremap <LocalLeader>r. :call Save_buffer_if_modified()<cr>:call Run_last_command()<cr>
 nnoremap <LocalLeader>rh :call ctrlp#run#start()<CR>
-nnoremap <LocalLeader>f :write \| :ALEFix \| :edit \| :ALELint<cr>
+nnoremap <LocalLeader>f :call CocAction("format") \| :w<cr>
+nnoremap <LocalLeader>gD <Plug>(coc-definition)
+nnoremap <LocalLeader>gT <Plug>(coc-type-definition)
+nnoremap <LocalLeader>gI <Plug>(coc-implementation)
+nnoremap <LocalLeader>gR <Plug>(coc-references)
+nnoremap <LocalLeader>ö :call CocActionAsync('showSignatureHelp')<cr>
+nnoremap <LocalLeader>h :call CocAction('doHover')<cr>
+
 
 """ Split line (sister to [J]oin lines)
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
@@ -302,7 +309,7 @@ nnoremap k gk
 nnoremap ü ]
 nnoremap ä [
 " nnoremap Ü <C-]>
-nnoremap Ü :ALEGoToDefinition<cr>
+" nnoremap Ü :ALEGoToDefinition<cr>
 nnoremap gö g]
 vnoremap gö g]
 
@@ -378,14 +385,18 @@ command! -nargs=+ -complete=shellcmd Rtfm :call Rtfm("<args>")
 highlight User1 ctermfg=7 ctermbg=1 cterm=italic,bold
 
 function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-    if l:counts.total == 0
-      return ""
-    else
-      let l:all_errors = l:counts.error + l:counts.style_error
-      let l:all_non_errors = l:counts.total - l:all_errors
-      return printf(' W:%d,E:%d ', all_non_errors, all_errors)
-    end
+  let l:info = get(b:, 'coc_diagnostic_info', {})
+  let l:result = []
+  for l:key in ['error', 'warning', 'information', 'hint']
+    let l:count = get(l:info, l:key, 0)
+    if l:count > 0
+      call add(l:result, printf('%s:%d', toupper(l:key[0]), l:count))
+    endif
+  endfor
+  if empty(l:result)
+    return ""
+  endif
+  return ' ' . join(l:result, ',') . ' '
 endfunction
 
 set statusline=%<%f\ %h%m%r\ %1*%{LinterStatus()}%*\ %{tagbar#currenttag('%s','','f')}%=%-14.(%l,%c%V%)\ %P
@@ -449,6 +460,19 @@ endif
 let NERDTreeIgnore = ['\.pyc$', '\.orig$']
 let NERDTreeHighlightCursorline = 0
 
+""" CoC
+
+highlight CocErrorSign ctermbg=1 ctermfg=7
+highlight CocWarningSign ctermbg=3 ctermfg=0
+highlight CocInfoSign ctermbg=4 ctermfg=0
+highlight CocHintSign ctermbg=4 ctermfg=0
+highlight default CocErrorHighlight ctermbg=12
+highlight default CocWarningHighlight ctermbg=12
+highlight default CocInfoHighlight ctermbg=12
+highlight default CocHintHighlight ctermbg=12
+
+inoremap <silent><expr> <C-x><C-o> coc#refresh()
+
 """ ALE
 let g:ale_set_loclist = 1
 let g:ale_echo_msg_format = '%s [%linter%]'
@@ -463,7 +487,7 @@ let g:ale_completion_tsserver_autoimport = 1
 " let g:ale_python_mypy_use_global = 1
 " let g:ale_python_mypy_options = '--no-incremental'
 
-set omnifunc=ale#completion#OmniFunc
+" set omnifunc=ale#completion#OmniFunc
 
 let g:ale_linters = {
 \ 'python': ['pyls', 'mypy'],

@@ -59,7 +59,7 @@ plugin vim ctrlpvim/ctrlp.vim
 plugin vim christoomey/vim-tmux-navigator
 
 ### programming languages
-plugin vim w0rp/ale
+plugin vim neoclide/coc.nvim
 plugin vim majutsushi/tagbar
 plugin vim Rip-Rip/clang_complete
 plugin vim davidhalter/jedi-vim

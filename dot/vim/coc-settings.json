@@ -1,0 +1,72 @@
+{
+  "suggest.autoTrigger": "none",
+  "diagnostic.messageTarget": "echo",
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.errorSign": "E",
+  "diagnostic.warningSign": "W",
+  "diagnostic.infoSign": "I",
+  "diagnostic.hintSign": "H",
+
+  "diagnostic-languageserver.filetypes": {
+    "bash": "shellcheck",
+    "ruby": ["ruby", "rubocop"],
+    "sh": "shellcheck",
+    "zsh": "shellcheck"
+  },
+  "diagnostic-languageserver.formatFiletypes": {
+    "ruby": "rbprettier"
+  },
+
+  "diagnostic-languageserver.linters": {
+    "rubocop": {
+      "command": "rubocop",
+      "debounce": 100,
+      "args": [
+        "--display-style-guide",
+        "--format",
+        "json",
+        "--stdin",
+        "%filepath"
+      ],
+      "sourceName": "rubocop",
+      "parseJson": {
+        "errorsRoot": "files[0].offenses",
+        "line": "location.line",
+        "column": "location.column",
+        "message": "[${cop_name}] ${message}",
+        "security": "severity"
+      },
+      "securities": {
+        "fatal": "error",
+        "error": "error",
+        "warning": "warning",
+        "convention": "info",
+        "refactor": "hint"
+      }
+    },
+    "ruby": {
+      "command": "ruby",
+      "debounce": 100,
+      "args": ["-c"],
+      "isStderr": true,
+      "isStdout": false,
+      "sourceName": "ruby",
+      "formatLines": 1,
+      "formatPattern": [
+        "^-:([0-9]+): (.*)$",
+        {
+          "line": 1,
+          "message": 2
+        }
+    ]}
+  },
+  "diagnostic-languageserver.formatters": {
+    "rbprettier": {
+      "command": "rbprettier",
+      "args": [
+        "--stdin-filepath",
+        "%filepath"
+      ]
+    }
+  }
+}
