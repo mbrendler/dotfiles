@@ -47,22 +47,26 @@ function! Run_last_command()
   endif
 endfunction
 
+function Run_get_filetype()
+  return substitute(&filetype, 'react$', '', '')
+endfunction
+
 function! Run_file(filename)
   if exists('b:run_command')
     call Tmux_run_command(b:run_command)
   elseif exists('g:run_command')
     call Tmux_run_command(g:run_command)
   else
-    execute 'call Run_' . &filetype . '_file("' . a:filename . '")'
+    execute 'call Run_' . Run_get_filetype() . '_file("' . a:filename . '")'
   endif
 endfunction
 
 function! Run_file_line(filename, line)
-  execute 'call Run_' . &filetype . '_file("' . a:filename . '", ' . a:line . ')'
+  execute 'call Run_' . Run_get_filetype() . '_file("' . a:filename . '", ' . a:line . ')'
 endfunction
 
 function! Run_interactive_file(filename)
-  execute 'call Run_' . &filetype . '_interactive("' . a:filename . '")'
+  execute 'call Run_' . Run_get_filetype() . '_interactive("' . a:filename . '")'
   call Tmux_select_target_pane()
 endfunction
 
