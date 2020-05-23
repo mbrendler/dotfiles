@@ -5,6 +5,43 @@ setlocal suffixesadd+=.js
 setlocal path+=./node_modules
 
 nnoremap <buffer> <LocalLeader>o :call TypeScript_toggle_test_and_impl_file()<CR>
+nnoremap <buffer> <LocalLeader>gs :execute ':edit ' . TypeScript_style_file()<CR>
+nnoremap <buffer> <LocalLeader>gS :execute ':edit ' . TypeScript_story_file()<CR>
+nnoremap <buffer> <LocalLeader>gt :execute ':edit ' . TypeScript_test_file()<CR>
+nnoremap <buffer> <LocalLeader>gi :execute ':edit ' . TypeScript_implementation_file()<CR>
+
+function! Typescript_base_filename()
+  return expand('%:r:r')
+endfunction
+
+function! Typescript_find_file(filename)
+  let l:suffixes = split(&suffixesadd, ',')
+  for l:suffix in l:suffixes
+    if filereadable(a:filename . l:suffix)
+      return a:filename . l:suffix
+    endif
+  endif
+  let l:current_extension = expand('%:e')
+  return a:filename . '.' . l:current_extension
+endfunction
+
+
+function! TypeScript_style_file()
+  let l:directory = expand('%:h')
+  return l:directory . '/styles.tsx'
+endfunction
+
+function! TypeScript_story_file()
+  return Typescript_find_file(Typescript_base_filename() . '.stories')
+endfunction
+
+function! TypeScript_test_file()
+  return Typescript_find_file(Typescript_base_filename() . '.test')
+endfunction
+
+function! TypeScript_implementation_file()
+  return Typescript_find_file(Typescript_base_filename())
+endfunction
 
 function! Typescript_find_test_name(filename, line)
   let l:test_name = ''
