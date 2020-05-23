@@ -1,5 +1,8 @@
-setlocal suffixesadd+=.ts
 setlocal suffixesadd+=.tsx
+setlocal suffixesadd+=.ts
+setlocal suffixesadd+=.jsx
+setlocal suffixesadd+=.js
+setlocal path+=./node_modules
 
 nnoremap <buffer> <LocalLeader>o :call TypeScript_toggle_test_and_impl_file()<CR>
 
