@@ -1,1 +1,3 @@
-source /Users/maik/.usr/dotfiles/dot/vim/after/ftplugin/typescript.vim
+source $VIMHOME/after/ftplugin/typescript.vim
+
+setlocal syntax=typescript
