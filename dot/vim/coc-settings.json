@@ -10,8 +10,7 @@
   "diagnostic-languageserver.filetypes": {
     "bash": "shellcheck",
     "ruby": ["ruby", "rubocop"],
-    "sh": "shellcheck",
-    "zsh": "shellcheck"
+    "sh": "shellcheck"
   },
   "diagnostic-languageserver.formatFiletypes": {
     "ruby": "rbprettier"
