@@ -1,0 +1,29 @@
+global !p
+def camelize(snake):
+  return snake.title().replace("_", "")
+endglobal
+
+snippet class
+class `!p snip.rv = camelize(snip.basename)`
+  def initialize($1)
+  end
+end
+endsnippet
+
+snippet module
+module `!p snip.rv = camelize(snip.basename)`
+  class << self
+    $1
+  end
+end
+endsnippet
+
+snippet Struct
+`!p snip.rv = camelize(snip.basename)` = Struct.new($1)
+endsnippet
+
+snippet desc
+describe `!p snip.rv = camelize(snip.basename.replace('_spec', ''))` do
+  subject(:`!p snip.rv = snip.basename.split('_')[-2]`) { described_class.new($1) }
+end
+endsnippet
