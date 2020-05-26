@@ -1,11 +1,19 @@
 {
   "suggest.autoTrigger": "none",
+
   "diagnostic.messageTarget": "echo",
   "diagnostic.checkCurrentLine": true,
   "diagnostic.errorSign": "E",
   "diagnostic.warningSign": "W",
   "diagnostic.infoSign": "I",
   "diagnostic.hintSign": "H",
+
+  "list.insertMappings": {
+    "<C-t>": "action:tabe"
+  },
+  "list.normalMappings": {
+    "<C-t>": "action:tabe"
+  },
 
   "diagnostic-languageserver.filetypes": {
     "bash": "shellcheck",
