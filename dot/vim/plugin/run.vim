@@ -70,8 +70,8 @@ function! Run_interactive_file(filename)
   call Tmux_select_target_pane()
 endfunction
 
-function Run_run(command, add_to_hostory)
-  if a:add_to_hostory
+function Run_run(command, add_to_history)
+  if a:add_to_history
     call Run_add_to_history(a:command)
   endif
   call Tmux_run_command(a:command)
