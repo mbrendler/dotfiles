@@ -15,6 +15,10 @@
     "<C-t>": "action:tabe"
   },
 
+  "solargraph.symbols": true,
+  "solargraph.definitions": true,
+  "solargraph.references": true,
+
   "diagnostic-languageserver.filetypes": {
     "bash": "shellcheck",
     "ruby": ["ruby", "rubocop"],
