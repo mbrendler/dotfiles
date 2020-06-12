@@ -1,4 +1,4 @@
-set spell
+setlocal spell
 
 autocmd BufWinEnter,InsertEnter,InsertLeave * match Error /^# On branch master$/
 
