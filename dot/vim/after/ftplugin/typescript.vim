@@ -71,7 +71,7 @@ ruby <<EOF
   Vim.command("let l:test_name = '#{last}'")
 EOF
 
-  return l:test_name
+  return escape(l:test_name, '?+*\^$.|{}[]()')
 endfunction
 
 function! Run_typescript_file(filename, ...)
