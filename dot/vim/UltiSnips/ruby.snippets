@@ -1,6 +1,10 @@
 global !p
 def camelize(snake):
   return snake.title().replace("_", "")
+
+def make_executable():
+  import os
+  os.system('chmod +x ' + vim.eval("expand('%')"))
 endglobal
 
 snippet class
@@ -26,4 +30,8 @@ snippet desc
 describe `!p snip.rv = camelize(snip.basename.replace('_spec', ''))` do
   subject(:`!p snip.rv = snip.basename.split('_')[-2]`) { described_class.new($1) }
 end
+endsnippet
+
+snippet #!
+#! /usr/bin/env ruby`!p make_executable()`
 endsnippet
