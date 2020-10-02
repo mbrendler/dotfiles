@@ -26,8 +26,8 @@ snippet Struct
 `!p snip.rv = camelize(snip.basename)` = Struct.new($1)
 endsnippet
 
-snippet desc
-describe `!p snip.rv = camelize(snip.basename.replace('_spec', ''))` do
+snippet rspec
+RSpec.describe `!p snip.rv = camelize(snip.basename.replace('_spec', ''))` do
   subject(:`!p snip.rv = snip.basename.split('_')[-2]`) { described_class.new($1) }
 end
 endsnippet
