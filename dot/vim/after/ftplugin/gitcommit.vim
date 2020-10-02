@@ -10,10 +10,24 @@ function! gitcommit#omnifunction(findstart, base)
   if a:findstart
     return 0
   else
-    let l:msg_str = system("git log --oneline --pretty=format:%s | head -n " . g:gitcommit_comp_count)
-    let l:msgs = split(l:msg_str, "\n", 0)
-    return filter(l:msgs, 'v:val =~ "^' . a:base . '"')
+    let l:completions = gitcommit#last_commitmessages(g:gitcommit_comp_count)
+    let l:branch = gitcommit#current_branch()
+    if l:branch != 'master'
+      let l:branch = tr(l:branch, '-', ' ')
+      let l:branch = substitute(l:branch, '^.', '\u&', '')
+      let l:completions = insert(l:completions, l:branch)
+    end
+    return filter(l:completions, 'v:val =~ "^' . a:base . '"')
   end
+endfunction
+
+function! gitcommit#last_commitmessages(count)
+    let l:msg_str = system("git log --oneline --pretty=format:%s | head -n " . a:count)
+    return split(l:msg_str, "\n", 0)
+endfunction
+
+function! gitcommit#current_branch()
+  return trim(system("git rev-parse --abbrev-ref HEAD"))
 endfunction
 
 setlocal omnifunc=gitcommit#omnifunction
