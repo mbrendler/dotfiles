@@ -188,7 +188,8 @@ endfunction
 function! ToggleLocations()
   cclose
   if empty(QuickFixBuffersOfTab())
-    lopen
+    CocDiagnostics
+    " lopen
   else
     lclose
   endif
@@ -283,12 +284,13 @@ nnoremap <LocalLeader>ri :call Save_buffer_if_modified()<cr>:call Run_interactiv
 nnoremap <LocalLeader>r. :call Save_buffer_if_modified()<cr>:call Run_last_command()<cr>
 nnoremap <LocalLeader>rh :call ctrlp#run#start()<CR>
 nnoremap <LocalLeader>f :call CocAction("format") \| :w<cr>
-nnoremap <LocalLeader>gD <Plug>(coc-definition)
-nnoremap <LocalLeader>gT <Plug>(coc-type-definition)
-nnoremap <LocalLeader>gI <Plug>(coc-implementation)
-nnoremap <LocalLeader>gR <Plug>(coc-references)
+nmap <LocalLeader>gD <Plug>(coc-definition)
+nmap <LocalLeader>gT <Plug>(coc-type-definition)
+nmap <LocalLeader>gI <Plug>(coc-implementation)
+nmap <LocalLeader>gR <Plug>(coc-references)
 nnoremap <LocalLeader>ö :call CocActionAsync('showSignatureHelp')<cr>
 nnoremap <LocalLeader>h :call CocAction('doHover')<cr>
+nnoremap <LocalLeader>a :CocAction codeaction<CR>
 
 
 """ Split line (sister to [J]oin lines)
@@ -458,6 +460,15 @@ let NERDTreeIgnore = ['\.pyc$', '\.orig$']
 let NERDTreeHighlightCursorline = 0
 
 """ CoC
+
+let g:coc_global_extensions = [
+\ 'coc-diagnostic',
+\ 'coc-eslint',
+\ 'coc-json',
+\ 'coc-prettier',
+\ 'coc-solargraph',
+\ 'coc-tsserver',
+\]
 
 highlight CocErrorSign ctermbg=1 ctermfg=7
 highlight CocWarningSign ctermbg=3 ctermfg=0
