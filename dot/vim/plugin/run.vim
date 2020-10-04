@@ -66,7 +66,7 @@ function! Run_file_line(filename, line)
 endfunction
 
 function! Run_interactive_file(filename)
-  execute 'call Run_' . Run_get_filetype() . '_interactive("' . a:filename . '")'
+  execute 'call Run_' . Run_get_filetype() . '_file_interactive("' . a:filename . '")'
   call Tmux_select_target_pane()
 endfunction
 
