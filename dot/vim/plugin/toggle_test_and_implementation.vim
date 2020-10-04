@@ -55,19 +55,52 @@ endfunction
 
 " ----------------------------------------------------------------------------
 
+function! Filter_files_by_path(files, path)
+  if len(a:files) == 1
+    return a:files[0]
+  endif
+
+  if empty(a:files)
+    return ''
+  endif
+
+  let l:sep = '/'
+  let l:path = ''
+  for l:path_element in reverse(split(a:path, l:sep))
+    let l:path = l:path_element . l:sep . l:path
+    let l:filtered_files = filter(a:files, {i, file -> file =~ l:path . fnamemodify(file, ':t')})
+    if len(l:filtered_files) == 1
+      return l:filtered_files[0]
+    elseif empty(l:filtered_files)
+      return a:files[0]
+    endif
+  endfor
+  return ''
+endfunction
+
 function! Ruby_go_to_test()
   let l:base_filename = expand('%:t:r')
   let l:spec_filename = l:base_filename . '_spec.rb'
-  let l:test_file = findfile(l:spec_filename, getcwd() . '/**')
-  execute 'edit ' . l:test_file
+  let l:test_files = findfile(l:spec_filename, getcwd() . '/**', -1)
+  let l:test_file = Filter_files_by_path(l:test_files, expand('%:h'))
+  if l:test_file != ''
+    execute 'edit ' . l:test_file
+  else
+    echo 'no test file found'
+  endif
 endfunction
 
 function! Ruby_go_to_implementation()
   let l:base_filename = expand('%:t:r')
   if l:base_filename =~ '_spec$'
     let l:impl_filename = l:base_filename[:-6] . '.rb'
-    let l:impl_file = findfile(l:impl_filename, getcwd() . '/**')
-    execute 'edit ' . l:impl_file
+    let l:impl_files = findfile(l:impl_filename, getcwd() . '/**', -1)
+    let l:impl_file = Filter_files_by_path(l:impl_files, expand('%:h'))
+    if l:impl_file != ''
+      execute 'edit ' . l:impl_file
+    else
+      echo 'no impl file found'
+    endif
   endif
 endfunction
 
