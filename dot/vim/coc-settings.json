@@ -15,6 +15,8 @@
     "<C-t>": "action:tabe"
   },
 
+  "eslint.autoFix": true,
+
   "solargraph.symbols": true,
   "solargraph.definitions": true,
   "solargraph.references": true,
@@ -30,9 +32,10 @@
 
   "diagnostic-languageserver.linters": {
     "rubocop": {
-      "command": "rubocop",
+      "command": "bundle-if-possible",
       "debounce": 100,
       "args": [
+        "rubocop",
         "--display-style-guide",
         "--format",
         "json",

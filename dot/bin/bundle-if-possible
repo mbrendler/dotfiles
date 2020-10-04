@@ -1,0 +1,13 @@
+#! /bin/sh
+
+path=$PWD
+
+while [ "$path" != '/' ] ; do
+  if [ -e "$path/Gemfile" ] || [ -e "$path/gems.rb" ] ; then
+    cd "$path"
+    exec bundle exec "$@"
+  fi
+  path="$(dirname "$path")"
+done
+
+exec "$@"
