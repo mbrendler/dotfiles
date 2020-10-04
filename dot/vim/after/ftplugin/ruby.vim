@@ -53,3 +53,5 @@ function! Run_ruby_file_interactive(filename)
 endfunction
 
 nnoremap <buffer> <LocalLeader>o :call Ruby_toggle_test_and_impl_file()<cr>
+
+inoremap <silent><expr> <C-x><C-o> coc#refresh()

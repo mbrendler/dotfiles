@@ -479,7 +479,7 @@ highlight default CocWarningHighlight ctermbg=12
 highlight default CocInfoHighlight ctermbg=12
 highlight default CocHintHighlight ctermbg=12
 
-inoremap <silent><expr> <C-x><C-o> coc#refresh()
+" inoremap <expr> <TAB> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-i>"
 
 """ ALE
 let g:ale_set_loclist = 1

@@ -86,3 +86,5 @@ function! Run_typescript_file(filename, ...)
     echom "Cannot run " . a:filename
   endif
 endfunction
+
+inoremap <silent><expr> <C-x><C-o> coc#refresh()
