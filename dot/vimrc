@@ -279,10 +279,10 @@ let maplocalleader = "ö"
 
 nnoremap <LocalLeader>; :execute "normal! mqA;\e`q"<cr>
 nnoremap <LocalLeader>rr :call Save_buffer_if_modified()<cr>:call Run_file(expand('%'))<cr>
-nnoremap <LocalLeader>rl :call Save_buffer_if_modified()<cr>:call Run_file_line(expand('%'), line('.'))<cr>
+nnoremap <LocalLeader>rn :call Save_buffer_if_modified()<cr>:call Run_file_line(expand('%'), line('.'))<cr>
 nnoremap <LocalLeader>ri :call Save_buffer_if_modified()<cr>:call Run_interactive_file(expand('%'))<cr>
-nnoremap <LocalLeader>r. :call Save_buffer_if_modified()<cr>:call Run_last_command()<cr>
 nnoremap <LocalLeader>rh :call ctrlp#run#start()<CR>
+nnoremap <LocalLeader>rl :call Save_buffer_if_modified()<cr>:call Run_last_command()<cr>
 nnoremap <LocalLeader>f :call CocAction("format") \| :w<cr>
 nmap <LocalLeader>gD <Plug>(coc-definition)
 nmap <LocalLeader>gT <Plug>(coc-type-definition)
