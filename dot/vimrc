@@ -477,35 +477,6 @@ highlight default CocHintHighlight ctermbg=12
 
 " inoremap <expr> <TAB> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-i>"
 
-""" ALE
-let g:ale_set_loclist = 1
-let g:ale_echo_msg_format = '%s [%linter%]'
-let g:ale_sign_error = 'E'
-let g:ale_sign_warning = 'W'
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_enter = 0
-let g:ale_completion_enabled = 0
-let g:ale_python_auto_pipenv = 0
-let g:ale_completion_tsserver_autoimport = 1
-" let g:ale_python_mypy_auto_pipenv = 1
-" let g:ale_python_mypy_use_global = 1
-" let g:ale_python_mypy_options = '--no-incremental'
-
-" set omnifunc=ale#completion#OmniFunc
-
-let g:ale_linters = {
-\ 'python': ['pyls', 'mypy'],
-\ 'typescript': ['tsserver', 'eslint'],
-\}
-
-let g:ale_fixers = {
-\ '*': ['trim_whitespace', 'remove_trailing_lines'],
-\ 'javascript': ['eslint'],
-\ 'python': ['yapf'],
-\ 'ruby': ['ALE_extension_fixer_rbprettier'],
-\ 'typescript': ['eslint', 'prettier'],
-\}
-
 """ Neomake
 " function! NeomakeLoadFile()
 "   if filereadable('.clang_complete')
@@ -524,9 +495,6 @@ let g:ale_fixers = {
 " let g:neomake_typescript_enabled_makers = ['tsuquyomi', 'tslint']
 " let g:neomake_javascript_eslint_exe = getcwd() . '/node_modules/.bin/eslint'
 " let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
-"
-" let g:neomake_python_flake8_exe = 'python3'
-" let g:neomake_python_enabled_makers = ['flake8']
 
 """ TComment
 let g:tcomment_mapleader1 = ""
