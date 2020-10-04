@@ -49,7 +49,7 @@ else
 endif
 
 """ highlight trailing whitespace
-highlight ExtraWhitespace ctermbg=1 guibg=red
+highlight ExtraWhitespace ctermbg=1
 autocmd BufWinEnter,InsertEnter,InsertLeave * match ExtraWhitespace / \|\(\s\+$\)/
 autocmd BufWinLeave * call clearmatches()
 
@@ -230,10 +230,6 @@ augroup filetypedetect
   autocmd BufRead,BufNewFile *.h call SetCHeaderFiletype()
 
   autocmd BufRead,BufNewFile Jenkinsfile set syntax=groovy
-
-  " Add html FileType for djangohtml files, to activate some html specific
-  " plugins, like SnipeMate-Completion on htmldjango files.
-  autocmd FileType htmldjango set filetype=htmldjango.html
 augroup END
 
 " Mappings -------------------------------------------------------------------
