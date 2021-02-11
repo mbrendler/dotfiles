@@ -31,6 +31,6 @@
 	helper = pass
 	# helper = osxkeychain
 [push]
-	default = simple
+	default = current
 [pull]
 	rebase = true
