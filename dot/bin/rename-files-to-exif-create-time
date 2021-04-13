@@ -1,0 +1,45 @@
+#! /usr/bin/env bash
+
+if [ "$#" = 0 ] || [[ " $* " =~ \ (-h|--help)\  ]] ; then
+  >&2 echo "$0 DIR|FILE ..."
+  exit 1
+fi
+
+if ! command -v exiftool ; then
+  >&2 echo exiftool must be installed
+  exit 1
+fi
+
+function _exiftool() {
+  exiftool -s -s -s -d '%Y-%m-%dT%H-%M-%S' "$@"
+}
+
+function create_date_time_original() {
+  _exiftool -time:datetimeoriginal "$1"
+}
+
+function creation_date() {
+  _exiftool -time:creationdate "$1"
+}
+
+find "$@" -type f -depth 1 | while read -r filename ; do
+  time="$(create_date_time_original "$filename")"
+  if [ -z "$time" ] ; then
+    time="$(creation_date "$filename")"
+    if [ -z "$time" ] ; then
+      >&2 echo "no creation time found for '$filename'"
+      continue
+    fi
+  fi
+  extension="${filename##*.}"
+  new_filename="$(dirname "$filename")/${time}.${extension}"
+  if [ "$new_filename" = "$filename" ] ; then
+    continue
+  fi
+  if [ -e "$new_filename" ] ; then
+    >&2 echo "$new_filename does already exist"
+    continue
+  fi
+  echo mv "$filename" "$new_filename"
+  mv "$filename" "$new_filename"
+done
