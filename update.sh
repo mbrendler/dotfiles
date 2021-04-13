@@ -110,5 +110,6 @@ fi
 # Initialize Vim helptags -----------------------------------------------------
 
 if command -v vim > /dev/null 2> /dev/null ; then
+  vim +CocUpdate
   vim "+helptags ALL" +qall
 fi
