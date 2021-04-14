@@ -48,7 +48,11 @@ export LESS="QRXFPslines %lt-%lb (%Pt-%Pb\%) %f"
 
 export PYTHONSTARTUP=$HOME/.pystartup
 
-source /usr/local/opt/asdf/asdf.sh
+if [ -e /usr/local/opt/asdf/asdf.sh ] ; then
+  source /usr/local/opt/asdf/asdf.sh
+elif [ -e "$HOME/.asdf/asdf.sh" ] ; then
+  source "$HOME/.asdf/asdf.sh"
+fi
 
 # Prompt ----------------------------------------------------------------------
 
