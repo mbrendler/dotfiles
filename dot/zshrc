@@ -34,13 +34,10 @@ export LANG=en_GB.utf-8
 
 export EDITOR=vim
 
-if [ "$PLATFORM" = "Linux" ] ; then
-  export MANPAGER=less
-else
-  export MANPAGER="\
-    col -b -x | \
-    vim -R -c 'set ft=man nomod nolist laststatus=1 colorcolumn=0 nospell' -"
-fi
+export MANPAGER="sh -c \" \
+  col -b -x | \
+  vim -R -c 'set ft=man nomod nolist laststatus=1 colorcolumn=0 nospell' - \
+\""
 
 export LESS_TERMCAP_so=$'\e[7m'
 export LESS_TERMCAP_se=$'\e[27m'
