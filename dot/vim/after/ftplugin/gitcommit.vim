@@ -1,6 +1,6 @@
 setlocal spell
 
-autocmd BufWinEnter,InsertEnter,InsertLeave * match Error /^# On branch master$/
+autocmd BufWinEnter,InsertEnter,InsertLeave * match Error /^# On branch (master|main)$/
 
 if !exists("g:gitcommit_comp_count")
   let g:gitcommit_comp_count = 30
