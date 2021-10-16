@@ -17,6 +17,8 @@ def git_to_branch():
     )
     if status == 0:
         return out
+    if commands.getstatusoutput('git rev-parse --quiet --verify main')[0] == 0:
+        return 'main'
     return 'master'
 
 
