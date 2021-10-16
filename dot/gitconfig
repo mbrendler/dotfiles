@@ -12,7 +12,8 @@
 	ts = status
 	ci = commit
 	co = checkout
-	out = log --graph --decorate --oneline origin/master..HEAD
+	out = log --graph --decorate --oneline origin/main..HEAD
+	outm = log --graph --decorate --oneline origin/master..HEAD
 	branches = branch -a
 	tags = tag --list
 	kd = difftool --tool=kdiff3 --dir-diff --no-prompt
