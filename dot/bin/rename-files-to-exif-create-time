@@ -22,7 +22,7 @@ function creation_date() {
   _exiftool -time:creationdate "$1"
 }
 
-find "$@" -type f -depth 1 | while read -r filename ; do
+find "$@" -type f -not -iname '._*' -maxdepth 1 | while read -r filename ; do
   time="$(create_date_time_original "$filename")"
   if [ -z "$time" ] ; then
     time="$(creation_date "$filename")"
