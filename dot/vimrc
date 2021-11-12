@@ -401,54 +401,6 @@ set statusline=%<%f\ %h%m%r\ %1*%{LinterStatus()}%*\ %{tagbar#currenttag('%s',''
 
 set laststatus=2  " always show status line
 
-" Tab line -------------------------------------------------------------------
-
-if exists("+showtabline")
-  function! TabLine()
-    let l:tabline = ''
-    let l:active_tabnr = tabpagenr()
-    for i in range(1, tabpagenr('$'))
-      let l:buffers = tabpagebuflist(i)
-      let l:tabline .= '%' . i . 'T'
-      let l:tabline .= (i == l:active_tabnr ? '%#TabLineSel#' : '%#TabLine#')
-
-      let l:winnr = tabpagewinnr(i)
-      let l:active_bufnr = l:buffers[l:winnr - 1]
-      let l:name = ''
-      if getbufvar(l:active_bufnr, '&buftype') != 'nofile' || len(l:buffers) == 1
-        let l:name = bufname(l:active_bufnr)
-      endif
-
-      let l:modified = ''
-      for l:bufnr in l:buffers
-        if empty(l:name)
-          if getbufvar(l:bufnr, '&buftype') != 'nofile'
-            let l:name = bufname(l:bufnr)
-          endif
-        endif
-        if getbufvar(l:bufnr, "&modified")
-          let l:modified = '+'
-        endif
-      endfor
-
-      if empty(l:name)
-        let l:name = getbufvar(l:active_bufnr, '&filetype')
-        if empty(l:name)
-          let l:name = 'No Name'
-        endif
-        let l:name = '[' . l:name . ']'
-      else
-        let l:name = fnamemodify(l:name, ':p:t')
-      endif
-
-      let l:tabline .= ' ' . i . modified . ' ' . l:name . ' '
-    endfor
-    return l:tabline . '%T%#TabLineFill#%=%999XX'
-  endfunction
-
-  set tabline=%!TabLine()
-endif
-
 " Plugin Settings ------------------------------------------------------------
 
 if !exists('g:loaded_matchit')
