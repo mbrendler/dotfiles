@@ -111,6 +111,13 @@ if command -v pip3 > /dev/null 2> /dev/null ; then
     recommonmark
 fi
 
+# Install Node modules
+
+if command -v npm > /dev/null 2> /dev/null ; then
+  npm install -g neovim
+  npm update -g neovim
+fi
+
 # Initialize Vim helptags -----------------------------------------------------
 
 if command -v vim > /dev/null 2> /dev/null ; then
