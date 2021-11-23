@@ -17,10 +17,14 @@ function retry() {
 function git-plugin() {
   local src=$1
   local dst=$2
+  local branch="$3"
+  if [ -n "$branch" ] ; then
+    local branch="--branch $branch"
+  fi
   if test ! -d "$dst" ; then
     mkdir -p "$dst"
-    retry git clone "$src" "$dst" > /dev/null 2> /dev/null && \
-      echo "installed ($?) $src" || \
+    retry git clone $branch "$src" "$dst" > /dev/null 2> /dev/null && \
+      echo "installed ($?) $src ($3)" || \
       echo "install failed ($?) $1"
   else
     retry git -C "$dst" pull > /dev/null 2> /dev/null && \
@@ -33,7 +37,7 @@ function plugin() {
   local type=$1
   local dst; dst="$PREFIX/plugins/$type/$(cut -d/ -f 2 <(echo "$2"))"
   local src="https://www.github.com/$2"
-  git-plugin "$src" "$dst" &
+  git-plugin "$src" "$dst" "${3:-}" &
 }
 
 readonly PREFIX="$HOME/.usr"
@@ -59,7 +63,7 @@ plugin vim ctrlpvim/ctrlp.vim
 plugin vim christoomey/vim-tmux-navigator
 
 ### programming languages
-plugin vim neoclide/coc.nvim
+plugin vim neoclide/coc.nvim release
 plugin vim majutsushi/tagbar
 plugin vim Rip-Rip/clang_complete
 plugin vim davidhalter/jedi-vim
