@@ -16,7 +16,6 @@ typeset -U path
 path=(
   $HOME/.bin
   $HOME/.usr/bin
-  $HOME/Library/Python/3.7/bin
   /usr/local/bin
   /usr/local/sbin
   $path
