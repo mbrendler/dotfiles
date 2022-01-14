@@ -17,3 +17,5 @@ function! Run_python_file_interactve(filename)
   endif
   call Run_run(l:command . ' -i ' . a:filename, 0)
 endfunction
+
+inoremap <silent><expr> <C-x><C-o> coc#refresh()

@@ -10,9 +10,9 @@ if (!empty($TMUX_PANE)) && (!empty($NVIM_LISTEN_ADDRESS))
 endif
 
 
-if filereadable('/usr/local/bin/python3')
-  let g:python3_host_prog = '/usr/local/bin/python3'
-endif
+" if filereadable('/usr/local/bin/python3')
+"   let g:python3_host_prog = '/usr/local/bin/python3'
+" endif
 
 if strlen(findfile('Pipfile', ';')) != 0
   let g:python_venv_dir = substitute(system('pipenv --venv 2> /dev/null'), '\n\+$', '', '')
@@ -419,6 +419,7 @@ let g:coc_global_extensions = [
 \ 'coc-eslint',
 \ 'coc-json',
 \ 'coc-prettier',
+\ 'coc-pyls',
 \ 'coc-solargraph',
 \ 'coc-tsserver',
 \]
@@ -473,16 +474,6 @@ let g:clang_snippets_engine = 'clang_complete'
 """ Ruby
 let g:ruby_indent_block_style = 'do'
 let g:ruby_indent_assignment_style = 'variable'
-
-""" Python
-let g:jedi#popup_on_dot = 0
-let g:jedi#goto_assignments_command = "<localleader>g"
-let g:jedi#goto_definitions_command = "<localleader>d"
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<localleader>n"
-let g:jedi#completions_command = "<C-X><C-O>"
-let g:jedi#rename_command = "<localleader>r"
-let g:jedi#show_call_signatures = 0
 
 " Find and load local .vimrc -------------------------------------------------
 

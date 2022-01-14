@@ -66,7 +66,6 @@ plugin vim christoomey/vim-tmux-navigator
 plugin vim neoclide/coc.nvim release
 plugin vim majutsushi/tagbar
 plugin vim Rip-Rip/clang_complete
-plugin vim davidhalter/jedi-vim
 plugin vim elixir-lang/vim-elixir
 plugin vim tpope/vim-endwise # automatically close code blocks in ruby
 
@@ -84,32 +83,6 @@ plugin vim SirVer/ultisnips # snippets
 for job in $(jobs -p) ; do
   wait "$job"
 done
-
-# Update jedi-vim subrepositories ---------------------------------------------
-
-git -C "$PREFIX"/plugins/vim/jedi-vim/ submodule update --init
-
-
-# Install Python dependencies -------------------------------------------------
-
-if command -v pip3 > /dev/null 2> /dev/null ; then
-  pip3 install --user --upgrade \
-    pip \
-    neovim \
-    pynvim \
-    pygments \
-    pygments-markdown-lexer \
-    cmakelint \
-    flake8 \
-    python-language-server[flake8] \
-    python-language-server[rope] \
-    python-language-server[yapf] \
-    yapf \
-    mypy \
-    sphinx \
-    sphinx_bootstrap_theme \
-    recommonmark
-fi
 
 # Install Node modules
 
