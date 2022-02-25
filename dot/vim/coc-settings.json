@@ -23,14 +23,112 @@
 
   "diagnostic-languageserver.filetypes": {
     "bash": "shellcheck",
+    "python": ["pylint", "flake8", "mypy"],
     "ruby": ["ruby", "rubocop"],
     "sh": "shellcheck"
   },
   "diagnostic-languageserver.formatFiletypes": {
+    "python": ["black", "isort"],
     "ruby": "rbprettier"
   },
 
   "diagnostic-languageserver.linters": {
+    "flake8": {
+      "sourceName": "flake8",
+      "command": "pipenv-if-possible",
+      "debounce": 200,
+      "rootPatterns": [".git", "pyproject.toml", "setup.py"],
+      "args": [
+        "flake8",
+        "--format=%(row)d,%(col)d,%(code).1s,%(code)s: %(text)s",
+        "-"
+      ],
+      "offsetLine": 0,
+      "offsetColumn": 0,
+      "formatLines": 1,
+      "formatPattern": [
+        "(\\d+),(\\d+),([A-Z]),(.*)(\\r|\\n)*$",
+        {
+          "line": 1,
+          "column": 2,
+          "security": 3,
+          "message": 4
+        }
+      ],
+      "securities": {
+        "W": "info",
+        "E": "warning",
+        "F": "info",
+        "C": "info",
+        "N": "hint"
+      }
+    },
+    "mypy": {
+      "sourceName": "mypy",
+      "command": "pipenv-if-possible",
+      "debounce": 200,
+      "args": [
+        "mypy",
+        "--no-color-output",
+        "--no-error-summary",
+        "--show-column-numbers",
+        "--follow-imports=silent",
+        "--install-types",
+        "--non-interactive",
+        "--strict",
+        "%file"
+      ],
+      "isStderr": true,
+      "formatPattern": [
+        "^.*:(\\d+):(\\d+): ([a-z]+): (.*)$",
+        {
+          "line": 1,
+          "column": 2,
+          "security": 3,
+          "message": 4
+        }
+      ],
+      "securities": {
+        "error": "error"
+      }
+    },
+    "pylint": {
+      "sourceName": "pylint",
+      "command": "pipenv-if-possible",
+      "debounce": 200,
+      "args": [
+        "pylint",
+        "--output-format",
+        "text",
+        "--score",
+        "no",
+        "--msg-template",
+        "'{line}:{column}:{category}:{msg} ({msg_id}:{symbol})'",
+        "%file"
+      ],
+      "formatPattern": [
+        "^(\\d+?):(\\d+?):([a-z]+?):(.*)$",
+        {
+          "line": 1,
+          "column": 2,
+          "endColumn": 2,
+          "security": 3,
+          "message": 4
+        }
+      ],
+      "rootPatterns": ["pyproject.toml", "setup.py", ".git"],
+      "securities": {
+        "informational": "hint",
+        "refactor": "info",
+        "convention": "info",
+        "warning": "warning",
+        "error": "error",
+        "fatal": "error"
+      },
+      "offsetColumn": 1,
+      "offsetColumnEnd": 1,
+      "formatLines": 1
+    },
     "rubocop": {
       "command": "bundle-if-possible",
       "debounce": 100,
@@ -75,6 +173,14 @@
     ]}
   },
   "diagnostic-languageserver.formatters": {
+    "black": {
+      "command": "black",
+      "args": ["-q", "-"]
+    },
+    "isort": {
+      "command": "isort",
+      "args": ["-q", "-"]
+    },
     "rbprettier": {
       "command": "rbprettier",
       "args": [

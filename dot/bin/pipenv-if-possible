@@ -1,0 +1,13 @@
+#! /bin/sh
+
+path=$PWD
+
+while [ "$path" != '/' ] ; do
+  if [ -e "$path/Pipfile" ] ; then
+    . "$(pipenv --venv)/bin/activate"
+    exec "$@"
+  fi
+  path="$(dirname "$path")"
+done
+
+exec "$@"
