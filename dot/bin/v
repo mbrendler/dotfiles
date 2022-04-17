@@ -1,15 +1,25 @@
 #!/usr/bin/env python3
 
+import re
 import sys
 from os import environ
 from os.path import abspath
-from tempfile import NamedTemporaryFile
-import re
 from subprocess import getoutput
-from typing import Tuple, Optional
+from tempfile import NamedTemporaryFile
 
-from pynvim import attach
-from pynvim.api.nvim import Nvim
+from pynvim import attach  # type: ignore
+from pynvim.api.nvim import Nvim  # type: ignore
+
+# Add this to init.vim:
+#
+# if (!empty($TMUX_PANE)) && (!empty($NVIM_LISTEN_ADDRESS))
+#   call system("mkdir -p $HOME/.cache/nvim-sockets")
+#   call system("ln -fs $NVIM_LISTEN_ADDRESS $HOME/.cache/nvim-sockets/tmux-pane-$TMUX_PANE")
+#
+#   augroup autocom
+#     autocmd VimLeave * call system("rm $HOME/.cache/nvim-sockets/tmux-pane-$TMUX_PANE")
+#   augroup END
+# endif
 
 
 def tmux_vim_pane_id() -> str:
@@ -20,52 +30,53 @@ def tmux_vim_pane_id() -> str:
     )
 
 
-def tmux_select_pane(pane_id) -> str:
-    return getoutput('tmux select-pane -t' + pane_id)
+def tmux_select_pane(pane_id: str) -> str:
+    return getoutput(f"tmux select-pane -t{pane_id}")
 
 
 def vim_connect(tmux_pane_id: str) -> Nvim:
-    home = environ['HOME']
-    socket_file = home + '/.cache/nvim-sockets/tmux-pane-' + tmux_pane_id
-    return attach('socket', path=socket_file)
+    home = environ["HOME"]
+    socket_file = f"{home}/.cache/nvim-sockets/tmux-pane-{tmux_pane_id}"
+    return attach("socket", path=socket_file)
 
 
 def vim_open_file(filename: str, nvim: Nvim) -> Nvim:
     filename, line_number = parse_filename(filename)
-    nvim.command('edit ' + abspath(filename))
+    nvim.command(f"edit {abspath(filename)}")
     if line_number:
         nvim.command(line_number)
-        nvim.command('normal zz')
+        nvim.command("normal zz")
 
 
-def parse_filename(filename: str) -> Tuple[str, Optional[str]]:
+def parse_filename(filename: str) -> tuple[str, str | None]:
     match = re.findall("^(.+):([0-9]+)$", filename)
     if match:
-        return match[0]
+        filename, linenr = match[0]
+        return filename, linenr
     return filename, None
 
 
-def handle_arg(arg: str, nvim: Nvim):
-    if arg == 'cf':
-        with NamedTemporaryFile(mode='w') as fd:
+def handle_arg(arg: str, nvim: Nvim) -> None:
+    if arg == "cf":
+        with NamedTemporaryFile(mode="w") as fd:
             fd.write(sys.stdin.read())
             fd.flush()
-            nvim.command_output('cgetfile ' + fd.name)
-            nvim.command('copen')
-    elif arg[0] == '+':
+            nvim.command_output(f"cgetfile {fd.name}")
+            nvim.command("copen")
+    elif arg[0] == "+":
         print(nvim.command_output(arg[1:]))
     else:
         vim_open_file(arg, nvim)
 
 
-SELECT_VIM_PANE_COMMADS = ['+tabnew']
+SELECT_VIM_PANE_COMMADS = ["+tabnew"]
 
 
-def should_select_vim_pane(arg):
-    return arg in SELECT_VIM_PANE_COMMADS or not arg.startswith('+')
+def should_select_vim_pane(arg: str) -> bool:
+    return arg in SELECT_VIM_PANE_COMMADS or not arg.startswith("+")
 
 
-def main():
+def main() -> None:
     tmux_pane_id = tmux_vim_pane_id()
     nvim = vim_connect(tmux_pane_id)
     select_vim_pane = False
@@ -76,5 +87,5 @@ def main():
         tmux_select_pane(tmux_pane_id)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
