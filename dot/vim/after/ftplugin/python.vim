@@ -30,7 +30,7 @@ function! Run_python_file(filename, ...)
   let l:command = 'python3'
   let l:filename = shellescape(a:filename)
   if a:filename =~ 'test_[^/]*.py$'
-    let l:command = 'py.test -vv'
+    let l:command = 'py.test -s -vv'
     if a:0 > 0
       let l:test_name = shellescape(Python_find_test_name(a:filename, a:1))
       let l:filename = l:filename . '::' . l:test_name
