@@ -1,0 +1,62 @@
+#! /usr/bin/env python3
+
+import email
+import os
+import sys
+from email.message import Message
+from functools import cached_property
+from pathlib import Path
+
+MAIL_DIR = Path(os.environ["HOME"], "Mail")
+ACCOUNT_DIRS = [entry for entry in MAIL_DIR.iterdir() if entry.is_dir()]
+
+
+class Email:
+    @classmethod
+    def from_dir(cls, directory: Path) -> list["Email"]:
+        return [cls(entry) for entry in directory.iterdir() if entry.is_file()]
+
+    def __init__(self, filename: Path) -> None:
+        self._filename = filename
+
+    @property
+    def sender(self) -> str:
+        return self._header_value("From").split("<")[-1].split(">")[0]
+
+    @property
+    def subject(self) -> str:
+        raw_subject = self._header_value("Subject")
+        return self._decode_header(raw_subject).replace("\n", " ")
+
+    def _header_value(self, name: str) -> str:
+        return self._email.get(name, "")  # type: ignore
+
+    def _decode_header(self, value: str) -> str:
+        result: list[str] = []
+        for decoded, encoding in email.header.decode_header(value):
+            if isinstance(decoded, bytes):
+                decoded = decoded.decode(encoding or "utf-8")
+            result.append(decoded)
+        return "".join(result)
+
+    @cached_property
+    def _email(self) -> Message:
+        with open(self._filename, "rb") as fd:
+            return email.message_from_binary_file(fd)
+
+
+def main() -> None:
+    show_details = "-d" in sys.argv
+
+    for account_dir in ACCOUNT_DIRS:
+        new_emails_dir = account_dir.joinpath("INBOX/new")
+        emails = Email.from_dir(new_emails_dir)
+        if emails:
+            print(f"{account_dir.name:>5}: {len(emails)}")
+            if show_details:
+                for mail in emails:
+                    print(f"       {mail.sender}: {mail.subject}")
+
+
+if __name__ == "__main__":
+    main()

@@ -45,30 +45,13 @@ function cmd-check() {
     find "$MAIL_DIR"/*/INBOX/new -type f 2> /dev/null | wc -l
     exit 0
   fi
-  details=no
   if [ "${1-}" = '-d' ] ; then
-    details=yes
     if pgrep offlineimap > /dev/null ; then
       >&2 echo warning: offlineimap is running
     fi
   fi
 
-  for account in $ACCOUNTS ; do
-    new_mails="$(find "${MAIL_DIR}/${account}/INBOX/new" -type f)"
-    new_mails_count="$(grep -cv '^$' <<<"$new_mails" || true)"
-    if [ "$new_mails_count" -gt 0 ] ; then
-      printf '%5s: %s\n' "$account" "$new_mails_count"
-      LC_ALL=C
-      if [ "$details" = yes ] ; then
-        while read -r mail ; do
-          echo -n "       $(sed -nE 's/^From:.*<(.*)>$/\1/p' "$mail"): "
-          (
-            sed -nE 's/^Subject: *([^ ].*)$/\1/p' "$mail" || true
-          ) | decode-rfc-1342
-        done <<<"$new_mails"
-      fi
-    fi
-  done
+  post-check "$@"
 }
 
 function cmd-mutt() {
