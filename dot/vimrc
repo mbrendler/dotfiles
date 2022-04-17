@@ -407,7 +407,7 @@ if !exists('g:loaded_matchit')
   runtime macros/matchit.vim
 endif
 
-let NERDTreeIgnore = ['\.pyc$', '\.orig$']
+let NERDTreeIgnore = ['__pycache__', '\.pyc$', '\.orig$']
 let NERDTreeHighlightCursorline = 0
 
 """ CoC
