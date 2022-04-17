@@ -98,10 +98,9 @@
       "debounce": 200,
       "args": [
         "pylint",
-        "--output-format",
-        "text",
-        "--score",
-        "no",
+        "--output-format=text",
+        "--score=no",
+        "--disable=missing-function-docstring,missing-class-docstring,missing-module-docstring",
         "--msg-template",
         "'{line}:{column}:{category}:{msg} ({msg_id}:{symbol})'",
         "%file"
