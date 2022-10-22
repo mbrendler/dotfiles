@@ -1,8 +1,8 @@
 " ----------------------------------------------------------------------------
 
-if (!empty($TMUX_PANE)) && (!empty($NVIM_LISTEN_ADDRESS))
+if (!empty($TMUX_PANE)) && (!empty(v:servername))
   call system("mkdir -p $HOME/.cache/nvim-sockets")
-  call system("ln -fs $NVIM_LISTEN_ADDRESS $HOME/.cache/nvim-sockets/tmux-pane-$TMUX_PANE")
+  call system("ln -fs " . v:servername . " $HOME/.cache/nvim-sockets/tmux-pane-$TMUX_PANE")
 
   augroup autocom
     autocmd VimLeave * call system("rm $HOME/.cache/nvim-sockets/tmux-pane-$TMUX_PANE")
