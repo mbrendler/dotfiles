@@ -112,3 +112,40 @@ function! Ruby_toggle_test_and_impl_file()
     call Ruby_go_to_test()
   endif
 endfunction
+
+" ----------------------------------------------------------------------------
+
+function! Python_go_to_test()
+  let l:base_filename = expand('%:t')
+  let l:test_filename = 'test_' . l:base_filename
+  let l:test_files = findfile(l:test_filename, getcwd() . '/**', -1)
+  let l:test_file = Filter_files_by_path(l:test_files, expand('%:h'))
+  if l:test_file != ''
+    execute 'edit ' . l:test_file
+  else
+    echo 'no test file found'
+  endif
+endfunction
+
+function! Python_go_to_implementation()
+  let l:base_filename = expand('%:t')
+  if l:base_filename =~ '^test_'
+    let l:impl_filename = l:base_filename[6:]
+    let l:impl_files = findfile(l:impl_filename, getcwd() . '/**', -1)
+    let l:impl_file = Filter_files_by_path(l:impl_files, expand('%:h'))
+    if l:impl_file != ''
+      execute 'edit ' . l:impl_file
+    else
+      echo 'no impl file found'
+    endif
+  endif
+endfunction
+
+function! Python_toggle_test_and_impl_file()
+  let l:filename = expand('%:t:r')
+  if l:filename =~ 'test_'
+    call Python_go_to_implementation()
+  else
+    call Python_go_to_test()
+  endif
+endfunction
