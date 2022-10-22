@@ -10,6 +10,9 @@ nnoremap <buffer> <LocalLeader>gS :execute ':edit ' . TypeScript_story_file()<CR
 nnoremap <buffer> <LocalLeader>gt :execute ':edit ' . TypeScript_test_file()<CR>
 nnoremap <buffer> <LocalLeader>gi :execute ':edit ' . TypeScript_implementation_file()<CR>
 
+nnoremap <LocalLeader>f :call CocAction('runCommand', 'eslint.executeAutofix') \| :call CocAction("format") \| :w<cr>
+
+
 function! Typescript_base_filename()
   return expand('%:r:r')
 endfunction
@@ -76,10 +79,10 @@ endfunction
 
 function! Run_typescript_file(filename, ...)
   if a:filename =~ '.test.tsx\?$'
-    let l:command = 'yarn jest'
+    let l:command = './node_modules/.bin/jest'
     if a:0 > 0
       let l:test_name = shellescape(Typescript_find_test_name(a:filename, a:1))
-      let l:command = 'yarn jest -t ' . test_name
+      let l:command = './node_modules/.bin/jest -t ' . test_name
     endif
     call Run_run(l:command . ' ' . shellescape(a:filename), 1)
   else
