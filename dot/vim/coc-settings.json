@@ -23,7 +23,7 @@
 
   "diagnostic-languageserver.filetypes": {
     "bash": "shellcheck",
-    "python": ["pylint", "flake8", "mypy"],
+    "python": ["flake8", "mypy"],
     "ruby": ["ruby", "rubocop"],
     "sh": "shellcheck"
   },
