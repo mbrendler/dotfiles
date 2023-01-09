@@ -21,14 +21,27 @@
   "solargraph.definitions": true,
   "solargraph.references": true,
 
+  "languageserver": {
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
+      "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
+      "initializationOptions": {
+          "cache": {
+            "directory": "/tmp/ccls"
+          }
+        }
+    }
+  },
+
   "diagnostic-languageserver.filetypes": {
     "bash": "shellcheck",
-    "python": ["flake8", "mypy"],
+    "python": ["ruff", "mypy"],
     "ruby": ["ruby", "rubocop"],
     "sh": "shellcheck"
   },
   "diagnostic-languageserver.formatFiletypes": {
-    "python": ["black", "isort"],
+    "python": ["black", "ruff"],
     "ruby": "rbprettier"
   },
 
@@ -72,20 +85,20 @@
         "--no-color-output",
         "--no-error-summary",
         "--show-column-numbers",
-        "--follow-imports=silent",
-        "--install-types",
-        "--non-interactive",
+        "--show-error-end",
         "--strict",
         "%file"
       ],
       "isStderr": true,
       "formatPattern": [
-        "^.*:(\\d+):(\\d+): ([a-z]+): (.*)$",
+        "^.*:(\\d+):(\\d+):(\\d+):(\\d+): ([a-z]+): (.*)$",
         {
           "line": 1,
           "column": 2,
-          "security": 3,
-          "message": 4
+          "endLine": 3,
+          "endColumn": 4,
+          "security": 5,
+          "message": 6
         }
       ],
       "securities": {
@@ -127,6 +140,27 @@
       "offsetColumn": 1,
       "offsetColumnEnd": 1,
       "formatLines": 1
+    },
+    "ruff": {
+      "command": "pipenv-if-possible",
+      "debounce": 100,
+      "args": [
+        "ruff",
+        "--format=json",
+        "--stdin-filename",
+        "%filepath",
+        "-"
+      ],
+      "sourceName": "ruff",
+      "parseJson": {
+        "line": "location.row",
+        "column": "location.column",
+        "endLine": "end_location.row",
+        "endColumn": "end_location.column",
+        "message": "[${code}] ${message}",
+        "sourceName": "filename",
+        "sourceNameFilter": true
+      }
     },
     "rubocop": {
       "command": "bundle-if-possible",
@@ -179,6 +213,10 @@
     "isort": {
       "command": "isort",
       "args": ["-q", "-"]
+    },
+    "ruff": {
+      "command": "ruff",
+      "args": ["--fixable=I001", "--fix", "--stdin-filename", "%filepath", "-"]
     },
     "rbprettier": {
       "command": "rbprettier",

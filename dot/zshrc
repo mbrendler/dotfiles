@@ -95,7 +95,9 @@ else
 fi
 
 b() {
-  if [ -f Pipfile ] ; then
+  if [ -f poetry.lock ] ; then
+    poetry run "$@"
+  elif [ -f Pipfile ] ; then
     pipenv run "$@"
   else
     bundle exec "$@"

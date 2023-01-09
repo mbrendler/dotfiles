@@ -6,6 +6,10 @@ function! Python_has_pipfile()
   return strlen(findfile('Pipfile', ';')) != 0
 endfunction
 
+function! Python_has_poetry_lock()
+  return strlen(findfile('poetry.lock', ';')) != 0
+endfunction
+
 function! Python_find_test_name(filename, line)
   let l:test_name = ''
 
@@ -36,7 +40,9 @@ function! Run_python_file(filename, ...)
       let l:filename = l:filename . '::' . l:test_name
     endif
   endif
-  if Python_has_pipfile()
+  if Python_has_poetry_lock()
+    let l:command = 'poetry run ' . l:command
+  elseif Python_has_pipfile()
     let l:command = 'pipenv run ' . l:command
   endif
   call Run_run(l:command . ' ' . l:filename, 1)

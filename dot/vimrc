@@ -188,6 +188,17 @@ function! QuickFixBuffersOfTab()
   return filter(tabpagebuflist(), {i, buf -> getbufvar(buf, '&filetype') == 'qf'})
 endfunction
 
+function! HasQuickfixWindow()
+  let l:windows = gettabinfo(tabpagenr())[0]["windows"]
+  for l:winnr in l:windows
+    let l:wininfo = getwininfo(l:winnr)[0]
+    if l:wininfo['quickfix'] && !l:wininfo['loclist']
+      return 1
+    endif
+  endfor
+  return 0
+endfunction
+
 function! ToggleLocations()
   cclose
   if empty(QuickFixBuffersOfTab())
@@ -249,6 +260,7 @@ nnoremap <Leader>p :call ctrlp#paste#start()<CR>
 nnoremap <Leader>r :call RenameFile()<CR>
 nnoremap <Leader># :call ctrlp#find_alternatives#start(expand("%"))<cr>
 nnoremap <Leader>' :rightbelow vsplit #<CR>
+nnoremap <Leader>y :let @* = expand("%") . ":" . line(".")<CR>
 
 nnoremap <Leader>cc :call ChangeWord('ToCamelCaseLower')<CR>
 nnoremap <Leader>cC :call ChangeWord('ToCamelCaseUpper')<CR>
@@ -264,15 +276,16 @@ nnoremap <Leader>l :call ToggleLocations()<cr>
 nnoremap <Leader>L :lclose<CR>
 nnoremap <Leader>q :call ToggleQuickfix()<cr>
 nnoremap <Leader>Q :cclose<CR>
-nnoremap <F6> :cprevious<cr>
-nnoremap <F7> :cnext<cr>
-nnoremap <F8> :lprevious<cr>
-nnoremap <F9> :lnext<cr>
+" call CocAction('fillDiagnostics', bufnr('%'))
+nnoremap <F6> :if HasQuickfixWindow() \| cprevious \| else \| lprevious \| endif<cr>
+nnoremap <F7> :if HasQuickfixWindow() \| cnext \| else \| lnext \| endif<cr>
 
-nnoremap <Leader>ml :call Tmux_run_command("")<CR>
-nnoremap <Leader>ms :call Tmux_run_command("git status 2>/dev/null \|\| hg st 2>/dev/null")<CR>
-nnoremap <Leader>md :call Tmux_run_command("git diff 2>/dev/null \|\| hg diff 2>/dev/null")<CR>
-nnoremap <Leader>mD :call Tmux_run_command("git diff '" . expand('%') . "' 2>/dev/null")<CR>
+nnoremap <Leader>mL :call Tmux_run_command("")<CR>
+nnoremap <Leader>ms :call Tmux_run_command("git status")<CR>
+nnoremap <Leader>mD :call Tmux_run_command("git diff")<CR>
+nnoremap <Leader>md :call Tmux_run_command("git diff '" . expand('%') . "'")<CR>
+nnoremap <Leader>ml :call Tmux_run_command("tig '" . expand('%') . "'")<CR>
+nnoremap <Leader>mb :call Tmux_run_command("tig blame '" . expand('%') . "' +" . line('.'))<CR>
 
 let maplocalleader = "ö"
 
@@ -463,13 +476,13 @@ let g:tagbar_compact = 1
 let g:tagbar_singleclick = 1
 
 """ clang_complete
-let g:clang_complete_auto = 0
-let g:clang_use_library = 1
-if has('mac')
-  let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
-endif
-let g:clang_snippets = 1  " complete with arguments
-let g:clang_snippets_engine = 'clang_complete'
+" let g:clang_complete_auto = 0
+" let g:clang_use_library = 1
+" if has('mac')
+"   let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
+" endif
+" let g:clang_snippets = 1  " complete with arguments
+" let g:clang_snippets_engine = 'clang_complete'
 
 """ Ruby
 let g:ruby_indent_block_style = 'do'

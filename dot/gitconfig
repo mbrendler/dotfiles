@@ -29,11 +29,15 @@
 [include]
 	path = ~/.gitconfig_local
 [credential]
-	helper = pass
-	# helper = osxkeychain
+	# helper = pass
+	helper = osxkeychain
 [push]
 	default = current
 [pull]
 	rebase = true
 [init]
 	defaultBranch = main
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true

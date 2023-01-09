@@ -3,7 +3,10 @@
 path=$PWD
 
 while [ "$path" != '/' ] ; do
-  if [ -e "$path/Pipfile" ] ; then
+  if [ -e "$path/poetry.lock" ] ; then
+    . "$(poetry env info --path)/bin/activate"
+    exec "$@"
+  elif [ -e "$path/Pipfile" ] ; then
     . "$(pipenv --venv)/bin/activate"
     exec "$@"
   fi

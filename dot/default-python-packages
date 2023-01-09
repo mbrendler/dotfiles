@@ -6,4 +6,6 @@ isort
 mypy
 neovim
 pipenv
+poetry
 pylint
+ruff
