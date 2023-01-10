@@ -1,5 +1,6 @@
 [user]
 	name = Maik Brendler
+	signingkey = ~/.ssh/id_rsa.pub
 [core]
 	excludesfile = ~/.gitignore_global
 [diff]
