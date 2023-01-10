@@ -21,7 +21,7 @@ fi
 echo install "$NEWEST_RELEASE"
 mkdir -p ~/.usr/src
 pushd ~/.usr/src
-curl --progress --remote-name "$COREUTILS_URL/$NEWEST_RELEASE.tar.xz"
+curl --progress-bar --remote-name "$COREUTILS_URL/$NEWEST_RELEASE.tar.xz"
 tar xf "$NEWEST_RELEASE.tar.xz"
 pushd "$NEWEST_RELEASE"
 ./configure --prefix="$HOME/.usr/"
