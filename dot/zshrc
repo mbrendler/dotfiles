@@ -16,16 +16,16 @@ typeset -U path
 path=(
   $HOME/.bin
   $HOME/.usr/bin
-  /usr/local/bin
-  /usr/local/sbin
+  /opt/homebrew/bin
+  /opt/homebrew/sbin/
   $path
 )
 
 typeset -U fpath
 fpath=(
   $HOME/.zsh/site-functions
-  /usr/local/share/zsh/site-functions
   $HOME/.asdf/completions
+  /opt/homebrew/share/zsh/site-functions
   $fpath
 )
 
