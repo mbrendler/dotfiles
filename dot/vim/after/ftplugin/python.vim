@@ -33,7 +33,7 @@ endfunction
 function! Run_python_file(filename, ...)
   let l:command = 'python3'
   let l:filename = shellescape(a:filename)
-  if a:filename =~ 'test_[^/]*.py$'
+  if a:filename =~ 'test_[^/]*.py$' || a:filename =~ '.*_test.py$'
     let l:command = 'py.test -s -vv'
     if a:0 > 0
       let l:test_name = shellescape(Python_find_test_name(a:filename, a:1))
@@ -55,5 +55,7 @@ function! Run_python_file_interactive(filename)
   endif
   call Run_run(l:command . ' -i ' . a:filename, 0)
 endfunction
+
+nnoremap <buffer> <LocalLeader>o :call Python_toggle_test_and_impl_file()<cr>
 
 inoremap <silent><expr> <C-x><C-o> coc#refresh()

@@ -130,7 +130,7 @@ endfunction
 function! Python_go_to_implementation()
   let l:base_filename = expand('%:t')
   if l:base_filename =~ '^test_'
-    let l:impl_filename = l:base_filename[6:]
+    let l:impl_filename = l:base_filename[5:]
     let l:impl_files = findfile(l:impl_filename, getcwd() . '/**', -1)
     let l:impl_file = Filter_files_by_path(l:impl_files, expand('%:h'))
     if l:impl_file != ''

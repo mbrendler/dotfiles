@@ -41,7 +41,7 @@
     "sh": "shellcheck"
   },
   "diagnostic-languageserver.formatFiletypes": {
-    "python": ["black", "ruff"],
+    "python": ["ruff"],
     "ruby": "rbprettier"
   },
 
@@ -214,15 +214,28 @@
       "command": "isort",
       "args": ["-q", "-"]
     },
+    "ruff-isort": {
+      "command": "ruff",
+      "args": ["--select=I", "--fix", "--stdin-filename", "%filepath", "-"]
+    },
     "ruff": {
       "command": "ruff",
-      "args": ["--fixable=I001", "--fix", "--stdin-filename", "%filepath", "-"]
+      "args": ["format", "-"]
     },
     "rbprettier": {
       "command": "rbprettier",
       "args": [
         "--stdin-filepath",
         "%filepath"
+      ]
+    },
+    "rubocop": {
+      "command": "bundle-if-possible",
+      "args": [
+        "rubocop",
+        "-a",
+        "--stdin",
+        "-"
       ]
     }
   }
