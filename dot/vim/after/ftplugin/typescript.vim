@@ -86,7 +86,8 @@ function! Run_typescript_file(filename, ...)
     endif
     call Run_run(l:command . ' ' . shellescape(a:filename), 1)
   else
-    echom "Cannot run " . a:filename
+    let l:command = './node_modules/.bin/ts-node'
+    call Run_run(l:command . ' ' . shellescape(a:filename), 1)
   endif
 endfunction
 
