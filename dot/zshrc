@@ -14,6 +14,8 @@ export REPORTTIME=10
 
 typeset -U path
 path=(
+  $HOME/.asdf/shims
+  $HOME/.asdf/bin
   $HOME/.bin
   $HOME/.usr/bin
   /opt/homebrew/bin
@@ -44,10 +46,6 @@ export LESS_TERMCAP_se=$'\e[27m'
 export LESS="QRXFPslines %lt-%lb (%Pt-%Pb\%) %f"
 
 export PYTHONSTARTUP=$HOME/.pystartup
-
-if [ -e "$HOME/.asdf/asdf.sh" ] ; then
-  source "$HOME/.asdf/asdf.sh"
-fi
 
 # Prompt ----------------------------------------------------------------------
 
