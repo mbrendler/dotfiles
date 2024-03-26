@@ -61,6 +61,8 @@ set lazyredraw
 set shell=~/.zsh/run_script_with_zshrc
 set nofoldenable
 set diffopt+=internal,algorithm:patience
+set nobackup
+set nowritebackup
 
 " Input ----------------------------------------------------------------------
 
