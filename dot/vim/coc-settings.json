@@ -1,5 +1,6 @@
 {
   "suggest.autoTrigger": "none",
+  "suggest.noselect": true,
 
   "diagnostic.messageTarget": "echo",
   "diagnostic.checkCurrentLine": true,
@@ -14,8 +15,6 @@
   "list.normalMappings": {
     "<C-t>": "action:tabe"
   },
-
-  "eslint.autoFix": true,
 
   "solargraph.symbols": true,
   "solargraph.definitions": true,
@@ -41,41 +40,11 @@
     "sh": "shellcheck"
   },
   "diagnostic-languageserver.formatFiletypes": {
-    "python": ["ruff"],
+    "python": ["ruff", "ruff-isort"],
     "ruby": "rbprettier"
   },
 
   "diagnostic-languageserver.linters": {
-    "flake8": {
-      "sourceName": "flake8",
-      "command": "pipenv-if-possible",
-      "debounce": 200,
-      "rootPatterns": [".git", "pyproject.toml", "setup.py"],
-      "args": [
-        "flake8",
-        "--format=%(row)d,%(col)d,%(code).1s,%(code)s: %(text)s",
-        "-"
-      ],
-      "offsetLine": 0,
-      "offsetColumn": 0,
-      "formatLines": 1,
-      "formatPattern": [
-        "(\\d+),(\\d+),([A-Z]),(.*)(\\r|\\n)*$",
-        {
-          "line": 1,
-          "column": 2,
-          "security": 3,
-          "message": 4
-        }
-      ],
-      "securities": {
-        "W": "info",
-        "E": "warning",
-        "F": "info",
-        "C": "info",
-        "N": "hint"
-      }
-    },
     "mypy": {
       "sourceName": "mypy",
       "command": "pipenv-if-possible",
@@ -105,48 +74,13 @@
         "error": "error"
       }
     },
-    "pylint": {
-      "sourceName": "pylint",
-      "command": "pipenv-if-possible",
-      "debounce": 200,
-      "args": [
-        "pylint",
-        "--output-format=text",
-        "--score=no",
-        "--disable=missing-function-docstring,missing-class-docstring,missing-module-docstring",
-        "--msg-template",
-        "'{line}:{column}:{category}:{msg} ({msg_id}:{symbol})'",
-        "%file"
-      ],
-      "formatPattern": [
-        "^(\\d+?):(\\d+?):([a-z]+?):(.*)$",
-        {
-          "line": 1,
-          "column": 2,
-          "endColumn": 2,
-          "security": 3,
-          "message": 4
-        }
-      ],
-      "rootPatterns": ["pyproject.toml", "setup.py", ".git"],
-      "securities": {
-        "informational": "hint",
-        "refactor": "info",
-        "convention": "info",
-        "warning": "warning",
-        "error": "error",
-        "fatal": "error"
-      },
-      "offsetColumn": 1,
-      "offsetColumnEnd": 1,
-      "formatLines": 1
-    },
     "ruff": {
       "command": "pipenv-if-possible",
       "debounce": 100,
       "args": [
         "ruff",
-        "--format=json",
+        "check",
+        "--output-format=json",
         "--stdin-filename",
         "%filepath",
         "-"
@@ -206,14 +140,6 @@
     ]}
   },
   "diagnostic-languageserver.formatters": {
-    "black": {
-      "command": "black",
-      "args": ["-q", "-"]
-    },
-    "isort": {
-      "command": "isort",
-      "args": ["-q", "-"]
-    },
     "ruff-isort": {
       "command": "ruff",
       "args": ["--select=I", "--fix", "--stdin-filename", "%filepath", "-"]
