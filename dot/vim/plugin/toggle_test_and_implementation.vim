@@ -116,8 +116,8 @@ endfunction
 " ----------------------------------------------------------------------------
 
 function! Python_go_to_test()
-  let l:base_filename = expand('%:t')
-  let l:test_filename = 'test_' . l:base_filename
+  let l:base_filename = expand('%:t:r')
+  let l:test_filename = 'test_' . l:base_filename . '.py'
   let l:test_files = findfile(l:test_filename, getcwd() . '/**', -1)
   let l:test_file = Filter_files_by_path(l:test_files, expand('%:h'))
   if l:test_file != ''
@@ -136,7 +136,13 @@ function! Python_go_to_implementation()
     if l:impl_file != ''
       execute 'edit ' . l:impl_file
     else
-      echo 'no impl file found'
+      let l:impl_files = findfile(l:impl_filename . 'x', getcwd() . '/**', -1)
+      let l:impl_file = Filter_files_by_path(l:impl_files, expand('%:h'))
+      if l:impl_file != ''
+        execute 'edit ' . l:impl_file
+      else
+        echo 'no impl file found'
+      endif
     endif
   endif
 endfunction
