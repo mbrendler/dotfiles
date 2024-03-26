@@ -1,11 +1,5 @@
-bandit
-black
-flake8
 ipython
-isort
 mypy
 neovim
-pipenv
 poetry
-pylint
 ruff
