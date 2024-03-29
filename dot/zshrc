@@ -1,6 +1,5 @@
 # -----------------------------------------------------------------------------
 
-PLATFORM=$(uname)
 [[ $- == *i* ]] && IS_INTERACTIVE=yes || IS_INTERACTIVE=no
 
 # Exports ---------------------------------------------------------------------
@@ -72,7 +71,7 @@ alias gdb='gdb -q'
 alias pbpwd="pwd | pbcopy"
 pbecho() { /bin/echo -n "$*" | pbcopy }
 
-if test "$PLATFORM" = "Linux" ; then
+if [ "$(uname)" = "Linux" ] ; then
   alias pbcopy='xsel --clipboard --input'
   alias pbpaste='xsel --clipboard --output'
 fi
