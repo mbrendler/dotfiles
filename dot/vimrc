@@ -10,6 +10,12 @@ if (!empty($TMUX_PANE)) && (!empty(v:servername))
 endif
 
 
+augroup vimrc
+  autocmd!
+  autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+augroup END
+
+
 " if filereadable('/usr/local/bin/python3')
 "   let g:python3_host_prog = '/usr/local/bin/python3'
 " endif
