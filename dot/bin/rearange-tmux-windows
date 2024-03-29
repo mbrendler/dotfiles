@@ -1,0 +1,11 @@
+#!/bin/sh
+
+new_index=1
+
+for old_index in $(tmux list-windows -F '#{window_index}') ; do
+  if [ "$old_index" -ne "$new_index" ] ; then
+    echo "old_index: $old_index ; new_index: $new_index"
+    tmux move-window -s "$old_index" -t "$new_index"
+  fi
+  new_index=$((new_index + 1))
+done
