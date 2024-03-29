@@ -6,7 +6,7 @@
 
 export GPG_TTY="$(tty)"
 
-test ! -z "$TMUX" && export TERM=screen-256color
+# test ! -z "$TMUX" && export TERM=screen-256color
 
 # report CPU usage for commands running longer than 10 seconds
 export REPORTTIME=10
