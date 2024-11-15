@@ -40,6 +40,8 @@ endfunction
 
 call ExtendRuntimepath()
 
+lua require("CopilotChat").setup {}
+
 " Highlighting ---------------------------------------------------------------
 
 syntax on
