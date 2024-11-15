@@ -69,6 +69,7 @@ set nofoldenable
 set diffopt+=internal,algorithm:patience
 set nobackup
 set nowritebackup
+set notermguicolors  " TODO: update colorscheme
 
 " Input ----------------------------------------------------------------------
 

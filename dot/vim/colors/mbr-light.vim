@@ -5,10 +5,11 @@ if exists("syntax_on")
   syntax reset
 endif
 
-let colors_name = "pyte"
+let colors_name = "mbr-light"
 
 if version >= 700
-  hi CursorLine guibg=#f6f6f6 cterm=none ctermbg=231
+  hi ColorColumn guibg=#ffd7ff gui=none ctermbg=224 cterm=none
+  hi CursorLine guibg=#f6f6f6 gui=none ctermbg=231 cterm=none
   hi CursorColumn guibg=#eaeaea cterm=none ctermbg=252
   hi MatchParen guifg=white guibg=#80a090 gui=bold cterm=bold ctermbg=66
 
@@ -19,10 +20,13 @@ if version >= 700
   hi TabLineSel guifg=black guibg=#f0f0f0 gui=italic,bold ctermfg=16 ctermbg=252 cterm=bold
 
   "P-Menu (auto-completion)
-  hi Pmenu guifg=white guibg=#808080 ctermfg=231 ctermbg=244
-  "PmenuSel
+  hi Pmenu guifg=#ffffff guibg=#808080 gui=none ctermfg=231 ctermbg=244 cterm=none
+  hi PmenuSel gui=none cterm=none ctermbg=16 ctermfg=254
   "PmenuSbar
   "PmenuThumb
+  hi WildMenu ctermfg=16 ctermbg=226 cterm=none
+
+  hi SignColumn gui=none ctermfg=16 ctermbg=248 cterm=none
 endif
 
 augroup ModeDetection
@@ -37,6 +41,11 @@ augroup ModeDetection
     \ hi CursorColumn guibg=#eaeaea cterm=none ctermbg=252
 augroup END
 
+hi SpellBad gui=none ctermfg=160 cterm=none,underline,bold
+hi SpellCap gui=none ctermfg=160 cterm=none,underline,bold
+hi SpellLocal gui=none ctermfg=103 cterm=none,underline,bold
+hi SpellRare gui=none ctermfg=106 cterm=none,underline,bold
+
 " Html-Titles
 hi Title      guifg=#202020 gui=bold ctermfg=234 cterm=bold
 hi Underlined  guifg=#202020 gui=underline ctermfg=234 cterm=underline
@@ -44,7 +53,7 @@ hi Underlined  guifg=#202020 gui=underline ctermfg=234 cterm=underline
 
 hi Cursor    guifg=black   guibg=#b0b4b8
 hi lCursor   guifg=black   guibg=white
-hi LineNr    guifg=#ffffff guibg=#c0d0e0 ctermfg=231 ctermbg=249
+hi LineNr    guifg=#000000 guibg=#c0d0e0 ctermfg=16 ctermbg=249
 
 hi Normal guifg=#404850 guibg=#f0f0f0 ctermfg=239 ctermbg=254
 hi Visual ctermfg=254 ctermbg=4
@@ -55,7 +64,8 @@ hi QuickFixLine term=reverse cterm=reverse gui=reverse
 
 hi StatusLine guifg=white guibg=#8090a0 gui=bold,italic ctermfg=231 ctermbg=25 cterm=bold,italic
 hi StatusLineNC guifg=#506070 guibg=#a0b0c0 gui=italic ctermfg=16 ctermbg=243 cterm=italic
-hi VertSplit guifg=#a0b0c0 guibg=#a0b0c0 gui=NONE ctermfg=243 ctermbg=243 cterm=none
+hi VertSplit guifg=#a0b0c0 guibg=#a0b0c0 gui=none ctermfg=243 ctermbg=243 cterm=none
+hi WinSeparator guifg=#a0b0c0 guibg=#a0b0c0 gui=none ctermfg=243 ctermbg=243 cterm=none
 
 " hi Folded    guifg=#708090 guibg=#c0d0e0
 hi Folded    guifg=#a0a0a0 guibg=#e8e8e8 gui=italic
