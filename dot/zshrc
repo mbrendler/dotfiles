@@ -14,7 +14,6 @@ export REPORTTIME=10
 typeset -U path
 path=(
   $HOME/.asdf/shims
-  $HOME/.asdf/bin
   $HOME/.bin
   $HOME/.usr/bin
   /opt/homebrew/bin
@@ -25,7 +24,6 @@ path=(
 typeset -U fpath
 fpath=(
   $HOME/.zsh/site-functions
-  $HOME/.asdf/completions
   /opt/homebrew/share/zsh/site-functions
   $fpath
 )
