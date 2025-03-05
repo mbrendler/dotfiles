@@ -447,6 +447,7 @@ let g:coc_global_extensions = [
 \ 'coc-solargraph',
 \ '@yaegassy/coc-tailwindcss3',
 \ 'coc-tsserver',
+\ 'coc-clangd',
 \]
 
 highlight CocErrorSign ctermbg=1 ctermfg=7

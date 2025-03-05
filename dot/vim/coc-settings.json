@@ -16,6 +16,8 @@
     "<C-t>": "action:tabe"
   },
 
+  "inlayHint.enable": false,
+
   "solargraph.symbols": true,
   "solargraph.definitions": true,
   "solargraph.references": true,
