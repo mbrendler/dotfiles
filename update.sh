@@ -68,7 +68,7 @@ plugin vim majutsushi/tagbar
 plugin vim tpope/vim-endwise # automatically close code blocks in ruby
 plugin vim github/copilot.vim
 plugin vim nvim-lua/plenary.nvim
-plugin vim CopilotC-Nvim/CopilotChat.nvim canary
+plugin vim CopilotC-Nvim/CopilotChat.nvim
 
 ### editing
 plugin vim Raimondi/delimitMate # Automatic closing of quotes, parentheses, ...
