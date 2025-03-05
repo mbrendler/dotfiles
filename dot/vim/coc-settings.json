@@ -55,10 +55,9 @@
         "--no-error-summary",
         "--show-column-numbers",
         "--show-error-end",
-        "--strict",
+        "--follow-imports=silent",
         "%file"
       ],
-      "isStderr": true,
       "formatPattern": [
         "^.*:(\\d+):(\\d+):(\\d+):(\\d+): ([a-z]+): (.*)$",
         {
@@ -142,7 +141,7 @@
   "diagnostic-languageserver.formatters": {
     "ruff-isort": {
       "command": "ruff",
-      "args": ["--select=I", "--fix", "--stdin-filename", "%filepath", "-"]
+      "args": ["check", "--select=I", "--fix", "--stdin-filename", "%filepath", "-"]
     },
     "ruff": {
       "command": "ruff",
