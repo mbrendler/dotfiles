@@ -35,3 +35,14 @@ endsnippet
 snippet #!
 #! /usr/bin/env ruby`!p make_executable()`
 endsnippet
+
+snippet migration
+# frozen_string_literal: true
+
+Sequel.migration do
+  change do
+  end
+  up {}
+  down {}
+end
+endsnippet
