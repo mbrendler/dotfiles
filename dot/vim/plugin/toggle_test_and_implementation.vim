@@ -86,7 +86,13 @@ function! Ruby_go_to_test()
   if l:test_file != ''
     execute 'edit ' . l:test_file
   else
-    echo 'no test file found'
+    let l:spec_filepath = substitute(expand('%:h'), '^app/\|lib/', '', '')
+    let l:spec_filepath = 'spec/' . l:spec_filepath . '/' . l:spec_filename
+    let l:spec_filepath = input('create test file: ', l:spec_filepath)
+    if l:spec_filepath != ''
+      call mkdir(fnamemodify(l:spec_filepath, ':h'), 'p')
+      execute 'edit ' . l:spec_filepath
+    endif
   endif
 endfunction
 
@@ -119,6 +125,10 @@ function! Python_go_to_test()
   let l:base_filename = expand('%:t:r')
   let l:test_filename = 'test_' . l:base_filename . '.py'
   let l:test_files = findfile(l:test_filename, getcwd() . '/**', -1)
+  if empty(l:test_files)
+    let l:test_filename = l:base_filename . '_test' . '.py'
+    let l:test_files = findfile(l:test_filename, getcwd() . '/**', -1)
+  endif
   let l:test_file = Filter_files_by_path(l:test_files, expand('%:h'))
   if l:test_file != ''
     execute 'edit ' . l:test_file
@@ -128,9 +138,9 @@ function! Python_go_to_test()
 endfunction
 
 function! Python_go_to_implementation()
-  let l:base_filename = expand('%:t')
-  if l:base_filename =~ '^test_'
-    let l:impl_filename = l:base_filename[5:]
+  let l:base_filename = expand('%:t:r')
+  if l:base_filename =~ 'test_' || l:base_filename =~ '_test'
+    let l:impl_filename = substitute(l:base_filename, '^test_\|_test$', '', '') . ".py"
     let l:impl_files = findfile(l:impl_filename, getcwd() . '/**', -1)
     let l:impl_file = Filter_files_by_path(l:impl_files, expand('%:h'))
     if l:impl_file != ''
@@ -149,7 +159,7 @@ endfunction
 
 function! Python_toggle_test_and_impl_file()
   let l:filename = expand('%:t:r')
-  if l:filename =~ 'test_'
+  if l:filename =~ 'test_' || l:filename =~ '_test'
     call Python_go_to_implementation()
   else
     call Python_go_to_test()
