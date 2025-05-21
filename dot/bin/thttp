@@ -1,0 +1,93 @@
+#! /usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'open3'
+require 'yaml'
+
+module Commands
+  module List
+    def self.call(config, args)
+      config.fetch('queries').each { |query| puts(query.fetch('name')) }
+    end
+  end
+
+  module ListVariables
+    def self.call(config, args)
+      config.fetch('variables').each_key { |name| puts(name) }
+    end
+  end
+
+  module Run
+    def self.call(config, args)
+      queries = config.fetch('queries')
+      selected_names = args
+      selected_query = queries.select { |query| selected_names.include?(query['name']) }[0]
+      jq = ' | jq .' if selected_query['jq']
+      curl = selected_query.fetch('curl').gsub(?\n, ' ')
+      variables = config.fetch('variables').transform_keys(&:to_sym)
+      system("#{curl % variables} -D /dev/stderr --progress-bar #{jq}")
+    end
+  end
+
+  module Fzf
+    def self.call(config, args)
+      queries = config.fetch('queries')
+      input = queries.map { |query| query['name'] }.join("\n")
+      output, _status = Open3.capture2('fzf --preview "thttp preview {}" --preview-window=up,20', stdin_data: input)
+      selected_names = output.split("\n")
+      selected_query = queries.select { |query| selected_names.include?(query['name']) }[0]
+      return if selected_query.nil?
+      jq = ' | jq .' if selected_query['jq']
+      curl = selected_query.fetch('curl').gsub(?\n, ' ')
+      variables = config.fetch('variables').transform_keys(&:to_sym)
+      system("#{curl % variables} -D /dev/stderr --progress-bar #{jq}")
+    end
+  end
+
+  module Edit
+    def self.call(config, args)
+      exec("#{ENV.fetch('EDITOR', 'vim')} #{ENV.fetch('HOME')}/.thttp.yaml")
+    end
+  end
+
+  module Help
+    def self.call(config, args)
+      puts('Usage: thttp <command> [args]')
+      puts('Commands:')
+      Commands.constants.each do |const_name|
+        puts("  #{const_name.to_s.gsub(/(.)([A-Z])/, '\1-\2').downcase}")
+      end
+    end
+  end
+
+  module Preview
+    def self.call(config, args)
+      puts(args[0])
+      queries = config.fetch('queries')
+      entry = queries.find { |query| query['name'] == args.fetch(0) }
+      if entry.nil?
+        puts('not found')
+        return
+      end
+
+      puts(entry.fetch('name'))
+      puts(entry.fetch('curl'))
+    end
+  end
+
+  def self.call(config, args)
+    cmd = args[0]
+    cmd = 'fzf' if cmd.nil?
+    cmd_module_name = cmd.split('-').map(&:capitalize).join
+
+    const_get(cmd_module_name).call(config, args[1..])
+  end
+end
+
+def main
+  config = YAML.load_file("#{ENV.fetch('HOME')}/.thttp.yaml")
+
+  Commands.call(config, ARGV)
+end
+
+main if $PROGRAM_NAME == __FILE__
