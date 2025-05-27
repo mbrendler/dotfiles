@@ -8,8 +8,6 @@ COMPLETION_DEFINITIONS=(
   "bundler:$HOME/.usr/plugins/zsh/zsh-completions/src/_bundle"
   "cabal:$HOME/.usr/plugins/zsh/zsh-completions/src/_cabal"
   "cmake:$HOME/.usr/plugins/zsh/zsh-completions/src/_cmake"
-  "docker-compose:/Applications/Docker.app/Contents/Resources/etc/docker-compose.zsh-completion"
-  "docker:/Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion"
   "gem:$HOME/.usr/plugins/zsh/zsh-completions/src/_gem"
   "ghc:$HOME/.usr/plugins/zsh/zsh-completions/src/_ghc"
   "git:/usr/local/share/zsh/site-functions/_git"
