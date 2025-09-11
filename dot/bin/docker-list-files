@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -euo pipefail
+
+readonly IMAGE="$1"
+
+rm -rf /tmp/docker-list-files
+
+mkdir -p /tmp/docker-list-files
+cd /tmp/docker-list-files
+
+docker image save "$IMAGE" > "$IMAGE.tar"
+
+tar xf "$IMAGE.tar"
+cd blobs/sha256
+file ./* | sed -e 's/://' | while read -r layer type; do
+  if [[ $type == *"gzip compressed data"* ]]; then
+    echo "Layer: $layer"
+    tar tvzf "$layer"
+  fi
+done
