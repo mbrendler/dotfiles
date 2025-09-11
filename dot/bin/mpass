@@ -10,7 +10,7 @@ trap on_exit EXIT
 
 cd ~/.password-store || exit 1
 
-path=$(find -- * -type f -name '*.gpg' | sed -E 's/\.gpg$//' | m)
+path=$(find -- * -type f -name '*.gpg' | sed -E 's/\.gpg$//' | "$HOME/.bin/m")
 
 if [ -n "$path" ] ; then
   if [ $# -eq 0 ] ; then
