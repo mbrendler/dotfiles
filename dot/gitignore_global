@@ -10,3 +10,5 @@ cscope.out
 .clang_complete
 .tgrep
 .mypy_cache
+.cache
+compile_commands.json
