@@ -1,0 +1,46 @@
+#! /bin/sh -e
+
+if [ $# -eq 0 ] ; then
+  cat << EOF
+Usage: $0 CMD ARGS...
+       $0 -p PID
+EOF
+  exit 1
+fi
+
+VS_CODE="/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
+
+if [ ! -x "$VS_CODE" ]; then
+  cat << EOF
+Install VSCode with CodeLLDB extension to
+$VS_CODE
+
+https://code.visualstudio.com/
+https://github.com/vadimcn/codelldb
+EOF
+  exit 1
+fi
+
+if [ "$1" = "-p" ]; then
+  pid="$2"
+
+  "$VS_CODE" .
+  "$VS_CODE" --open-url "vscode://vadimcn.vscode-lldb/launch/config?{'request': 'attach','pid': $pid, 'stopOnEntry': true}"
+  exit 0
+fi
+
+command="$(realpath "$1")"
+shift
+
+# wrap every arg in $@ with '
+args=$(printf "'%s', " "$@")
+
+if [ -n "$args" ]; then
+  echo "WARNING: arguments are probably not quoted correctly: $args"
+fi
+
+# /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code --open-url "vscode://vadimcn.vscode-lldb/launch/command?$command $*"
+# open "vscode://vadimcn.vscode-lldb/launch/command?command $*"
+echo "run 'process launch --stop-at-user-entry'"
+"$VS_CODE" .
+"$VS_CODE" --open-url "vscode://vadimcn.vscode-lldb/launch/config?{program: '$command',args: [$args]}" .
