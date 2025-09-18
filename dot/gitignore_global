@@ -13,3 +13,4 @@ cscope.out
 .cache
 compile_commands.json
 *.dSYM
+.vscode/
