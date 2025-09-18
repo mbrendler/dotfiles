@@ -63,13 +63,25 @@ def handle_arg(arg: str, nvim: Nvim) -> None:
             fd.flush()
             nvim.command_output(f"cgetfile {fd.name}")
             nvim.command("copen")
+    elif arg == 'cc':
+        nvim.command("CopilotChat")
+        current_buffer = nvim.current.buffer
+        cursor = nvim.current.window.cursor
+        line_idx = cursor[0] - 1  # pynvim uses 0-based indexing for lines
+        current_buffer.append(sys.stdin.read().splitlines(), line_idx)
+    elif arg == 'ccc':
+        nvim.command("CopilotChat")
+        current_buffer = nvim.current.buffer
+        cursor = nvim.current.window.cursor
+        line_idx = cursor[0] - 1  # pynvim uses 0-based indexing for lines
+        nvim.command(f'lua require("CopilotChat").ask("{sys.stdin.read().strip()}")')
     elif arg[0] == "+":
         print(nvim.command_output(arg[1:]))
     else:
         vim_open_file(arg, nvim)
 
 
-SELECT_VIM_PANE_COMMADS = ["+tabnew"]
+SELECT_VIM_PANE_COMMADS = ["+tabnew", "cf"]
 
 
 def should_select_vim_pane(arg: str) -> bool:
