@@ -3,15 +3,16 @@
 set -euo pipefail
 
 readonly IMAGE="$1"
+readonly IMAGE_FILENAME=$(echo "$IMAGE" | tr /: __)
 
 rm -rf /tmp/docker-list-files
 
 mkdir -p /tmp/docker-list-files
 cd /tmp/docker-list-files
 
-docker image save "$IMAGE" > "$IMAGE.tar"
+docker image save "$IMAGE" > "$IMAGE_FILENAME.tar"
 
-tar xf "$IMAGE.tar"
+tar xf "$IMAGE_FILENAME.tar"
 cd blobs/sha256
 file ./* | sed -e 's/://' | while read -r layer type; do
   if [[ $type == *"gzip compressed data"* ]]; then
