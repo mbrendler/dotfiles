@@ -9,3 +9,7 @@ for old_index in $(tmux list-windows -F '#{window_index}') ; do
   fi
   new_index=$((new_index + 1))
 done
+
+if [ "$1" = "-i" ] ; then
+  tmux list-windows | ~/.bin/m
+fi
