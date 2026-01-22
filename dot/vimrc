@@ -221,19 +221,36 @@ function! ToggleQuickfix()
   endif
 endfunction
 
-function! CloseHiddenBuffers()
-  let visible = {}
-  for t in range(1, tabpagenr('$'))
-    for b in tabpagebuflist(t)
-      let visible[b] = 1
-    endfor
-  endfor
-  for b in range(1, bufnr('$'))
-    if bufloaded(b) && !has_key(visible, b)
-      execute 'bd ' . b
-    endif
-  endfor
-endfun
+lua << EOF
+local function close_other_buffers()
+  local keep_bufs = {}
+
+  for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
+    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tab)) do
+      local buf = vim.api.nvim_win_get_buf(win)
+      keep_bufs[buf] = true
+
+      local alt_buf = vim.fn.getwinvar(vim.api.nvim_win_get_number(win), '#')
+      if type(alt_buf) == 'number' and alt_buf > 0 then
+        keep_bufs[alt_buf] = true
+      end
+    end
+  end
+
+  local global_alt = vim.fn.bufnr('#')
+  if global_alt > 0 then
+    keep_bufs[global_alt] = true
+  end
+
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(buf) and not keep_bufs[buf] then
+      vim.api.nvim_buf_delete(buf, { force = false })
+    end
+  end
+end
+
+vim.api.nvim_create_user_command('CleanBuffers', close_other_buffers, {})
+EOF
 
 " Filetype stuff -------------------------------------------------------------
 
