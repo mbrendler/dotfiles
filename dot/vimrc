@@ -40,7 +40,11 @@ endfunction
 
 call ExtendRuntimepath()
 
-lua require("CopilotChat").setup {}
+lua << EOF
+  require("CopilotChat").setup {
+    model = "claude-opus-4.5"
+  }
+EOF
 
 " Highlighting ---------------------------------------------------------------
 
