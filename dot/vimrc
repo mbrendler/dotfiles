@@ -347,8 +347,6 @@ nnoremap k gk
 
 nnoremap ü ]
 nnoremap ä [
-" nnoremap Ü <C-]>
-" nnoremap Ü :ALEGoToDefinition<cr>
 nnoremap gö g]
 vnoremap gö g]
 
@@ -453,7 +451,7 @@ let NERDTreeHighlightCursorline = 0
 
 """ CoC
 
-let g:coc_start_at_startup = has('mac')
+let g:coc_start_at_startup = 1
 let g:coc_disable_startup_warning = g:coc_start_at_startup == 0
 let g:coc_global_extensions = [
 \ 'coc-diagnostic',
@@ -476,27 +474,6 @@ highlight default CocWarningHighlight ctermbg=12
 highlight default CocInfoHighlight ctermbg=12
 highlight default CocHintHighlight ctermbg=12
 
-" inoremap <expr> <TAB> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-i>"
-
-""" Neomake
-" function! NeomakeLoadFile()
-"   if filereadable('.clang_complete')
-"     let g:neomake_cpp_clang_args = readfile('.clang_complete')
-"     let g:neomake_c_clang_args = g:neomake_cpp_clang_args
-"   endif
-" endfunction
-"
-" " autocmd! BufWritePost * call NeomakeLoadFile() | Neomake
-" let g:neomake_place_signs=1
-" let g:neomake_cpp_enable_markers = ['clang++']
-" let g:neomake_cpp_clang_args = ["-fsyntax-only", "-std=c++14", "-Wall", "-Wextra", "-Wpedantic"]
-" let g:neomake_c_enable_markers = ['clang']
-" let g:neomake_c_clang_args = ["-fsyntax-only", "-Wall", "-Wextra", "-Wpedantic"]
-"
-" let g:neomake_typescript_enabled_makers = ['tsuquyomi', 'tslint']
-" let g:neomake_javascript_eslint_exe = getcwd() . '/node_modules/.bin/eslint'
-" let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
-
 """ TComment
 let g:tcomment_mapleader1 = ""
 
@@ -505,21 +482,10 @@ let g:tagbar_autofocus = 1
 let g:tagbar_compact = 1
 let g:tagbar_singleclick = 1
 
-""" clang_complete
-" let g:clang_complete_auto = 0
-" let g:clang_use_library = 1
-" if has('mac')
-"   let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
-" endif
-" let g:clang_snippets = 1  " complete with arguments
-" let g:clang_snippets_engine = 'clang_complete'
-
 """ Ruby
 let g:ruby_indent_block_style = 'do'
 let g:ruby_indent_assignment_style = 'variable'
 
 " Find and load local .vimrc -------------------------------------------------
 
-if ! has("gui_running")
-  call SourceLocalVimrc()
-endif
+call SourceLocalVimrc()
