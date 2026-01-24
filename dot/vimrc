@@ -296,6 +296,9 @@ nnoremap <Leader>ef :execute "split " . $FT_DIR . &filetype . ".vim"<CR>
 nnoremap <Leader>es :execute "split $HOME/.vim/snippets/" . &filetype . ".snippets"<CR>
 nnoremap <Leader>ee :e %<CR>
 
+nnoremap <Leader>f :call system("pbcopy", expand("%"))<CR>
+nnoremap <Leader>F :call system("pbcopy", expand("%:p"))<CR>
+
 nnoremap <Leader>l :call ToggleLocations()<cr>
 nnoremap <Leader>L :lclose<CR>
 nnoremap <Leader>q :call ToggleQuickfix()<cr>
