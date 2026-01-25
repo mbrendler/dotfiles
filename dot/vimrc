@@ -322,15 +322,15 @@ nnoremap <LocalLeader>rn :call Save_buffer_if_modified()<cr>:call Run_file_line(
 nnoremap <LocalLeader>ri :call Save_buffer_if_modified()<cr>:call Run_interactive_file(expand('%'))<cr>
 nnoremap <LocalLeader>rh :call ctrlp#run#start()<CR>
 nnoremap <LocalLeader>rl :call Save_buffer_if_modified()<cr>:call Run_last_command()<cr>
-nnoremap <LocalLeader>f :call CocAction("format") \| :w<cr>
-nmap <LocalLeader>gD <Plug>(coc-definition)
-nmap <LocalLeader>gT <Plug>(coc-type-definition)
-nmap <LocalLeader>gI <Plug>(coc-implementation)
-nmap <LocalLeader>gR <Plug>(coc-references)
-nnoremap <LocalLeader>ö :call CocActionAsync('doHover')<cr>
-nnoremap <LocalLeader>h :call CocAction('doHover')<cr>
-nnoremap <LocalLeader>a :CocAction codeaction<CR>
-nnoremap <LocalLeader>c :Copilot panel<CR>
+nnoremap  <LocalLeader>f :lua vim.lsp.buf.format()<cr> \| :w<cr>
+" nmap <LocalLeader>gD <Plug>(coc-definition)
+" nmap <LocalLeader>gT <Plug>(coc-type-definition)
+" nmap <LocalLeader>gI <Plug>(coc-implementation)
+" nmap <LocalLeader>gR <Plug>(coc-references)
+" nnoremap <LocalLeader>ö :call CocActionAsync('doHover')<cr>
+" nnoremap <LocalLeader>h :call CocAction('doHover')<cr>
+" nnoremap <LocalLeader>a :CocAction codeaction<CR>
+" nnoremap <LocalLeader>c :Copilot panel<CR>
 
 imap <silent><script><expr> <C-X><C-X> copilot#Accept("")
 imap <silent><script><expr> <M-x> copilot#Accept("")
@@ -420,14 +420,15 @@ command! -nargs=+ -complete=shellcmd Rtfm :call Rtfm("<args>")
 highlight User1 ctermfg=252 ctermbg=88 cterm=italic,bold
 
 function! LinterStatus() abort
-  let l:info = get(b:, 'coc_diagnostic_info', {})
+  let l:errors = len(v:lua.vim.diagnostic.get(0, { 'severity': 1 }))
+  let l:warnings = len(v:lua.vim.diagnostic.get(0, { 'severity': 2 }))
   let l:result = []
-  for l:key in ['error', 'warning', 'information', 'hint']
-    let l:count = get(l:info, l:key, 0)
-    if l:count > 0
-      call add(l:result, printf('%s:%d', toupper(l:key[0]), l:count))
-    endif
-  endfor
+  if l:errors > 0
+    call add(l:result, printf('E:%d', l:errors))
+  endif
+  if l:warnings > 0
+    call add(l:result, printf('W:%d', l:warnings))
+  endif
   if empty(l:result)
     return ""
   endif
@@ -471,6 +472,74 @@ highlight default CocErrorHighlight ctermbg=12
 highlight default CocWarningHighlight ctermbg=12
 highlight default CocInfoHighlight ctermbg=12
 highlight default CocHintHighlight ctermbg=12
+
+
+""" LSP
+
+lua << EOF
+  vim.lsp.config['clangd'] = {
+    cmd = { 'clangd' },
+    root_markers = { '.git', 'compile_commands.json' },
+    filetypes = { 'c', 'cpp', 'objc' },
+  }
+  vim.lsp.config['ruby-lsp'] = {
+    cmd = { 'ruby-lsp' },
+    filetypes = { 'ruby', 'eruby' },
+    root_markers = { 'Gemfile', '.git' },
+    -- init_options = {
+    --   formatter = 'auto',
+    -- },
+    reuse_client = function(client, config)
+      config.cmd_cwd = config.root_dir
+      return client.config.cmd_cwd == config.cmd_cwd
+    end,
+  }
+
+  vim.lsp.enable({'clangd', 'lua_ls', 'ruby-lsp'})
+
+  vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      if client.server_capabilities.hoverProvider then
+        vim.keymap.set('n', '<LocalLeader>ö', vim.lsp.buf.hover, { buffer = args.buf })
+      end
+      if client.server_capabilities.signatureHelpProvider then
+        vim.keymap.set({ 'n' }, '<LocalLeader>h', vim.lsp.buf.signature_help, { buffer = args.buf })
+        -- vim.keymap.set({ 'i' }, '<LocalLeader>h', vim.lsp.buf.signature_help, { buffer = args.buf })
+      end
+      if client.server_capabilities.declarationProvider then
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = args.buf })
+        vim.keymap.set('n', '<LocalLeader>gD', vim.lsp.buf.declaration, { buffer = args.buf })
+      end
+      if client.server_capabilities.definitionProvider then
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = args.buf })
+        vim.keymap.set('n', '<LocalLeader>gd', vim.lsp.buf.definition, { buffer = args.buf })
+      end
+      if client.server_capabilities.typeDefinitionProvider then
+        vim.keymap.set('n', '<LocalLeader>gt', vim.lsp.buf.type_definition, { buffer = args.buf })
+      end
+      if client.server_capabilities.implementationProvider then
+        vim.keymap.set('n', '<LocalLeader>gi', vim.lsp.buf.implementation, { buffer = args.buf })
+      end
+      if client.server_capabilities.referencesProvider then
+        vim.keymap.set('n', '<LocalLeader>gr', vim.lsp.buf.references, { buffer = args.buf })
+      end
+      if client.server_capabilities.renameProvider then
+        vim.keymap.set('n', '<LocalLeader>cr', vim.lsp.buf.rename, { buffer = args.buf })
+      end
+      if client.server_capabilities.codeActionProvider then
+        vim.keymap.set('n', '<LocalLeader>a', vim.lsp.buf.code_action, { buffer = args.buf })
+      end
+
+      -- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { buffer = args.buf })
+      -- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { buffer = args.buf })
+      vim.keymap.set('n', '<LocalLeader>d', vim.diagnostic.open_float, { buffer = args.buf })
+      -- vim.keymap.set('n', '<space>', vim.diagnostic.open_float, { buffer = args.buf })
+      vim.api.nvim_create_user_command('Dllist', vim.diagnostic.setloclist, {})
+      vim.api.nvim_create_user_command('Dclist', vim.diagnostic.setqflist, {})
+    end,
+  })
+EOF
 
 """ TComment
 let g:tcomment_mapleader1 = ""

@@ -63,7 +63,6 @@ plugin vim ctrlpvim/ctrlp.vim
 plugin vim christoomey/vim-tmux-navigator
 
 ### programming languages
-plugin vim neoclide/coc.nvim release
 plugin vim majutsushi/tagbar
 plugin vim tpope/vim-endwise # automatically close code blocks in ruby
 plugin vim github/copilot.vim
@@ -86,6 +85,5 @@ done
 # Initialize Vim helptags -----------------------------------------------------
 
 if command -v vim > /dev/null 2> /dev/null ; then
-  vim +CocUpdate
   vim "+helptags ALL" +qall
 fi

@@ -119,3 +119,16 @@ hi DiffAdd guifg=NONE guibg=#c0e0d0 gui=italic,bold
 hi DiffDelete guifg=NONE guibg=#f0e0b0 gui=italic,bold
 
 hi CocFloating ctermbg=251
+hi NormalFloat ctermbg=252
+
+hi DiagnosticError ctermbg=209 ctermfg=16
+hi DiagnosticWarn ctermbg=220 ctermfg=16
+hi DiagnosticInfo ctermbg=117 ctermfg=16
+hi DiagnosticHint ctermbg=117 ctermfg=16
+hi DiagnosticOk ctermbg=112 ctermfg=16
+
+hi DiagnosticUnderlineError ctermbg=209 ctermfg=16
+hi DiagnosticUnderlineWarn ctermbg=220 ctermfg=16
+hi DiagnosticUnderlineInfo ctermbg=117 ctermfg=16
+hi DiagnosticUnderlineHint ctermbg=117 ctermfg=16
+hi DiagnosticUnderlineOk ctermbg=112 ctermfg=16
