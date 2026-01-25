@@ -417,7 +417,7 @@ command! -nargs=+ -complete=shellcmd Rtfm :call Rtfm("<args>")
 
 " Status line ----------------------------------------------------------------
 
-highlight User1 ctermfg=7 ctermbg=1 cterm=italic,bold
+highlight User1 ctermfg=252 ctermbg=88 cterm=italic,bold
 
 function! LinterStatus() abort
   let l:info = get(b:, 'coc_diagnostic_info', {})

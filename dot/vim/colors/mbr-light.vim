@@ -104,12 +104,12 @@ hi Error      guifg=red guibg=white gui=bold,underline ctermfg=160 ctermbg=none 
 hi Todo       guifg=#a0b0c0 guibg=NONE gui=italic,bold,underline ctermfg=243, ctermbg=none cterm=bold
 
 " Python: %(...)s - constructs, encoding
-hi Special    guifg=#70a0d0 gui=italic ctermfg=75 cterm=italic
+hi Special    guifg=#70a0d0 gui=italic ctermfg=33 cterm=italic
 
 hi Operator   guifg=#408010 ctermfg=28
 
-" color of <TAB>s etc...  
-"hi SpecialKey guifg=#d8a080 guibg=#e8e8e8 gui=italic  
+" color of <TAB>s etc...
+"hi SpecialKey guifg=#d8a080 guibg=#e8e8e8 gui=italic
 hi SpecialKey guifg=#d0b0b0 guibg=#f0f0f0 gui=none ctermfg=138 ctermbg=254 cterm=none
 
 " Diff

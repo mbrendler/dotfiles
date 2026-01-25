@@ -9,3 +9,6 @@ bind tree G :move-last-line
 bind main G :move-last-line
 
 bind generic Y @sh -c "echo '%(commit)' | pbcopy"
+
+color cursor 16 2
+color title-focus 16 4
