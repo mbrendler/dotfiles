@@ -76,20 +76,12 @@ plugin vim tpope/vim-surround
 plugin vim tpope/vim-repeat
 plugin vim tomtom/tcomment_vim
 plugin vim vim-utils/vim-husk # Historic key bindings in command line
-plugin vim SirVer/ultisnips # snippets
 
 # Wait for background processes -----------------------------------------------
 
 for job in $(jobs -p) ; do
   wait "$job"
 done
-
-# Install Node modules
-
-if command -v npm > /dev/null 2> /dev/null ; then
-  npm install -g neovim
-  npm update -g neovim
-fi
 
 # Initialize Vim helptags -----------------------------------------------------
 

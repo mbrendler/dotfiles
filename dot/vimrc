@@ -343,12 +343,6 @@ let g:copilot_no_tab_map = v:true
 """ Split line (sister to [J]oin lines)
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 
-""" Insert new line without entering insert mode.
-nnoremap <S-Enter> O<Esc>j
-nnoremap <C-Enter> o<Esc>k
-nnoremap ± O<Esc>j
-nnoremap  o<Esc>k
-
 nnoremap j gj
 nnoremap k gk
 
@@ -394,9 +388,6 @@ endfunction
 inoremap <C-X><C-G> <esc>:call RelativeCompletion()<cr>
 
 inoremap <C-X><ü> <C-X><C-]>
-
-" C-_ is the same as C-7
-nnoremap <C-_> <esc>:call Tmux_select_target_pane()<cr>
 
 onoremap in( :<c-u>normal! f(vi(<cr>
 onoremap il( :<c-u>normal! F)vi(<cr>
