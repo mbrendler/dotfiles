@@ -477,22 +477,34 @@ highlight default CocHintHighlight ctermbg=12
 """ LSP
 
 lua << EOF
+  -- https://github.com/neovim/nvim-lspconfig/blob/master/lsp/solargraph.lua
   vim.lsp.config['clangd'] = {
     cmd = { 'clangd' },
     root_markers = { '.git', 'compile_commands.json' },
     filetypes = { 'c', 'cpp', 'objc' },
   }
+  -- vim.lsp.config['solargraph'] = {
+  --   cmd = { 'solargraph', 'stdio' },
+  --   settings = {
+  --     solargraph = {
+  --       diagnostics = true,
+  --     },
+  --   },
+  --   -- init_options = { formatting = true },
+  --   filetypes = { 'ruby' },
+  --   root_markers = { 'Gemfile', '.git' },
+  -- }
   vim.lsp.config['ruby-lsp'] = {
-    cmd = { 'ruby-lsp' },
-    filetypes = { 'ruby', 'eruby' },
-    root_markers = { 'Gemfile', '.git' },
-    -- init_options = {
-    --   formatter = 'auto',
-    -- },
-    reuse_client = function(client, config)
-      config.cmd_cwd = config.root_dir
-      return client.config.cmd_cwd == config.cmd_cwd
-    end,
+    filetypes = { "ruby" },
+    cmd = { "ruby-lsp" },
+    root_markers = { "Gemfile", ".git" },
+    init_options = {
+      formatter = 'standard',
+      linters = { 'standard' },
+      -- indexing = {
+      --   excludedPatterns = { "**/spec/**/*.rb" },
+      -- },
+    },
   }
 
   vim.lsp.enable({'clangd', 'lua_ls', 'ruby-lsp'})
@@ -500,36 +512,37 @@ lua << EOF
   vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
       local client = vim.lsp.get_client_by_id(args.data.client_id)
-      if client.server_capabilities.hoverProvider then
+      print('LSP attached: ' .. client.name)
+      -- if client.server_capabilities.hoverProvider then
         vim.keymap.set('n', '<LocalLeader>ö', vim.lsp.buf.hover, { buffer = args.buf })
-      end
-      if client.server_capabilities.signatureHelpProvider then
+      -- end
+      -- if client.server_capabilities.signatureHelpProvider then
         vim.keymap.set({ 'n' }, '<LocalLeader>h', vim.lsp.buf.signature_help, { buffer = args.buf })
         -- vim.keymap.set({ 'i' }, '<LocalLeader>h', vim.lsp.buf.signature_help, { buffer = args.buf })
-      end
-      if client.server_capabilities.declarationProvider then
+      -- end
+      -- if client.server_capabilities.declarationProvider then
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = args.buf })
         vim.keymap.set('n', '<LocalLeader>gD', vim.lsp.buf.declaration, { buffer = args.buf })
-      end
-      if client.server_capabilities.definitionProvider then
+      -- end
+      -- if client.server_capabilities.definitionProvider then
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = args.buf })
         vim.keymap.set('n', '<LocalLeader>gd', vim.lsp.buf.definition, { buffer = args.buf })
-      end
-      if client.server_capabilities.typeDefinitionProvider then
+      -- end
+      -- if client.server_capabilities.typeDefinitionProvider then
         vim.keymap.set('n', '<LocalLeader>gt', vim.lsp.buf.type_definition, { buffer = args.buf })
-      end
-      if client.server_capabilities.implementationProvider then
+      -- end
+      -- if client.server_capabilities.implementationProvider then
         vim.keymap.set('n', '<LocalLeader>gi', vim.lsp.buf.implementation, { buffer = args.buf })
-      end
-      if client.server_capabilities.referencesProvider then
+      -- end
+      -- if client.server_capabilities.referencesProvider then
         vim.keymap.set('n', '<LocalLeader>gr', vim.lsp.buf.references, { buffer = args.buf })
-      end
-      if client.server_capabilities.renameProvider then
+      -- end
+      -- if client.server_capabilities.renameProvider then
         vim.keymap.set('n', '<LocalLeader>cr', vim.lsp.buf.rename, { buffer = args.buf })
-      end
-      if client.server_capabilities.codeActionProvider then
+      -- end
+      -- if client.server_capabilities.codeActionProvider then
         vim.keymap.set('n', '<LocalLeader>a', vim.lsp.buf.code_action, { buffer = args.buf })
-      end
+      -- end
 
       -- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { buffer = args.buf })
       -- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { buffer = args.buf })
