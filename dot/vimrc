@@ -332,6 +332,90 @@ nnoremap  <LocalLeader>f :lua vim.lsp.buf.format()<cr> \| :w<cr>
 " nnoremap <LocalLeader>a :CocAction codeaction<CR>
 " nnoremap <LocalLeader>c :Copilot panel<CR>
 
+function! Snippets_shebang(key)
+  let l:values = {
+        \  'ruby': '#! /usr/bin/env ruby',
+        \  'python': '#! /usr/bin/env python3',
+        \  'bash': '#! /usr/bin/env bash',
+        \  'sh': '#! /bin/sh',
+        \}
+  if has_key(l:values, &ft)
+    call system('chmod +x ' . expand('%'))
+    return l:values[&ft]
+  endif
+  return a:key
+endfunction
+
+let g:snippets = {
+      \ '_': {
+      \   'today': {-> strftime('%Y-%m-%d')},
+      \   'now': {-> strftime('%Y-%m-%dT%H:%M:%S')},
+      \   '#!': function('Snippets_shebang'),
+      \ },
+      \ 'html': {
+      \   'start': "<!DOCTYPE HTML>\<CR><html>\<CR><head>\<CR><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\<CR></head>\<CR><body>\<CR></body>\<CR></html>",
+      \ },
+      \ 'python': {
+      \   'ipy': 'from IPython import embed; embed(colors="neutral")',
+      \   'ipython': 'from IPython import embed; embed(colors="neutral")',
+      \   'pdb': 'import pdb;pdb.set_trace()',
+      \   'ipdb': 'import ipdb;ipdb.set_trace()',
+      \   'pd': 'import pdb;pdb.set_trace()',
+      \   'pp': 'from pprint import pprint ; pprint()',
+      \   'main': "def main():\<CR>\<CR>\<CR>\<BS>if __name__ == '__main__'\<CR>    main()",
+      \ },
+      \ 'ruby': {
+      \   'frozen': '# frozen_string_literal: true',
+      \   'fro': '# frozen_string_literal: true',
+      \   'pry': 'binding.irb',
+      \   'irb': 'binding.irb',
+      \   'pp': "require 'pp'; pp ",
+      \   'rspec': {-> 'RSpec.describe ' . substitute(substitute('_' . expand('%:t'), '_spec.rb', '', 0), '_\([a-z]\)', '\U\1', 'g') . " do\<CR>" .
+      \                'subject(:' . substitute(expand('%:t'), '_spec.rb', '', 0) . ") { described_class.new() }\<CR>" .
+      \                'end'},
+      \ },
+      \}
+
+function Snip()
+  let l:col = col('.')
+  if l:col < 2
+    return ''
+  endif
+  let l:search = getline('.')[0:max([0, l:col - 2])]
+
+  if has_key(g:snippets, &ft)
+    let l:x = g:snippets[&ft]
+    for k in keys(l:x)
+      if match(l:search, k . '$') != -1
+        if type(l:x[k]) == v:t_func
+          let l:v = l:x[k](k)
+        else
+          let l:v = l:x[k]
+        endif
+        return repeat("\<BS>", len(k)) . l:v
+      endif
+    endfor
+  endif
+
+  if has_key(g:snippets, '_')
+    let l:x = g:snippets['_']
+    for k in keys(l:x)
+      if match(l:search, k . '$') != -1
+        if type(l:x[k]) == v:t_func
+          let l:v = l:x[k](k)
+        else
+          let l:v = l:x[k]
+        endif
+        return repeat("\<BS>", len(k)) . l:v
+      endif
+    endfor
+  endif
+
+  return ''
+endfunction
+
+inoremap <silent><script><expr> <tab> Snip()
+
 imap <silent><script><expr> <C-X><C-X> copilot#Accept("")
 imap <silent><script><expr> <M-x> copilot#Accept("")
 imap <M-n> <Plug>(copilot-next)
