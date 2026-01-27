@@ -349,7 +349,7 @@ let g:snippets = {
       \   '#!': function('Snippets_shebang'),
       \ },
       \ 'html': {
-      \   'start': "<!DOCTYPE HTML>\<CR><html>\<CR><head>\<CR><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\<CR></head>\<CR><body>\<CR></body>\<CR></html>",
+      \   'start': "<!DOCTYPE HTML>\n<html>\n<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n</head>\n<body>\n</body>\n</html>",
       \ },
       \ 'python': {
       \   'ipy': 'from IPython import embed; embed(colors="neutral")',
@@ -358,7 +358,7 @@ let g:snippets = {
       \   'ipdb': 'import ipdb;ipdb.set_trace()',
       \   'pd': 'import pdb;pdb.set_trace()',
       \   'pp': 'from pprint import pprint ; pprint()',
-      \   'main': "def main():\<CR>\<CR>\<CR>\<BS>if __name__ == '__main__'\<CR>    main()",
+      \   'main': "def main():\n\n\n\<BS>if __name__ == '__main__'\n    main()",
       \ },
       \ 'ruby': {
       \   'frozen': '# frozen_string_literal: true',
@@ -366,8 +366,8 @@ let g:snippets = {
       \   'pry': 'binding.irb',
       \   'irb': 'binding.irb',
       \   'pp': "require 'pp'; pp ",
-      \   'rspec': {-> 'RSpec.describe ' . substitute(substitute('_' . expand('%:t'), '_spec.rb', '', 0), '_\([a-z]\)', '\U\1', 'g') . " do\<CR>" .
-      \                'subject(:' . substitute(expand('%:t'), '_spec.rb', '', 0) . ") { described_class.new() }\<CR>" .
+      \   'rspec': {-> 'RSpec.describe ' . substitute(substitute('_' . expand('%:t'), '_spec.rb', '', 0), '_\([a-z]\)', '\U\1', 'g') . " do\n" .
+      \                'subject(:' . substitute(expand('%:t'), '_spec.rb', '', 0) . ") { described_class.new() }\n" .
       \                'end'},
       \ },
       \}
@@ -375,39 +375,27 @@ let g:snippets = {
 function Snip()
   let l:col = col('.')
   if l:col < 2
-    return ''
+    return "\<tab>"
   endif
   let l:search = getline('.')[0:max([0, l:col - 2])]
 
-  if has_key(g:snippets, &ft)
-    let l:x = g:snippets[&ft]
-    for k in keys(l:x)
-      if match(l:search, k . '$') != -1
-        if type(l:x[k]) == v:t_func
-          let l:v = l:x[k](k)
-        else
-          let l:v = l:x[k]
+  for l:ft in [&ft, '_']
+    if has_key(g:snippets, l:ft)
+      let l:x = g:snippets[l:ft]
+      for k in keys(l:x)
+        if match(l:search, '\<' . k . '$') != -1
+          if type(l:x[k]) == v:t_func
+            let l:v = l:x[k](k)
+          else
+            let l:v = l:x[k]
+          endif
+          return repeat("\<BS>", len(k)) . l:v
         endif
-        return repeat("\<BS>", len(k)) . l:v
-      endif
-    endfor
-  endif
+      endfor
+    endif
+  endfor
 
-  if has_key(g:snippets, '_')
-    let l:x = g:snippets['_']
-    for k in keys(l:x)
-      if match(l:search, k . '$') != -1
-        if type(l:x[k]) == v:t_func
-          let l:v = l:x[k](k)
-        else
-          let l:v = l:x[k]
-        endif
-        return repeat("\<BS>", len(k)) . l:v
-      endif
-    endfor
-  endif
-
-  return ''
+  return "\<tab>"
 endfunction
 
 inoremap <silent><script><expr> <tab> Snip()
