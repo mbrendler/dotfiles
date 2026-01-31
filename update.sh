@@ -70,7 +70,6 @@ plugin vim nvim-lua/plenary.nvim
 plugin vim CopilotC-Nvim/CopilotChat.nvim
 
 ### editing
-plugin vim Raimondi/delimitMate # Automatic closing of quotes, parentheses, ...
 plugin vim tpope/vim-surround
 plugin vim tpope/vim-repeat
 plugin vim tomtom/tcomment_vim

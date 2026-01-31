@@ -465,7 +465,9 @@ function! RelativeCompletion()
 endfunction
 inoremap <C-X><C-G> <esc>:call RelativeCompletion()<cr>
 
-inoremap <C-X><ü> <C-X><C-]>
+inoremap ( ()<left>
+inoremap { {}<left>
+inoremap [ []<left>
 
 onoremap in( :<c-u>normal! f(vi(<cr>
 onoremap il( :<c-u>normal! F)vi(<cr>
