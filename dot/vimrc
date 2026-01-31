@@ -318,7 +318,7 @@ nnoremap <LocalLeader>rn :call Save_buffer_if_modified()<cr>:call Run_file_line(
 nnoremap <LocalLeader>ri :call Save_buffer_if_modified()<cr>:call Run_interactive_file(expand('%'))<cr>
 nnoremap <LocalLeader>rh :call ctrlp#run#start()<CR>
 nnoremap <LocalLeader>rl :call Save_buffer_if_modified()<cr>:call Run_last_command()<cr>
-nnoremap  <LocalLeader>f :lua vim.lsp.buf.format()<cr> \| :w<cr>
+nnoremap  <LocalLeader>f :lua vim.lsp.buf.format({async = false})<cr> \| :w<cr>
 " nmap <LocalLeader>gD <Plug>(coc-definition)
 " nmap <LocalLeader>gT <Plug>(coc-type-definition)
 " nmap <LocalLeader>gI <Plug>(coc-implementation)
