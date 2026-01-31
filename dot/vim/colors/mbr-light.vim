@@ -15,7 +15,7 @@ if version >= 700
 
   " TODO
   "Tabpages
-  hi TabLine guifg=black guibg=#b0b8c0 gui=italic ctermfg=16 ctermbg=239 cterm=italic
+  hi TabLine guifg=black guibg=#b0b8c0 gui=italic ctermfg=254 ctermbg=239 cterm=italic
   hi TabLineFill guifg=#9098a0 ctermbg=239
   hi TabLineSel guifg=black guibg=#f0f0f0 gui=italic,bold ctermfg=16 ctermbg=252 cterm=bold
 
