@@ -1,5 +1,4 @@
 bundler
 curses
 pry
-solargraph
-neovim
+ruby-lsp
