@@ -328,77 +328,87 @@ nnoremap  <LocalLeader>f :lua vim.lsp.buf.format()<cr> \| :w<cr>
 " nnoremap <LocalLeader>a :CocAction codeaction<CR>
 " nnoremap <LocalLeader>c :Copilot panel<CR>
 
-function! Snippets_shebang(key)
-  let l:values = {
-        \  'ruby': '#! /usr/bin/env ruby',
-        \  'python': '#! /usr/bin/env python3',
-        \  'bash': '#! /usr/bin/env bash',
-        \  'sh': '#! /bin/sh',
-        \}
-  if has_key(l:values, &ft)
-    call system('chmod +x ' . expand('%'))
-    return l:values[&ft]
-  endif
-  return a:key
-endfunction
+lua << EOF
+  local snippets = {
+    _ = {
+      today = function() return vim.fn.strftime('%Y-%m-%d') end,
+      now = function() return vim.fn.strftime('%Y-%m-%dT%H:%M:%S') end,
+      ["#!"] = function()
+        local values = {
+          ruby = '#! /usr/bin/env ruby',
+          python = '#! /usr/bin/env python3',
+          bash = '#! /usr/bin/env bash',
+          sh = '#! /bin/sh',
+        }
+        local value = values[vim.opt.filetype._value]
+        if not value then
+          return key
+        end
 
-let g:snippets = {
-      \ '_': {
-      \   'today': {-> strftime('%Y-%m-%d')},
-      \   'now': {-> strftime('%Y-%m-%dT%H:%M:%S')},
-      \   '#!': function('Snippets_shebang'),
-      \ },
-      \ 'html': {
-      \   'start': "<!DOCTYPE HTML>\n<html>\n<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n</head>\n<body>\n</body>\n</html>",
-      \ },
-      \ 'python': {
-      \   'ipy': 'from IPython import embed; embed(colors="neutral")',
-      \   'ipython': 'from IPython import embed; embed(colors="neutral")',
-      \   'pdb': 'import pdb;pdb.set_trace()',
-      \   'ipdb': 'import ipdb;ipdb.set_trace()',
-      \   'pd': 'import pdb;pdb.set_trace()',
-      \   'pp': 'from pprint import pprint ; pprint()',
-      \   'main': "def main():\n\n\n\<BS>if __name__ == '__main__'\n    main()",
-      \ },
-      \ 'ruby': {
-      \   'frozen': '# frozen_string_literal: true',
-      \   'fro': '# frozen_string_literal: true',
-      \   'pry': 'binding.irb',
-      \   'irb': 'binding.irb',
-      \   'pp': "require 'pp'; pp ",
-      \   'rspec': {-> 'RSpec.describe ' . substitute(substitute('_' . expand('%:t'), '_spec.rb', '', 0), '_\([a-z]\)', '\U\1', 'g') . " do\n" .
-      \                'subject(:' . substitute(expand('%:t'), '_spec.rb', '', 0) . ") { described_class.new() }\n" .
-      \                'end'},
-      \ },
-      \}
+        vim.api.nvim_command('write')
+        vim.api.nvim_echo({{vim.fn.system('chmod +x ' .. vim.fn.expand('%')), 'None'}}, false, {})
+        return value;
+      end
+    },
+    html = {
+      start = [[<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+</body>
+</html>]],
+    },
+    python = {
+      ipy = 'from IPython import embed; embed(colors="neutral")',
+      ipython = 'from IPython import embed; embed(colors="neutral")',
+      pdb = 'import pdb;pdb.set_trace()',
+      ipdb = 'import ipdb;ipdb.set_trace()',
+      pd = 'import pdb;pdb.set_trace()',
+      pp = 'from pprint import pprint ; pprint()',
+      main = "def main():\npass\n<BS>\n\nif __name__ == '__main__'\n    main()",
+    },
+    ruby = {
+      frozen = '# frozen_string_literal: true',
+      fro = '# frozen_string_literal: true',
+      pry = 'binding.irb',
+      irb = 'binding.irb',
+      pp = "require 'pp'; pp ",
+      rspec = function()
+        local subject = string.gsub(vim.fn.expand('%:t'), '_spec.rb$', '')
+        local target = vim.fn.substitute('_' .. subject, '_\\([a-z]\\)', '\\U\\1', 'g')
+        return 'RSpec.describe ' .. target .. " do\n" ..
+               '  subject(:' .. subject .. ") { described_class.new() }\n" ..
+               'end'
+      end
+    },
+  }
 
-function Snip()
-  let l:col = col('.')
-  if l:col < 2
-    return "\<tab>"
-  endif
-  let l:search = getline('.')[0:max([0, l:col - 2])]
+  function snip()
+    local col = vim.fn.col('.')
+    if col < 2 then
+      return "<tab>"
+    end
 
-  for l:ft in [&ft, '_']
-    if has_key(g:snippets, l:ft)
-      let l:x = g:snippets[l:ft]
-      for k in keys(l:x)
-        if match(l:search, '\<' . k . '$') != -1
-          if type(l:x[k]) == v:t_func
-            let l:v = l:x[k](k)
-          else
-            let l:v = l:x[k]
-          endif
-          return repeat("\<BS>", len(k)) . l:v
-        endif
-      endfor
-    endif
-  endfor
+    local search = string.sub(vim.fn.getline('.'), 1, math.max(0, col - 1))
 
-  return "\<tab>"
-endfunction
+    for i, stype in pairs({vim.opt.filetype._value, '_'}) do
+      for k, sub in pairs(snippets[stype] or {}) do
+        if string.match(search,  k .. '$') then
+          if type(sub) == "function" then
+            sub = sub()
+          end
+          return string.rep('<BS>', string.len(k)) .. sub
+        end
+      end
+    end
 
-inoremap <silent><script><expr> <tab> Snip()
+    return "<tab>"
+  end
+
+  vim.keymap.set('i', '<tab>', snip, { silent = true, script = true, expr = true })
+EOF
 
 imap <silent><script><expr> <C-X><C-X> copilot#Accept("")
 imap <silent><script><expr> <M-x> copilot#Accept("")
