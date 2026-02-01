@@ -209,7 +209,7 @@ endfunction
 function! ToggleLocations()
   cclose
   if empty(QuickFixBuffersOfTab())
-    CocDiagnostics
+    Dllist
     " lopen
   else
     lclose
@@ -299,7 +299,6 @@ nnoremap <Leader>l :call ToggleLocations()<cr>
 nnoremap <Leader>L :lclose<CR>
 nnoremap <Leader>q :call ToggleQuickfix()<cr>
 nnoremap <Leader>Q :cclose<CR>
-" call CocAction('fillDiagnostics', bufnr('%'))
 nnoremap <F6> :if HasQuickfixWindow() \| cprevious \| else \| lprevious \| endif<cr>
 nnoremap <F7> :if HasQuickfixWindow() \| cnext \| else \| lnext \| endif<cr>
 
@@ -408,6 +407,29 @@ lua << EOF
   end
 
   vim.keymap.set('i', '<tab>', snip, { silent = true, script = true, expr = true })
+
+-------------------------------------------------------------------------------
+
+  function insert(char, closing)
+    return function()
+      local index = vim.fn.col('.')
+      local next_char = vim.fn.getline('.'):sub(index, index)
+      if next_char == char then
+        return '<right>'
+      end
+      if closing then
+        return char .. closing .. '<left>'
+      end
+      return char
+    end
+  end
+
+  vim.keymap.set('i', '(', insert('(', ')'), { silent = true, script = true, expr = true })
+  vim.keymap.set('i', ')', insert(')'), { silent = true, script = true, expr = true })
+  vim.keymap.set('i', '{', insert('{', '}'), { silent = true, script = true, expr = true })
+  vim.keymap.set('i', '}', insert('}'), { silent = true, script = true, expr = true })
+  vim.keymap.set('i', '[', insert('[', ']'), { silent = true, script = true, expr = true })
+  vim.keymap.set('i', ']', insert(']'), { silent = true, script = true, expr = true })
 EOF
 
 imap <silent><script><expr> <C-X><C-X> copilot#Accept("")
@@ -464,10 +486,6 @@ function! RelativeCompletion()
   call feedkeys("a\<C-X>\<C-F>")
 endfunction
 inoremap <C-X><C-G> <esc>:call RelativeCompletion()<cr>
-
-inoremap ( ()<left>
-inoremap { {}<left>
-inoremap [ []<left>
 
 onoremap in( :<c-u>normal! f(vi(<cr>
 onoremap il( :<c-u>normal! F)vi(<cr>
