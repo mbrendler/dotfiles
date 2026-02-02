@@ -454,8 +454,8 @@ vnoremap gö g]
 nnoremap gü :call tgrep#find_tag(expand("<cword>"))<CR>
 vnoremap gü :call tgrep#find_tag(VisualSelection())<CR>
 
-nnoremap K :call Rtfm(expand("<cword>"))<CR>
-vnoremap K :call Rtfm(VisualSelection())<CR>
+autocmd FileType * nnoremap <buffer> K :call Rtfm(expand("<cword>"))<CR>
+autocmd FileType help,man nunmap <buffer> K
 
 let g:no_man_maps = 1
 autocmd BufEnter * if &readonly | nnoremap <buffer> q :q<cr> | endif
