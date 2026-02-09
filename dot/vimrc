@@ -349,11 +349,19 @@ lua << EOF
         return value;
       end
     },
+    c = {
+      clock = [[timespec t;
+// #include <time.h>
+// CLOCK_REALTIME, CLOCK_PROCESS_TIME_ID, CLOCK_THREAD_TIME_ID
+clock_gettime(CLOCK_REALTIME, &t);
+printf("%ld.%09ld\n", t.tv_sec, t.tv_nsec);]]
+    },
+    cpp = {},
     html = {
       start = [[<!DOCTYPE HTML>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body>
 </body>
@@ -366,7 +374,7 @@ lua << EOF
       ipdb = 'import ipdb;ipdb.set_trace()',
       pd = 'import pdb;pdb.set_trace()',
       pp = 'from pprint import pprint ; pprint()',
-      main = "def main():\npass\n<BS>\n\nif __name__ == '__main__'\n    main()",
+      main = "def main():\n    pass\n\n\nif __name__ == '__main__':\n    main()",
     },
     ruby = {
       frozen = '# frozen_string_literal: true',
@@ -384,6 +392,10 @@ lua << EOF
     },
   }
 
+  for key, value in pairs(snippets.c) do
+    snippets.cpp[key] = snippets.cpp[key] or value
+  end
+
   function snip()
     local col = vim.fn.col('.')
     if col < 2 then
@@ -398,7 +410,15 @@ lua << EOF
           if type(sub) == "function" then
             sub = sub()
           end
-          return string.rep('<BS>', string.len(k)) .. sub
+
+          vim.schedule(function()
+            local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+            vim.api.nvim_buf_set_text(0, row-1, col-#k, row-1, col, {})
+            local lines = vim.split(sub, '\n', {plain = true})
+            vim.api.nvim_buf_set_text(0, row-1, col-#k, row-1, col-#k, lines)
+          end)
+
+          return ""
         end
       end
     end
