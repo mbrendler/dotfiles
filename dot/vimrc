@@ -40,12 +40,6 @@ endfunction
 
 call ExtendRuntimepath()
 
-lua << EOF
-  require("CopilotChat").setup {
-    model = "claude-opus-4.5"
-  }
-EOF
-
 " Highlighting ---------------------------------------------------------------
 
 syntax on
@@ -452,10 +446,50 @@ printf("%ld.%09ld\n", t.tv_sec, t.tv_nsec);]]
   vim.keymap.set('i', ']', insert(']'), { silent = true, script = true, expr = true })
 EOF
 
-imap <silent><script><expr> <C-X><C-X> copilot#Accept("")
-imap <silent><script><expr> <M-x> copilot#Accept("")
-imap <M-n> <Plug>(copilot-next)
-imap <M-p> <Plug>(copilot-previous)
+lua << EOF
+  require('copilot').setup({
+    panel = {
+      enabled = true,
+      auto_refresh = false,
+      keymap = {
+        jump_prev = "[[",
+        jump_next = "]]",
+        accept = "<CR>",
+        refresh = "gr",
+        open = "<M-CR>"
+      },
+      layout = {
+        position = "bottom", -- | top | left | right | bottom |
+        ratio = 0.4
+      },
+    },
+    suggestion = {
+      enabled = true,
+      auto_trigger = true,
+      hide_during_completion = true,
+      debounce = 15,
+      trigger_on_accept = true,
+      keymap = {
+        accept = "<C-X><C-X>",
+        accept_word = false,
+        accept_line = false,
+        next = "<M-n>",
+        prev = "<M-p>",
+        dismiss = "<C-]>",
+        toggle_auto_trigger = false,
+      },
+    },
+    server = {
+      type = "binary",
+      custom_server_filepath = "$HOME/.usr/bin/copilot-language-server",
+    },
+  })
+EOF
+
+" imap <silent><script><expr> <C-X><C-X> copilot#Accept("")
+" imap <silent><script><expr> <M-x> copilot#Accept("")
+" imap <M-n> <Plug>(copilot-next)
+" imap <M-p> <Plug>(copilot-previous)
 
 let g:copilot_no_tab_map = v:true
 
