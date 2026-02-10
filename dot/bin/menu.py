@@ -1,7 +1,7 @@
 # pylint: disable=invalid-name,missing-docstring
 from curses import (
     wrapper, KEY_ENTER, KEY_RESIZE,
-    use_default_colors, color_pair, init_pair, COLOR_GREEN
+    use_default_colors, color_pair, init_pair, COLOR_GREEN, COLOR_BLACK
 )
 import locale
 
@@ -94,7 +94,7 @@ class Menu(object):
         try:
             use_default_colors()
             init_pair(1, -1, -1)
-            init_pair(2, -1, COLOR_GREEN)
+            init_pair(2, COLOR_BLACK, COLOR_GREEN)
             while 1:
                 self._refresh(window)
                 key = window.getch()

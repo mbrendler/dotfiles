@@ -1,29 +1,27 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 # pylint: disable=invalid-name,missing-docstring
 import sys
 import os
 import curses
-try:
-    import commands
-except ImportError:
-    import subprocess as commands
+import platform
+from subprocess import getstatusoutput, getoutput
 
 from menu import Menu
 
 
 def git_to_branch():
-    status, out = commands.getstatusoutput(
+    status, out = getstatusoutput(
         'git rev-parse --abbrev-ref --symbolic-full-name @{u}'
     )
     if status == 0:
         return out
-    if commands.getstatusoutput('git rev-parse --quiet --verify main')[0] == 0:
+    if getstatusoutput('git rev-parse --quiet --verify main')[0] == 0:
         return 'main'
     return 'master'
 
 
 def git_log(rev):
-    return commands.getoutput('git log --oneline %s..' % rev)
+    return getoutput('git log --oneline %s..' % rev)
 
 
 def parse_log(log):
@@ -32,7 +30,10 @@ def parse_log(log):
 
 def git_rebase(rebase_actions):
     max_index = 0
-    edit_cmd = 'sed -i ""'
+    if platform.uname().system == 'Linux':
+        edit_cmd = 'sed -i'
+    else:
+        edit_cmd = 'sed -i ""'
     for rev_hash, (action, index) in rebase_actions.items():
         edit_cmd += " -e 's/pick %s/%s %s/'" % (rev_hash, action, rev_hash)
         max_index = max(index, max_index)
