@@ -1,14 +1,4 @@
-#!/usr/bin/env python3
-
-import re
-import sys
-from os import environ
-from os.path import abspath
-from subprocess import getoutput
-from tempfile import NamedTemporaryFile
-
-from pynvim import attach  # type: ignore
-from pynvim.api.nvim import Nvim  # type: ignore
+#! /bin/sh -e
 
 # Add this to init.vim:
 #
@@ -21,83 +11,56 @@ from pynvim.api.nvim import Nvim  # type: ignore
 #   augroup END
 # endif
 
+tmux_pane_id=$(
+  tmux list-panes -F '#{pane_id}:#{pane_current_command}' \
+  | sed -nE 's/:n?vim$//p' \
+  | sort -g -k2 -t% \
+  | head -1
+)
 
-def tmux_vim_pane_id() -> str:
-    return getoutput(
-        "tmux list-panes -F '#{pane_id}:#{pane_current_command}' | "
-        "sed -nE 's/:n?vim$//p' | "
-        "head -1"
-    )
+nvim_pipe="$HOME/.cache/nvim-sockets/tmux-pane-$tmux_pane_id"
 
+clean() {
+  if [ -n "$temp_file" ] && [ -f "$temp_file" ]; then
+    rm -f "$temp_file"
+  fi
+}
 
-def tmux_select_pane(pane_id: str) -> str:
-    return getoutput(f"tmux select-pane -t{pane_id}")
+trap clean EXIT
 
+send_command() {
+  nvim --server "$nvim_pipe" --remote-send "$1<CR>"
+}
 
-def vim_connect(tmux_pane_id: str) -> Nvim:
-    home = environ["HOME"]
-    socket_file = f"{home}/.cache/nvim-sockets/tmux-pane-{tmux_pane_id}"
-    return attach("socket", path=socket_file)
+open_file() {
+  filename=$(echo "$1" | sed -nE 's/^(.+):[0-9]+/\1/p')
+  line_number=$(echo "$1" | sed -nE 's/^.+:([0-9]+)/\1/p')
+  if [ -z "$filename" ]; then
+    filename="$1"
+  fi
+  nvim --server "$nvim_pipe" --remote "$(realpath "$filename")"
+  if [ -n "$line_number" ]; then
+    send_command ":$line_number"
+    send_command ":normal zz"
+  fi
+}
 
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    cf)
+      temp_file=$(mktemp /tmp/v.XXXXXXXXXX)
+      cat > "$temp_file"
+      send_command ":cgetfile $temp_file"
+      send_command ":copen"
+      ;;
+    +*)
+      send_command "$(echo "${1}" | sed -E 's/^\+/:/')"
+      ;;
+    *)
+      open_file "$1"
+      ;;
+  esac
+  shift
+done
 
-def vim_open_file(filename: str, nvim: Nvim) -> Nvim:
-    filename, line_number = parse_filename(filename)
-    nvim.command(f"edit {abspath(filename)}")
-    if line_number:
-        nvim.command(line_number)
-        nvim.command("normal zz")
-
-
-def parse_filename(filename: str) -> tuple[str, str | None]:
-    match = re.findall("^(.+):([0-9]+)$", filename)
-    if match:
-        filename, linenr = match[0]
-        return filename, linenr
-    return filename, None
-
-
-def handle_arg(arg: str, nvim: Nvim) -> None:
-    if arg == "cf":
-        with NamedTemporaryFile(mode="w") as fd:
-            fd.write(sys.stdin.read())
-            fd.flush()
-            nvim.command_output(f"cgetfile {fd.name}")
-            nvim.command("copen")
-    elif arg == 'cc':
-        nvim.command("CopilotChat")
-        current_buffer = nvim.current.buffer
-        cursor = nvim.current.window.cursor
-        line_idx = cursor[0] - 1  # pynvim uses 0-based indexing for lines
-        current_buffer.append(sys.stdin.read().splitlines(), line_idx)
-    elif arg == 'ccc':
-        nvim.command("CopilotChat")
-        current_buffer = nvim.current.buffer
-        cursor = nvim.current.window.cursor
-        line_idx = cursor[0] - 1  # pynvim uses 0-based indexing for lines
-        nvim.command(f'lua require("CopilotChat").ask("{sys.stdin.read().strip()}")')
-    elif arg[0] == "+":
-        print(nvim.command_output(arg[1:]))
-    else:
-        vim_open_file(arg, nvim)
-
-
-SELECT_VIM_PANE_COMMADS = ["+tabnew", "cf"]
-
-
-def should_select_vim_pane(arg: str) -> bool:
-    return arg in SELECT_VIM_PANE_COMMADS or not arg.startswith("+")
-
-
-def main() -> None:
-    tmux_pane_id = tmux_vim_pane_id()
-    nvim = vim_connect(tmux_pane_id)
-    select_vim_pane = False
-    for arg in sys.argv[1:]:
-        select_vim_pane = select_vim_pane or should_select_vim_pane(arg)
-        handle_arg(arg, nvim)
-    if select_vim_pane:
-        tmux_select_pane(tmux_pane_id)
-
-
-if __name__ == "__main__":
-    main()
+tmux select-pane "-t$tmux_pane_id"
