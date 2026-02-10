@@ -1,0 +1,15 @@
+#compdef docker-list-files
+
+_docker-list-files() {
+  local images
+
+  if command -v podman &>/dev/null; then
+    images=(${(f)"$(podman image ls --format '{{.Repository}}:{{.Tag}}' 2>/dev/null)"})
+  elif command -v docker &>/dev/null; then
+    images=(${(f)"$(docker image ls --format '{{.Repository}}:{{.Tag}}' 2>/dev/null)"})
+  fi
+
+  compadd -a images
+}
+
+_docker-list-files "$@"

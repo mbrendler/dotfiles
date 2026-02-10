@@ -1,22 +1,36 @@
-#!/bin/bash
+#! /usr/bin/env bash
 
 set -euo pipefail
 
-readonly IMAGE="$1"
-readonly IMAGE_FILENAME=$(echo "$IMAGE" | tr /: __)
+IMAGE="$1"
+IMAGE_FILENAME=$(echo "$IMAGE" | tr /: __)
 
 rm -rf /tmp/docker-list-files
 
 mkdir -p /tmp/docker-list-files
 cd /tmp/docker-list-files
 
-docker image save "$IMAGE" > "$IMAGE_FILENAME.tar"
+if command -v podman &> /dev/null ; then
+  DOCKER_CMD=podman
+else
+  DOCKER_CMD=docker
+fi
+
+$DOCKER_CMD image save "$IMAGE" > "$IMAGE_FILENAME.tar"
 
 tar xf "$IMAGE_FILENAME.tar"
-cd blobs/sha256
-file ./* | sed -e 's/://' | while read -r layer type; do
-  if [[ $type == *"gzip compressed data"* ]]; then
+
+if [ "$DOCKER_CMD" = podman ] ; then
+  for layer in */layer.tar ; do
     echo "Layer: $layer"
-    tar tvzf "$layer"
-  fi
-done
+    tar tf "$layer"
+  done
+else
+  cd blobs/sha256
+  file ./* | sed -e 's/://' | while read -r layer type; do
+    if [[ $type == *"gzip compressed data"* ]]; then
+      echo "Layer: $layer"
+      tar tvzf "$layer"
+    fi
+  done
+fi
