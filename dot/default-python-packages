@@ -2,3 +2,4 @@ ipython
 mypy
 poetry
 ruff
+jedi-language-server
