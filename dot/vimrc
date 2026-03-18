@@ -344,7 +344,14 @@ lua << EOF
 clock_gettime(CLOCK_REALTIME, &t);
 printf("%ld.%09ld\n", t.tv_sec, t.tv_nsec);]]
     },
-    cpp = {},
+    cpp = {
+      instrument = [[#include <chrono>
+static std::chrono::microseconds total(0);
+std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+total += std::chrono::duration_cast<std::chrono::microseconds>(end - begin);
+std::cout << "Time difference = " << total.count() << "[us]" << std::endl;]]
+    },
     html = {
       start = [[<!DOCTYPE HTML>
 <html>
