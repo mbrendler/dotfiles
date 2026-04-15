@@ -10,7 +10,6 @@ nnoremap <buffer> <LocalLeader>gS :execute ':edit ' . TypeScript_story_file()<CR
 nnoremap <buffer> <LocalLeader>gt :execute ':edit ' . TypeScript_test_file()<CR>
 nnoremap <buffer> <LocalLeader>gi :execute ':edit ' . TypeScript_implementation_file()<CR>
 
-nnoremap <LocalLeader>f :call CocAction('runCommand', 'eslint.executeAutofix') \| :call CocAction("format") \| :w<cr>
 
 
 function! Typescript_base_filename()
