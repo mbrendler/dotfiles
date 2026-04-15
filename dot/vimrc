@@ -447,47 +447,6 @@ std::cout << "Time difference = " << total.count() << "[us]" << std::endl;]]
   vim.keymap.set('i', ']', insert(']'), { silent = true, script = true, expr = true })
 EOF
 
-lua << EOF
-  require('copilot').setup({
-    panel = {
-      enabled = true,
-      auto_refresh = false,
-      keymap = {
-        jump_prev = "[[",
-        jump_next = "]]",
-        accept = "<CR>",
-        refresh = "gr",
-        open = "<M-CR>"
-      },
-      layout = {
-        position = "bottom", -- | top | left | right | bottom |
-        ratio = 0.4
-      },
-    },
-    suggestion = {
-      enabled = true,
-      auto_trigger = true,
-      hide_during_completion = true,
-      debounce = 15,
-      trigger_on_accept = true,
-      keymap = {
-        accept = "<C-X><C-X>",
-        accept_word = false,
-        accept_line = false,
-        next = "<M-n>",
-        prev = "<M-p>",
-        dismiss = "<C-]>",
-        toggle_auto_trigger = false,
-      },
-    },
-    server = {
-      type = "binary",
-      custom_server_filepath = "$HOME/.usr/bin/copilot-language-server",
-    },
-  })
-EOF
-
-
 """ Split line (sister to [J]oin lines)
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 

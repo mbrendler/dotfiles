@@ -65,7 +65,6 @@ plugin vim christoomey/vim-tmux-navigator
 ### programming languages
 plugin vim majutsushi/tagbar
 plugin vim tpope/vim-endwise # automatically close code blocks in ruby
-plugin vim zbirenbaum/copilot.lua
 
 ### editing
 plugin vim tpope/vim-surround
