@@ -430,10 +430,10 @@ std::cout << "Time difference = " << total.count() << "[us]" << std::endl;]]
       local index = vim.fn.col('.')
       local next_char = vim.fn.getline('.'):sub(index, index)
       if next_char == char then
-        return '<right>'
+        return '<C-g>U<right>'
       end
       if closing then
-        return char .. closing .. '<left>'
+        return char .. closing .. '<C-g>U<left>'
       end
       return char
     end
